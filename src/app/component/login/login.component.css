@@ -1,0 +1,36 @@
+  
+ .container {
+    height: 100vh;
+}
+.example-container > * {
+  width: 100%;
+} 
+.classf{
+  color: darkblue;
+  font-size: 40px; 
+ }
+ .classu{
+   color: red;
+   font-size: 30px;
+ }
+ .classn{
+   color: yellow;
+   font-size: 30px;
+ }
+ .classd{
+   color: darkblue;
+   font-size: 30px;
+ }
+ .classo{
+   color: green;
+   font-size: 30px;
+ }
+ .classo1{
+   color: red;
+   font-size: 30px;
+ }
+ 
+
+
+
+ 

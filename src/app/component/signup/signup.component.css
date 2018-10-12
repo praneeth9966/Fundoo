@@ -1,0 +1,59 @@
+
+.container {
+  height: 90vh;
+}
+/* .example-container > * {
+  width: 40%;
+} */
+.classf{
+ color: darkblue;
+ font-size: 40px; 
+}
+.classu{
+  color: red;
+  font-size: 30px;
+}
+.classn{
+  color: yellow;
+  font-size: 30px;
+}
+.classd{
+  color: darkblue;
+  font-size: 30px;
+}
+.classo{
+  color: green;
+  font-size: 30px;
+}
+.classo1{
+  color: red;
+  font-size: 30px;
+}
+.width{
+  width: 120px;
+}
+.radius{
+  border-radius: 2%;
+}
+
+.emailwidth{
+  width: 100%;
+}
+
+.notselected{
+  background-color:gray;
+  
+  }
+  .selected{
+  background-color: rgba(142, 235, 88, 0.849);
+  }
+
+  .card1{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    height:120px;
+    border-radius: 15px;
+    color:white;
+    text-transform: uppercase;
+  }
