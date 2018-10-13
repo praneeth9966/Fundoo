@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+// import { FormBuilder } from '@angular/forms';
+
 
 @Component({
   selector: 'app-signup',
@@ -33,6 +36,14 @@ export class SignupComponent implements OnInit {
       "modifiedDate": new Date(),
       "password": this.user.password
     }
+
+
+  //   this.register = this.formBuilder.group({
+  //     firstName: ['', Validators.required, Validators.pattern('[a-zA-Z ]*')],
+  //     lastName: ['', Validators.required, Validators.pattern('[a-zA-Z ]*')],
+  //     email: ['', [Validators.required, Validators.email]],
+  //     password: ['', [Validators.required]]
+  // });
 
 
     this.records = this.httpService.postHttpData('user/userSignUp', this.register).subscribe(result => {

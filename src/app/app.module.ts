@@ -16,12 +16,24 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HttpClientModule }    from '@angular/common/http';
-import { MatSnackBarModule } from "@angular/material";
+import { MatSnackBarModule, MatSidenavModule, MatListModule } from "@angular/material";
 
 import { HttpService }  from './services/http.service';
 import { SlidePanelComponent } from './component/slide-panel/slide-panel.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
+import { NavigationComponent } from './component/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+// import {RouterModule,Routes} from '@angular/router';
+import { FirstPageComponent } from './component/first-page/first-page.component';
+import { HomepageComponent } from './component/homepage/homepage.component';
+
+
+
+
+// const appRoutes: Routes=[
+//   {path:'first-page',component:FirstPageComponent},
+// ];
 
 @NgModule({
   declarations: [
@@ -31,6 +43,9 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
     SlidePanelComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    NavigationComponent,
+    FirstPageComponent,
+    HomepageComponent,
     
   ],
   imports: [
@@ -50,6 +65,10 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
     HttpClientModule,
     MatSnackBarModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule,
+    // RouterModule.forRoot(appRoutes),
     
   ],
   providers: [HttpService],

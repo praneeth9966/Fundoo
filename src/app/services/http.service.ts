@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,25 @@ postHttpData(nexturl,body){
   return this.http.post(this.url+'/'+nexturl,body)
 }
     
+httpPasswordUpdate(nextUrl,token, body) {
+  var httpOptions = {
+  headers: new HttpHeaders({
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Authorization': token
   
+  })
+  
+  };
+  return this.http.post(this.url+"/"+nextUrl,this.getFormUrlEncoded(body),httpOptions)
+  }
+  getFormUrlEncoded(toConvert) {
+  const formBody = [];
+  for (const property in toConvert) {
+  const encodedKey = encodeURIComponent(property);
+  const encodedValue = encodeURIComponent(toConvert[property]);
+  formBody.push(encodedKey + '=' + encodedValue);
+  }
+  return formBody.join('&');
+  }
 
 }
