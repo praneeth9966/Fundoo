@@ -24,16 +24,18 @@ import { ForgotPasswordComponent } from './component/forgot-password/forgot-pass
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-// import {RouterModule,Routes} from '@angular/router';
-import { FirstPageComponent } from './component/first-page/first-page.component';
+
+
 import { HomepageComponent } from './component/homepage/homepage.component';
+import { NotesComponent } from './component/notes/notes.component';
+import { RemindersComponent } from './component/reminders/reminders.component';
+import { TrashComponent } from './component/trash/trash.component';
+import { ArchiveComponent } from './component/archive/archive.component';
+import { MatMenuModule} from '@angular/material/menu'
 
 
 
 
-// const appRoutes: Routes=[
-//   {path:'first-page',component:FirstPageComponent},
-// ];
 
 @NgModule({
   declarations: [
@@ -44,8 +46,12 @@ import { HomepageComponent } from './component/homepage/homepage.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     NavigationComponent,
-    FirstPageComponent,
+   
     HomepageComponent,
+    NotesComponent,
+    RemindersComponent,
+    TrashComponent,
+    ArchiveComponent,
     
   ],
   imports: [
@@ -68,7 +74,7 @@ import { HomepageComponent } from './component/homepage/homepage.component';
     LayoutModule,
     MatSidenavModule,
     MatListModule,
-    // RouterModule.forRoot(appRoutes),
+    MatMenuModule
     
   ],
   providers: [HttpService],

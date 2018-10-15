@@ -1,9 +1,12 @@
 .sidenav-container {
   height: 100%;
+  height: fit-content;
 }
 
 .sidenav {
   width: 200px;
+  margin: 64px 0px 0px 0px;
+  background-color: gray;
 }
 
 .mat-toolbar.mat-primary {
@@ -12,4 +15,24 @@
 }
 .toolbar{
   background-color: orange
+}
+
+
+
+
+.material-icons{               
+
+  margin-right: 3%;
+}
+
+
+.search{
+  padding-top: 10px;
+  opacity: 0.3;
+  height: 35px;
+  width: 700px;
+}
+
+.space{
+  padding-left: 40px;
 }

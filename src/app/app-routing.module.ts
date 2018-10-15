@@ -5,15 +5,31 @@ import { SignupComponent } from './component/signup/signup.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
-import { FirstPageComponent } from './component/first-page/first-page.component';
+
+import { NotesComponent } from './component/notes/notes.component';
+import { RemindersComponent } from './component/reminders/reminders.component';
+import { TrashComponent } from './component/trash/trash.component';
+import { ArchiveComponent } from './component/archive/archive.component';
 const appRoutes: Routes=[
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'homepage',component:HomepageComponent,children: [
     {
-        path:'first',
-        component: FirstPageComponent
-    }
+        path:'notes',
+        component: NotesComponent
+    },
+    {
+      path:'reminders',
+      component: RemindersComponent
+  },
+  {
+    path:'trash',
+    component: TrashComponent
+  },
+  {
+  path:'archive',
+  component: ArchiveComponent
+  }
   ]
 },
   {path:'forgot-password',component:ForgotPasswordComponent},
