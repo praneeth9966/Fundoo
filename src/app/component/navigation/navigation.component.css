@@ -1,38 +1,60 @@
-.sidenav-container {
-  height: 100%;
-  height: fit-content;
+
+ .sidenav-container {
+  height: 90%;
+  width: 100%
+
 }
 
 .sidenav {
   width: 200px;
-  margin: 64px 0px 0px 0px;
-  background-color: gray;
+ margin-top: 65px;
+ box-shadow: none;
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
 }
-.toolbar{
-  background-color: orange
+
+.tool-bar {
+  background-color: #fb0
 }
 
-
-
-
-.material-icons{               
-
-  margin-right: 3%;
+.search-box {
+  
+  height: 40px;  
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-
-.search{
-  padding-top: 10px;
-  opacity: 0.3;
-  height: 35px;
-  width: 700px;
+.search-box input {
+  border:none;
+  outline: none;
+  font-size: 16px;
+  overflow: hidden;
 }
 
-.space{
-  padding-left: 40px;
+.child-links {
+  margin-left:20px;
+  font-size: 12px
+
+}
+
+.drop-down {
+  background-color:#f2f2f2;
+  color:#0d0d0d
+}
+
+.drop-down-button {
+  width:500px
+}
+
+.icons {
+  opacity: 0.5;
+ 
+}
+
+.icons:hover {
+  opacity: 1.0;    
 }

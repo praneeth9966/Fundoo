@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material';
 export class LoginComponent implements OnInit {
   hide = true;
   records = {};
- 
+
   body = {
     "email": "",
     "password": ""
@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
         '';
   }
 
- 
 
-  constructor(public httpService: HttpService,public matSnackBar:MatSnackBar) { }
+
+  constructor(public httpService: HttpService, public matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
-    
+
   }
-  
+
 
   isLeftVisible = false;
   register() {
@@ -51,20 +51,31 @@ export class LoginComponent implements OnInit {
   login() {
 
     this.records = this.httpService.postHttpData('user/login', this.body)
-      .subscribe(result => {
-        console.log("post= ", result);
+      .subscribe(data => {
+        console.log(data);
+        localStorage.setItem('token', data['id']); 
+        localStorage.setItem('firstName', data['firstName']);
+        localStorage.setItem('lastName', data['lastName']);
+        localStorage.setItem('userId', data['userId']);
+        localStorage.setItem('email', data['email']);
+
+
         this.matSnackBar.open("Login Successful ", "Successful", {
           duration: 3000,
-        });
-  
-      },
-      error => {
 
-        console.log("Error", error);
-        this.matSnackBar.open("Email/Password invalid ", "Login Unsuccessful", {
-          duration: 3000,
         });
-      });
+
+
+        window.location.href = 'homepage';
+
+      },
+        error => {
+
+          console.log("Error", error);
+          this.matSnackBar.open("Email/Password invalid ", "Login Unsuccessful", {
+            duration: 3000,
+          });
+        });
 
 
   }

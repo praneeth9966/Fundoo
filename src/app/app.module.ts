@@ -17,6 +17,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HttpClientModule }    from '@angular/common/http';
 import { MatSnackBarModule, MatSidenavModule, MatListModule } from "@angular/material";
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 import { HttpService }  from './services/http.service';
 import { SlidePanelComponent } from './component/slide-panel/slide-panel.component';
@@ -31,7 +33,16 @@ import { NotesComponent } from './component/notes/notes.component';
 import { RemindersComponent } from './component/reminders/reminders.component';
 import { TrashComponent } from './component/trash/trash.component';
 import { ArchiveComponent } from './component/archive/archive.component';
-import { MatMenuModule} from '@angular/material/menu'
+import { MatMenuModule} from '@angular/material/menu';
+import { RemindmeIconComponent } from './component/remindme-icon/remindme-icon.component';
+import { CollaboratorIconComponent } from './component/collaborator-icon/collaborator-icon.component';
+import { ChangeColorIconComponent } from './component/change-color-icon/change-color-icon.component';
+import { AddImageIconComponent } from './component/add-image-icon/add-image-icon.component';
+import { ArchiveIconComponent } from './component/archive-icon/archive-icon.component';
+import { MoreIconComponent } from './component/more-icon/more-icon.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { NotesCreateComponent } from './component/notes-create/notes-create.component';
+import { NotesCollectionComponent } from './component/notes-collection/notes-collection.component';
 
 
 
@@ -52,6 +63,16 @@ import { MatMenuModule} from '@angular/material/menu'
     RemindersComponent,
     TrashComponent,
     ArchiveComponent,
+    RemindmeIconComponent,
+    CollaboratorIconComponent,
+    ChangeColorIconComponent,
+    AddImageIconComponent,
+    ArchiveIconComponent,
+    MoreIconComponent,
+    NotesCreateComponent,
+    NotesCollectionComponent,
+    
+    
     
   ],
   imports: [
@@ -74,7 +95,9 @@ import { MatMenuModule} from '@angular/material/menu'
     LayoutModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule,
+    MatTooltipModule
     
   ],
   providers: [HttpService],

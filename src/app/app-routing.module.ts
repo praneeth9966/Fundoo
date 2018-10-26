@@ -10,10 +10,22 @@ import { NotesComponent } from './component/notes/notes.component';
 import { RemindersComponent } from './component/reminders/reminders.component';
 import { TrashComponent } from './component/trash/trash.component';
 import { ArchiveComponent } from './component/archive/archive.component';
+import { AuthGuard } from './component/auth.guard';
+
+
+
+
 const appRoutes: Routes=[
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'homepage',component:HomepageComponent,children: [
+    
+      {
+        path:'',
+        redirectTo: 'notes',
+        pathMatch:'full'},
+    
+
     {
         path:'notes',
         component: NotesComponent
@@ -30,11 +42,12 @@ const appRoutes: Routes=[
   path:'archive',
   component: ArchiveComponent
   }
-  ]
+  ],canActivate:[AuthGuard]
 },
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'resetpassword/:id',component:ResetPasswordComponent},
-  {path:'',redirectTo: '/login',pathMatch:'full'}
+  {path:'',redirectTo: '/login',pathMatch:'full'},
+  
 ];
 @NgModule({
   imports: [

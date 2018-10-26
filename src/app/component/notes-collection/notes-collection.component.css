@@ -1,0 +1,28 @@
+
+.example-card{
+  margin: 10px;
+  height:auto;
+  width:200px;
+border-radius: 10px;
+}
+mat-card-title{
+  word-wrap: break-word;
+  font-family: cursive;
+  font-weight: bolder;
+  width:200px;
+}
+mat-card-content{
+  width:200px;
+  word-wrap: break-word;
+}
+.icons{
+  opacity:0;
+  margin-top:15px;
+}
+.icons:hover{
+ 
+  opacity:1;
+  
+}
+
+

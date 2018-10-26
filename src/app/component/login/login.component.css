@@ -1,6 +1,6 @@
   
  .container {
-    height: 100vh;
+    height: 90vh;
 }
 .example-container > * {
   width: 100%;
@@ -29,7 +29,9 @@
    color: red;
    font-size: 30px;
  }
- 
+ .mat-card{
+  width: 400px;
+}
 
 
 

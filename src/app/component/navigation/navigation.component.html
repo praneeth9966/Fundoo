@@ -1,109 +1,65 @@
-<div fxFlex>
-<div fxLayout="column wrap">
-  
-<mat-toolbar class="toolbar">
-  <button
-    type="button"
-    aria-label="Toggle sidenav"
-    aria-label="Toggle sidenav-content"
 
-    mat-icon-button
-    (click)="drawer.toggle()">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+
+ <mat-toolbar class="tool-bar" fxLayout='row' fxLayout.xs="row" fxLayoutGap="30px" fxLayoutGap.xs="20px" style="padding-right:0px">
+  <button fxFlex=5  matTooltip="Main menu" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+    <mat-icon class="icons" aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
-  <div class="space">
-  <span>Fundoo</span>
+  <span fxFlex=10 fxShow="true" fxHide.xs="true" >fundooNotes</span>
+
+  <form fxFlex fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="15px" class="search-box" >
+    <button fxFlex=5 mat-icon-button type="submit"><mat-icon>search</mat-icon></button>
+    <input style="min-width:auto" fxFlex=95 class="search-text" type='text'>
+
+  </form>
+<div fxFlex=15 fxFlex.xs=35 fxLayoutGap.xs="0px" >
+  <div fxFlex=100 fxLayoutGap="10px" fxFlex.xs=100>
+      <button class="icons" matTooltip="Refresh" fxFlex mat-icon-button routerLink="/home"><mat-icon>refresh</mat-icon></button>
+
+      <button class="icons" matTooltip="List view" fxFlex mat-icon-button><mat-icon>view_stream</mat-icon></button>
+      <button class="icons" matTooltip="Notification" fxFlex mat-icon-button><mat-icon>notifications_none</mat-icon></button>
+      <button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' [matMenuTriggerFor]="appMenu">{{myEmail | titlecase}}</button>
+      <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
+        <ng-template matMenuContent let-name="name">
+          <!-- <div style="text-align:center;padding: 10px">{{userName}}</div> -->
+          <div style="text-align:center">{{email}}</div>
+          <hr>
+          <div fxLayout='row' fxLayoutGap="30px" style="padding:10px">
+              <button fxFlex  class="drop-down-button" routerLink="/signup">Add account</button>
+              <button fxFlex (click)=logout() >Signout </button>
+          </div>
+          
+        </ng-template> 
+      </mat-menu>
+
+    </div>
 </div>
-  <div class="space">
-  <i class="material-icons">
-      search
-      </i>
-    </div>
-  <div class="right">
-      <form id="search">
-         
-        <input class="search"  #search type="search" placeholder="Search" [ngClass]="{'filled':filled}" 
-             (click)="filled=true" (blur)="filled=search.value?true:false"> 
-             
-      </form>
-    </div>
+  
 
-    
-
-   
-    
-<div class="space">
-<i class="material-icons">
-    refresh
-    </i>
-  </div>
-  <div class="space">
-    <i class="material-icons">
-        view_stream
-        </i>
-      </div>
-      <div class="space">
-        <i class="material-icons">
-            notifications
-            </i>
-          </div>
-          
-            
-
-          
-             <div class="space">
-             <button mat-mini-fab [matMenuTriggerFor]="appMenu" style="background-color:white;color:black">P</button>
-        
-          <mat-menu  #appMenu="matMenu" [overlapTrigger]="false">
-              <!-- <ng-template matMenuContent let-name="name"> -->
-                <button mat-menu-item routerLink="/signup">Add account</button>
-                <button mat-menu-item routerLink="/login">Log out </button>
-              <!-- </ng-template> -->
-            </mat-menu>
-          </div>
 </mat-toolbar>
+<mat-sidenav-container class="sidenav-container" style="background-color:#cccccc">
+  <mat-sidenav #drawer class="sidenav" style="background-color:#cccccc" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
 
+  <mat-nav-list>
+    
+      <a mat-list-item routerLink="/homepage/notes"><mat-icon> book</mat-icon><span class="child-links">Notes</span></a>
+      <a mat-list-item routerLink="/homepage/reminders"><mat-icon> touch_app</mat-icon><span class="child-links">Reminders</span></a>
+    <hr>
+    
+    <a mat-list-item routerLink="/homepage/archive"><mat-icon>archive</mat-icon><span class="child-links">Archive</span></a>
+    
+    <a mat-list-item routerLink="/homepage/trash"><mat-icon>delete</mat-icon><span class="child-links">Trash</span></a>
+  </mat-nav-list>
+</mat-sidenav>
 
-<mat-sidenav-container class="sidenav-container">
-
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport="true"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!(isHandset$ | async)">
-    <!-- <mat-toolbar class="toolbar">Menu</mat-toolbar> -->
-    <mat-nav-list>
-     
-      <a mat-list-item routerLink="/homepage/notes"><i class="material-icons">
-          book
-          </i>Notes</a>
-      <a mat-list-item routerLink="/homepage/reminders"><i class="material-icons">
-          touch_app
-          </i>Reminders</a>
-          <hr>
-      <a mat-list-item routerLink="/homepage/trash"><i class="material-icons">
-          delete
-          </i>Trash</a>
-      <a mat-list-item routerLink="/homepage/archive"><i class="material-icons">
-          archive
-          </i>Archive</a>
-          <hr>
-      <a mat-list-item ><i class="material-icons">
-          settings
-          </i>Settings</a>
-          <hr>
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-
-    <router-outlet></router-outlet>
-
-  </mat-sidenav-content>
+<mat-sidenav-content>
+  <router-outlet></router-outlet>
+</mat-sidenav-content>
 </mat-sidenav-container>
-</div>
-</div>
 
 
+
+
+
+
+ 

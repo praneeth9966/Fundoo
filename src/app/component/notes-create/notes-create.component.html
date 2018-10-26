@@ -1,0 +1,56 @@
+<div fxLayout='column' fxLayoutAlign="center center" style="margin-top:30px ">
+  <mat-card fxFlex *ngIf="show" class="example-card" style="  width:50%; ;position: relative;; padding: 0; border-radius: 10px">
+    <mat-card-content fxLayout='row' fxLayout.xs='row' style="margin-left:15px">
+      <div (click)="open()" fxFlex style="margin-top:12px">
+        Take a note...
+      </div>
+
+      <div fxFlex=40 fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="10px" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+        <button fxFlex=20 mat-icon-button matTooltip="New list"><mat-icon>list</mat-icon></button>
+        <button fxFlex=20 mat-icon-button matTooltip="New note with image"><mat-icon>image</mat-icon></button>
+        <button fxFlex=20 mat-icon-button matTooltip="Drawing"><mat-icon>brush</mat-icon></button>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card fxFlex *ngIf="!show" class="example-card" style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
+
+    <mat-card-content>
+      <div fxLayout='row' fxLayout.xs='row'>
+        <div fxFlex=98 contenteditable="true" data-text="Title" class="cards" id="titleId"> </div>
+        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg"></div> -->
+      </div>
+
+      <div style="margin-top:20px" contenteditable="true" data-text="Take a note..." class="cards" id="takeANoteId"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div fxLayout='row' fxLayout.xs='row'>
+        <div fxFlex=9>
+          <app-remindme-icon></app-remindme-icon>
+        </div>
+        <div fxFlex=9>
+          <app-collaborator-icon></app-collaborator-icon>
+        </div>
+        <div fxFlex=9>
+          <app-change-color-icon></app-change-color-icon>
+        </div>
+        <div fxFlex=9>
+          <app-add-image-icon></app-add-image-icon>
+        </div>
+        <div fxFlex=9>
+          <app-archive-icon></app-archive-icon>
+        </div>
+        <div fxFlex=40>
+          <app-more-icon></app-more-icon>
+        </div>
+        <div fxFlex>
+
+          <button mat-button (click)="close();createNotes()">Close</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

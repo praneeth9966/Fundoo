@@ -41,4 +41,86 @@ httpPasswordUpdate(nextUrl,token, body) {
   return formBody.join('&');
   }
 
+  httpLogout(nexturl,token){
+   
+    var httpAuthentication = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token
+      
+      })
+    }
+    return this.http.post(this.url+'/'+nexturl,{},httpAuthentication);
+  }
+
+  httpAddNotes(nexturl,input,token){
+   
+    var httpAuthentication = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token
+      
+      })
+    }
+    return this.http.post(this.url+'/'+nexturl,this.getFormUrlEncoded(input),httpAuthentication);
+  }
+
+  httpGetNotes(nexturl,token){
+   
+    var httpAuthentication = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token
+      
+      })
+    }
+    return this.http.get(this.url+'/'+nexturl,httpAuthentication);
+  }
+
+  httpDeleteNotes(nexturl,body,token){
+    var httpAuthentication = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+      
+      })
+    }
+    return this.http.post(this.url+'/'+nexturl,body,httpAuthentication);
+  }
+
+  
+  httpPostArchive(nexturl,body,token){
+    var httpAuthentication = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+      
+      })
+    }
+    return this.http.post(this.url+'/'+nexturl,body,httpAuthentication);
+  }
+
+
+  httpGetArchive(nexturl,token){
+    var httpAuthentication = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+      
+      })
+    }
+    return this.http.post(this.url+'/'+nexturl,httpAuthentication);
+  }
+
+  httpColorNotes(nexturl,body,token){
+    var httpAuthentication = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+      
+      })
+    }
+    return this.http.post(this.url+'/'+nexturl,body,httpAuthentication);
+  }
+
 }

@@ -1,0 +1,35 @@
+.width
+{
+    width:60%;
+    /* height:fit-content; */
+}
+.fullWidth
+{
+    width: 100%;
+}
+.text
+{
+    border:none;
+    outline: none;
+    word-wrap: break-word;
+    background:transparent;
+}
+[contentEditable=true]:empty:before{
+    content: attr(data-text)
+}
+/* mat-card{
+    position: fixed;
+    width: 500px;
+    
+} */
+.icons{
+    margin-left: 10%;
+}
+.cards{
+    border: none;
+    outline: none
+}
+
+
+
+
