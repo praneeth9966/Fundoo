@@ -1,4 +1,4 @@
-import { Component, OnInit,Output,EventEmitter,Input} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 
 @Component({
@@ -7,27 +7,71 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./more-icon.component.css']
 })
 export class MoreIconComponent implements OnInit {
-
-  constructor(private httpService:HttpService) { }
-body;
+  notes: any[];
+  httpservice: any;
+  constructor(private httpService: HttpService) { }
+  body;
   @Output() deleteNote = new EventEmitter();
   @Input() notesArray;
-  
+  public labelBody={};
 
   ngOnInit() {
+    
   }
 
   deleteNotes() {
-    this.body={
-      "isDeleted":true,
-      "noteIdList":[this.notesArray.id]
-      }
+    this.body = {
+      "isDeleted": true,
+      "noteIdList": [this.notesArray.id]
+    }
     var token = localStorage.getItem('token');
-    this.httpService.httpDeleteNotes('notes/trashNotes',this.body,token).subscribe(res => {
+    this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
       console.log(res);
-     this.deleteNote.emit();
+      this.deleteNote.emit();
     }, error => {
       console.log(error);
     })
   }
+
+
+  addLabel(labelId){
+    this.labelBody={
+    "noteId":this.notesArray.id,
+    "lableId":labelId
+    }
+    this.httpService.httpPostArchive('notes/'+this.notesArray.id+'/addLabelToNotes/'+labelId+'/add',this.labelBody,localStorage.getItem('token')).subscribe(result=>{
+    console.log(result);
+    },error=>{
+    console.log(error);
+    })
+    }
+
+    removeLabel(labelId){
+    this.labelBody={
+    "noteId":this.notesArray.id,
+    "lableId":labelId
+    }
+    this.httpService.httpPostArchive('notes/'+this.notesArray.id+'/addLabelToNotes/'+labelId+'/remove',this.labelBody,localStorage.getItem('token')).subscribe(result=>{
+    console.log(result);
+    },error=>{
+    console.log(error);
+    })
+    
+    }
+
+    getLabels(){
+      var token = localStorage.getItem('token');
+      this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
+        console.log(data);
+        this.notes = [];
+           
+            for (var i=0;i<data['data'].details.length;i++) {
+              if (data['data'].details[i].isDeleted == false)
+                this.notes.push(data['data'].details[i]);
+            }
+      }, error => {
+        console.log(error);
+      })
+    }
+
 }

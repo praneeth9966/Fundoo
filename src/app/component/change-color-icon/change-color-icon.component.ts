@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 
 @Component({
@@ -7,25 +7,29 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./change-color-icon.component.css']
 })
 export class ChangeColorIconComponent implements OnInit {
-
-  constructor(private httpService:HttpService) { }
+  constructor(private httpService: HttpService) { }
   @Input() notesArray;
   @Output() noteColor = new EventEmitter();
-
+  @Output() ParentNoteColor = new EventEmitter<string>();
   body;
+
   ngOnInit() {
   }
-  changeColor(paint){
-    this.body={
-      "color":paint,
-      "noteIdList":[this.notesArray]
-      }
+
+  changeColor(paint) {
+    this.ParentNoteColor.emit(paint);
+    this.body = {
+      "color": paint,
+      "noteIdList": [this.notesArray]
+    }
     var token = localStorage.getItem('token');
-    this.httpService.httpDeleteNotes('notes/changesColorNotes',this.body,token).subscribe(res => {
+    this.httpService.httpDeleteNotes('notes/changesColorNotes', this.body, token).subscribe(res => {
       console.log(res);
-     this.noteColor.emit();
+      this.noteColor.emit();
+
     }, error => {
       console.log(error);
     })
   }
+
 }

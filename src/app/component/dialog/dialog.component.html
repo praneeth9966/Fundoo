@@ -1,0 +1,40 @@
+
+  <mat-card fxFlex *ngIf="!show" class="example-card" [ngStyle]="{'background-color':data.color}" style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
+  
+    <mat-card-content>
+      <div fxLayout='row' fxLayout.xs='row'>
+        <div fxFlex=98 contenteditable="true" [innerHTML]="data.title"   data-text="" class="cards" id="newTitle"></div>
+        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg"></div> -->
+      </div>
+
+      <div style="margin-top:20px" contenteditable="true" [innerHTML]="data.description" data-text="" class="cards" id="newDescription">{{data.description}}</div>
+    </mat-card-content>
+  
+    <mat-card-actions>
+      <div fxLayout='row' fxLayout.xs='row'>
+        <div fxFlex=9>
+          <app-remindme-icon></app-remindme-icon>
+        </div>
+        <div fxFlex=9>
+          <app-collaborator-icon></app-collaborator-icon>
+        </div>
+        <div fxFlex=9>
+          <app-change-color-icon></app-change-color-icon>
+        </div>
+        <div fxFlex=9>
+          <app-add-image-icon></app-add-image-icon>
+        </div>
+        <div fxFlex=9>
+          <app-archive-icon></app-archive-icon>
+        </div>
+        <div fxFlex=40>
+          <app-more-icon></app-more-icon>
+        </div>
+        <div fxFlex>
+
+          <button mat-button (click)="onNoClick()">Close</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  
+  </mat-card>

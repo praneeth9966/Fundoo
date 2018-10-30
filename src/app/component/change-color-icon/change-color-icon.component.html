@@ -1,30 +1,23 @@
-<mat-icon style="cursor: pointer;" matTooltip="Change color"  aria-label="change color" [matMenuTriggerFor]="appMenu">palette</mat-icon>
+<mat-icon style="cursor: pointer;" matTooltip="Change color" aria-label="change color" [matMenuTriggerFor]="appMenu">palette</mat-icon>
 <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
-   
-     
-      
-    <div >
-       
-        
-        <div fxLayout="row"  fxLayoutGap=5px style="margin-bottom:10px">
-            <button mat-mini-fab style="background-color:white" (click)="changeColor('#ffffff')"></button>
-            <button mat-mini-fab style="background-color:red" (click)="changeColor('#90ee90')"></button>
-            <button mat-mini-fab style="background-color:orange" (click)="changeColor('orange')"></button>
-            <button mat-mini-fab style="background-color:yellow" (click)="changeColor('yellow')"></button>
+    <div>
+        <div fxLayout="row" fxLayoutGap=5px style="margin-bottom:10px">
+            <button mat-mini-fab class="b1color" matTooltip="White" (click)="changeColor('#FFFFFF')"></button>
+            <button mat-mini-fab class="b2color" matTooltip="Red" (click)="changeColor('#F28B82')"></button>
+            <button mat-mini-fab class="b3color" matTooltip="Orange" (click)="changeColor('#FBBC04')"></button>
+            <button mat-mini-fab class="b4color" matTooltip="Yellow" (click)="changeColor('#FFF475')"></button>
         </div>
-        <div fxLayout="row"  fxLayoutGap=5px style="margin-bottom:10px">
-            <button mat-mini-fab style="background-color:green" (click)="changeColor('green')"></button>
-            <button mat-mini-fab style="background-color:teal" (click)="changeColor('teal')"></button>
-            <button mat-mini-fab style="background-color:blue" (click)="changeColor('blue')"></button>
-            <button mat-mini-fab style="background-color:darkblue" (click)="changeColor(darkblue)"></button>
+        <div fxLayout="row" fxLayoutGap=5px style="margin-bottom:10px">
+            <button mat-mini-fab class="b5color" matTooltip="Green" (click)="changeColor('#CCFF90')"></button>
+            <button mat-mini-fab class="b6color" matTooltip="Teal" (click)="changeColor('#A7FFEB')"></button>
+            <button mat-mini-fab class="b7color" matTooltip="Blue" (click)="changeColor('#CBF0F8')"></button>
+            <button mat-mini-fab class="b8color" matTooltip="Dark blue" (click)="changeColor('#AECBFA')"></button>
         </div>
-        <div fxLayout="row"  fxLayoutGap=5px style="margin-bottom:10px">
-            <button mat-mini-fab style="background-color:purple" (click)="changeColor('purple')"></button>
-            <button mat-mini-fab style="background-color:pink" (click)="changeColor('pink')"></button>
-            <button mat-mini-fab style="background-color:brown" (click)="changeColor('brown')"></button>
-            <button mat-mini-fab style="background-color:gray" (click)="changeColor(gray)"></button>
+        <div fxLayout="row" fxLayoutGap=5px style="margin-bottom:10px">
+            <button mat-mini-fab class="b9color" matTooltip="Purple" (click)="changeColor('#D7AEFB')"></button>
+            <button mat-mini-fab class="b10color" matTooltip="Pink" (click)="changeColor('#FDCFE8')"></button>
+            <button mat-mini-fab class="b11color" matTooltip="Brown" (click)="changeColor('#E6C9A8')"></button>
+            <button mat-mini-fab class="b12color" matTooltip="Gray" (click)="changeColor('#E8EAED')"></button>
         </div>
     </div>
-    
- 
 </mat-menu>

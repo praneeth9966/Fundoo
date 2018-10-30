@@ -1,0 +1,9 @@
+[contentEditable=true]:empty:before{
+    content: attr(data-text)
+}
+.deleteicon{
+    margin-left: 20px;
+}
+.createicon{
+    margin-left: 47px;
+}

@@ -10,21 +10,23 @@ export class ArchiveIconComponent implements OnInit {
   token=localStorage.getItem('token')
   constructor(private httpService:HttpService) { }
   @Input() archive;
-  // @Output() archiveNote=new EventEmitter
+  @Output() archiveNote=new EventEmitter
   body;
+
   ngOnInit() {
   }
-  archiveNotes(){
-   
+
+  archiveNotes(){ 
     this.body={
         "isArchived":true,
         "noteIdList":[this.archive.id]
     }
     this.httpService.httpPostArchive('notes/archiveNotes',this.body,this.token).subscribe(res => {
       console.log(res);
-    //  this.archiveNote.emit();
+     this.archiveNote.emit();
     }, error => {
       console.log(error);
     })
   }
+  
 }

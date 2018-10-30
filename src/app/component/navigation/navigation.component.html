@@ -20,8 +20,12 @@
       <button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' [matMenuTriggerFor]="appMenu">{{myEmail | titlecase}}</button>
       <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
         <ng-template matMenuContent let-name="name">
-          <!-- <div style="text-align:center;padding: 10px">{{userName}}</div> -->
-          <div style="text-align:center">{{email}}</div>
+          
+          <div> 
+          <span style="text-align:center">{{email}}</span>
+          <span><button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' [matMenuTriggerFor]="appMenu">{{myEmail | titlecase}}</button></span>
+        </div>
+          
           <hr>
           <div fxLayout='row' fxLayoutGap="30px" style="padding:10px">
               <button fxFlex  class="drop-down-button" routerLink="/signup">Add account</button>
@@ -45,7 +49,12 @@
       <a mat-list-item routerLink="/homepage/notes"><mat-icon> book</mat-icon><span class="child-links">Notes</span></a>
       <a mat-list-item routerLink="/homepage/reminders"><mat-icon> touch_app</mat-icon><span class="child-links">Reminders</span></a>
     <hr>
+    <a mat-list-item ><span class="child-links1">LABELS</span></a>
+    <a mat-list-item *ngFor="let labels of notes"><mat-icon>label_outline</mat-icon><span class="child-links">{{labels.label}}</span></a>
     
+   
+    <a mat-list-item (click)="openDialog()"><mat-icon> create</mat-icon><span class="child-links">Edit labels</span></a>
+   <hr>
     <a mat-list-item routerLink="/homepage/archive"><mat-icon>archive</mat-icon><span class="child-links">Archive</span></a>
     
     <a mat-list-item routerLink="/homepage/trash"><mat-icon>delete</mat-icon><span class="child-links">Trash</span></a>

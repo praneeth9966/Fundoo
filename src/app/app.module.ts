@@ -43,10 +43,12 @@ import { MoreIconComponent } from './component/more-icon/more-icon.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { NotesCreateComponent } from './component/notes-create/notes-create.component';
 import { NotesCollectionComponent } from './component/notes-collection/notes-collection.component';
+import { DialogComponent } from './component/dialog/dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { LabelsComponent } from './component/labels/labels.component';
 
-
-
-
+import { MatCheckboxModule} from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -71,9 +73,8 @@ import { NotesCollectionComponent } from './component/notes-collection/notes-col
     MoreIconComponent,
     NotesCreateComponent,
     NotesCollectionComponent,
-    
-    
-    
+    DialogComponent,
+    LabelsComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,10 +98,15 @@ import { NotesCollectionComponent } from './component/notes-collection/notes-col
     MatListModule,
     MatMenuModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatChipsModule,
     
   ],
+  entryComponents:[DialogComponent],
   providers: [HttpService],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

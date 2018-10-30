@@ -15,7 +15,7 @@
 
   </mat-card>
 
-  <mat-card fxFlex *ngIf="!show" class="example-card" style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
+  <mat-card fxFlex *ngIf="!show" class="example-card" [ngStyle]="{'background-color':parentColor}" style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
 
     <mat-card-content>
       <div fxLayout='row' fxLayout.xs='row'>
@@ -34,7 +34,7 @@
           <app-collaborator-icon></app-collaborator-icon>
         </div>
         <div fxFlex=9>
-          <app-change-color-icon></app-change-color-icon>
+          <app-change-color-icon (ParentNoteColor)="changeParentColor($event)"></app-change-color-icon>
         </div>
         <div fxFlex=9>
           <app-add-image-icon></app-add-image-icon>
