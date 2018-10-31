@@ -10,6 +10,8 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class NotesCollectionComponent implements OnInit {
   notes = [];
   interval;
+  public labelBody = {};
+
   constructor(private httpService: HttpService,public dialog: MatDialog) { }
 
   @Output() notifyParent = new EventEmitter();
@@ -29,12 +31,24 @@ export class NotesCollectionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        this.notifyParent.emit({
-          
+        this.notifyParent.emit({  
         })
     });
   }
 
+  removeLabel(id,labelId) {
+    this.labelBody = {
+      "noteId": id,
+      "lableId": labelId
+    }
+    this.httpService.httpPostArchive('notes/' + id + '/addLabelToNotes/' + labelId + '/remove', this.labelBody, localStorage.getItem('token')).subscribe(result => {
+      console.log(result);
+      this.notifyParent.emit({
+      });
+    }, error => {
+      console.log(error);
+    })
+  }
 
   getNotification($event) {
     this.notifyParent.emit({
@@ -48,4 +62,5 @@ export class NotesCollectionComponent implements OnInit {
   myArchiveNotes($event) {
     this.archiveParent.emit();
   }
+
 }

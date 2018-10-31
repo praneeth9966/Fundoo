@@ -1,27 +1,25 @@
 <h5> Edit Labels </h5>
 <div fxLayout="row" fxLayoutAlign="space-between">
-    <!-- <mat-icon style="cursor: pointer" routerLink="homepage/labels">close</mat-icon> -->
     <div #labels contentEditable="true" data-text="Create new label" class="createicon"></div>
 </div>
 <div *ngFor=" let labels of notes">
     <a mat-list-item>
         <div *ngIf="display != labels.id">
-            <mat-icon (click)="deleteLabel(labels.id)" style="cursor: pointer">delete</mat-icon>
+            <mat-icon style="cursor: pointer">label_outline</mat-icon>
             <span contentEditable="false" class="deleteicon" id="label4" [innerHTML]="labels.label"></span>
             <div style="float:right">
                 <mat-icon (click)="update(labels.id)">edit</mat-icon>
             </div>
-</div>
-            <div *ngIf="display == labels.id">
-                <mat-icon (click)="deleteLabel(labels.id)" style="cursor: pointer">delete</mat-icon>
-                <span contentEditable="true" class="deleteicon" #newLabel [innerHTML]="labels.label"></span>
-                <div style="float:right">
-                    <mat-icon (click)="updateLabel(labels.id)">edit</mat-icon>
-                </div>
-
+        </div>
+        <div *ngIf="display == labels.id">
+            <mat-icon (click)="deleteLabel(labels.id)" style="cursor: pointer">delete</mat-icon>
+            <span contentEditable="true" class="deleteicon" #newLabel [innerHTML]="labels.label"></span>
+            <div style="float:right">
+                <mat-icon (click)="updateLabel(labels.id)">edit</mat-icon>
             </div>
+        </div>
     </a>
-    </div>
-    <div style="float:right">
-        <button mat-button (click)="addLabel()">Done</button>
-    </div>
+</div>
+<div style="float:right">
+    <button mat-button (click)="addLabel()">Done</button>
+</div>

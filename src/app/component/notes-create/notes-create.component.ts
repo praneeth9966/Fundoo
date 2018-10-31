@@ -9,6 +9,7 @@ import { HttpService } from '../../services/http.service';
 
 export class NotesCreateComponent implements OnInit {
   public show: boolean = true;
+  public checkList: boolean = false;
   token = localStorage.getItem('token');
   public title;
   public description;
@@ -19,12 +20,18 @@ export class NotesCreateComponent implements OnInit {
   ngOnInit() {
   }
 
+  checkListButton(){
+    this.show = !this.show
+    this.checkList= true
+  }
+
   open() {
     this.show = !this.show
   }
 
   close() {
     this.show = !this.show;
+    this.checkList= false;
   }
 
   changeParentColor(event){

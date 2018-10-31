@@ -1,23 +1,19 @@
-<mat-icon style="cursor: pointer;" matTooltip="More" aria-label="more" [matMenuTriggerFor]="appMenu">more_vert</mat-icon>
+<mat-icon style="cursor: pointer;" matTooltip="More" aria-label="more" [matMenuTriggerFor]="appMenu" >more_vert</mat-icon>
+
+<!-- *******************MoreIcon Menu ***********************  -->
+
 <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
     <div style="padding:10px" fxLayout="column">
         <button mat-button (click)=deleteNotes()>Delete note</button>
-        <button mat-menu-item [matMenuTriggerFor]="openLabel" (click)="getLabels(notesArray)">Add label</button>
-    
+        <button mat-menu-item [matMenuTriggerFor]="labelMenu" (click)="getLabels(notesArray)" >Add label</button>
     </div>
 </mat-menu>
 
+<!-- *******************AddLabel Menu ***********************  -->
 
-<mat-menu #openLabel="matMenu">
-
+<mat-menu #labelMenu="matMenu">
     <div *ngFor="let editLabels of notes " fxLayoutAlign="space-between center">
-    <mat-checkbox (click)="$event.stopPropagation(); addLabel(editLabels.id)">{{editLabels.label}}
-    
-    </mat-checkbox>
-    <mat-icon (click)="removeLabel(editLabels.id)" style="opacity:0.5">cancel</mat-icon>
-    
+        <mat-checkbox (click)="$event.stopPropagation(); addLabel(editLabels.id)">{{editLabels.label}}
+        </mat-checkbox>
     </div>
-    
-    </mat-menu>
-
-
+</mat-menu>

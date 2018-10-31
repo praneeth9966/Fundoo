@@ -13,10 +13,14 @@
     </mat-card-content>
   </div>
   
+  <!-- **************adding and Removeing labels************** -->
+  
   <div fxLayout="row">
-    <div *ngFor="let items of notes.noteLabels">
+    <div *ngFor="let items of notes.noteLabels" >
     <mat-chip-list selected>
-    <mat-chip>{{items.label}}</mat-chip>
+    <mat-chip>{{items.label}}
+      <mat-icon (click)="removeLabel(notes.id,items.id)" class="removeicon">cancel</mat-icon>
+    </mat-chip>
     </mat-chip-list>
   </div>
   </div>
@@ -28,8 +32,9 @@
         <app-change-color-icon [notesArray]="notes.id" (noteColor)=messageColor($event)></app-change-color-icon>
         <app-add-image-icon></app-add-image-icon>
         <app-archive-icon [archive]="notes" (archiveNote)="myArchiveNotes($event)"></app-archive-icon>
-        <app-more-icon [notesArray]="notes" (deleteNote)="getNotification($event)"></app-more-icon>
+        <app-more-icon [notesArray]="notes" (deleteNote)="getNotification($event)" ></app-more-icon>
       </div>
     </mat-card-actions>
   </mat-card>
 </div>
+

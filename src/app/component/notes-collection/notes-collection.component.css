@@ -24,5 +24,10 @@ mat-card-content{
   opacity:1;
   
 }
-
+.removeicon{
+  opacity:0;
+}
+.removeicon:hover{
+  opacity:1;
+}
 
