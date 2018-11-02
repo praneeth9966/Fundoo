@@ -49,11 +49,15 @@ export class LabelsComponent implements OnInit {
   deleteLabel(id) {
     this.httpservice.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token')).subscribe(data => {
       console.log(data);
-      var result = data['data']
-      for (var i = 0; i < result.length; i++) {
-        if (data['data'].details[i].isDeleted == false)
-          this.notes.push(data['data'].details[i]);
+      alert("We’ll delete this label and remove it from all of your Keep notes. ")
+      if(data){
+        this.getLabels();
       }
+      // var result = data['data']
+      // for (var i = 0; i < result.length; i++) {
+      //   if (data['data'].details[i].isDeleted == false)
+      //     this.notes.push(data['data'].details[i]);
+      // }
     }, error => {
       console.log(error);
     })
@@ -82,6 +86,20 @@ export class LabelsComponent implements OnInit {
     this.display = id
   }
 
+
+  getLabels() {
+    var token = localStorage.getItem('token');
+    this.httpservice.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
+      console.log(data);
+      this.notes = [];
+      for (var i = 0; i < data['data'].details.length; i++) {
+        if (data['data'].details[i].isDeleted == false)
+          this.notes.push(data['data'].details[i]);
+      }
+    }, error => {
+      console.log(error);
+    })
+  }
 }
 
 

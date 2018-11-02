@@ -7,7 +7,7 @@
   <span fxFlex=10 fxShow="true" fxHide.xs="true">fundooNotes</span>
   <form fxFlex fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="15px" class="search-box">
     <button fxFlex=5 mat-icon-button type="submit"><mat-icon>search</mat-icon></button>
-    <input style="min-width:auto" fxFlex=95 class="search-text" type='text'>
+    <input style="min-width:auto" name="some" [(ngModel)]="searchBar" (keydown)="message()" (click)="navigation()" fxFlex=95 class="search-text" type='text'>
   </form>
   <div fxFlex=15 fxFlex.xs=35 fxLayoutGap.xs="0px">
     <div fxFlex=100 fxLayoutGap="10px" fxFlex.xs=100>
@@ -44,7 +44,7 @@
       <a mat-list-item routerLink="/homepage/reminders"><mat-icon> touch_app</mat-icon><span class="child-links">Reminders</span></a>
       <hr>
       <a mat-list-item><span class="child-links1">LABELS</span></a>
-      <a mat-list-item *ngFor="let labels of notes"><mat-icon>label_outline</mat-icon><span class="child-links">{{labels.label}}</span></a>
+      <a mat-list-item routerLink="/homepage/labels/{{labels.label}}" *ngFor="let labels of notes"><mat-icon>label_outline</mat-icon><span class="child-links">{{labels.label}}</span></a>
       <a mat-list-item (click)="openDialog()"><mat-icon> create</mat-icon><span class="child-links">Edit labels</span></a>
       <hr>
       <a mat-list-item routerLink="/homepage/archive"><mat-icon>archive</mat-icon><span class="child-links">Archive</span></a>

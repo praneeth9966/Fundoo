@@ -12,6 +12,8 @@ import { TrashComponent } from './component/trash/trash.component';
 import { ArchiveComponent } from './component/archive/archive.component';
 import { AuthGuard } from './component/auth.guard';
 import { LabelsComponent } from './component/labels/labels.component';
+import { SearchComponent } from './component/search/search.component';
+import {ChangeLabelComponent} from './component/change-label/change-label.component'
 
 const appRoutes: Routes=[
   {path:'login',component:LoginComponent},
@@ -36,6 +38,15 @@ const appRoutes: Routes=[
   {
     path:'labels',
     component: LabelsComponent
+  },
+
+  {
+    path:'labels/:id',
+    component: ChangeLabelComponent
+  },
+  {
+    path:'search',
+    component:SearchComponent
   },
   {
   path:'archive',

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { MatDialog } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
-
+import {DataService} from '../../services/data.service'
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -20,12 +20,13 @@ export class NavigationComponent implements OnInit {
   emailId;
   myEmail;
   notes;
+  searchBar;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
-  constructor(public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
+  constructor(public dataservice:DataService,public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
 
   ngOnInit() {
     this.emailId = this.email.split("");
@@ -71,6 +72,11 @@ export class NavigationComponent implements OnInit {
       console.log(error);
     })
   }
-
+  navigation(){
+    this.router.navigate(['homepage/search'])
+  }
+message(){
+  this.dataservice.changeMessage(this.searchBar)
+}
 }
 

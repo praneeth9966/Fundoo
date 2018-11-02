@@ -12,7 +12,12 @@
 <!-- *******************AddLabel Menu ***********************  -->
 
 <mat-menu #labelMenu="matMenu">
-    <div *ngFor="let editLabels of notes " fxLayoutAlign="space-between center">
+        <div class="title">Label note</div>
+        <br><div fxLayout="row" (click)="$event.stopPropagation();">
+                <input  class="inputTitle" [(ngModel)]="query" placeholder="Enter label name">
+                <mat-icon fxFlex="30" (click)="searchState()">search</mat-icon>
+            </div>
+        <div *ngFor="let editLabels of notes | LockFilter: query" fxLayoutAlign="space-between center">
         <mat-checkbox (click)="$event.stopPropagation(); addLabel(editLabels.id)">{{editLabels.label}}
         </mat-checkbox>
     </div>

@@ -49,7 +49,10 @@ import { LabelsComponent } from './component/labels/labels.component';
 
 import { MatCheckboxModule} from '@angular/material';
 import {MatChipsModule} from '@angular/material/chips';
-
+import { SearchPipe } from './search.pipe';
+import { SearchComponent } from './component/search/search.component';
+import {DataService} from './services/data.service';
+import { ChangeLabelComponent } from './component/change-label/change-label.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +78,9 @@ import {MatChipsModule} from '@angular/material/chips';
     NotesCollectionComponent,
     DialogComponent,
     LabelsComponent,
+    SearchPipe,
+    SearchComponent,
+    ChangeLabelComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,7 +111,7 @@ import {MatChipsModule} from '@angular/material/chips';
     
   ],
   entryComponents:[DialogComponent],
-  providers: [HttpService],
+  providers: [HttpService,DataService],
   
   bootstrap: [AppComponent]
 })

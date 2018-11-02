@@ -13,7 +13,11 @@ export class NotesCreateComponent implements OnInit {
   token = localStorage.getItem('token');
   public title;
   public description;
-  parentColor="#ffffff"
+  parentColor="#ffffff";
+  labelBody={};
+  array1=[];
+  array2=[];
+  notes = [];
   constructor(private httpService: HttpService) { }
   @Output() messageEvent = new EventEmitter();
 
@@ -32,6 +36,7 @@ export class NotesCreateComponent implements OnInit {
   close() {
     this.show = !this.show;
     this.checkList= false;
+  this.array2=[];
   }
 
   changeParentColor(event){
@@ -46,7 +51,7 @@ export class NotesCreateComponent implements OnInit {
     var body = {
       'title': this.title,
       'description': this.description,
-      'labelIdList': '',
+      'labelIdList': JSON.stringify(this.array2),
       'checkList': '',
       'isPinned': 'false',
       'color' : ""
@@ -57,6 +62,8 @@ export class NotesCreateComponent implements OnInit {
     this.httpService.httpAddNotes('notes/addNotes', body, this.token)
       .subscribe(data => {
         console.log(data);
+        this.array1=[];
+        this.array2=[];
         this.messageEvent.emit({
         })
       })
@@ -65,4 +72,41 @@ export class NotesCreateComponent implements OnInit {
     }
   }
 
+  getLabels() {
+    var token = localStorage.getItem('token');
+    this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
+      console.log(data);
+      this.notes = [];
+      for (var i = 0; i < data['data'].details.length; i++) {
+        if (data['data'].details[i].isDeleted == false)
+          this.notes.push(data['data'].details[i]);
+      }
+    }, error => {
+      console.log(error);
+    })
+  }
+
+
+  clickFunc(temp){
+    if (!this.array2.some((data) => data == temp.label))
+    {
+      this.array1.push(temp.id);
+    this.array2.push(temp.label);
+    }
+    else{
+    const index = this.array2.indexOf(temp.label, 0);
+    if (index > -1) {
+      this.array2.splice(index, 1);
+    }
+      }
+    }
+    
+  //   deleteMsg(msg) {
+  //     const index= this.array2.indexOf(msg);
+  //     if (index !== -1) {
+  //         this.array2.splice(index, 1);
+        
+  //     }        
+  // }
+    
 }

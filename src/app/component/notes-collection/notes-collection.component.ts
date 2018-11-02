@@ -18,7 +18,8 @@ export class NotesCollectionComponent implements OnInit {
   @Output() noteParent = new EventEmitter();
   @Output() archiveParent = new EventEmitter();
   @Input() array;
-  
+  @Input() searchBar;
+
   ngOnInit() {
   }
 

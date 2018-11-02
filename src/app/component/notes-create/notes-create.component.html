@@ -42,6 +42,19 @@
       <div style="margin-top:20px" *ngIf="checkList == false" contenteditable="true" data-text="Take a note..." class="cards" id="takeANoteId"></div>
     </mat-card-content>
 
+
+    <div fxLayout="row wrap"  fxlayoutAlign="start start" fxLayoutGap="8px" >
+        <div   *ngFor="let label of array2 ">
+          <mat-chip-list    selected>
+            <mat-chip style="margin-top:15px"   >
+              {{label}}
+            <mat-icon  matChipRemove (click)="deleteMsg(label)">cancel</mat-icon>
+    
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        </div>
+
           <!-- ********************MatCardActions****************** -->
 
     <mat-card-actions>
@@ -62,8 +75,34 @@
           <app-archive-icon></app-archive-icon>
         </div>
         <div fxFlex=40>
-          <app-more-icon></app-more-icon>
+            <mat-icon mat-icon-button style="margin-bottom:-10px;user-select: none;" [matMenuTriggerFor]="menu"  matTooltip="More">more_vert</mat-icon>&nbsp;
+            <mat-menu  style="padding-top:30px;"class="menu" #menu="matMenu" [overlapTrigger]="false">
+                
+                  <button mat-menu-item  (click)="getLabels()" [matMenuTriggerFor]="addlabel">
+                    <span>Add label</span></button>
+                    <mat-menu [overlapTrigger]="false" (click)="$event.stopPropagation();"  #addlabel="matMenu"><div class="title">Label note</div>
+                      <br><div fxLayout="row" (click)="$event.stopPropagation();">
+                         
+                         <input  class="inputTitle" [(ngModel)]="query" placeholder="Enter label name">
+                         <mat-icon fxFlex="30" (click)="searchState()">search</mat-icon>
+                        </div>
+                      <br><div *ngFor="let label of notes | LockFilter: query">
+                        
+                      <mat-checkbox (click)="$event.stopPropagation();"  (click)="clickFunc(label)" class="example-margin">{{label.label}}</mat-checkbox>
+                  </div>
+              </mat-menu>
+                    </mat-menu>
+
         </div>
+
+
+
+
+
+
+
+
+
         <div fxFlex>
 
           <button mat-button (click)="close();createNotes()">Close</button>

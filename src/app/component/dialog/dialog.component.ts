@@ -9,6 +9,7 @@ export interface DialogData {
   title: string;
   description: string;
   id:string;
+  
 }
 
 @Component({
@@ -18,7 +19,7 @@ export interface DialogData {
 })
 export class DialogComponent implements OnInit {
   body;
-
+  public labelBody = {};
   constructor(public  httpService:HttpService,public dialogRef: MatDialogRef<NotesCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
@@ -33,7 +34,8 @@ export class DialogComponent implements OnInit {
         
           'noteId' :[this.data.id], 
           'title' : document.getElementById("newTitle").innerHTML,
-        'description' : document.getElementById("newDescription").innerHTML
+        'description' : document.getElementById("newDescription").innerHTML,
+        'noteLabels' : ""
           
       }
       this.httpService.httpUpdateNotes('notes/updateNotes',this.body,token)
@@ -47,5 +49,17 @@ export class DialogComponent implements OnInit {
       this.dialogRef.close();
     }
     
-  
+    removeLabel(id,labelId) {
+      this.labelBody = {
+        "noteId": id,
+        "lableId": labelId
+      }
+      this.httpService.httpPostArchive('notes/' + id + '/addLabelToNotes/' + labelId + '/remove', this.labelBody, localStorage.getItem('token')).subscribe(result => {
+        console.log(result);
+        // this.notifyParent.emit({
+        // });
+      }, error => {
+        console.log(error);
+      })
+    }
 }
