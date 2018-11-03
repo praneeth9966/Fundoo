@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpService } from '../../services/http.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-labels',
@@ -9,11 +10,12 @@ import { HttpService } from '../../services/http.service';
 
 export class LabelsComponent implements OnInit {
   notes: any[];
+
   display;
   labelId = localStorage.getItem('id');
   id = localStorage.getItem('userId')
   token = localStorage.getItem('token')
-  constructor(private httpservice: HttpService) { }
+  constructor(private httpservice: HttpService,public dataService:DataService) { }
 
   @ViewChild('labels') labels: ElementRef;
   @ViewChild('newLabel') newLabel: ElementRef;
@@ -31,7 +33,10 @@ export class LabelsComponent implements OnInit {
 
   addLabel() {
     console.log(this.id);
-    this.httpservice.httpPostArchive('noteLabels',
+    
+    if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML))
+    {
+      this.httpservice.httpPostArchive('noteLabels',
       {
         "label": this.labels.nativeElement.innerHTML,
         "isDeleted": false,
@@ -40,15 +45,27 @@ export class LabelsComponent implements OnInit {
         (data) => {
           console.log("POST Request is successful ", data);
           console.log(data);
+         
         },
         error => {
           console.log("Error", error);
         })
-  }
+    
+    }
+
+    else {
+      console.log('label exists');
+      
+    }
+    
+    }
+   
 
   deleteLabel(id) {
     this.httpservice.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token')).subscribe(data => {
       console.log(data);
+      this.dataService.changeEvent(true);
+      
       alert("We’ll delete this label and remove it from all of your Keep notes. ")
       if(data){
         this.getLabels();
@@ -100,6 +117,9 @@ export class LabelsComponent implements OnInit {
       console.log(error);
     })
   }
+
+  
+    
 }
 
 

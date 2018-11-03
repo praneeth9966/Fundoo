@@ -49,13 +49,14 @@ export class DialogComponent implements OnInit {
       this.dialogRef.close();
     }
     
-    removeLabel(id,labelId) {
+    removeLabel(labelId) {
       this.labelBody = {
-        "noteId": id,
+        "noteId": this.data.id,
         "lableId": labelId
       }
-      this.httpService.httpPostArchive('notes/' + id + '/addLabelToNotes/' + labelId + '/remove', this.labelBody, localStorage.getItem('token')).subscribe(result => {
+      this.httpService.httpPostArchive('notes/' + this.data.id + '/addLabelToNotes/' + labelId + '/remove', this.labelBody, localStorage.getItem('token')).subscribe(result => {
         console.log(result);
+       
         // this.notifyParent.emit({
         // });
       }, error => {

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
@@ -12,7 +13,14 @@ export class NotesCollectionComponent implements OnInit {
   interval;
   public labelBody = {};
 
-  constructor(private httpService: HttpService,public dialog: MatDialog) { }
+  constructor(private httpService: HttpService,public dialog: MatDialog,private dataService:DataService) { 
+    this.dataService.currentEvent.subscribe(message=>{
+      console.log(message);
+      if(message){
+        this.notifyParent.emit();
+      }
+    })
+  }
 
   @Output() notifyParent = new EventEmitter();
   @Output() noteParent = new EventEmitter();

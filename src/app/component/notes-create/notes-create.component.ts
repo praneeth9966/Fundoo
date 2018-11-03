@@ -36,7 +36,7 @@ export class NotesCreateComponent implements OnInit {
   close() {
     this.show = !this.show;
     this.checkList= false;
-  this.array2=[];
+  // this.array2=[];
   }
 
   changeParentColor(event){
@@ -101,12 +101,6 @@ export class NotesCreateComponent implements OnInit {
       }
     }
     
-  //   deleteMsg(msg) {
-  //     const index= this.array2.indexOf(msg);
-  //     if (index !== -1) {
-  //         this.array2.splice(index, 1);
-        
-  //     }        
-  // }
+ 
     
 }

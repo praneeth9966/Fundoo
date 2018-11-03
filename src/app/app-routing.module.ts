@@ -56,7 +56,7 @@ const appRoutes: Routes=[
 },
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'resetpassword/:id',component:ResetPasswordComponent},
-  {path:'',redirectTo: '/login',pathMatch:'full'},
+  {path:'',redirectTo: '/login',pathMatch:'prefix'},
 ];
 @NgModule({
   imports: [

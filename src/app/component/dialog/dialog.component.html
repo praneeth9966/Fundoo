@@ -13,8 +13,8 @@
     <div fxLayout="row wrap">
       <div *ngFor="let items of data.noteLabels" >
       <mat-chip-list selected>
-      <mat-chip>{{items.label}}
-        <mat-icon (click)="removeLabel(notes.id,items.id)" class="removeicon">cancel</mat-icon>
+      <mat-chip *ngIf="items.isDeleted==false">{{items.label}}
+        <mat-icon (click)="removeLabel(items.id)" class="removeicon">cancel</mat-icon>
       </mat-chip>
       </mat-chip-list>
     </div>
@@ -38,7 +38,7 @@
           <app-archive-icon></app-archive-icon>
         </div>
         <div fxFlex=40>
-          <app-more-icon ></app-more-icon>
+          <app-more-icon [notesArray]="notes"></app-more-icon>
         </div>
         <div fxFlex>
 
