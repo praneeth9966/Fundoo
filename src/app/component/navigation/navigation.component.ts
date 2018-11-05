@@ -14,6 +14,7 @@ import {DataService} from '../../services/data.service'
 })
 
 export class NavigationComponent implements OnInit {
+  gridList=0;
   public firstName = localStorage.getItem('firstName');
   public lastName = localStorage.getItem('lastName');
   public email = localStorage.getItem('email');
@@ -77,6 +78,17 @@ export class NavigationComponent implements OnInit {
   }
 message(){
   this.dataservice.changeMessage(this.searchBar)
+}
+
+gridOpen(){
+  this.gridList=1;
+this.dataservice.observerViewList(true);
+
+}
+gridClose(){
+  this.gridList=0;
+  this.dataservice.observerViewList(false);
+
 }
 }
 

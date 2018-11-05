@@ -9,10 +9,10 @@ mat-card-title{
   word-wrap: break-word;
   font-family: cursive;
   font-weight: bolder;
-  width:200px;
+  /* width:200px; */
 }
 mat-card-content{
-  width:200px;
+  /* width:200px; */
   word-wrap: break-word;
 }
 .icons{
@@ -31,3 +31,23 @@ mat-card-content{
   opacity:1;
 }
 
+/* .grid-card{
+  min-width: 300px;
+  min-height: 100px;
+  max-width: 300px;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+.list-card{
+  width: 1000px;
+  min-height: 100px;
+ 
+  overflow-y: auto;
+  border-radius: 10px;
+} */
+.grid{
+  width: 900px;
+}
+.list{
+  min-width: 200px;
+}

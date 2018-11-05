@@ -10,6 +10,11 @@ export class DataService {
   private eventEmitter = new Subject<boolean>();
   currentEvent = this.eventEmitter.asObservable();
 
+ private gridMessage = new Subject<boolean>();
+  viewListObserver = this.gridMessage.asObservable();
+
+
+ 
   constructor() { }
 
   changeMessage(message: string) {
@@ -17,6 +22,10 @@ export class DataService {
   }
   changeEvent(message: boolean) {
     this.eventEmitter.next(message)
+  }
+
+  observerViewList(message:boolean){
+this.gridMessage.next(message);
   }
 
 }

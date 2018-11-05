@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { DeleteDialogComponent } from '../../component/delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-more-icon',
   templateUrl: './more-icon.component.html',
@@ -11,13 +12,17 @@ export class MoreIconComponent implements OnInit {
   notes: any[];
   httpservice: any;
   public display: boolean = true;
-  constructor(private httpService: HttpService) { }
+  model={};
+  token=localStorage.getItem('token');
+  constructor(private httpService: HttpService,public dialog:MatDialog) { }
   body;
   public labelBody = {};
   @Output() deleteNote = new EventEmitter();
+  @Output() addedLabel = new EventEmitter();
+  
   
   @Input() notesArray;
-
+  @Input() name;
   ngOnInit() {
    
   }
@@ -37,6 +42,10 @@ export class MoreIconComponent implements OnInit {
   }
 
   addLabel(labelId) {
+    console.log(this.notesArray,"notess");
+    
+    console.log(this.notesArray.id);
+    
     this.labelBody = {
       "noteId": this.notesArray.id,
       "lableId": labelId
@@ -44,6 +53,7 @@ export class MoreIconComponent implements OnInit {
     this.httpService.httpPostArchive('notes/' + this.notesArray.id + '/addLabelToNotes/' + labelId + '/add', this.labelBody, localStorage.getItem('token')).subscribe(result => {
       console.log(result);
       this.deleteNote.emit();
+      this.addedLabel.emit();
     }, error => {
       console.log(error);
     })
@@ -63,4 +73,29 @@ export class MoreIconComponent implements OnInit {
     })
   }
 
+  deleteforever(){
+    const dialogRef=this.dialog.open(DeleteDialogComponent,{
+      width:'500px',
+      panelClass:'myapp-no-paddding-dialog',
+      data:{name:'trash'}
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('The dialog was closed');
+      if(data){
+        this.model={
+          "isDeleted":true,
+          "noteIdList":[this.notesArray.id]
+        }
+        this.httpService.httpPostArchive('notes/deleteForeverNotes',this.model,this.token).subscribe(data=>{
+         console.log(data);
+         
+          this.deleteNote.emit();
+         
+        }, error => {
+          console.log(error);
+        })
+
+      }
+    });
+  }
 }

@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+    <p>Would you like to delete this note permanently ?</p>
+  
+  </div>
+<div fxLayoutAlign="space-between" mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
+  </div>

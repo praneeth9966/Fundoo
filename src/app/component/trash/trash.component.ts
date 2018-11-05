@@ -9,8 +9,13 @@ import { HttpService } from '../../services/http.service';
 export class TrashComponent implements OnInit {
   constructor(private httpService: HttpService) { }
   array = [];
+  public name = "trash";
   ngOnInit() {
     // this.notes=[];
+    this.getNotes();
+  }
+
+  getNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
       console.log(res);
@@ -21,6 +26,10 @@ export class TrashComponent implements OnInit {
     }, error => {
       console.log(error);
     })
+  }
+  
+  del(event) {
+    this.getNotes();
   }
 
 }

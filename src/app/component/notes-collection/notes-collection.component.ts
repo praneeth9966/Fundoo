@@ -10,6 +10,7 @@ import { DataService } from '../../services/data.service';
 })
 export class NotesCollectionComponent implements OnInit {
   notes = [];
+  toggle=false;
   interval;
   public labelBody = {};
 
@@ -27,8 +28,9 @@ export class NotesCollectionComponent implements OnInit {
   @Output() archiveParent = new EventEmitter();
   @Input() array;
   @Input() searchBar;
-
+  @Input() name;
   ngOnInit() {
+    this.gridView();
   }
 
   update(notes): void {
@@ -72,4 +74,12 @@ export class NotesCollectionComponent implements OnInit {
     this.archiveParent.emit();
   }
 
+  gridView(){
+    // debugger;
+    this.dataService.viewListObserver.subscribe(message=>{
+      this.toggle=message;
+      console.log(message);
+      
+    })
+  }
 }

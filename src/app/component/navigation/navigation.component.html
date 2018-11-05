@@ -12,7 +12,8 @@
   <div fxFlex=15 fxFlex.xs=35 fxLayoutGap.xs="0px">
     <div fxFlex=100 fxLayoutGap="10px" fxFlex.xs=100>
       <button class="icons" matTooltip="Refresh" fxFlex mat-icon-button routerLink="/home"><mat-icon>refresh</mat-icon></button>
-      <button class="icons" matTooltip="List view" fxFlex mat-icon-button><mat-icon>view_stream</mat-icon></button>
+      <button class="icons" matTooltip="List view" fxFlex mat-icon-button (click)="gridOpen()" *ngIf="gridList==0"><mat-icon>view_stream</mat-icon></button>
+      <button class="icons" matTooltip="List view" fxFlex mat-icon-button (click)="gridClose()" *ngIf="gridList==1"><mat-icon>view_module</mat-icon></button>
       <button class="icons" matTooltip="Notification" fxFlex mat-icon-button><mat-icon>notifications_none</mat-icon></button>
       <button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' [matMenuTriggerFor]="appMenu">{{myEmail
         | titlecase}}</button>

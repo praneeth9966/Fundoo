@@ -12,6 +12,7 @@ export interface DialogData {
   
 }
 
+
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -62,5 +63,12 @@ export class DialogComponent implements OnInit {
       }, error => {
         console.log(error);
       })
+    }
+
+    getNotification(event) {
+
+      console.log(event);
+      
+
     }
 }

@@ -52,7 +52,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import { SearchPipe } from './search.pipe';
 import { SearchComponent } from './component/search/search.component';
 import {DataService} from './services/data.service';
-import { ChangeLabelComponent } from './component/change-label/change-label.component'
+import { ChangeLabelComponent } from './component/change-label/change-label.component';
+import { DeleteDialogComponent } from './component/delete-dialog/delete-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +83,8 @@ import { ChangeLabelComponent } from './component/change-label/change-label.comp
     SearchPipe,
     SearchComponent,
     ChangeLabelComponent,
+    DeleteDialogComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -110,7 +114,7 @@ import { ChangeLabelComponent } from './component/change-label/change-label.comp
     MatChipsModule,
     
   ],
-  entryComponents:[DialogComponent],
+  entryComponents:[DialogComponent,DeleteDialogComponent],
   providers: [HttpService,DataService],
   
   bootstrap: [AppComponent]

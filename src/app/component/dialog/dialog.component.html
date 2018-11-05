@@ -38,7 +38,7 @@
           <app-archive-icon></app-archive-icon>
         </div>
         <div fxFlex=40>
-          <app-more-icon [notesArray]="notes"></app-more-icon>
+          <app-more-icon [notesArray]="data" (addedLabel)="getNotification($event)" ></app-more-icon>
         </div>
         <div fxFlex>
 
