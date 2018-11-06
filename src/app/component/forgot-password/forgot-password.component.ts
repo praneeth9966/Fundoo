@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material';
 export class ForgotPasswordComponent implements OnInit {
 
   temp: any = {
-    "email":"",
+    "email": "",
   };
 
   email = new FormControl('', [Validators.required, Validators.email]);

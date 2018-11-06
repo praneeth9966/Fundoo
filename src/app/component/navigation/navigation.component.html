@@ -15,22 +15,31 @@
       <button class="icons" matTooltip="List view" fxFlex mat-icon-button (click)="gridOpen()" *ngIf="gridList==0"><mat-icon>view_stream</mat-icon></button>
       <button class="icons" matTooltip="List view" fxFlex mat-icon-button (click)="gridClose()" *ngIf="gridList==1"><mat-icon>view_module</mat-icon></button>
       <button class="icons" matTooltip="Notification" fxFlex mat-icon-button><mat-icon>notifications_none</mat-icon></button>
-      <button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' [matMenuTriggerFor]="appMenu">{{myEmail
-        | titlecase}}</button>
-      <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
-        <ng-template matMenuContent let-name="name">
-          <div>
-            <span style="text-align:center">{{email}}</span>
-            <span><button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' [matMenuTriggerFor]="appMenu">{{myEmail
-                | titlecase}}</button></span>
-          </div>
-          <hr>
-          <div fxLayout='row' fxLayoutGap="30px" style="padding:10px">
-            <button fxFlex class="drop-down-button" routerLink="/signup">Add account</button>
-            <button fxFlex (click)=logout()>Signout </button>
-          </div>
-        </ng-template>
+      <button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' [matMenuTriggerFor]="appMenu" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+      
+      </button>
+
+      <mat-menu  #appMenu="matMenu" [overlapTrigger]="false">
+
+        <div fxLayoutAlign="row wrap"  >
+            <div fxFlex=20>  
+               
+      <button (click) = "$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab style="background-color:#fb0;float:right;color:white;text-transform:uppercase">
+             </button>
+             <input style="display:none" (click) = "$event.stopPropagation()" class="image" type="file" (change)="onFileUpload($event)" #selectFile>
+             
+            </div>
+    
+           <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left" >{{firstName | titlecase}} {{lastName | titlecase}} </mat-content>
+    
+        </div><br>
+          <mat-content class="contentstyle">{{raw_data}}</mat-content><hr>
+        <div fxLayoutAlign="row wrap"  class="add" fxLayoutGap=85px>
+        <button fxFlex class="addaccount" routerLink="/signup">Add account</button>
+       <button fxFlex class="logout" (click)="logout()">Log out </button></div>
       </mat-menu>
+    
+
     </div>
   </div>
 </mat-toolbar>

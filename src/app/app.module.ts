@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { ReactiveFormsModule} from '@angular/forms'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -86,6 +86,7 @@ import { DeleteDialogComponent } from './component/delete-dialog/delete-dialog.c
     DeleteDialogComponent,
    
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

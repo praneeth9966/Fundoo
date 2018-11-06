@@ -26,6 +26,9 @@ export class NotesCollectionComponent implements OnInit {
   @Output() notifyParent = new EventEmitter();
   @Output() noteParent = new EventEmitter();
   @Output() archiveParent = new EventEmitter();
+  @Output() unArchiveParent = new EventEmitter<boolean>();
+  @Output() trashParent = new EventEmitter<boolean>();
+  @Output() restoreParent = new EventEmitter<boolean>();
   @Input() array;
   @Input() searchBar;
   @Input() name;
@@ -61,7 +64,9 @@ export class NotesCollectionComponent implements OnInit {
     })
   }
 
-  getNotification($event) {
+  getNotification($sevent) {
+    
+    
     this.notifyParent.emit({
     });
   }
@@ -72,6 +77,22 @@ export class NotesCollectionComponent implements OnInit {
 
   myArchiveNotes($event) {
     this.archiveParent.emit();
+  }
+
+  trashFunc(event){
+    console.log(event);
+    
+this.trashParent.emit(event);
+  }
+
+  unArchive(event){
+    console.log(event);
+this.unArchiveParent.emit(event);
+  }
+
+
+  restoreFunc(event){
+this.restoreParent.emit(event);
   }
 
   gridView(){

@@ -19,8 +19,8 @@ export class MoreIconComponent implements OnInit {
   public labelBody = {};
   @Output() deleteNote = new EventEmitter();
   @Output() addedLabel = new EventEmitter();
-  
-  
+  @Output() trashEvent = new EventEmitter<boolean>();
+  @Output() restoreEvent = new EventEmitter<boolean>();
   @Input() notesArray;
   @Input() name;
   ngOnInit() {
@@ -89,7 +89,7 @@ export class MoreIconComponent implements OnInit {
         this.httpService.httpPostArchive('notes/deleteForeverNotes',this.model,this.token).subscribe(data=>{
          console.log(data);
          
-          this.deleteNote.emit();
+          this.trashEvent.emit(true);
          
         }, error => {
           console.log(error);
@@ -98,4 +98,19 @@ export class MoreIconComponent implements OnInit {
       }
     });
   }
+
+  restore() {
+    this.body = {
+      "isDeleted": false,
+      "noteIdList": [this.notesArray.id]
+    }
+    var token = localStorage.getItem('token');
+    this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
+      console.log(res);
+this.restoreEvent.emit(true);
+    }, error => {
+      console.log(error);
+    })
+  }
+
 }

@@ -18,6 +18,7 @@ export class NotesCreateComponent implements OnInit {
   array1=[];
   array2=[];
   notes = [];
+  archive={'isArchived':false}
   constructor(private httpService: HttpService) { }
   @Output() messageEvent = new EventEmitter();
 

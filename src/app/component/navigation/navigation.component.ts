@@ -73,6 +73,35 @@ export class NavigationComponent implements OnInit {
       console.log(error);
     })
   }
+
+  selectedFile = null;
+  public image2=localStorage.getItem('imageUrl');
+ img="http://34.213.106.173/"+this.image2;
+ onFileUpload(event){
+  var token=localStorage.getItem('token');
+this.selectedFile=event.path[0].files[0];
+const uploadData = new FormData();
+uploadData.append('file', this.selectedFile, this.selectedFile.name);
+ this.httpService.httpAddImage('user/uploadProfileImage',uploadData,token).subscribe(res=>{
+   console.log(res);
+   
+   console.log("url: ", res['status'].imageUrl )
+   this.img="http://34.213.106.173/"+res['status'].imageUrl;
+   
+  
+ },error=>{
+   console.log(error);
+   
+ })
+
+ }
+ image={};
+ 
+
+
+
+
+
   navigation(){
     this.router.navigate(['homepage/search'])
   }

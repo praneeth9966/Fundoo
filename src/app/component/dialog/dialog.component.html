@@ -1,13 +1,18 @@
 
-  <mat-card fxFlex *ngIf="!show" class="example-card" [ngStyle]="{'background-color':data.color}" style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
+  <mat-card fxFlex *ngIf="!show" class="example-card" 
+    [ngStyle]="{'background-color':data.color}" 
+    style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
   
     <mat-card-content>
       <div fxLayout='row' fxLayout.xs='row'>
-        <div fxFlex=98 contenteditable="true" [innerHTML]="data.title"   data-text="" class="cards" id="newTitle"></div>
-        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg"></div> -->
+        <div fxFlex=98 contenteditable="true" [innerHTML]="data.title"   data-text=""
+         class="cards" id="newTitle"></div>
+        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg">
+        </div> -->
       </div>
 
-      <div style="margin-top:20px" contenteditable="true" [innerHTML]="data.description" data-text="" class="cards" id="newDescription">{{data.description}}</div>
+      <div style="margin-top:20px" contenteditable="true" [innerHTML]="data.description" 
+      data-text="" class="cards" id="newDescription">{{data.description}}</div>
     </mat-card-content>
 
     <div fxLayout="row wrap">
@@ -35,10 +40,11 @@
           <app-add-image-icon></app-add-image-icon>
         </div>
         <div fxFlex=9>
-          <app-archive-icon></app-archive-icon>
+          <app-archive-icon [archive]="data"></app-archive-icon>
         </div>
         <div fxFlex=40>
-          <app-more-icon [notesArray]="data" (addedLabel)="getNotification($event)" ></app-more-icon>
+          <app-more-icon  [notesArray]="data" (addedLabel)="getNotification($event)">
+          </app-more-icon>
         </div>
         <div fxFlex>
 

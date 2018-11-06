@@ -1,21 +1,19 @@
-
-
-import { Component, OnInit ,Inject} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface DialogData {
-  name:"trash";
+  name: "trash";
 }
 @Component({
-    selector: 'app-delete-dialog',
-    templateUrl: './delete-dialog.component.html',
-    styleUrls: ['./delete-dialog.component.css']
-  })
+  selector: 'app-delete-dialog',
+  templateUrl: './delete-dialog.component.html',
+  styleUrls: ['./delete-dialog.component.css']
+})
 
-  export class DeleteDialogComponent implements OnInit {
+export class DeleteDialogComponent implements OnInit {
 
-  constructor( public dialogRef: MatDialogRef<DeleteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
+  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, ) { }
 
   ngOnInit() {
   }

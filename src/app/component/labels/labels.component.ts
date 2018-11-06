@@ -15,7 +15,7 @@ export class LabelsComponent implements OnInit {
   labelId = localStorage.getItem('id');
   id = localStorage.getItem('userId')
   token = localStorage.getItem('token')
-  constructor(private httpservice: HttpService,public dataService:DataService) { }
+  constructor(private httpservice: HttpService, public dataService: DataService) { }
 
   @ViewChild('labels') labels: ElementRef;
   @ViewChild('newLabel') newLabel: ElementRef;
@@ -33,48 +33,43 @@ export class LabelsComponent implements OnInit {
 
   addLabel() {
     console.log(this.id);
-    
-    if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML))
-    {
+
+    if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML)) {
       this.httpservice.httpPostArchive('noteLabels',
-      {
-        "label": this.labels.nativeElement.innerHTML,
-        "isDeleted": false,
-        "userId": this.id
-      }, this.token).subscribe(
-        (data) => {
-          console.log("POST Request is successful ", data);
-          console.log(data);
-         
-        },
-        error => {
-          console.log("Error", error);
-        })
-    
+        {
+          "label": this.labels.nativeElement.innerHTML,
+          "isDeleted": false,
+          "userId": this.id
+        }, this.token).subscribe(
+          (data) => {
+            console.log("POST Request is successful ", data);
+            console.log(data);
+
+          },
+          error => {
+            console.log("Error", error);
+          })
+
     }
 
     else {
       console.log('label exists');
-      
+
     }
-    
-    }
-   
+
+  }
+
 
   deleteLabel(id) {
     this.httpservice.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token')).subscribe(data => {
       console.log(data);
       this.dataService.changeEvent(true);
-      
+
       alert("We’ll delete this label and remove it from all of your Keep notes. ")
-      if(data){
+      if (data) {
         this.getLabels();
       }
-      // var result = data['data']
-      // for (var i = 0; i < result.length; i++) {
-      //   if (data['data'].details[i].isDeleted == false)
-      //     this.notes.push(data['data'].details[i]);
-      // }
+
     }, error => {
       console.log(error);
     })
@@ -118,8 +113,8 @@ export class LabelsComponent implements OnInit {
     })
   }
 
-  
-    
+
+
 }
 
 

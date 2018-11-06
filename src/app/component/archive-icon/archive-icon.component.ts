@@ -11,6 +11,7 @@ export class ArchiveIconComponent implements OnInit {
   constructor(private httpService:HttpService) { }
   @Input() archive;
   @Output() archiveNote=new EventEmitter
+  @Output() unArchiveNote=new EventEmitter<boolean>()
   body;
 
   ngOnInit() {
@@ -24,6 +25,19 @@ export class ArchiveIconComponent implements OnInit {
     this.httpService.httpPostArchive('notes/archiveNotes',this.body,this.token).subscribe(res => {
       console.log(res);
      this.archiveNote.emit();
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  unArchiveNotes(){ 
+    this.body={
+        "isArchived":false,
+        "noteIdList":[this.archive.id]
+    }
+    this.httpService.httpPostArchive('notes/archiveNotes',this.body,this.token).subscribe(res => {
+      console.log(res);
+     this.unArchiveNote.emit(true);
     }, error => {
       console.log(error);
     })

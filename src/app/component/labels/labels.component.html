@@ -6,14 +6,18 @@
     <a mat-list-item>
         <div *ngIf="display != labels.id">
             <mat-icon style="cursor: pointer">label_outline</mat-icon>
-            <span contentEditable="false" class="deleteicon" id="label4" [innerHTML]="labels.label"></span>
+            <span contentEditable="false" class="deleteicon" id="label4" 
+                [innerHTML]="labels.label">
+            </span>
             <div style="float:right">
                 <mat-icon (click)="update(labels.id)">edit</mat-icon>
             </div>
         </div>
         <div *ngIf="display == labels.id">
             <mat-icon (click)="deleteLabel(labels.id)" style="cursor: pointer">delete</mat-icon>
-            <span contentEditable="true" class="deleteicon" #newLabel [innerHTML]="labels.label"></span>
+            <span contentEditable="true" class="deleteicon" #newLabel 
+                [innerHTML]="labels.label">
+            </span>
             <div style="float:right">
                 <mat-icon (click)="updateLabel(labels.id)">edit</mat-icon>
             </div>

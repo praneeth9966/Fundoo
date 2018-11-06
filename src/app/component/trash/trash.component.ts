@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 
 @Component({
@@ -9,7 +9,10 @@ import { HttpService } from '../../services/http.service';
 export class TrashComponent implements OnInit {
   constructor(private httpService: HttpService) { }
   array = [];
+  body={};
+
   public name = "trash";
+  
   ngOnInit() {
     // this.notes=[];
     this.getNotes();
@@ -19,6 +22,7 @@ export class TrashComponent implements OnInit {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
       console.log(res);
+      this.array = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == true)
           this.array.push(res['data']['data'][i]);
@@ -28,8 +32,16 @@ export class TrashComponent implements OnInit {
     })
   }
   
-  del(event) {
+  del(event) { 
+    if(event){
     this.getNotes();
+    }
+  }
+
+  restore(event){
+  if(event){
+    this.getNotes();
+  }
   }
 
 }

@@ -65,3 +65,24 @@
 .icons:hover {
   opacity: 1.0;    
 }
+
+
+
+
+.profilebutton{
+  width:100px; 
+  height:100px; 
+  border: none;
+ border-radius: 50%;
+ background:white;
+ 
+}
+.profilebutton2{
+  width:50px; 
+  height:50px; 
+  border: none;
+ border-radius: 50%;
+ background: transparent;
+ outline:none;
+ 
+}

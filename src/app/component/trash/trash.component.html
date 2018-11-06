@@ -1,1 +1,1 @@
-<app-notes-collection [name]="name" (deleteNote)="del($event)" [array]="array"></app-notes-collection>
+<app-notes-collection [name]="name" (trashParent)="del($event)" (restoreParent)="restore($event)" [array]="array"></app-notes-collection>

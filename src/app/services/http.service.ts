@@ -167,4 +167,15 @@ httpUpdateLabel(nexturl, body, token) {
   return this.http.post(this.url + '/' + nexturl, body, httpAuthentication);
 }
 
+httpAddImage(nexturl,body,token){
+  console.log(token);
+  var httpOptions={
+    headers:new HttpHeaders({
+     
+     'Authorization':token
+    })
+  };
+  return this.http.post(this.url+"/"+nexturl,body,httpOptions)
+}
+
 }
