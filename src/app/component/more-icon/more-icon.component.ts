@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http/http.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DeleteDialogComponent } from '../../component/delete-dialog/delete-dialog.component';
 @Component({

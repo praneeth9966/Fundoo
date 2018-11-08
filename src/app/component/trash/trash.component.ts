@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http/http.service';
 
 @Component({
   selector: 'app-trash',

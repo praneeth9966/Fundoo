@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http/http.service';
 
 @Component({
   selector: 'app-notes',
@@ -18,7 +18,7 @@ export class NotesComponent implements OnInit {
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
-      console.log(res);
+      
       this.notes = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false)

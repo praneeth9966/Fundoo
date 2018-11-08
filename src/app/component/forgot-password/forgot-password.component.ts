@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms'
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-forgot-password',

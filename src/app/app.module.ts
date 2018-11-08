@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule ,CUSTOM_ELEMENTS_SCHEMA,} from '@angular/core';
-import { ReactiveFormsModule} from '@angular/forms'
+import { ReactiveFormsModule,FormsModule, } from '@angular/forms'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,12 +16,13 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HttpClientModule }    from '@angular/common/http';
-import { MatSnackBarModule, MatSidenavModule, MatListModule } from "@angular/material";
+import { MatSnackBarModule, MatSidenavModule, MatListModule,MatCheckboxModule
+               } from "@angular/material";
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
-import { HttpService }  from './services/http.service';
+import { HttpService }  from './core/services/http/http.service';
 import { SlidePanelComponent } from './component/slide-panel/slide-panel.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
@@ -48,13 +49,14 @@ import { DialogComponent } from './component/dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LabelsComponent } from './component/labels/labels.component';
 
-import { MatCheckboxModule} from '@angular/material';
+// import { MatCheckboxModule} from '@angular/material';
 import {MatChipsModule} from '@angular/material/chips';
-import { SearchPipe } from './search.pipe';
+import { SearchPipe } from './core/pipes/search.pipe';
 import { SearchComponent } from './component/search/search.component';
-import {DataService} from './services/data.service';
+import {DataService} from './core/services/data/data.service';
 import { ChangeLabelComponent } from './component/change-label/change-label.component';
 import { DeleteDialogComponent } from './component/delete-dialog/delete-dialog.component';
+import {LoggerService} from './core/services/logger/logger.service';
 
 @NgModule({
   declarations: [
@@ -114,10 +116,11 @@ import { DeleteDialogComponent } from './component/delete-dialog/delete-dialog.c
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+   
   ],
   entryComponents:[DialogComponent,DeleteDialogComponent],
-  providers: [HttpService,DataService,MatDatepickerModule],
+  providers: [HttpService,DataService,MatDatepickerModule,LoggerService],
   
   bootstrap: [AppComponent]
 })

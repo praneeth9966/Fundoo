@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http/http.service';
 @Component({
   selector: 'app-change-label',
   templateUrl: './change-label.component.html',

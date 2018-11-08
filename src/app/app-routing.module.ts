@@ -10,7 +10,7 @@ import { NotesComponent } from './component/notes/notes.component';
 import { RemindersComponent } from './component/reminders/reminders.component';
 import { TrashComponent } from './component/trash/trash.component';
 import { ArchiveComponent } from './component/archive/archive.component';
-import { AuthGuard } from './component/auth.guard';
+import { AuthGuard } from './core/services/auth-guard/auth.guard';
 import { LabelsComponent } from './component/labels/labels.component';
 import { SearchComponent } from './component/search/search.component';
 import {ChangeLabelComponent} from './component/change-label/change-label.component'

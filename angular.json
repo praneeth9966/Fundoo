@@ -129,5 +129,10 @@
       }
     }
   },
-  "defaultProject": "fundoo"
+  "defaultProject": "fundoo",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

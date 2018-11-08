@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { HttpService } from '../../services/http.service';
-import { DataService } from '../../services/data.service';
+import { HttpService } from '../../core/services/http/http.service';
+import { DataService } from '../../core/services/data/data.service';
 
 @Component({
   selector: 'app-labels',

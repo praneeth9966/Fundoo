@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Output, EventEmitter, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http/http.service';
 import { NotesCollectionComponent } from '../notes-collection/notes-collection.component';
 
 export interface DialogData {

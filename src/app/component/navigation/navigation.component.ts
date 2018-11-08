@@ -3,10 +3,10 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http/http.service';
 import { MatDialog } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
-import { DataService } from '../../services/data.service'
+import { DataService } from '../../core/services/data/data.service'
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -32,7 +32,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     this.emailId = this.email.split("");
     this.myEmail = this.emailId[0];
-    console.log(this.myEmail);
+    
     this.labelList();
   }
 
@@ -63,7 +63,7 @@ export class NavigationComponent implements OnInit {
   labelList() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
-      console.log(data);
+     
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
@@ -89,6 +89,7 @@ export class NavigationComponent implements OnInit {
       console.log(res);
       console.log("url: ", res['status'].imageUrl)
       this.img = "http://34.213.106.173/" + res['status'].imageUrl;
+      localStorage.setItem('imageUrl',res['status'].imageUrl);
     }, error => {
       console.log(error);
     })
