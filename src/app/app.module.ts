@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA,} from '@angular/core';
 import { ReactiveFormsModule} from '@angular/forms'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -18,6 +18,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HttpClientModule }    from '@angular/common/http';
 import { MatSnackBarModule, MatSidenavModule, MatListModule } from "@angular/material";
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 import { HttpService }  from './services/http.service';
@@ -113,10 +114,10 @@ import { DeleteDialogComponent } from './component/delete-dialog/delete-dialog.c
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
-    
+    MatDatepickerModule
   ],
   entryComponents:[DialogComponent,DeleteDialogComponent],
-  providers: [HttpService,DataService],
+  providers: [HttpService,DataService,MatDatepickerModule],
   
   bootstrap: [AppComponent]
 })

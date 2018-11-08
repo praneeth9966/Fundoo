@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import {environment} from '../../environments/environment'
 import { Observable } from 'rxjs';
 
 
@@ -10,21 +10,21 @@ import { Observable } from 'rxjs';
 })
 
 export class HttpService {
-  url = 'http://34.213.106.173/api'
+  // url = 'http://34.213.106.173/api'
 
   constructor(private http: HttpClient) { }
 
 
 
   getHttpData(nexturl) {
-    return this.http.get(this.url + '/' + nexturl)
+    return this.http.get(environment.baseUrl + '/' + nexturl)
 
   }
 
 
 
   postHttpData(nexturl, body) {
-    return this.http.post(this.url + '/' + nexturl, body)
+    return this.http.post(environment.baseUrl+ '/' + nexturl, body)
   }
 
   httpPasswordUpdate(nextUrl, token, body) {
@@ -36,7 +36,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.url + "/" + nextUrl, this.getFormUrlEncoded(body), httpOptions)
+    return this.http.post(environment.baseUrl + "/" + nextUrl, this.getFormUrlEncoded(body), httpOptions)
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -57,7 +57,7 @@ export class HttpService {
 
       })
     }
-    return this.http.post(this.url + '/' + nexturl, {}, httpAuthentication);
+    return this.http.post(environment.baseUrl + '/' + nexturl, {}, httpAuthentication);
   }
 
 
@@ -70,7 +70,7 @@ export class HttpService {
 
       })
     }
-    return this.http.post(this.url + '/' + nexturl, this.getFormUrlEncoded(input), httpAuthentication);
+    return this.http.post(environment.baseUrl + '/' + nexturl, this.getFormUrlEncoded(input), httpAuthentication);
   }
 
 
@@ -83,7 +83,7 @@ export class HttpService {
 
       })
     }
-    return this.http.get(this.url + '/' + nexturl, httpAuthentication);
+    return this.http.get(environment.baseUrl + '/' + nexturl, httpAuthentication);
   }
 
   httpDeleteNotes(nexturl, body, token) {
@@ -94,7 +94,7 @@ export class HttpService {
 
       })
     }
-    return this.http.post(this.url + '/' + nexturl, body, httpAuthentication);
+    return this.http.post(environment.baseUrl + '/' + nexturl, body, httpAuthentication);
   }
 
 
@@ -106,7 +106,7 @@ export class HttpService {
 
       })
     }
-    return this.http.post(this.url + '/' + nexturl, body, httpAuthentication);
+    return this.http.post(environment.baseUrl + '/' + nexturl, body, httpAuthentication);
   }
 
 
@@ -118,7 +118,7 @@ export class HttpService {
 
       })
     }
-    return this.http.post(this.url + '/' + nexturl, httpAuthentication);
+    return this.http.post(environment.baseUrl + '/' + nexturl, httpAuthentication);
   }
 
   httpColorNotes(nexturl, body, token) {
@@ -129,7 +129,7 @@ export class HttpService {
 
       })
     }
-    return this.http.post(this.url + '/' + nexturl, body, httpAuthentication);
+    return this.http.post(environment.baseUrl + '/' + nexturl, body, httpAuthentication);
   }
 
   httpUpdateNotes(nextUrl, body, token) {
@@ -141,7 +141,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.url + "/" + nextUrl, this.getFormUrlEncoded(body), httpOptions)
+    return this.http.post(environment.baseUrl + "/" + nextUrl, this.getFormUrlEncoded(body), httpOptions)
   }
 
   httpDeleteLabel(nexturl,token) {
@@ -153,7 +153,7 @@ export class HttpService {
       })
 
     };
-    return this.http.delete(this.url + "/" + nexturl,httpOptions)
+    return this.http.delete(environment.baseUrl+ "/" + nexturl,httpOptions)
   }
 
 
@@ -164,7 +164,7 @@ httpUpdateLabel(nexturl, body, token) {
       'Authorization': token
     })
   }
-  return this.http.post(this.url + '/' + nexturl, body, httpAuthentication);
+  return this.http.post(environment.baseUrl+ '/' + nexturl, body, httpAuthentication);
 }
 
 httpAddImage(nexturl,body,token){
@@ -175,7 +175,28 @@ httpAddImage(nexturl,body,token){
      'Authorization':token
     })
   };
-  return this.http.post(this.url+"/"+nexturl,body,httpOptions)
+  return this.http.post(environment.baseUrl+"/"+nexturl,body,httpOptions)
 }
 
+httpAddReminder(nexturl,body,token){
+  console.log(token);
+  var httpOptions={
+    headers:new HttpHeaders({
+     
+     'Authorization':token
+    })
+  };
+  return this.http.post(environment.baseUrl+"/"+nexturl,body,httpOptions)
+}
+
+httpGetReminder(nexturl,token){
+  console.log(token);
+  var httpOptions={
+    headers:new HttpHeaders({
+     
+     'Authorization':token
+    })
+  };
+  return this.http.get(environment.baseUrl+"/"+nexturl,httpOptions)
+}
 }

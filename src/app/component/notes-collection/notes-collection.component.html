@@ -33,7 +33,7 @@
 
         <mat-card-actions>
           <div class="icons" fxLayoutAlign="space-between">
-            <app-remindme-icon></app-remindme-icon>
+            <app-remindme-icon [reminders]="notes"></app-remindme-icon>
             <app-collaborator-icon></app-collaborator-icon>
             <app-change-color-icon [notesArray]="notes.id" (noteColor)=messageColor($event)></app-change-color-icon>
             <app-add-image-icon></app-add-image-icon>

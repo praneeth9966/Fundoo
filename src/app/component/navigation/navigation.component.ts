@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { MatDialog } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
-import {DataService} from '../../services/data.service'
+import { DataService } from '../../services/data.service'
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -14,7 +14,7 @@ import {DataService} from '../../services/data.service'
 })
 
 export class NavigationComponent implements OnInit {
-  gridList=0;
+  gridList = 0;
   public firstName = localStorage.getItem('firstName');
   public lastName = localStorage.getItem('lastName');
   public email = localStorage.getItem('email');
@@ -27,7 +27,7 @@ export class NavigationComponent implements OnInit {
       map(result => result.matches)
     );
 
-  constructor(public dataservice:DataService,public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
+  constructor(public dataservice: DataService, public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
 
   ngOnInit() {
     this.emailId = this.email.split("");
@@ -56,7 +56,7 @@ export class NavigationComponent implements OnInit {
       console.log('The dialog was closed');
       this.labelList()
       console.log(result);
-      
+
     });
   }
 
@@ -74,50 +74,41 @@ export class NavigationComponent implements OnInit {
     })
   }
 
+
+  image = {};
   selectedFile = null;
-  public image2=localStorage.getItem('imageUrl');
- img="http://34.213.106.173/"+this.image2;
- onFileUpload(event){
-  var token=localStorage.getItem('token');
-this.selectedFile=event.path[0].files[0];
-const uploadData = new FormData();
-uploadData.append('file', this.selectedFile, this.selectedFile.name);
- this.httpService.httpAddImage('user/uploadProfileImage',uploadData,token).subscribe(res=>{
-   console.log(res);
-   
-   console.log("url: ", res['status'].imageUrl )
-   this.img="http://34.213.106.173/"+res['status'].imageUrl;
-   
-  
- },error=>{
-   console.log(error);
-   
- })
+  public image2 = localStorage.getItem('imageUrl');
+  img = "http://34.213.106.173/" + this.image2;
 
- }
- image={};
- 
+  onFileUpload(event) {
+    var token = localStorage.getItem('token');
+    this.selectedFile = event.path[0].files[0];
+    const uploadData = new FormData();
+    uploadData.append('file', this.selectedFile, this.selectedFile.name);
+    this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
+      console.log(res);
+      console.log("url: ", res['status'].imageUrl)
+      this.img = "http://34.213.106.173/" + res['status'].imageUrl;
+    }, error => {
+      console.log(error);
+    })
+  }
 
-
-
-
-
-  navigation(){
+  navigation() {
     this.router.navigate(['homepage/search'])
   }
-message(){
-  this.dataservice.changeMessage(this.searchBar)
-}
+  message() {
+    this.dataservice.changeMessage(this.searchBar)
+  }
 
-gridOpen(){
-  this.gridList=1;
-this.dataservice.observerViewList(true);
-
-}
-gridClose(){
-  this.gridList=0;
-  this.dataservice.observerViewList(false);
-
-}
+  gridOpen() {
+    this.gridList = 1;
+    this.dataservice.observerViewList(true);
+  }
+  gridClose() {
+    this.gridList = 0;
+    this.dataservice.observerViewList(false);
+  }
+  
 }
 
