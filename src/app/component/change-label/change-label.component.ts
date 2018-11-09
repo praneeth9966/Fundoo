@@ -4,7 +4,7 @@ import { HttpService } from '../../core/services/http/http.service';
 @Component({
   selector: 'app-change-label',
   templateUrl: './change-label.component.html',
-  styleUrls: ['./change-label.component.css']
+  styleUrls: ['./change-label.component.scss']
 })
 export class ChangeLabelComponent implements OnInit {
   notes = [];

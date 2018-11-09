@@ -4,7 +4,7 @@ import { HttpService } from '../../core/services/http/http.service';
 @Component({
   selector: 'app-remindme-icon',
   templateUrl: './remindme-icon.component.html',
-  styleUrls: ['./remindme-icon.component.css']
+  styleUrls: ['./remindme-icon.component.scss']
 })
 export class RemindmeIconComponent implements OnInit {
 

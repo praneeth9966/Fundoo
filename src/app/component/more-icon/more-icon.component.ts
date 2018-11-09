@@ -1,20 +1,20 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DeleteDialogComponent } from '../../component/delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-more-icon',
   templateUrl: './more-icon.component.html',
-  styleUrls: ['./more-icon.component.css']
+  styleUrls: ['./more-icon.component.scss']
 })
 
 export class MoreIconComponent implements OnInit {
   notes: any[];
   httpservice: any;
   public display: boolean = true;
-  model={};
-  token=localStorage.getItem('token');
-  constructor(private httpService: HttpService,public dialog:MatDialog) { }
+  model = {};
+  token = localStorage.getItem('token');
+  constructor(private httpService: HttpService, public dialog: MatDialog) { }
   body;
   public labelBody = {};
   @Output() deleteNote = new EventEmitter();
@@ -24,7 +24,7 @@ export class MoreIconComponent implements OnInit {
   @Input() notesArray;
   @Input() name;
   ngOnInit() {
-   
+
   }
 
   deleteNotes() {
@@ -42,10 +42,10 @@ export class MoreIconComponent implements OnInit {
   }
 
   addLabel(labelId) {
-    console.log(this.notesArray,"notess");
-    
+    console.log(this.notesArray, "notess");
+
     console.log(this.notesArray.id);
-    
+
     this.labelBody = {
       "noteId": this.notesArray.id,
       "lableId": labelId
@@ -73,24 +73,24 @@ export class MoreIconComponent implements OnInit {
     })
   }
 
-  deleteforever(){
-    const dialogRef=this.dialog.open(DeleteDialogComponent,{
-      width:'500px',
-      panelClass:'myapp-no-paddding-dialog',
-      data:{name:'trash'}
+  deleteforever() {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '500px',
+      panelClass: 'myapp-no-paddding-dialog',
+      data: { name: 'trash' }
     });
     dialogRef.afterClosed().subscribe(data => {
       console.log('The dialog was closed');
-      if(data){
-        this.model={
-          "isDeleted":true,
-          "noteIdList":[this.notesArray.id]
+      if (data) {
+        this.model = {
+          "isDeleted": true,
+          "noteIdList": [this.notesArray.id]
         }
-        this.httpService.httpPostArchive('notes/deleteForeverNotes',this.model,this.token).subscribe(data=>{
-         console.log(data);
-         
+        this.httpService.httpPostArchive('notes/deleteForeverNotes', this.model, this.token).subscribe(data => {
+          console.log(data);
+
           this.trashEvent.emit(true);
-         
+
         }, error => {
           console.log(error);
         })
@@ -107,7 +107,7 @@ export class MoreIconComponent implements OnInit {
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
       console.log(res);
-this.restoreEvent.emit(true);
+      this.restoreEvent.emit(true);
     }, error => {
       console.log(error);
     })

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import{ RouterModule, Routes} from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './component/login/login.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
@@ -13,56 +12,58 @@ import { ArchiveComponent } from './component/archive/archive.component';
 import { AuthGuard } from './core/services/auth-guard/auth.guard';
 import { LabelsComponent } from './component/labels/labels.component';
 import { SearchComponent } from './component/search/search.component';
-import {ChangeLabelComponent} from './component/change-label/change-label.component'
+import { ChangeLabelComponent } from './component/change-label/change-label.component'
 
-const appRoutes: Routes=[
-  {path:'login',component:LoginComponent},
-  {path:'signup',component:SignupComponent},
-  {path:'homepage',component:HomepageComponent,children: [ 
+const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  {
+    path: 'homepage', component: HomepageComponent, children: [
       {
-        path:'',
+        path: '',
         redirectTo: 'notes',
-        pathMatch:'full'},
-    {
-        path:'notes',
+        pathMatch: 'full'
+      },
+      {
+        path: 'notes',
         component: NotesComponent
-    },
-    {
-      path:'reminders',
-      component: RemindersComponent
-  },
-  {
-    path:'trash',
-    component: TrashComponent
-  },
-  {
-    path:'labels',
-    component: LabelsComponent
-  },
+      },
+      {
+        path: 'reminders',
+        component: RemindersComponent
+      },
+      {
+        path: 'trash',
+        component: TrashComponent
+      },
+      {
+        path: 'labels',
+        component: LabelsComponent
+      },
 
-  {
-    path:'labels/:id',
-    component: ChangeLabelComponent
+      {
+        path: 'labels/:id',
+        component: ChangeLabelComponent
+      },
+      {
+        path: 'search',
+        component: SearchComponent
+      },
+      {
+        path: 'archive',
+        component: ArchiveComponent
+      }
+    ], canActivate: [AuthGuard]
   },
-  {
-    path:'search',
-    component:SearchComponent
-  },
-  {
-  path:'archive',
-  component: ArchiveComponent
-  }
-  ],canActivate:[AuthGuard]
-},
-  {path:'forgot-password',component:ForgotPasswordComponent},
-  {path:'resetpassword/:id',component:ResetPasswordComponent},
-  {path:'',redirectTo: '/login',pathMatch:'full'},
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'resetpassword/:id', component: ResetPasswordComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [
     RouterModule.forRoot(appRoutes)
 
   ],
-  exports:[ RouterModule]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

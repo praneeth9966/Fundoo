@@ -4,7 +4,7 @@ import { HttpService } from '../../core/services/http/http.service';
 @Component({
   selector: 'app-notes-create',
   templateUrl: './notes-create.component.html',
-  styleUrls: ['./notes-create.component.css']
+  styleUrls: ['./notes-create.component.scss']
 })
 
 export class NotesCreateComponent implements OnInit {
@@ -43,7 +43,7 @@ export class NotesCreateComponent implements OnInit {
   changeParentColor(event){
       if(event)
       this.parentColor=event;
-      console.log(this.parentColor);
+      // console.log(this.parentColor);
   }
 
   createNotes() {
@@ -52,14 +52,13 @@ export class NotesCreateComponent implements OnInit {
     var body = {
       'title': this.title,
       'description': this.description,
-      'labelIdList': JSON.stringify(this.array2),
+      'labelIdList': JSON.stringify(this.array1),
       'checkList': '',
       'isPinned': 'false',
       'color' : ""
     }
     body.color=this.parentColor;
     this.parentColor="#ffffff";
-    console.log(this.title);
     this.httpService.httpAddNotes('notes/addNotes', body, this.token)
       .subscribe(data => {
         console.log(data);

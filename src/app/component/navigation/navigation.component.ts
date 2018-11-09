@@ -10,7 +10,7 @@ import { DataService } from '../../core/services/data/data.service'
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  styleUrls: ['./navigation.component.scss']
 })
 
 export class NavigationComponent implements OnInit {
@@ -55,8 +55,6 @@ export class NavigationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.labelList()
-      console.log(result);
-
     });
   }
 

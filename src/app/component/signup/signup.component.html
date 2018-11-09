@@ -14,13 +14,15 @@
     <mat-card-title>Create your Fundoo Account</mat-card-title>
     <div fxLayoutAlign="space-between">
       <mat-form-field>
-        <input matInput placeholder="Fisrt name" minlength="4" required [(ngModel)]="user.firstName" [formControl]="firstname" required>
+        <input matInput placeholder="Fisrt name" minlength="4" required 
+        [(ngModel)]="user.firstName" [formControl]="firstname" required>
       <mat-error *ngIf="firstname.invalid">{{getErrorMessagefirstName()}}</mat-error>
       </mat-form-field>
      
       
       <mat-form-field>
-        <input matInput placeholder="Last name" minlength="4" [(ngModel)]="user.lastName" [formControl]="lastname" required>
+        <input matInput placeholder="Last name" minlength="4" [(ngModel)]="user.lastName" 
+        [formControl]="lastname" required>
         <mat-error *ngIf="lastname.invalid">{{getErrorMessagelastName()}}</mat-error>
       </mat-form-field>
     </div>
@@ -31,7 +33,8 @@
     <div>
       
       <mat-form-field class="emailwidth">
-        <input matInput placeholder="Email" [formControl]="email" [(ngModel)]="user.email" required>
+        <input matInput placeholder="Email" [formControl]="email" [(ngModel)]="user.email" 
+        required>
         <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
 
@@ -39,8 +42,10 @@
     <div>
       
       <mat-form-field class="emailwidth">
-        <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" minlength="5" [(ngModel)]="user.password" [formControl]="password" required>
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" minlength="5"
+        [(ngModel)]="user.password" [formControl]="password" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
         <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
       </mat-form-field>
     </div>
@@ -49,16 +54,17 @@
     <div fxLayout="row" fxLayoutGap="10" fxLayout="row wrap">
 
       <span *ngFor='let card of cards' style="padding:20px">
-      <mat-card class="card1" matbutton (click)=respond(card) [ngClass]="card.select ? 'selected' : 'notselected'">
-      <mat-card-title>{{card.name}}</mat-card-title>
+        <mat-card class="card1" matbutton (click)=respond(card) 
+          [ngClass]="card.select ? 'selected' : 'notselected'">
+          <mat-card-title>{{card.name}}</mat-card-title>
       
-      <mat-card-content>{{card.description}}</mat-card-content>
+          <mat-card-content>{{card.description}}</mat-card-content>
       
-      </mat-card>
+        </mat-card>
       
       </span>
       
-      </div>
+    </div>
 
     
     <div class="button-row" fxLayout="row" fxLayoutAlign="space-between"> 

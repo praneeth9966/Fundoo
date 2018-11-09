@@ -1,4 +1,5 @@
- <mat-icon style="cursor: pointer;" matTooltip="Remind me"  aria-label="remind me" [matMenuTriggerFor]="appMenu">touch_app</mat-icon>
+ <mat-icon style="cursor: pointer;" matTooltip="Remind me"  aria-label="remind me"
+[matMenuTriggerFor]="appMenu">touch_app</mat-icon>
 <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
     <div style="padding:10px" fxLayout="column">
         <span (click)="getReminder()">Reminder:</span>
@@ -6,10 +7,6 @@
         <button mat-button (click)="tomorrowReminder()">Tomorrow</button>
         <button mat-button (click)="weekReminder()">Next week</button>
         <button mat-button> <mat-icon>query_builder</mat-icon>Pick date & time</button>
-        <!-- <button mat-button> <mat-icon>room</mat-icon>Pick place</button> -->
+        <button mat-button> <mat-icon>room</mat-icon>Pick place</button>
     </div>
 </mat-menu> 
-
-
-
- 

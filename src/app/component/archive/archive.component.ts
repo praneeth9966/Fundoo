@@ -4,7 +4,7 @@ import { HttpService } from '../../core/services/http/http.service';
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
-  styleUrls: ['./archive.component.css']
+  styleUrls: ['./archive.component.scss']
 })
 export class ArchiveComponent implements OnInit {
   array = [];
@@ -27,8 +27,7 @@ export class ArchiveComponent implements OnInit {
     })
   }
   get(event){
-    console.log("haii");
-    console.log(event);
+    
     
     if(event){
 

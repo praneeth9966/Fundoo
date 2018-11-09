@@ -1,7 +1,7 @@
 .width
 {
     width:60%;
-    /* height:fit-content; */
+    
 }
 .fullWidth
 {
@@ -17,11 +17,7 @@
 [contentEditable=true]:empty:before{
     content: attr(data-text)
 }
-/* mat-card{
-    position: fixed;
-    width: 500px;
-    
-} */
+
 .icons{
     margin-left: 10%;
 }

@@ -1,11 +1,13 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { DataService } from '../../core/services/data/data.service';
+import { MatDialog } from '@angular/material';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-labels',
   templateUrl: './labels.component.html',
-  styleUrls: ['./labels.component.css']
+  styleUrls: ['./labels.component.scss']
 })
 
 export class LabelsComponent implements OnInit {
@@ -15,7 +17,8 @@ export class LabelsComponent implements OnInit {
   labelId = localStorage.getItem('id');
   id = localStorage.getItem('userId')
   token = localStorage.getItem('token')
-  constructor(private httpservice: HttpService, public dataService: DataService) { }
+
+  constructor(private httpservice: HttpService, public dataService: DataService, public dialog: MatDialog) { }
 
   @ViewChild('labels') labels: ElementRef;
   @ViewChild('newLabel') newLabel: ElementRef;
@@ -61,18 +64,27 @@ export class LabelsComponent implements OnInit {
 
 
   deleteLabel(id) {
-    this.httpservice.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token')).subscribe(data => {
-      console.log(data);
-      this.dataService.changeEvent(true);
-
-      alert("We’ll delete this label and remove it from all of your Keep notes. ")
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '500px',
+      panelClass: 'myapp-no-paddding-dialog',
+      data: { name: 'trash' }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('The dialog was closed');
       if (data) {
-        this.getLabels();
+        this.httpservice.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token'))
+          .subscribe(data => {
+            console.log(data);
+            this.dataService.changeEvent(true);
+            // alert("We’ll delete this label and remove it from all of your Keep notes. ")
+            if (data) {
+              this.getLabels();
+            }
+          }, error => {
+            console.log(error);
+          })
       }
-
-    }, error => {
-      console.log(error);
-    })
+    });
   }
 
   updateLabel(id) {

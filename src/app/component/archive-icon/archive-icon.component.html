@@ -1,4 +1,10 @@
-<mat-icon style="cursor: pointer;" matTooltip="Archive" *ngIf="archive.isArchived == false"  aria-label="archive" 
-(click)="archiveNotes()">archive</mat-icon>
-<mat-icon style="cursor: pointer;" matTooltip="UnArchive"  *ngIf="archive.isArchived == true"  aria-label="archive" 
-(click)="unArchiveNotes()">unarchive</mat-icon>
+                    <!-- ********************Archive*********************  -->
+
+<mat-icon class="archiveCursor" matTooltip="Archive" *ngIf="archive.isArchived == false" 
+    aria-label="archive" 
+    (click)="archiveNotes()">archive</mat-icon>
+
+                    <!-- ********************Unarchive*********************  -->
+
+<mat-icon class="UnarchiveCursor" matTooltip="UnArchive"  *ngIf="archive.isArchived == true" 
+ aria-label="archive" (click)="unArchiveNotes()">unarchive</mat-icon>

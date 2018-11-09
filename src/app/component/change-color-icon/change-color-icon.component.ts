@@ -4,7 +4,7 @@ import { HttpService } from '../../core/services/http/http.service';
 @Component({
   selector: 'app-change-color-icon',
   templateUrl: './change-color-icon.component.html',
-  styleUrls: ['./change-color-icon.component.css']
+  styleUrls: ['./change-color-icon.component.scss']
 })
 export class ChangeColorIconComponent implements OnInit {
   constructor(private httpService: HttpService) { }
@@ -12,6 +12,20 @@ export class ChangeColorIconComponent implements OnInit {
   @Output() noteColor = new EventEmitter();
   @Output() ParentNoteColor = new EventEmitter<string>();
   body;
+  colorArray = [[{ 'color': '#ffffff', 'name': 'White' },
+  { 'color': '#f28b82', 'name': 'Red' },
+  { 'color': '#fbbc04', 'name': 'Orange' },
+  { 'color': '#fff475', 'name': 'Yellow' }],
+
+  [{ 'color': '#ccff90', 'name': 'Green' },
+  { 'color': '#a7ffeb', 'name': 'Teal' },
+  { 'color': '#cbf0f8', 'name': 'Blue' },
+  { 'color': '#aecbfa', 'name': 'Dark blue' }],
+
+  [{ 'color': '#d7aefb', 'name': 'Purple' },
+  { 'color': '#fdcfe8', 'name': 'Pink' },
+  { 'color': '#e6c9a8', 'name': 'Brown' },
+  { 'color': '#e8eaed', 'name': 'Gray' }]]
 
   ngOnInit() {
   }
@@ -26,7 +40,6 @@ export class ChangeColorIconComponent implements OnInit {
     this.httpService.httpDeleteNotes('notes/changesColorNotes', this.body, token).subscribe(res => {
       console.log(res);
       this.noteColor.emit();
-
     }, error => {
       console.log(error);
     })

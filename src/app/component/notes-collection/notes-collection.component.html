@@ -2,19 +2,24 @@
   <div fxFlex=10>
 
   </div>
-  <div fxLayoutAlign="start start" fxFlex fxLayout="row wrap" fxLayoutWrap fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="20px"
+  <div fxLayoutAlign="start start" fxFlex fxLayout="row wrap" fxLayoutWrap fxLayout.xs="column"
+   fxLayout.sm="column" fxLayoutGap="20px"
     style="height:auto;width:20px;margin-top: 30px">
 
-    <mat-card  [ngClass]="{'grid': toggle,'list': !toggle}" class="example-card" *ngFor="let notes of array | LockFilter:searchBar" [ngStyle]="{'background-color':notes.color}">
+    <mat-card  [ngClass]="{'grid': toggle,'list': !toggle}" class="example-card"
+     *ngFor="let notes of array | LockFilter:searchBar"
+     [ngStyle]="{'background-color':notes.color}">
      
         <div (click)="update(notes)">
           <mat-card-header>
             <mat-card-title>
-              <div contenteditable="false" dir="ltr" aria-multiline="true" [innerHTML]="notes.title" role="textbox">{{notes.title}}</div>
+              <div contenteditable="false" dir="ltr" aria-multiline="true" 
+              [innerHTML]="notes.title" role="textbox">{{notes.title}}</div>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="content">
-            <div contenteditable="false" aria-multiline="true" role="textbox" [innerHTML]="notes.description"> {{notes.description}}
+            <div contenteditable="false" aria-multiline="true" role="textbox" 
+            [innerHTML]="notes.description"> {{notes.description}}
             </div>
           </mat-card-content>
         </div>
@@ -25,20 +30,36 @@
           <div *ngFor="let items of notes.noteLabels">
             <mat-chip-list selected>
               <mat-chip *ngIf='items.isDeleted == false'>{{items.label}}
-                <mat-icon (click)="removeLabel(notes.id,items.id)" class="removeicon">cancel</mat-icon>
+                <mat-icon (click)="removeLabel(notes.id,items.id)" class="removeicon">
+                cancel</mat-icon>
               </mat-chip>
             </mat-chip-list>
           </div>
         </div>
 
+        <!-- <div fxLayout="row wrap">
+          <div>
+            <mat-chip-list selected>
+              <mat-chip>{{notes.reminder}}
+                <mat-icon >cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div> -->
+
+
         <mat-card-actions>
           <div class="icons" fxLayoutAlign="space-between">
             <app-remindme-icon [reminders]="notes"></app-remindme-icon>
             <app-collaborator-icon></app-collaborator-icon>
-            <app-change-color-icon [notesArray]="notes.id" (noteColor)=messageColor($event)></app-change-color-icon>
+            <app-change-color-icon [notesArray]="notes.id" (noteColor)=messageColor($event)>
+            </app-change-color-icon>
             <app-add-image-icon></app-add-image-icon>
-            <app-archive-icon [archive]="notes" (archiveNote)="myArchiveNotes($event)" (unArchiveNote)="unArchive($event)"></app-archive-icon>
-            <app-more-icon [notesArray]="notes" [name]="name" (deleteNote)="getNotification($event)" (trashEvent)="trashFunc($event)" (restoreEvent)="restoreFunc($event)"></app-more-icon>
+            <app-archive-icon [archive]="notes" (archiveNote)="myArchiveNotes($event)" 
+            (unArchiveNote)="unArchive($event)"></app-archive-icon>
+            <app-more-icon [notesArray]="notes" [name]="name" 
+            (deleteNote)="getNotification($event)" (trashEvent)="trashFunc($event)" 
+            (restoreEvent)="restoreFunc($event)"></app-more-icon>
           </div>
         </mat-card-actions>
      

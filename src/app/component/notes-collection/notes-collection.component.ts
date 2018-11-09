@@ -7,7 +7,7 @@ import {LoggerService} from '../../core/services/logger/logger.service';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
-  styleUrls: ['./notes-collection.component.css']
+  styleUrls: ['./notes-collection.component.scss']
 })
 export class NotesCollectionComponent implements OnInit {
   notes = [];
@@ -101,7 +101,7 @@ this.restoreParent.emit(event);
     // debugger;
     this.dataService.viewListObserver.subscribe(message=>{
       this.toggle=message;
-      console.log(message);
+      // console.log(message);
       
     })
   }

@@ -1,32 +1,40 @@
 <div fxLayout='column' fxLayoutAlign="center center" style="margin-top:30px ">
 
-<!-- ********************MatCard1****************** -->
+  <!-- ********************MatCard1****************** -->
 
-  <mat-card fxFlex *ngIf="show" class="example-card" style="  width:50%; ;position: relative;; padding: 0; border-radius: 10px">
+  <mat-card fxFlex *ngIf="show" class="example-card" 
+    style="width:50%; ;position: relative;; padding: 0; border-radius: 10px">
     <mat-card-content fxLayout='row' fxLayout.xs='row' style="margin-left:15px">
       <div (click)="open()" fxFlex style="margin-top:12px">
         Take a note...
       </div>
 
-      <div fxFlex=40 fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="10px" fxLayoutAlign="end" fxLayoutAlign.xs="center">
-        <button fxFlex=20 mat-icon-button matTooltip="New list" (click)="checkListButton()"><mat-icon>list</mat-icon></button>
-        <button fxFlex=20 mat-icon-button matTooltip="New note with image"><mat-icon>image</mat-icon></button>
-        <button fxFlex=20 mat-icon-button matTooltip="Drawing"><mat-icon>brush</mat-icon></button>
+      <div fxFlex=40 fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="10px" 
+        fxLayoutAlign="end" fxLayoutAlign.xs="center">
+        <button fxFlex=20 mat-icon-button matTooltip="New list" 
+        (click)="checkListButton()"><mat-icon>list</mat-icon></button>
+        <button fxFlex=20 mat-icon-button matTooltip="New note with image"><mat-icon>
+        image</mat-icon></button>
+        <button fxFlex=20 mat-icon-button matTooltip="Drawing"><mat-icon>brush
+        </mat-icon></button>
       </div>
 
     </mat-card-content>
 
   </mat-card>
 
-<!-- ********************MatCard2****************** -->
+  <!-- ********************MatCard2****************** -->
 
-  <mat-card fxFlex *ngIf="!show" class="example-card" [ngStyle]="{'background-color':parentColor}" style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
+  <mat-card fxFlex *ngIf="!show" class="example-card" 
+    [ngStyle]="{'background-color':parentColor}" 
+    style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
 
     <mat-card-content>
       <div fxLayout='row' fxLayout.xs='row'>
-        <div fxFlex=98 contenteditable="true" data-text="Title" class="cards" id="titleId" style="margin-top:20px"> </div>
+        <div fxFlex=98 contenteditable="true" data-text="Title" class="cards" id="titleId" 
+        style="margin-top:20px"> </div>
 
-        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg"></div> -->
+        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg"></div>-->
       </div>
       <div *ngIf="checkList == true">
         <hr>
@@ -39,7 +47,8 @@
         <hr>
       </div>
 
-      <div style="margin-top:20px" *ngIf="checkList == false" contenteditable="true" data-text="Take a note..." class="cards" id="takeANoteId"></div>
+      <div style="margin-top:20px" *ngIf="checkList == false" contenteditable="true" 
+      data-text="Take a note..." class="cards" id="takeANoteId"></div>
     </mat-card-content>
 
 
@@ -66,7 +75,8 @@
           <app-collaborator-icon></app-collaborator-icon>
         </div>
         <div fxFlex=9>
-          <app-change-color-icon (ParentNoteColor)="changeParentColor($event)"></app-change-color-icon>
+          <app-change-color-icon (ParentNoteColor)="changeParentColor($event)">
+          </app-change-color-icon>
         </div>
         <div fxFlex=9>
           <app-add-image-icon></app-add-image-icon>
@@ -75,33 +85,33 @@
           <app-archive-icon [archive]='archive'></app-archive-icon>
         </div>
         <div fxFlex=40>
-            <mat-icon mat-icon-button style="margin-bottom:-10px;user-select: none;" [matMenuTriggerFor]="menu"  matTooltip="More">more_vert</mat-icon>&nbsp;
-            <mat-menu  style="padding-top:30px;"class="menu" #menu="matMenu" [overlapTrigger]="false">
+            <mat-icon mat-icon-button style="margin-bottom:-10px;user-select: none;" 
+            [matMenuTriggerFor]="menu"  matTooltip="More">more_vert</mat-icon>&nbsp;
+            <mat-menu  style="padding-top:30px;"class="menu" #menu="matMenu" 
+              [overlapTrigger]="false">
                 
                   <button mat-menu-item  (click)="getLabels()" [matMenuTriggerFor]="addlabel">
                     <span>Add label</span></button>
-                    <mat-menu [overlapTrigger]="false" (click)="$event.stopPropagation();"  #addlabel="matMenu"><div class="title">Label note</div>
-                      <br><div fxLayout="row" (click)="$event.stopPropagation();">
+                    <mat-menu [overlapTrigger]="false" (click)="$event.stopPropagation();" 
+                     #addlabel="matMenu"><div class="title">Label note</div>
+                      <br>
+                        <div fxLayout="row" (click)="$event.stopPropagation();">
                          
-                         <input  class="inputTitle" [(ngModel)]="query" placeholder="Enter label name">
+                         <input  class="inputTitle" [(ngModel)]="query"
+                          placeholder="Enter label name">
                          <mat-icon fxFlex="30" (click)="searchState()">search</mat-icon>
                         </div>
-                      <br><div *ngFor="let label of notes | LockFilter: query">
+                      <br>
+                      <div *ngFor="let label of notes | LockFilter: query">
                         
-                      <mat-checkbox (click)="$event.stopPropagation();"  (click)="clickFunc(label)" class="example-margin">{{label.label}}</mat-checkbox>
-                  </div>
-              </mat-menu>
-                    </mat-menu>
+                        <mat-checkbox (click)="$event.stopPropagation();" 
+                        (click)="clickFunc(label)" class="example-margin">{{label.label}}
+                        </mat-checkbox>
+                      </div>
+                  </mat-menu>
+             </mat-menu>
 
         </div>
-
-
-
-
-
-
-
-
 
         <div fxFlex>
 

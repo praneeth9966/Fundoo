@@ -4,7 +4,7 @@ import { HttpService } from '../../core/services/http/http.service';
 @Component({
   selector: 'app-archive-icon',
   templateUrl: './archive-icon.component.html',
-  styleUrls: ['./archive-icon.component.css']
+  styleUrls: ['./archive-icon.component.scss']
 })
 export class ArchiveIconComponent implements OnInit {
   token=localStorage.getItem('token')
