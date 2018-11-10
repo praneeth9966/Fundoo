@@ -13,6 +13,9 @@ export class DataService {
   private gridMessage = new Subject<boolean>();
   viewListObserver = this.gridMessage.asObservable();
 
+  private profileSource= new BehaviorSubject(false);
+  currentProfile=this.profileSource.asObservable();
+
   constructor() { }
 
   changeMessage(message: string) {
@@ -26,4 +29,7 @@ export class DataService {
     this.gridMessage.next(message);
   }
 
+changeProfile(message: boolean) {
+    this.profileSource.next(message);
+  }
 }

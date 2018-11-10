@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../../core/services/data/data.service';
-import {LoggerService} from '../../core/services/logger/logger.service';
+import { LoggerService } from '../../core/services/logger/logger.service';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
@@ -11,14 +11,14 @@ import {LoggerService} from '../../core/services/logger/logger.service';
 })
 export class NotesCollectionComponent implements OnInit {
   notes = [];
-  toggle=false;
+  toggle = false;
   interval;
   public labelBody = {};
-
-  constructor(private httpService: HttpService,public dialog: MatDialog,private dataService:DataService) { 
-    this.dataService.currentEvent.subscribe(message=>{
+  public reminderBody = {};
+  constructor(private httpService: HttpService, public dialog: MatDialog, private dataService: DataService) {
+    this.dataService.currentEvent.subscribe(message => {
       console.log(message);
-      if(message){
+      if (message) {
         this.notifyParent.emit();
       }
     })
@@ -41,24 +41,38 @@ export class NotesCollectionComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',
       panelClass: 'myapp-no-padding-dialog',
-      position: {left:'450px'},
+      position: { left: '450px' },
       data: notes
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        this.notifyParent.emit({  
-        })
+      this.notifyParent.emit({
+      })
     });
   }
 
-  removeLabel(id,labelId) {
+  removeLabel(id, labelId) {
     this.labelBody = {
       "noteId": id,
       "lableId": labelId
     }
     this.httpService.httpPostArchive('notes/' + id + '/addLabelToNotes/' + labelId + '/remove', this.labelBody, localStorage.getItem('token')).subscribe(result => {
-      // console.log(result);
-      LoggerService.log('result',result);
+      
+      LoggerService.log('result', result);
+      this.notifyParent.emit({
+      });
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  removeReminder(id) {
+    this.reminderBody = {
+      "noteIdList": [id]
+    }
+    this.httpService.httpPostArchive('notes/removeReminderNotes', this.reminderBody, localStorage.getItem('token')).subscribe(result => {
+
+      LoggerService.log('result', result);
       this.notifyParent.emit({
       });
     }, error => {
@@ -67,8 +81,6 @@ export class NotesCollectionComponent implements OnInit {
   }
 
   getNotification($sevent) {
-    
-    
     this.notifyParent.emit({
     });
   }
@@ -81,28 +93,32 @@ export class NotesCollectionComponent implements OnInit {
     this.archiveParent.emit();
   }
 
-  trashFunc(event){
+  trashFunc(event) {
     console.log(event);
-    
-this.trashParent.emit(event);
+
+    this.trashParent.emit(event);
   }
 
-  unArchive(event){
+  unArchive(event) {
     console.log(event);
-this.unArchiveParent.emit(event);
+    this.unArchiveParent.emit(event);
   }
 
 
-  restoreFunc(event){
-this.restoreParent.emit(event);
+  restoreFunc(event) {
+    this.restoreParent.emit(event);
   }
 
-  gridView(){
+  addReminder(event){
+    this.notifyParent.emit();
+  }
+
+  gridView() {
     // debugger;
-    this.dataService.viewListObserver.subscribe(message=>{
-      this.toggle=message;
+    this.dataService.viewListObserver.subscribe(message => {
+      this.toggle = message;
       // console.log(message);
-      
+
     })
   }
 }

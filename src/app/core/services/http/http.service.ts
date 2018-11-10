@@ -198,4 +198,15 @@ httpGetReminder(nexturl,token){
   };
   return this.http.get(environment.baseUrl+"/"+nexturl,httpOptions)
 }
+
+httpRemoveReminder(nexturl,body,token){
+  console.log(token);
+  var httpOptions={
+    headers:new HttpHeaders({
+     
+     'Authorization':token
+    })
+  };
+  return this.http.post(environment.baseUrl+"/"+nexturl,body,httpOptions)
+}
 }

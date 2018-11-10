@@ -7,6 +7,8 @@ import { HttpService } from '../../core/services/http/http.service';
 import { MatDialog } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
 import { DataService } from '../../core/services/data/data.service'
+import { CropImageComponent } from '../crop-image/crop-image.component';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -32,7 +34,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     this.emailId = this.email.split("");
     this.myEmail = this.emailId[0];
-    
+
     this.labelList();
   }
 
@@ -50,7 +52,7 @@ export class NavigationComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LabelsComponent, {
-      width: '250px',
+      width: '300px',
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -61,7 +63,7 @@ export class NavigationComponent implements OnInit {
   labelList() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
-     
+
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
@@ -79,18 +81,11 @@ export class NavigationComponent implements OnInit {
   img = "http://34.213.106.173/" + this.image2;
 
   onFileUpload(event) {
-    var token = localStorage.getItem('token');
+    this.openDialogCrop(event);
     this.selectedFile = event.path[0].files[0];
     const uploadData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
-    this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
-      console.log(res);
-      console.log("url: ", res['status'].imageUrl)
-      this.img = "http://34.213.106.173/" + res['status'].imageUrl;
-      localStorage.setItem('imageUrl',res['status'].imageUrl);
-    }, error => {
-      console.log(error);
-    })
+
   }
 
   navigation() {
@@ -108,6 +103,24 @@ export class NavigationComponent implements OnInit {
     this.gridList = 0;
     this.dataservice.observerViewList(false);
   }
-  
+
+  public pic;
+  openDialogCrop(data): void {
+    const dialogRef1 = this.dialog.open(CropImageComponent, {
+      width: '500px',
+
+      data: data
+
+    });
+
+    dialogRef1.afterClosed().subscribe(result => {
+      this.dataservice.currentProfile.subscribe(message => this.pic = message)
+      if (this.pic == true) {
+        this.image2 = localStorage.getItem('imageUrl');
+        this.img = environment.profileUrl + this.image2;
+      }
+    });
+  }
+
 }
 

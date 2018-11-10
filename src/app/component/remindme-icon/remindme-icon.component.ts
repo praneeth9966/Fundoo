@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter} from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
+
 
 @Component({
   selector: 'app-remindme-icon',
@@ -12,7 +13,15 @@ export class RemindmeIconComponent implements OnInit {
   constructor(private httpService: HttpService) { }
   token = localStorage.getItem('token')
   @Input() reminders;
+  @Output() addReminderEvent = new EventEmitter();
   body = {};
+  show=true;
+  datePickReminder(){
+    this.show=!this.show;
+  }
+  backPressDatePicker(){
+    this.show=true;
+  }
   ngOnInit() {
   }
 
@@ -35,6 +44,7 @@ export class RemindmeIconComponent implements OnInit {
       }
     this.httpService.httpAddReminder('/notes/addUpdateReminderNotes', this.body, this.token)
       .subscribe(data => {
+        this.addReminderEvent.emit();
         console.log(data);
       },
         error => {
@@ -50,6 +60,7 @@ export class RemindmeIconComponent implements OnInit {
       }
     this.httpService.httpAddReminder('/notes/addUpdateReminderNotes', this.body, this.token)
       .subscribe(data => {
+        this.addReminderEvent.emit();
         console.log(data);
       },
         error => {
@@ -65,6 +76,7 @@ export class RemindmeIconComponent implements OnInit {
       }
     this.httpService.httpAddReminder('/notes/addUpdateReminderNotes', this.body, this.token)
       .subscribe(data => {
+        this.addReminderEvent.emit();
         console.log(data);
       },
         error => {

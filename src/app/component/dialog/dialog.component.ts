@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Output, EventEmitter, ElementRef } from '@an
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpService } from '../../core/services/http/http.service';
 import { NotesCollectionComponent } from '../notes-collection/notes-collection.component';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 export interface DialogData {
   title: string;
@@ -19,7 +20,8 @@ export interface DialogData {
 export class DialogComponent implements OnInit {
   body;
   public labelBody = {};
-  archive={'isArchived':false}
+  archive = { 'isArchived': false }
+  reminderBody: { "noteIdList": any[]; };
   constructor(public httpService: HttpService,
     public dialogRef: MatDialogRef<NotesCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
@@ -60,17 +62,26 @@ export class DialogComponent implements OnInit {
       this.labelBody, localStorage.getItem('token')).subscribe(result => {
         console.log(result);
 
-        // this.notifyParent.emit({
-        // });
+        
       }, error => {
         console.log(error);
       })
   }
 
+  removeReminder(id) {
+    this.reminderBody = {
+      "noteIdList": [this.data.id]
+    }
+    this.httpService.httpPostArchive('notes/removeReminderNotes', this.reminderBody, localStorage.getItem('token')).subscribe(result => {
+
+      LoggerService.log('result', result);
+
+    }, error => {
+      console.log(error);
+    })
+  }
+
   getNotification(event) {
-
-    
-
 
   }
 }

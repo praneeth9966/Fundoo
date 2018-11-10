@@ -1,9 +1,55 @@
-[contentEditable=true]:empty:before{
-    content: attr(data-text)
+
+
+
+[contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    color: grey;
+    display: inline-block;
 }
-.deleteicon{
-    margin-left: 20px;
+
+.edit 
+{
+    border: none;
+    border-color: transparent;
+    outline: none;
+    word-wrap: break-word;
+   
+    cursor:default;
 }
-.createicon{
-    margin-left: 47px; word-wrap: break-word;
+.button
+{
+    float : right;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.icon
+{
+    cursor: pointer;
+}
+.val
+{
+    margin-top: 20px;
+    cursor: pointer;
+}
+.name 
+{
+    margin-left: 5px;
+    border: none;
+    border-color: transparent;
+    outline: none;
+    word-wrap: break-word;
+    width: 100%;
+    min-height: 20px;
+}
+.create
+{
+    float: right;
+}
+
+.lock:hover .icon-unlock,
+.lock .icon-lock {
+display: none;
+}
+.lock:hover .icon-lock {
+display: inline;
 }

@@ -38,12 +38,7 @@ export class SignupComponent implements OnInit {
     }
 
 
-  //   this.register = this.formBuilder.group({
-  //     firstName: ['', Validators.required, Validators.pattern('[a-zA-Z ]*')],
-  //     lastName: ['', Validators.required, Validators.pattern('[a-zA-Z ]*')],
-  //     email: ['', [Validators.required, Validators.email]],
-  //     password: ['', [Validators.required]]
-  // });
+  
 
 
     this.records = this.httpService.postHttpData('user/userSignUp', this.register).subscribe(result => {

@@ -42,6 +42,8 @@ import { DataService } from './core/services/data/data.service';
 import { ChangeLabelComponent } from './component/change-label/change-label.component';
 import { DeleteDialogComponent } from './component/delete-dialog/delete-dialog.component';
 import { LoggerService } from './core/services/logger/logger.service';
+import { CropImageComponent } from './component/crop-image/crop-image.component';
+import { ImageCropperModule } from "ngx-image-cropper";
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { LoggerService } from './core/services/logger/logger.service';
     SearchComponent,
     ChangeLabelComponent,
     DeleteDialogComponent,
+    CropImageComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -102,8 +105,9 @@ import { LoggerService } from './core/services/logger/logger.service';
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ImageCropperModule
   ],
-  entryComponents: [DialogComponent, DeleteDialogComponent],
+  entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent],
   providers: [HttpService, DataService, MatDatepickerModule, LoggerService],
 
   bootstrap: [AppComponent]

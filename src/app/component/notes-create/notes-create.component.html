@@ -1,9 +1,11 @@
-<div fxLayout='column' fxLayoutAlign="center center" style="margin-top:30px ">
+<div fxLayout='row' style="margin-top:30px">
+<div fxFlex=10 fxFlex.xs=0></div>
+<div fxFlex  fxLayoutAlign="center" fxFlex.xs=100>
 
   <!-- ********************MatCard1****************** -->
 
-  <mat-card fxFlex *ngIf="show" class="example-card" 
-    style="width:50%; ;position: relative;; padding: 0; border-radius: 10px">
+  <mat-card *ngIf="show" class="example-card" 
+    style="width:500px; padding: 0; border-radius: 10px">
     <mat-card-content fxLayout='row' fxLayout.xs='row' style="margin-left:15px">
       <div (click)="open()" fxFlex style="margin-top:12px">
         Take a note...
@@ -25,9 +27,9 @@
 
   <!-- ********************MatCard2****************** -->
 
-  <mat-card fxFlex *ngIf="!show" class="example-card" 
+  <mat-card  *ngIf="!show" class="example-card" 
     [ngStyle]="{'background-color':parentColor}" 
-    style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
+    style=" width:500px;padding: 5; border-radius: 10px">
 
     <mat-card-content>
       <div fxLayout='row' fxLayout.xs='row'>
@@ -67,7 +69,7 @@
           <!-- ********************MatCardActions****************** -->
 
     <mat-card-actions>
-      <div fxLayout='row' fxLayout.xs='row'>
+      <div fxLayout='row' fxLayout.xs='row' fxLayoutGap="space-between">
         <div fxFlex=9>
           <app-remindme-icon></app-remindme-icon>
         </div>
@@ -84,7 +86,7 @@
         <div fxFlex=9>
           <app-archive-icon [archive]='archive'></app-archive-icon>
         </div>
-        <div fxFlex=40>
+        <div fxFlex=9>
             <mat-icon mat-icon-button style="margin-bottom:-10px;user-select: none;" 
             [matMenuTriggerFor]="menu"  matTooltip="More">more_vert</mat-icon>&nbsp;
             <mat-menu  style="padding-top:30px;"class="menu" #menu="matMenu" 
@@ -113,7 +115,7 @@
 
         </div>
 
-        <div fxFlex>
+        <div fxFlex fxLayoutAlign="end">
 
           <button mat-button (click)="close();createNotes()">Close</button>
         </div>
@@ -121,5 +123,8 @@
     </mat-card-actions>
 
   </mat-card>
+
+</div>
+<div fxFlex=10 fxFlex.xs=0></div>
 
 </div>

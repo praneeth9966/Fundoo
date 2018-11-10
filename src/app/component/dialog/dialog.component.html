@@ -25,6 +25,18 @@
     </div>
     </div>
 
+    <div fxLayout="row wrap">
+        <div *ngFor="let items of data.reminder">
+          <mat-chip-list selected>
+            <mat-chip >
+              {{items | date:'medium'}}
+              <mat-icon (click)="removeReminder(items.id)" class="removeicon">
+                  cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+
     <mat-card-actions>
       <div fxLayout='row' fxLayout.xs='row'>
         <div fxFlex=9>

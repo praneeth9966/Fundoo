@@ -53,7 +53,7 @@ export class MoreIconComponent implements OnInit {
     this.httpService.httpPostArchive('notes/' + this.notesArray.id + '/addLabelToNotes/' + labelId + '/add', this.labelBody, localStorage.getItem('token')).subscribe(result => {
       console.log(result);
       this.deleteNote.emit();
-      this.addedLabel.emit();
+      // this.addedLabel.emit();
     }, error => {
       console.log(error);
     })

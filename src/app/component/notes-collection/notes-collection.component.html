@@ -1,8 +1,9 @@
-<div>
+
+<div >
   <div fxFlex=10>
 
   </div>
-  <div fxLayoutAlign="start start" fxFlex fxLayout="row wrap" fxLayoutWrap fxLayout.xs="column"
+  <div fxLayoutAlign="center center" fxFlex fxLayout="row wrap" fxLayoutWrap fxLayout.xs="column"
    fxLayout.sm="column" fxLayoutGap="20px"
     style="height:auto;width:20px;margin-top: 30px">
 
@@ -36,21 +37,24 @@
             </mat-chip-list>
           </div>
         </div>
+ 
+        <div style="padding-top:5px"></div>
 
-        <!-- <div fxLayout="row wrap">
-          <div>
+        <div fxLayout="row wrap">
+          <div *ngFor="let items of notes.reminder">
             <mat-chip-list selected>
-              <mat-chip>{{notes.reminder}}
-                <mat-icon >cancel</mat-icon>
+              <mat-chip >
+                {{items | date:'medium'}}
+                <mat-icon (click)="removeReminder(notes.id)" class="removeicon">
+                    cancel</mat-icon>
               </mat-chip>
             </mat-chip-list>
           </div>
-        </div> -->
-
+        </div>
 
         <mat-card-actions>
           <div class="icons" fxLayoutAlign="space-between">
-            <app-remindme-icon [reminders]="notes"></app-remindme-icon>
+            <app-remindme-icon [reminders]="notes" (addReminderEvent)="addReminder($event)"></app-remindme-icon>
             <app-collaborator-icon></app-collaborator-icon>
             <app-change-color-icon [notesArray]="notes.id" (noteColor)=messageColor($event)>
             </app-change-color-icon>
@@ -72,3 +76,7 @@
 
   </div>
 </div>
+
+
+
+
