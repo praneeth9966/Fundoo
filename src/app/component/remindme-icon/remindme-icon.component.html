@@ -70,13 +70,13 @@
             <input placeholder="Choose time" (click)="$event.stopPropagation()" mat-input 
                     [matMenuTriggerFor]="menu">
             <mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="$event.stopPropagation()">
                     <div fxFlex="20">Morning</div>
                     <div fxFlex="60"></div>
                     <div fxFlex="20"><span>8.00 AM</span></div>
                 </button>
       
-                <button mat-menu-item>
+                <button mat-menu-item (click)="$event.stopPropagation()">
                     <div fxFlex="20">Night</div>
                     <div fxFlex="60"></div>
                     <div fxFlex="20"><span>9.00 PM</span></div>

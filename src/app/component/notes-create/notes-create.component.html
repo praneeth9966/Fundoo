@@ -38,16 +38,36 @@
 
         <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg"></div>-->
       </div>
-      <div *ngIf="checkList == true">
-        <hr>
+     
+
+          <div *ngIf="checkList == true">
+              <div class="check" *ngFor="let data of dataarray" fxLayout="row">
+                  <mat-checkbox fxFlex="5%"></mat-checkbox>
+                  <input fxFlex="90" *ngIf="checkList == true" class="inputNote1"  [(ngModel)]=data.data (keydown)="editing($event.data)">
+                  <mat-icon fxFlex="4%" (click)=ondelete(data) matTooltip="delete">cancel</mat-icon>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="check" fxLayout="row" autofocus #description>
+                  <mat-icon fxFlex="5%">add</mat-icon>
+                  <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" [(ngModel)]=data.data placeholder="list item"
+                      (keydown.enter)="enter()">
+              </div>
+              <mat-divider></mat-divider>
+          </div>
+
+
+          
+
+
+        <!-- <hr>
         <div fxLayout="row" style="margin-top:20px">
 
           <mat-icon>add</mat-icon>
           <div contenteditable="true" data-text="List item" class="cards" id="takeANoteId"></div>
 
         </div>
-        <hr>
-      </div>
+        <hr> -->
+    
 
       <div style="margin-top:20px" *ngIf="checkList == false" contenteditable="true" 
       data-text="Take a note..." class="cards" id="takeANoteId"></div>

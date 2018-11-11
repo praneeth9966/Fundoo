@@ -25,6 +25,32 @@
           </mat-card-content>
         </div>
 
+         
+        <div class="note" *ngFor="let checklist of notes.noteCheckLists" fxLayout="row" > 
+            <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" 
+            (click)=checkBox(checklist,notes.id)></mat-checkbox>
+            <input *ngIf="!checklist.isDeleted && checklist.status=='open' " 
+            [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
+               [ngStyle]="{'background-color':notes.color}">
+           </div>
+          
+            <div class="note" *ngFor="let checklist of notes.noteCheckLists" fxLayout="row">
+            <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted"
+             (click)=checkBox(checklist,notes.id)></mat-checkbox>
+            <del *ngIf="!checklist.isDeleted && checklist.status=='close'"
+             >{{checklist.itemName}}</del>
+          </div>
+ 
+
+
+
+
+        <!-- <mat-card-content class="note" *ngFor="let checklist of notes.noteCheckLists" fxLayout="row">
+            <mat-checkbox fxFlex="10%" checked=true ></mat-checkbox>
+            <div>{{checklist.itemName}}</div>
+        </mat-card-content>
+         -->
+
         <!-- **************adding and Removeing labels************** -->
 
         <div fxLayout="row wrap">

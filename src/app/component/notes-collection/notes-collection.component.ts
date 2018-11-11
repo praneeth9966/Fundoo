@@ -15,6 +15,8 @@ export class NotesCollectionComponent implements OnInit {
   interval;
   public labelBody = {};
   public reminderBody = {};
+  modifiedCheckList: any;
+  public isChecked=false;
   constructor(private httpService: HttpService, public dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
       console.log(message);
@@ -121,4 +123,37 @@ export class NotesCollectionComponent implements OnInit {
 
     })
   }
+   
+checkBox(checkList,note) {
+  console.log(note);
+  
+      if (checkList.status == "open") {
+        checkList.status = "close"
+      }
+      else {
+        checkList.status = "open"
+      }
+      console.log(checkList);
+      this.modifiedCheckList = checkList;
+      this.updatelist(note);
+    }
+     
+  updatelist(id){
+    var checklistData = {
+      "itemName": this.modifiedCheckList.itemName,
+      "status": this.modifiedCheckList.status
+    }
+    console.log(checklistData);
+    
+    var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
+   var  checkNew=JSON.stringify(checklistData);
+  
+    this.httpService.httpDeleteNotes(url,checkNew,localStorage.getItem('token')).subscribe(response => {
+      console.log(response);
+  
+    })
+  }
+  
+  
+  
 }

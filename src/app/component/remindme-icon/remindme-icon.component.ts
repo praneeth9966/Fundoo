@@ -1,7 +1,6 @@
 import { Component, OnInit, Input,Output,EventEmitter} from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 
-
 @Component({
   selector: 'app-remindme-icon',
   templateUrl: './remindme-icon.component.html',
