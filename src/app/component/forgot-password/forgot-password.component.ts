@@ -29,33 +29,26 @@ export class ForgotPasswordComponent implements OnInit {
 
   resetPassword() {
     console.log(this.temp.email);
-
     if (this.temp.email.length == 0) {
       console.log("Email is required");
       this.snackBar.open("Email is required ", "login unsuccessfull", {
         duration: 10000,
       });
-
     }
     else {
       this.resetService.postHttpData('user/reset', this.temp)
         .subscribe(
           data => {
-
             console.log("reset successfull,check your mail once");
             this.snackBar.open("reset successfull ", "successfull", {
               duration: 10000,
             });
-
-
           }),
         error => {
-
           console.log("Error", error);
           this.snackBar.open("enter valid details ", "login unsuccessfull", {
             duration: 10000,
           });
-
         }
     }
   }

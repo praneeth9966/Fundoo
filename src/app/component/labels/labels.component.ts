@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { DataService } from '../../core/services/data/data.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
@@ -18,7 +18,7 @@ export class LabelsComponent implements OnInit {
   id = localStorage.getItem('userId')
   token = localStorage.getItem('token')
 
-  constructor(private httpservice: HttpService, public dataService: DataService, public dialog: MatDialog) { }
+  constructor(private httpservice: HttpService, public dataService: DataService, public dialog: MatDialog,public matSnackBar:MatSnackBar) { }
 
   @ViewChild('labels') labels: ElementRef;
   @ViewChild('newLabel') newLabel: ElementRef;
@@ -36,7 +36,6 @@ export class LabelsComponent implements OnInit {
 
   addLabel() {
     console.log(this.id);
-
     if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML)) {
       this.httpservice.httpPostArchive('noteLabels',
         {
@@ -46,20 +45,18 @@ export class LabelsComponent implements OnInit {
         }, this.token).subscribe(
           (data) => {
             console.log("POST Request is successful ", data);
+            this.matSnackBar.open("Label Added",'Successfully',{
+              duration: 3000,
+            });
             console.log(data);
-
           },
           error => {
             console.log("Error", error);
           })
-
     }
-
     else {
       console.log('label exists');
-
     }
-
   }
 
 
@@ -76,7 +73,6 @@ export class LabelsComponent implements OnInit {
           .subscribe(data => {
             console.log(data);
             this.dataService.changeEvent(true);
-            // alert("We’ll delete this label and remove it from all of your Keep notes. ")
             if (data) {
               this.getLabels();
             }
@@ -110,7 +106,6 @@ export class LabelsComponent implements OnInit {
     this.display = id
   }
 
-
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpservice.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
@@ -124,8 +119,6 @@ export class LabelsComponent implements OnInit {
       console.log(error);
     })
   }
-
-
 
 }
 

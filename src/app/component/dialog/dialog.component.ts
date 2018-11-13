@@ -8,9 +8,7 @@ export interface DialogData {
   title: string;
   description: string;
   id: string;
-
 }
-
 
 @Component({
   selector: 'app-dialog',
@@ -30,6 +28,11 @@ export class DialogComponent implements OnInit {
   public newData: any = {}
   public modifiedCheckList;
   public checklist = false;
+  token = localStorage.getItem('token');
+  public removedList;
+  public adding = false;
+  public addCheck = false;
+  public status = "open"
   // public bgcolor=this.data.color;
 
   constructor(public httpService: HttpService,
@@ -51,17 +54,16 @@ export class DialogComponent implements OnInit {
     if (this.checklist == false) {
 
       this.body = {
-
         'noteId': [this.data.id],
         'title': document.getElementById("newTitle").innerHTML,
         'description': document.getElementById("newDescription").innerHTML,
-        'noteLabels': ""
-
+        'noteLabels': "",
+        'color': '',
       }
+
       this.httpService.httpUpdateNotes('notes/updateNotes', this.body, token)
         .subscribe(data => {
           console.log(data);
-
         })
     }
     else {
@@ -72,10 +74,10 @@ export class DialogComponent implements OnInit {
       var url = "notes/" + this.data['id'] + "/checklist/" + this.modifiedCheckList.id + "/update";
       this.httpService.httpDeleteNotes(url, JSON.stringify(apiData), token).subscribe(response => {
         console.log(response);
+       
       })
-
-
     }
+
     error => {
       console.log("error", error);
     }
@@ -83,22 +85,15 @@ export class DialogComponent implements OnInit {
   }
 
 
-
-
-  token = localStorage.getItem('token');
-
   editing(editedList, event) {
-
     console.log(editedList);
     if (event.code == "Enter") {
       this.modifiedCheckList = editedList;
       this.onNoClick();
     }
-
   }
 
   checkBox(checkList) {
-
     if (checkList.status == "open") {
       checkList.status = "close"
     }
@@ -110,15 +105,15 @@ export class DialogComponent implements OnInit {
     this.onNoClick();
   }
 
-  public removedList;
+
   removeList(checklist) {
     console.log(checklist)
     this.removedList = checklist;
     this.removeCheckList()
   }
+
   removeCheckList() {
     var url = "notes/" + this.data['id'] + "/checklist/" + this.removedList.id + "/remove";
-
     this.httpService.httpDeleteNotes(url, null, this.token).subscribe((response) => {
       console.log(response);
       for (var i = 0; i < this.tempArray.length; i++) {
@@ -128,9 +123,8 @@ export class DialogComponent implements OnInit {
       }
     })
   }
-  public adding = false;
-  public addCheck = false;
-  public status = "open"
+
+
   addList(event) {
     if (this.newList != "") {
       this.adding = true;
@@ -145,12 +139,12 @@ export class DialogComponent implements OnInit {
       else {
         this.status = "open"
       }
+
       this.newData = {
         "itemName": this.newList,
         "status": this.status
       }
       var url = "notes/" + this.data['id'] + "/checklist/add";
-
       this.httpService.httpDeleteNotes(url, this.newData, this.token)
         .subscribe(response => {
           console.log(response);
@@ -158,16 +152,11 @@ export class DialogComponent implements OnInit {
           this.addCheck = false;
           this.adding = false;
           console.log(response['data'].details);
-
           this.tempArray.push(response['data'].details)
-
           console.log(this.tempArray)
-
         })
     }
   }
-
-
 
   removeLabel(label, labelId) {
     this.labelBody = {
@@ -201,14 +190,11 @@ export class DialogComponent implements OnInit {
       if (index > -1) {
         this.selectArray.splice(index, 1);
       }
-
-
     }, error => {
       console.log(error);
     })
   }
 
   getNotification(event) {
-
   }
 }

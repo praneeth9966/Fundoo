@@ -21,29 +21,24 @@ export class CropImageComponent implements OnInit {
 
   ngOnInit() {
   }
+
   imageCropped(event: any) {
     this.croppedImage = event.file;
   }
 
   onUpload() {
-
     var token = localStorage.getItem('token');
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
     this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
-
-
       console.log(res);
-
       localStorage.setItem('imageUrl', res['status'].imageUrl);
       this.dialogRef1.close();
       this.service.changeProfile(true);
     }, error => {
       console.log(error);
     })
-
   }
-
 
 }
 

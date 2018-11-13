@@ -18,7 +18,7 @@ export class ArchiveComponent implements OnInit {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getArchiveNotesList', token).subscribe(res => {
       console.log(res);
-      this.array=[];
+      this.array = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         this.array.push(res['data']['data'][i]);
       }
@@ -26,12 +26,10 @@ export class ArchiveComponent implements OnInit {
       console.log(error);
     })
   }
-  get(event){
-    
-    
-    if(event){
 
-    this.myFunc();
-  }
+  get(event) {
+    if (event) {
+      this.myFunc();
+    }
   }
 }

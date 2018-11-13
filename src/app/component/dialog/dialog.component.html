@@ -1,3 +1,4 @@
+      <!-- *******************************Notes********************************* -->
 
   <mat-card fxFlex *ngIf="!show" class="example-card" 
     [ngStyle]="{'background-color':data.color}" 
@@ -15,13 +16,8 @@
       data-text="" class="cards" id="newDescription">{{data.description}}</div>
     </mat-card-content>
 
+          <!-- *************************checkList************************** -->
 
-
-
-
-
-
-      
     <div class="note" *ngFor="let check of tempArray" fxLayout="row">
     
         <mat-checkbox fxFlex="10%" *ngIf="check.status=='open'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
@@ -46,7 +42,7 @@
     </div>
 
 
-
+      <!-- *******************************Labels********************************* -->
 
     <div fxLayout="row wrap">
       <div *ngFor="let items of selectLabelArray" >
@@ -57,6 +53,8 @@
       </mat-chip-list>
     </div>
     </div>
+
+      <!-- *******************************Reminders********************************* -->
 
     <div fxLayout="row wrap">
         <div *ngFor="let items of selectArray">
@@ -70,6 +68,8 @@
         </div>
       </div>
 
+      <!-- *******************************MatCardActions********************************* -->
+
     <mat-card-actions>
       <div fxLayout='row' fxLayout.xs='row'>
         <div fxFlex=9>
@@ -79,7 +79,7 @@
           <app-collaborator-icon></app-collaborator-icon>
         </div>
         <div fxFlex=9>
-          <app-change-color-icon></app-change-color-icon>
+          <app-change-color-icon ></app-change-color-icon>
         </div>
         <div fxFlex=9>
           <app-add-image-icon></app-add-image-icon>

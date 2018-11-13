@@ -10,19 +10,33 @@ import { HttpService } from '../../core/services/http/http.service';
 export class NotesComponent implements OnInit {
   constructor(private httpService: HttpService) { }
   notes = [];
+  notes1 = [];
 
   ngOnInit() {
-    this.displayNotes()
+    this.displayNotes();
+    this.getPin();
   }
 
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
-      
       this.notes = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
-        if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false)
+        if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == false)
           this.notes.push(res['data']['data'][i]);
+      }
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  getPin() {
+    var token = localStorage.getItem('token');
+    this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
+      this.notes1 = [];
+      for (var i = res['data']['data'].length - 1; i > 0; i--) {
+        if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == true)
+          this.notes1.push(res['data']['data'][i]);
       }
     }, error => {
       console.log(error);
@@ -32,8 +46,8 @@ export class NotesComponent implements OnInit {
   receiveMessage() {
     if (event) {
       this.displayNotes();
+      this.getPin();
     }
   }
 
-  
 }

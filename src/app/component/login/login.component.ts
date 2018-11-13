@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
   isLeftVisible = false;
   register() {
     if (!this.email.invalid) {
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
       alert('invalid email');
     }
   }
+
   login() {
     this.records = this.httpService.postHttpData('user/login', this.body)
       .subscribe(data => {
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('lastName', data['lastName']);
         localStorage.setItem('userId', data['userId']);
         localStorage.setItem('email', data['email']);
-        localStorage.setItem('imageUrl',data['imageUrl']);
+        localStorage.setItem('imageUrl', data['imageUrl']);
         this.matSnackBar.open("Login Successful ", "Successful", {
           duration: 3000,
         });

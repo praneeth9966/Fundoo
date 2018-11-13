@@ -63,7 +63,6 @@ export class NavigationComponent implements OnInit {
   labelList() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
-
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
@@ -85,7 +84,6 @@ export class NavigationComponent implements OnInit {
     this.selectedFile = event.path[0].files[0];
     const uploadData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
-
   }
 
   navigation() {
@@ -108,9 +106,7 @@ export class NavigationComponent implements OnInit {
   openDialogCrop(data): void {
     const dialogRef1 = this.dialog.open(CropImageComponent, {
       width: '500px',
-
       data: data
-
     });
 
     dialogRef1.afterClosed().subscribe(result => {

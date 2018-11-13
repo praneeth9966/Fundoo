@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 
 @Component({
@@ -14,12 +14,12 @@ export class RemindmeIconComponent implements OnInit {
   @Input() reminders;
   @Output() addReminderEvent = new EventEmitter();
   body = {};
-  show=true;
-  datePickReminder(){
-    this.show=!this.show;
+  show = true;
+  datePickReminder() {
+    this.show = !this.show;
   }
-  backPressDatePicker(){
-    this.show=true;
+  backPressDatePicker() {
+    this.show = true;
   }
   ngOnInit() {
   }
@@ -50,6 +50,7 @@ export class RemindmeIconComponent implements OnInit {
           console.log(error)
         })
   }
+
   tomorrowReminder() {
     let currentDate = new Date()
     this.body =
@@ -66,6 +67,7 @@ export class RemindmeIconComponent implements OnInit {
           console.log(error)
         })
   }
+
   weekReminder() {
     let currentDate = new Date()
     this.body =

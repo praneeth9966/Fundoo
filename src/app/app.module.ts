@@ -44,6 +44,7 @@ import { DeleteDialogComponent } from './component/delete-dialog/delete-dialog.c
 import { LoggerService } from './core/services/logger/logger.service';
 import { CropImageComponent } from './component/crop-image/crop-image.component';
 import { ImageCropperModule } from "ngx-image-cropper";
+import { PinComponent } from './component/pin/pin.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { ImageCropperModule } from "ngx-image-cropper";
     ChangeLabelComponent,
     DeleteDialogComponent,
     CropImageComponent,
+    PinComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

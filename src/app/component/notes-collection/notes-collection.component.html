@@ -1,7 +1,5 @@
-
 <div >
   <div fxFlex=10>
-
   </div>
   <div fxLayoutAlign="center center" fxFlex fxLayout="row wrap" fxLayoutWrap fxLayout.xs="column"
    fxLayout.sm="column" fxLayoutGap="20px"
@@ -11,11 +9,15 @@
      *ngFor="let notes of array | LockFilter:searchBar"
      [ngStyle]="{'background-color':notes.color}">
      
+        <!-- *********************Notes************************ -->
+        <div style="float:right"><app-pin [isPinedArray]="notes" (pinEvent)="getNotification($event)"></app-pin></div>
+
         <div (click)="update(notes)">
           <mat-card-header>
             <mat-card-title>
               <div contenteditable="false" dir="ltr" aria-multiline="true" 
               [innerHTML]="notes.title" role="textbox">{{notes.title}}</div>
+            
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="content">
@@ -25,6 +27,7 @@
           </mat-card-content>
         </div>
 
+        <!-- *************CheckLists****************************** -->
          
         <div class="note" *ngFor="let checklist of notes.noteCheckLists" fxLayout="row" > 
             <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" 
@@ -40,23 +43,15 @@
             <del *ngIf="!checklist.isDeleted && checklist.status=='close'"
              >{{checklist.itemName}}</del>
           </div>
- 
 
-
-
-
-        <!-- <mat-card-content class="note" *ngFor="let checklist of notes.noteCheckLists" fxLayout="row">
-            <mat-checkbox fxFlex="10%" checked=true ></mat-checkbox>
-            <div>{{checklist.itemName}}</div>
-        </mat-card-content>
-         -->
+          <div style="padding-top:5px"></div>
 
         <!-- **************adding and Removeing labels************** -->
 
         <div fxLayout="row wrap">
           <div *ngFor="let items of notes.noteLabels">
             <mat-chip-list selected>
-              <mat-chip *ngIf='items.isDeleted == false'>{{items.label}}
+              <mat-chip class="labels" *ngIf='items.isDeleted == false'>{{items.label}}
                 <mat-icon (click)="removeLabel(notes.id,items.id)" class="removeicon">
                 cancel</mat-icon>
               </mat-chip>
@@ -66,10 +61,12 @@
  
         <div style="padding-top:5px"></div>
 
+        <!-- **************adding and Removeing Reminders************** -->
+
         <div fxLayout="row wrap">
           <div *ngFor="let items of notes.reminder">
             <mat-chip-list selected>
-              <mat-chip >
+              <mat-chip  class="reminders">
                 {{items | date:'medium'}}
                 <mat-icon (click)="removeReminder(notes.id)" class="removeicon">
                     cancel</mat-icon>
@@ -77,6 +74,8 @@
             </mat-chip-list>
           </div>
         </div>
+
+        <!-- **************MatCardActions**************************** -->
 
         <mat-card-actions>
           <div class="icons" fxLayoutAlign="space-between">
@@ -92,14 +91,9 @@
             (restoreEvent)="restoreFunc($event)"></app-more-icon>
           </div>
         </mat-card-actions>
-     
     </mat-card>
-
   </div>
-
-
   <div fxFlex=10>
-
   </div>
 </div>
 

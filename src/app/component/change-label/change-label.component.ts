@@ -20,6 +20,7 @@ export class ChangeLabelComponent implements OnInit {
   ngOnInit() {
     this.displayNotes();
   }
+
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
@@ -27,12 +28,10 @@ export class ChangeLabelComponent implements OnInit {
       this.notes = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false)
-
           for (let index = 0; index < res['data']['data'][i].noteLabels.length; index++) {
             if (res['data']['data'][i].noteLabels[index].label == this.findLabel) {
               this.notes.push(res['data']['data'][i]);
             }
-
           }
       }
     }, error => {

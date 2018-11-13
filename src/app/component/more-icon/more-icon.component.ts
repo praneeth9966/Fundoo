@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../../component/delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-more-icon',
@@ -14,7 +14,7 @@ export class MoreIconComponent implements OnInit {
   public display: boolean = true;
   model = {};
   token = localStorage.getItem('token');
-  constructor(private httpService: HttpService, public dialog: MatDialog) { }
+  constructor(private httpService: HttpService, public dialog: MatDialog, public matSnackBar:MatSnackBar) { }
   body;
   public labelBody = {};
   @Output() deleteNote = new EventEmitter();
@@ -35,6 +35,9 @@ export class MoreIconComponent implements OnInit {
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
       console.log(res);
+      this.matSnackBar.open("Notes deleted ",'Successfully',{
+        duration: 3000,
+      });
       this.deleteNote.emit();
     }, error => {
       console.log(error);
@@ -43,9 +46,7 @@ export class MoreIconComponent implements OnInit {
 
   addLabel(labelId) {
     console.log(this.notesArray, "notess");
-
     console.log(this.notesArray.id);
-
     this.labelBody = {
       "noteId": this.notesArray.id,
       "lableId": labelId
@@ -53,7 +54,6 @@ export class MoreIconComponent implements OnInit {
     this.httpService.httpPostArchive('notes/' + this.notesArray.id + '/addLabelToNotes/' + labelId + '/add', this.labelBody, localStorage.getItem('token')).subscribe(result => {
       console.log(result);
       this.deleteNote.emit();
-      // this.addedLabel.emit();
     }, error => {
       console.log(error);
     })
@@ -88,13 +88,10 @@ export class MoreIconComponent implements OnInit {
         }
         this.httpService.httpPostArchive('notes/deleteForeverNotes', this.model, this.token).subscribe(data => {
           console.log(data);
-
           this.trashEvent.emit(true);
-
         }, error => {
           console.log(error);
         })
-
       }
     });
   }
@@ -107,6 +104,9 @@ export class MoreIconComponent implements OnInit {
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
       console.log(res);
+      this.matSnackBar.open("Notes restore",'Successfully',{
+        duration: 3000,
+      });
       this.restoreEvent.emit(true);
     }, error => {
       console.log(error);

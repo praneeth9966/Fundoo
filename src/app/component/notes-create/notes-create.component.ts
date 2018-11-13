@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-notes-create',
@@ -19,15 +20,19 @@ export class NotesCreateComponent implements OnInit {
   array2 = [];
   notes = [];
   archive = { 'isArchived': false }
-  dataarray = [];
+  dataarray: any = [];
   data;
-  status;
-  checklist=[];
-  public body:any={};
-  dataArrayApi=[];
-  
+  status = "open";
+  public addCheck=false;
+  checklist = [];
+  public body: any = {};
+  dataArrayApi: any = [];
+  public adding:boolean
+  public isChecked=false;
+  public i = 0;
 
   constructor(private httpService: HttpService) { }
+
   @Output() messageEvent = new EventEmitter();
 
   ngOnInit() {
@@ -44,22 +49,17 @@ export class NotesCreateComponent implements OnInit {
 
   close() {
     this.show = !this.show;
-    // this.checkList = false;
-    // this.array2=[];
-    // this.dataarray=[];
   }
 
   changeParentColor(event) {
     if (event)
       this.parentColor = event;
-    // console.log(this.parentColor);
   }
 
   createNotes() {
     this.title = document.getElementById("titleId").innerHTML
-console.log(this.title);
-
-    if(this.checkList==false){
+    console.log(this.title);
+    if (this.checkList == false) {
       this.description = document.getElementById("takeANoteId").innerHTML
       this.body = {
         'title': this.title,
@@ -67,52 +67,50 @@ console.log(this.title);
         'labelIdList': JSON.stringify(this.array1),
         'checkList': '',
         'isPinned': 'false',
-        'color': ""
+        'color': ''
       }
       this.body.color = this.parentColor;
       this.parentColor = "#ffffff";
     }
 
-    else{
-
-      console.log("else part........");
-
-      for(var i=0;i<this.dataarray.length;i++){
-           if(this.dataarray[i].isChecked==true){
-            this.status="close"
-           }
-           var apiObj={
-             "itemName":this.dataarray[i].data,
-             "status":this.status
-           }
-           this.dataArrayApi.push(apiObj)
-           this.status="open"
-         }
-         console.log("dataArrayapi",this.dataArrayApi);
-         
-               this.body={
-                 "title": this.title,
-                 "checklist":JSON.stringify(this.dataArrayApi),
-                 "isPined":'',
-                 "color": "",
-              
-                 "labelIdList": JSON.stringify(this.array1),
-                }
-                console.log(this.body);
-                
+    else {
+      this.checkList = false;
+      this.dataArrayApi = [];
+      for (var i = 0; i < this.dataarray.length; i++) {
+        if (this.dataarray[i].isChecked == true) {
+          this.status = "close"
         }
-
-      this.httpService.httpAddNotes('notes/addNotes', this.body, this.token)
-        .subscribe(data => {
-          console.log(data);
-          this.checkList = false;
-
-          this.array1 = [];
-          this.array2 = [];
-          this.messageEvent.emit({
-          })
+        var apiObj = {
+          "itemName": this.dataarray[i].data,
+          "status": this.status
+        }
+        this.dataArrayApi.push(apiObj)
+        this.status = "open"
+      }
+      console.log("dataArrayapi", this.dataArrayApi);
+      this.body = {
+        "title": this.title,
+        "checklist": JSON.stringify(this.dataArrayApi),
+        "isPined": '',
+        "color": "",
+        "labelIdList": JSON.stringify(this.array1),
+      }
+      console.log(this.body);
+      this.body.color = this.parentColor;
+      this.parentColor = "#ffffff";
+    }
+    this.httpService.httpAddNotes('notes/addNotes', this.body, this.token)
+      .subscribe(data => {
+        console.log(data);
+        // this.checkList = false;
+        this.array1 = [];
+        this.array2 = [];
+        this.dataArrayApi=[];
+        this.dataarray=[];
+        this.adding=false
+        this.messageEvent.emit({
         })
-    
+      })
     error => {
       console.log("error", error);
     }
@@ -147,19 +145,32 @@ console.log(this.title);
     }
   }
 
-  public i = 0;
-  enter() {
+  enter(event) {
+    if (this.data != "") {
+             this.adding = true;
+           }
+           else {
+             this.adding = false;
+         }
     this.i++;
-    if (this.data != null) {
-      console.log(event, "keydown");
+    this.isChecked=this.addCheck;
+    if (this.data != null  ) {
+  
       var obj = {
         "index": this.i,
-        "data": this.data
+        "data": this.data,
+        "isChecked":this.isChecked
       }
       this.dataarray.push(obj);
+      LoggerService.log('dataArray',this.dataarray)
       this.data = null;
+          this.adding=false;
+          this.isChecked=false;
+            this.addCheck = false;
+
     }
   }
+
   ondelete(deletedObj) {
     console.log("ondelete function runnig");
     for (var i = 0; i < this.dataarray.length; i++) {
@@ -170,18 +181,6 @@ console.log(this.title);
     }
     console.log(this.dataarray);
   }
-  editing(event, edited) {
-    if (event.code == "Enter") {
-      console.log("enter pressed");
-      for (var i = 0; i < this.dataarray.length; i++) {
-        if (edited.index == this.dataarray[i].index) {
-          this.dataarray[i].data == edited.data
-        }
-      }
-      console.log(this.dataarray);
-    }
-  }
-
-
+  
 
 }

@@ -189,7 +189,6 @@ httpAddReminder(nexturl,body,token){
 }
 
 httpGetReminder(nexturl,token){
-  console.log(token);
   var httpOptions={
     headers:new HttpHeaders({
      

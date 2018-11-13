@@ -36,51 +36,55 @@
         <div fxFlex=98 contenteditable="true" data-text="Title" class="cards" id="titleId" 
         style="margin-top:20px"> </div>
 
-        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg"></div>-->
+       <div style="float:right" matTooltip="Pin note"><img src="../../../assets/images/pin.svg">
+      </div>
+      
       </div>
      
 
           <div *ngIf="checkList == true">
               <div class="check" *ngFor="let data of dataarray" fxLayout="row">
-                  <mat-checkbox fxFlex="5%"></mat-checkbox>
-                  <input fxFlex="90" *ngIf="checkList == true" class="inputNote1"  [(ngModel)]=data.data (keydown)="editing($event.data)">
-                  <mat-icon fxFlex="4%" (click)=ondelete(data) matTooltip="delete">cancel</mat-icon>
+                  <mat-checkbox [(ngmodel)]=data.isChecked (click)="isChecked=!isChecked" 
+                  fxFlex="5%"></mat-checkbox>
+
+                  <input fxFlex="90" *ngIf="checkList == true" class="inputNote1" 
+                   [(ngModel)]=data.data >
+
+                  <mat-icon fxFlex="4%" (click)=ondelete(data) 
+                  matTooltip="delete">cancel</mat-icon>
               </div>
               <mat-divider></mat-divider>
-              <div class="check" fxLayout="row" autofocus #description>
-                  <mat-icon fxFlex="5%">add</mat-icon>
-                  <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" [(ngModel)]=data.data placeholder="list item"
-                      (keydown.enter)="enter()">
+              
+              <div class="check" fxLayout="row" autofocus>
+                  <mat-icon *ngIf="!adding"  fxFlex="5%">add</mat-icon>
+
+                  <mat-checkbox  [(ngmodel)]=addCheck
+
+                  *ngIf="adding" (click)="isChecked=!isChecked" 
+
+                  fxFlex="5%"></mat-checkbox>
+                  <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" 
+                   placeholder="list item"
+                      (keydown.enter)="enter($event)" 
+                      (keydown.backspace)="ondelete()" (click) ="checkList == true">
               </div>
               <mat-divider></mat-divider>
           </div>
-
-
-          
-
-
-        <!-- <hr>
-        <div fxLayout="row" style="margin-top:20px">
-
-          <mat-icon>add</mat-icon>
-          <div contenteditable="true" data-text="List item" class="cards" id="takeANoteId"></div>
-
-        </div>
-        <hr> -->
     
-
-      <div style="margin-top:20px" *ngIf="checkList == false" contenteditable="true" 
-      data-text="Take a note..." class="cards" id="takeANoteId"></div>
+          <div style="margin-top:20px" *ngIf="checkList == false" contenteditable="true" 
+          data-text="Take a note..." class="cards" id="takeANoteId"></div>
+  
+     
     </mat-card-content>
 
+          <!-- **************adding and Removeing labels************** -->
 
     <div fxLayout="row wrap"  fxlayoutAlign="start start" fxLayoutGap="8px" >
-        <div   *ngFor="let label of array2 ">
-          <mat-chip-list    selected>
+        <div *ngFor="let label of array2 ">
+          <mat-chip-list selected>
             <mat-chip style="margin-top:15px"   >
               {{label}}
             <mat-icon  matChipRemove (click)="deleteMsg(label)">cancel</mat-icon>
-    
             </mat-chip>
           </mat-chip-list>
         </div>
@@ -137,7 +141,7 @@
 
         <div fxFlex fxLayoutAlign="end">
 
-          <button mat-button (click)="close();createNotes()">Close</button>
+          <button mat-button (click)="close(); createNotes()">Close</button>
         </div>
       </div>
     </mat-card-actions>
