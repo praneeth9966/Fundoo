@@ -30,6 +30,8 @@ export class ChangeColorIconComponent implements OnInit {
   ngOnInit() {
   }
 
+   /*   calling change colors Api
+    */
   changeColor(paint) {
     this.ParentNoteColor.emit(paint);
     this.body = {

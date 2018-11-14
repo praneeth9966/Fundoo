@@ -17,6 +17,9 @@ export class NotesComponent implements OnInit {
     this.getPin();
   }
 
+
+   /*   calling get notes Api
+    */
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
@@ -30,6 +33,9 @@ export class NotesComponent implements OnInit {
     })
   }
 
+
+   /*   calling get notes Api
+    */
   getPin() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {

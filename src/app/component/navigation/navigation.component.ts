@@ -28,6 +28,8 @@ export class NavigationComponent implements OnInit {
     .pipe(
       map(result => result.matches)
     );
+  // titleNew: any;
+  titleNew="fundooNotes";
 
   constructor(public dataservice: DataService, public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
 
@@ -60,6 +62,9 @@ export class NavigationComponent implements OnInit {
     });
   }
 
+
+   /*   calling get Labels Api
+    */
   labelList() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
@@ -117,6 +122,12 @@ export class NavigationComponent implements OnInit {
       }
     });
   }
+  changeTitle(title){
+    this.titleNew=title;
+  }
+change(labels){
+  this.titleNew=labels.label
 
+}
 }
 

@@ -18,6 +18,8 @@ export class ArchiveIconComponent implements OnInit {
   ngOnInit() {
   }
 
+   /*   calling post archive Api
+    */
   archiveNotes() {
     this.body = {
       "isArchived": true,
@@ -34,6 +36,8 @@ export class ArchiveIconComponent implements OnInit {
     })
   }
 
+   /*   calling post UnArchive Api
+    */
   unArchiveNotes() {
     this.body = {
       "isArchived": false,

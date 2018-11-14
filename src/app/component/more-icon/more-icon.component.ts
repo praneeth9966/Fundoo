@@ -27,6 +27,9 @@ export class MoreIconComponent implements OnInit {
 
   }
 
+
+   /*   calling delete notes Api
+    */
   deleteNotes() {
     this.body = {
       "isDeleted": true,
@@ -44,6 +47,9 @@ export class MoreIconComponent implements OnInit {
     })
   }
 
+
+   /*   calling add Label Api
+    */
   addLabel(labelId) {
     console.log(this.notesArray, "notess");
     console.log(this.notesArray.id);
@@ -59,6 +65,9 @@ export class MoreIconComponent implements OnInit {
     })
   }
 
+
+   /*   calling get Labels Api
+    */
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
@@ -73,6 +82,9 @@ export class MoreIconComponent implements OnInit {
     })
   }
 
+
+   /*   calling delete forever Api
+    */
   deleteforever() {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
@@ -96,6 +108,9 @@ export class MoreIconComponent implements OnInit {
     });
   }
 
+
+   /*   calling restore Api
+    */
   restore() {
     this.body = {
       "isDeleted": false,

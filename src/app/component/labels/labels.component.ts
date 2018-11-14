@@ -34,6 +34,8 @@ export class LabelsComponent implements OnInit {
     })
   }
 
+   /*   calling add Labels Api
+    */
   addLabel() {
     console.log(this.id);
     if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML)) {
@@ -60,6 +62,8 @@ export class LabelsComponent implements OnInit {
   }
 
 
+    /*   calling delete Label Api
+    */
   deleteLabel(id) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
@@ -83,6 +87,9 @@ export class LabelsComponent implements OnInit {
     });
   }
 
+
+   /*   calling update label Api
+    */
   updateLabel(id) {
     console.log(this.id);
     this.httpservice.httpUpdateLabel('noteLabels/' + id + '/updateNoteLabel',
@@ -106,6 +113,8 @@ export class LabelsComponent implements OnInit {
     this.display = id
   }
 
+   /*   calling get Labels Api
+    */
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpservice.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {

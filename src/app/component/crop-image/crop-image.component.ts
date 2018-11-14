@@ -26,6 +26,8 @@ export class CropImageComponent implements OnInit {
     this.croppedImage = event.file;
   }
 
+   /*   calling upload profile image Api
+    */
   onUpload() {
     var token = localStorage.getItem('token');
     const uploadData = new FormData();

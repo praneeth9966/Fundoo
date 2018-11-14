@@ -17,6 +17,9 @@ export class RemindersComponent implements OnInit {
     this.getReminders();
   }
 
+
+   /*   calling get reminders Api
+    */
   getReminders() {
     this.httpService.httpGetReminder('/notes/getReminderNotesList', this.token)
       .subscribe(data => {

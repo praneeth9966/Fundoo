@@ -54,6 +54,9 @@ export class NotesCollectionComponent implements OnInit {
     });
   }
 
+
+   /*   calling remove Label Api
+    */
   removeLabel(id, labelId) {
     this.labelBody = {
       "noteId": id,
@@ -69,6 +72,9 @@ export class NotesCollectionComponent implements OnInit {
     })
   }
 
+
+   /*   calling remove reminder Api
+    */
   removeReminder(id) {
     this.reminderBody = {
       "noteIdList": [id]
@@ -130,6 +136,9 @@ export class NotesCollectionComponent implements OnInit {
     this.updatelist(note);
   }
 
+
+   /*   calling update checklist Api
+    */
   updatelist(id) {
     var checklistData = {
       "itemName": this.modifiedCheckList.itemName,

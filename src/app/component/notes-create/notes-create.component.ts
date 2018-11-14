@@ -56,6 +56,9 @@ export class NotesCreateComponent implements OnInit {
       this.parentColor = event;
   }
 
+
+   /*   calling add notes Api
+    */
   createNotes() {
     this.title = document.getElementById("titleId").innerHTML
     console.log(this.title);
@@ -117,6 +120,8 @@ export class NotesCreateComponent implements OnInit {
   }
 
 
+   /*   calling get Labels Api
+    */
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {

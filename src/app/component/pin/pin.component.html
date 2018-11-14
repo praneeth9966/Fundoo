@@ -1,6 +1,6 @@
-<img src="../../../assets/images/pin.svg" style="cursor: pointer;" matTooltip="Pin" 
+<img src="../../../assets/images/pin.svg" style="cursor: pointer;" matTooltip="Pin note" 
     *ngIf="isPinedArray.isPined==false" (click)="pin()"> 
 
-<img src="../../../assets/images/pin.svg" style="cursor: pointer;" matTooltip="Unpin" 
+<img src="../../../assets/images/pin.svg" class="UnpinIcon" style="cursor: pointer;" matTooltip="Unpin note" 
    *ngIf="isPinedArray.isPined==true" (click)="unPin()"> 
 

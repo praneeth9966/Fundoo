@@ -14,6 +14,8 @@ export class ArchiveComponent implements OnInit {
     this.myFunc();
   }
 
+  /*   calling get archive Api
+    */
   myFunc() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getArchiveNotesList', token).subscribe(res => {

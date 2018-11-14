@@ -16,6 +16,9 @@ export class PinComponent implements OnInit {
   ngOnInit() {
   }
 
+
+   /*   calling pin notes Api
+    */
   pin() {
     this.pinBody = {
       "noteIdList": [this.isPinedArray.id],
@@ -30,6 +33,9 @@ export class PinComponent implements OnInit {
     })
   }
 
+
+   /*   calling Unpin Notes Api
+    */
   unPin() {
     this.pinBody = {
       "noteIdList": [this.isPinedArray.id],

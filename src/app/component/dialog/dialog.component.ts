@@ -52,7 +52,8 @@ export class DialogComponent implements OnInit {
   onNoClick(): void {
     var token = localStorage.getItem('token');
     if (this.checklist == false) {
-
+    /*   calling update notes  Api
+    */
       this.body = {
         'noteId': [this.data.id],
         'title': document.getElementById("newTitle").innerHTML,
@@ -67,6 +68,8 @@ export class DialogComponent implements OnInit {
         })
     }
     else {
+       /*   calling update checklist Api
+      */
       var apiData = {
         "itemName": this.modifiedCheckList.itemName,
         "status": this.modifiedCheckList.status
@@ -112,6 +115,8 @@ export class DialogComponent implements OnInit {
     this.removeCheckList()
   }
 
+   /*   calling remove checklist Api
+    */
   removeCheckList() {
     var url = "notes/" + this.data['id'] + "/checklist/" + this.removedList.id + "/remove";
     this.httpService.httpDeleteNotes(url, null, this.token).subscribe((response) => {
@@ -158,6 +163,8 @@ export class DialogComponent implements OnInit {
     }
   }
 
+   /*   calling remove Label Api
+    */
   removeLabel(label, labelId) {
     this.labelBody = {
       "noteId": this.data.id,
@@ -178,6 +185,8 @@ export class DialogComponent implements OnInit {
       })
   }
 
+   /*   calling remove Reminder Api
+    */
   removeReminder(items, id) {
     this.reminderBody = {
       "noteIdList": [this.data.id]
