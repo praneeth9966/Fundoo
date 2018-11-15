@@ -30,6 +30,10 @@ export class NotesCreateComponent implements OnInit {
   public adding:boolean
   public isChecked=false;
   public i = 0;
+  public reminderIcon=[];
+  value: any;
+todayDate=new Date();
+tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate()+1)
 
   constructor(private httpService: HttpService) { }
 
@@ -70,7 +74,8 @@ export class NotesCreateComponent implements OnInit {
         'labelIdList': JSON.stringify(this.array1),
         'checkList': '',
         'isPinned': 'false',
-        'color': ''
+        'color': '',
+        "reminder":this.value
       }
       this.body.color = this.parentColor;
       this.parentColor = "#ffffff";
@@ -97,6 +102,7 @@ export class NotesCreateComponent implements OnInit {
         "isPined": '',
         "color": "",
         "labelIdList": JSON.stringify(this.array1),
+        "reminder":this.value
       }
       console.log(this.body);
       this.body.color = this.parentColor;
@@ -110,6 +116,7 @@ export class NotesCreateComponent implements OnInit {
         this.array2 = [];
         this.dataArrayApi=[];
         this.dataarray=[];
+        this.reminderIcon=[];
         this.adding=false
         this.messageEvent.emit({
         })
@@ -187,5 +194,16 @@ export class NotesCreateComponent implements OnInit {
     console.log(this.dataarray);
   }
   
-
+  reminderIconParent(event){
+    this.reminderIcon.push(event);
+    console.log(this.reminderIcon);
+    this.value=event;
+    
+  }
+id={
+  'id':''
+}
+delete(){
+  this.reminderIcon=[];
+}
 }

@@ -1,11 +1,14 @@
 <app-notes-create (messageEvent)="receiveMessage($event)"></app-notes-create>
 
-Pinned
-<app-notes-collection [array] = "notes1" (notifyParent)="receiveMessage($event)" 
-(noteParent)="receiveMessage($event)" (archiveParent)="receiveMessage($event)">
-</app-notes-collection>
-
-Others
+<div class="spacing" *ngIf="notes1.length != 0">
+<div class="pinnedCards" >PINNED</div>
+<app-notes-collection [array] = "notes1" (notifyParent)="receiveMessage($event)"></app-notes-collection>  
+<div class="otherCards">OTHERS</div>
 <app-notes-collection [array] = "notes" (notifyParent)="receiveMessage($event)" 
-(noteParent)="receiveMessage($event)" (archiveParent)="receiveMessage($event)">
-</app-notes-collection>
+(noteParent)="receiveMessage($event)" (archiveParent)="receiveMessage($event)"></app-notes-collection>
+</div>
+<div *ngIf="notes1.length == 0">
+    <app-notes-collection [array] = "notes1" (notifyParent)="receiveMessage($event)"></app-notes-collection>  
+    <app-notes-collection [array] = "notes"(notifyParent)="receiveMessage($event)" 
+    (noteParent)="receiveMessage($event)" (archiveParent)="receiveMessage($event)"></app-notes-collection>
+</div>

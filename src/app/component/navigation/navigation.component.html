@@ -28,27 +28,30 @@
       </button>
 
       <mat-menu  #appMenu="matMenu" [overlapTrigger]="false">
-        <div fxLayoutAlign="row wrap">
-            <div fxFlex=20>     
-                <button (click) = "$event.stopPropagation()" 
+        <div fxLayoutAlign="row">
+            <div fxFlex=40>     
+                <button (click) = "$event.stopPropagation()" class="profilebutton"
                   [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
                   (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab 
                   style="background-color:#fb0;float:right;
-                  color:white;text-transform:uppercase">
+                  color:white;text-transform:uppercase;">
+                  <div class="change">change</div>
                 </button>
                   <input style="display:none" (click) = "$event.stopPropagation()" class="image" 
                   type="file" (change)="onFileUpload($event)" #selectFile>
              
             </div>
     
-           <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left" >
-            {{firstName | titlecase}} {{lastName | titlecase}} </mat-content>
+           <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left;word-break: break-word" >
+            {{firstName | titlecase}} {{lastName | titlecase}} {{email | titlecase}} </mat-content>
+            <br>
+          
     
         </div><br>
         <hr>
-        <div fxLayoutAlign="row wrap"  class="add" fxLayoutGap=85px>
-        <button fxFlex class="addaccount" routerLink="/signup">Add account</button>
-       <button fxFlex class="logout" (click)="logout()">Log out </button></div>
+        <div>
+        <!-- <button fxFlex class="addaccount" routerLink="/signup">Add account</button> -->
+       <button fxFlex mat-raised-button color="primary" class="logout" (click)="logout()">Log out </button></div>
       </mat-menu>
     
 

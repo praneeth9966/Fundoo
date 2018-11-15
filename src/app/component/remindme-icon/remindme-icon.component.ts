@@ -11,6 +11,7 @@ export class RemindmeIconComponent implements OnInit {
 
   @Input() noteDetails;
   @Output() addReminderEvent = new EventEmitter();
+  @Output() notesCreateReminderEvent = new EventEmitter();
   // currentDate:any;
   date: Date = new Date();
   customDate = this.date;
@@ -18,7 +19,7 @@ export class RemindmeIconComponent implements OnInit {
   reminderArrayEvent: any;
   customTime: any;
   editReminderEventClicked: any;
-
+public data;
   constructor(private httpService: HttpService,
   ) { }
   public message;
@@ -35,8 +36,8 @@ export class RemindmeIconComponent implements OnInit {
     { value: 'night', viewPeriod: 'Night', viewTime: '09:00 PM' }];
 
   todayReminder() {
-
-
+  this.data=new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), 8, 0, 0, 0)
+this.notesCreateReminderEvent.emit(this.data);
     this.body = {
       "noteIdList": [this.noteDetails.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), 8, 0, 0, 0)
@@ -48,7 +49,8 @@ export class RemindmeIconComponent implements OnInit {
   }
 
   tomorrowReminder() {
-
+this.data= new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 1), 8, 0, 0, 0)
+this.notesCreateReminderEvent.emit(this.data);
     this.body = {
       "noteIdList": [this.noteDetails.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 1), 8, 0, 0, 0)
@@ -60,7 +62,8 @@ export class RemindmeIconComponent implements OnInit {
   }
 
   weekReminder() {
-
+this.data=new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 7), 8, 0, 0, 0)
+this.notesCreateReminderEvent.emit(this.data);
     this.body = {
       "noteIdList": [this.noteDetails.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 7), 8, 0, 0, 0)
@@ -84,7 +87,8 @@ export class RemindmeIconComponent implements OnInit {
   }
 
   addRemCustom(date, timing) {
-
+this.data=new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0, 0)
+this.notesCreateReminderEvent.emit(this.data);
     timing.match('^[0-2][0-3]:[0-5][0-9]$');
 
     if (timing == '8:00 AM') {

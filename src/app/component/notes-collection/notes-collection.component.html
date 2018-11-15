@@ -63,17 +63,66 @@
 
         <!-- **************adding and Removeing Reminders************** -->
 
-        <div fxLayout="row wrap">
-          <div *ngFor="let items of notes.reminder">
-            <mat-chip-list selected>
-              <mat-chip  class="reminders">
-                {{items | date:'medium'}}
-                <mat-icon (click)="removeReminder(notes.id)" class="removeicon">
-                    cancel</mat-icon>
+        <div fxLayout="row wrap" *ngIf="strikeReminder(notes.reminder[0])">
+        <div *ngFor="let reminder of notes.reminder">
+            <mat-chip-list >
+    
+              <div *ngIf='(todayDate | date:shortDate) == (reminder | date:shortDate )'>
+              <mat-chip style="margin-top:15px">
+               Today, {{reminder |date:'shortTime'}}
+              <mat-icon  matChipRemove (click)="removeReminder(notes.id)">cancel</mat-icon>
               </mat-chip>
+            </div>
+    
+              <div *ngIf='(tomorrowDate | date:shortDate) == (reminder | date:shortDate )'>
+                  <mat-chip style="margin-top:15px">
+                      tomorrow, {{reminder |date:'shortTime'}}
+                  <mat-icon  matChipRemove (click)="removeReminder(notes.id)">cancel</mat-icon>
+                  </mat-chip>
+                </div>
+    
+                <div *ngIf='(todayDate | date:shortDate) !==(reminder | date:shortDate ) && 
+                (tomorrowDate | date:shortDate) !== (reminder | date:shortDate )'>
+                    <mat-chip style="margin-top:15px">
+                    {{reminder |date:'medium'}}
+                    <mat-icon  matChipRemove (click)="removeReminder(notes.id)">cancel</mat-icon>
+                    </mat-chip>
+                  </div>
+        
             </mat-chip-list>
           </div>
         </div>
+
+        <div fxLayout="row wrap" *ngIf="!strikeReminder(notes.reminder[0])">
+          <div *ngFor="let reminder of notes.reminder">
+              <mat-chip-list >
+      
+                <div *ngIf='(todayDate | date:shortDate) == (reminder | date:shortDate )'>
+                <mat-chip style="margin-top:15px">
+                <del> Today, {{reminder |date:'shortTime'}}</del>
+                <mat-icon  matChipRemove (click)="removeReminder(notes.id)">cancel</mat-icon>
+                </mat-chip>
+              </div>
+      
+                <div *ngIf='(tomorrowDate | date:shortDate) == (reminder | date:shortDate )'>
+                    <mat-chip style="margin-top:15px">
+                       tomorrow, {{reminder |date:'shortTime'}}
+                    <mat-icon  matChipRemove (click)="removeReminder(notes.id)">cancel</mat-icon>
+                    </mat-chip>
+                  </div>
+      
+                  <div *ngIf='(todayDate | date:shortDate) !==(reminder | date:shortDate ) && 
+                  (tomorrowDate | date:shortDate) !== (reminder | date:shortDate )'>
+                      <mat-chip style="margin-top:15px">
+                      {{reminder |date:'medium'}}
+                      <mat-icon  matChipRemove (click)="removeReminder(notes.id)">cancel</mat-icon>
+                      </mat-chip>
+                    </div>
+          
+              </mat-chip-list>
+            </div>
+            </div>
+        
 
         <!-- **************MatCardActions**************************** -->
 

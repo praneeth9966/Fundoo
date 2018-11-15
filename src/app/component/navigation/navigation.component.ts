@@ -110,7 +110,7 @@ export class NavigationComponent implements OnInit {
   public pic;
   openDialogCrop(data): void {
     const dialogRef1 = this.dialog.open(CropImageComponent, {
-      width: '500px',
+      width: '800px',
       data: data
     });
 

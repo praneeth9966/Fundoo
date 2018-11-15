@@ -18,6 +18,10 @@ export class NotesCollectionComponent implements OnInit {
   public pinBody = {};
   modifiedCheckList: any;
   public isChecked = false;
+  todayDate=new Date();
+  tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate()+1)
+  
+
   constructor(private httpService: HttpService, public dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
       console.log(message);
@@ -150,6 +154,15 @@ export class NotesCollectionComponent implements OnInit {
     this.httpService.httpDeleteNotes(url, checkNew, localStorage.getItem('token')).subscribe(response => {
       console.log(response);
     })
+  }
+
+  strikeReminder(date){
+    var currentReminder=new Date().getTime();
+    var reminderValue=new Date(date).getTime();
+    if(reminderValue > currentReminder){
+  return true;
+    }
+    else false;
   }
 
 }

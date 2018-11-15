@@ -77,6 +77,38 @@
      
     </mat-card-content>
 
+    <div fxLayout="row wrap"  fxlayoutAlign="start start" fxLayoutGap="8px" >
+
+      <div *ngFor="let reminder of reminderIcon ">
+        <mat-chip-list selected>
+
+          <div *ngIf='(todayDate | date:shortDate) == (reminder | date:shortDate )'>
+          <mat-chip style="margin-top:15px">
+           Today, {{reminder |date:'shortTime'}}
+          <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
+          </mat-chip>
+        </div>
+
+          <div *ngIf='(tomorrowDate | date:shortDate) == (reminder | date:shortDate )'>
+              <mat-chip style="margin-top:15px">
+                  tomorrow, {{reminder |date:'shortTime'}}
+              <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
+              </mat-chip>
+            </div>
+
+            <div *ngIf='(todayDate | date:shortDate) !==(reminder | date:shortDate ) && 
+            (tomorrowDate | date:shortDate) !== (reminder | date:shortDate )'>
+                <mat-chip style="margin-top:15px">
+                {{reminder |date:'medium'}}
+                <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
+                </mat-chip>
+              </div>
+    
+        </mat-chip-list>
+      </div>
+      
+      </div>
+
           <!-- **************adding and Removeing labels************** -->
 
     <div fxLayout="row wrap"  fxlayoutAlign="start start" fxLayoutGap="8px" >
@@ -95,7 +127,7 @@
     <mat-card-actions>
       <div fxLayout='row' fxLayout.xs='row' fxLayoutGap="space-between">
         <div fxFlex=9>
-          <app-remindme-icon></app-remindme-icon>
+          <app-remindme-icon [noteDetails]="id" (notesCreateReminderEvent)="reminderIconParent($event)"></app-remindme-icon>
         </div>
         <div fxFlex=9>
           <app-collaborator-icon></app-collaborator-icon>

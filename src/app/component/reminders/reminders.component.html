@@ -1,2 +1,2 @@
 <app-notes-create></app-notes-create>
-<app-notes-collection [array]="getRemindersArray"></app-notes-collection>
+<app-notes-collection [array]="getRemindersArray" (notifyParent)="refreshREminders($event)"></app-notes-collection>
