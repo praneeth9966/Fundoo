@@ -12,8 +12,8 @@ export class ChangeColorIconComponent implements OnInit {
   @Input() notesArray;
   @Output() noteColor = new EventEmitter();
   @Output() ParentNoteColor = new EventEmitter<string>();
-  body;
-  colorArray = [[{ 'color': '#ffffff', 'name': 'White' },
+  public body;
+  public colorArray = [[{ 'color': '#ffffff', 'name': 'White' },
   { 'color': '#f28b82', 'name': 'Red' },
   { 'color': '#fbbc04', 'name': 'Orange' },
   { 'color': '#fff475', 'name': 'Yellow' }],
@@ -31,8 +31,8 @@ export class ChangeColorIconComponent implements OnInit {
   ngOnInit() {
   }
 
-   /*   calling change colors Api
-    */
+  /*   calling change colors Api
+   */
   changeColor(paint) {
     this.ParentNoteColor.emit(paint);
     this.body = {
@@ -41,7 +41,7 @@ export class ChangeColorIconComponent implements OnInit {
     }
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/changesColorNotes', this.body, token).subscribe(res => {
-      LoggerService.log('result',res);
+      LoggerService.log('result', res);
       this.noteColor.emit();
     }, error => {
       LoggerService.log(error);

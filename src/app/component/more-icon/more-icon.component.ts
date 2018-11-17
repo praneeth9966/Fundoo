@@ -10,27 +10,28 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 
 export class MoreIconComponent implements OnInit {
-  notes: any[];
-  httpservice: any;
+  public notes: any[];
+  public httpservice: any;
   public display: boolean = true;
-  model = {};
-  token = localStorage.getItem('token');
-  constructor(private httpService: HttpService, public dialog: MatDialog, public matSnackBar:MatSnackBar) { }
-  body;
+  public model = {};
+  public token = localStorage.getItem('token');
+  public body;
   public labelBody = {};
+
+  constructor(private httpService: HttpService, public dialog: MatDialog, public matSnackBar: MatSnackBar) { }
   @Output() deleteNote = new EventEmitter();
   @Output() addedLabel = new EventEmitter();
   @Output() trashEvent = new EventEmitter<boolean>();
   @Output() restoreEvent = new EventEmitter<boolean>();
   @Input() notesArray;
   @Input() name;
+
   ngOnInit() {
 
   }
 
-
-   /*   calling delete notes Api
-    */
+  /*   calling delete notes Api
+   */
   deleteNotes() {
     this.body = {
       "isDeleted": true,
@@ -38,8 +39,8 @@ export class MoreIconComponent implements OnInit {
     }
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
-      LoggerService.log('result',res);
-      this.matSnackBar.open("Notes deleted ",'Successfully',{
+      LoggerService.log('result', res);
+      this.matSnackBar.open("Notes deleted ", 'Successfully', {
         duration: 3000,
       });
       this.deleteNote.emit();
@@ -49,8 +50,8 @@ export class MoreIconComponent implements OnInit {
   }
 
 
-   /*   calling add Label Api
-    */
+  /*   calling add Label Api
+   */
   addLabel(labelId) {
     LoggerService.log(this.notesArray, "notess");
     LoggerService.log(this.notesArray.id);
@@ -59,7 +60,7 @@ export class MoreIconComponent implements OnInit {
       "lableId": labelId
     }
     this.httpService.httpPostArchive('notes/' + this.notesArray.id + '/addLabelToNotes/' + labelId + '/add', this.labelBody, localStorage.getItem('token')).subscribe(result => {
-      LoggerService.log('result',result);
+      LoggerService.log('result', result);
       this.deleteNote.emit();
     }, error => {
       LoggerService.log(error);
@@ -67,12 +68,12 @@ export class MoreIconComponent implements OnInit {
   }
 
 
-   /*   calling get Labels Api
-    */
+  /*   calling get Labels Api
+   */
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
-      LoggerService.log('',data);
+      LoggerService.log('', data);
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
@@ -84,8 +85,8 @@ export class MoreIconComponent implements OnInit {
   }
 
 
-   /*   calling delete forever Api
-    */
+  /*   calling delete forever Api
+   */
   deleteforever() {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
@@ -100,7 +101,7 @@ export class MoreIconComponent implements OnInit {
           "noteIdList": [this.notesArray.id]
         }
         this.httpService.httpPostArchive('notes/deleteForeverNotes', this.model, this.token).subscribe(data => {
-          LoggerService.log('data',data);
+          LoggerService.log('data', data);
           this.trashEvent.emit(true);
         }, error => {
           LoggerService.log(error);
@@ -110,8 +111,8 @@ export class MoreIconComponent implements OnInit {
   }
 
 
-   /*   calling restore Api
-    */
+  /*   calling restore Api
+   */
   restore() {
     this.body = {
       "isDeleted": false,
@@ -119,8 +120,8 @@ export class MoreIconComponent implements OnInit {
     }
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
-      LoggerService.log('result',res);
-      this.matSnackBar.open("Notes restore",'Successfully',{
+      LoggerService.log('result', res);
+      this.matSnackBar.open("Notes restore", 'Successfully', {
         duration: 3000,
       });
       this.restoreEvent.emit(true);

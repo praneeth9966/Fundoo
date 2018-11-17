@@ -11,29 +11,29 @@ import { LoggerService } from '../../core/services/logger/logger.service';
 export class NotesCreateComponent implements OnInit {
   public show: boolean = true;
   public checkList: boolean = false;
-  token = localStorage.getItem('token');
+  public token = localStorage.getItem('token');
   public title;
   public description;
-  parentColor = "#ffffff";
-  labelBody = {};
-  array1 = [];
-  array2 = [];
-  notes = [];
-  archive = { 'isArchived': false }
-  dataarray: any = [];
-  data;
-  status = "open";
+  public parentColor = "#ffffff";
+  public labelBody = {};
+  public array1 = [];
+  public array2 = [];
+  public notes = [];
+  public archive = { 'isArchived': false }
+  public dataarray: any = [];
+  public data;
+  public status = "open";
   public addCheck = false;
-  checklist = [];
+  public checklist = [];
   public body: any = {};
-  dataArrayApi: any = [];
+  public dataArrayApi: any = [];
   public adding: boolean
   public isChecked = false;
   public i = 0;
   public reminderIcon = [];
-  value;
-  todayDate = new Date();
-  tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
+  public value;
+  public todayDate = new Date();
+  public tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
 
   constructor(private httpService: HttpService) { }
 
@@ -65,7 +65,6 @@ export class NotesCreateComponent implements OnInit {
   /*   calling add notes Api
    */
   createNotes() {
-
     this.title = document.getElementById("titleId").innerHTML
     LoggerService.log('title', this.title);
     if (this.checkList == false) {
@@ -80,16 +79,12 @@ export class NotesCreateComponent implements OnInit {
         'reminder': ''
       }
       if (this.value != undefined) {
-
         this.body.reminder = this.value;
-
       }
       this.body.color = this.parentColor;
       this.parentColor = "#ffffff";
     }
-
     else {
-
       this.checkList = false;
       this.dataArrayApi = [];
       for (var i = 0; i < this.dataarray.length; i++) {
@@ -113,9 +108,7 @@ export class NotesCreateComponent implements OnInit {
         "reminder": ''
       }
       if (this.value != undefined) {
-
         this.body.reminder = this.value;
-
       }
       LoggerService.log(this.body);
       this.body.color = this.parentColor;
@@ -173,7 +166,7 @@ export class NotesCreateComponent implements OnInit {
     }
   }
 
- 
+
   enter(event) {
     if (this.data != "") {
       this.adding = true;
@@ -196,7 +189,6 @@ export class NotesCreateComponent implements OnInit {
       this.adding = false;
       this.isChecked = false;
       this.addCheck = false;
-
     }
   }
 
@@ -215,13 +207,12 @@ export class NotesCreateComponent implements OnInit {
   reminderIconParent(event) {
     if (event) {
       // if (this.reminderIcon.length == 0)
-      this.reminderIcon=[];
-        this.reminderIcon.push(event);
+      this.reminderIcon = [];
+      this.reminderIcon.push(event);
       this.value = event;
     }
-
-
   }
+
   id = {
     'id': ''
   }

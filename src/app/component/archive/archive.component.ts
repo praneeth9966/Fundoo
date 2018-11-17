@@ -20,7 +20,7 @@ export class ArchiveComponent implements OnInit {
   myFunc() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getArchiveNotesList', token).subscribe(res => {
-      LoggerService.log('result',res);
+      LoggerService.log('result', res);
       this.array = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         this.array.push(res['data']['data'][i]);
@@ -37,5 +37,5 @@ export class ArchiveComponent implements OnInit {
       this.myFunc();
     }
   }
-  
+
 }

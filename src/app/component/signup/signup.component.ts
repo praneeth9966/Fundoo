@@ -15,18 +15,15 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class SignupComponent implements OnInit {
 
-  signUpForm: FormGroup
-  records = {}
-
-
-  user: any = {}
-  service: any;
-  register: any;
-  cards = []
-
+  public signUpForm: FormGroup
+  public records = {}
+  public user: any = {}
+  public service: any;
+  public register: any;
+  public cards = []
+  public hide = true;
 
   onSubmit() {
-
     this.register = {
       "firstName": this.user.firstName,
       "lastName": this.user.lastName,
@@ -37,11 +34,6 @@ export class SignupComponent implements OnInit {
       "modifiedDate": new Date(),
       "password": this.user.password
     }
-
-
-  
-
-
     this.records = this.httpService.postHttpData('user/userSignUp', this.register).subscribe(result => {
       this.matsnacbar.open("registration", "successful", {
         duration: 5000,
@@ -50,35 +42,26 @@ export class SignupComponent implements OnInit {
       this.matsnacbar.open("registration", "failed", {
         duration: 5000,
       })
-
     }
   }
-
-  hide = true;
 
   email = new FormControl('', [Validators.required, Validators.email]);
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
-      this.email.hasError('email') ? 'Not a valid email' :
-        '';
+      this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   firstname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
   getErrorMessagefirstName() {
     return this.firstname.hasError('required') ? 'First Name is Required' :
-      this.firstname.hasError('pattern') ? 'Invalid First Name' :
-        '';
+      this.firstname.hasError('pattern') ? 'Invalid First Name' : '';
   }
-
 
   lastname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
   getErrorMessagelastName() {
     return this.lastname.hasError('required') ? 'Last Name is Required' :
-      this.lastname.hasError('pattern') ? 'Invalid Last Name' :
-        '';
+      this.lastname.hasError('pattern') ? 'Invalid Last Name' : '';
   }
-
-
 
   password = new FormControl('', [Validators.required]);
   getErrorMessagePassword() {
@@ -89,14 +72,12 @@ export class SignupComponent implements OnInit {
   constructor(public httpService: HttpService, public matsnacbar: MatSnackBar) { }
 
   ngOnInit() {
-
     this.records = this.httpService.getHttpData('user/service').subscribe(result => {
       var data = result['data'];
       for (var i = 0; i < data.data.length; i++) {
         data.data[i].select = false;
         this.cards.push(data.data[i])
       }
-
     });
 
     this.records = this.httpService.getHttpData('user').subscribe(result => {

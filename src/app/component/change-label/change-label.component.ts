@@ -8,11 +8,12 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
   styleUrls: ['./change-label.component.scss']
 })
 export class ChangeLabelComponent implements OnInit {
-  notes = [];
-  findLabel;
+  public notes = [];
+  public findLabel;
+
   constructor(private route: ActivatedRoute, private httpService: HttpService) {
     this.route.params.subscribe(params => {
-      LoggerService.log('params',params);
+      LoggerService.log('params', params);
       this.findLabel = params.id;
       this.displayNotes();
     })
@@ -28,7 +29,7 @@ export class ChangeLabelComponent implements OnInit {
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
-      LoggerService.log('result',res);
+      LoggerService.log('result', res);
       this.notes = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false)

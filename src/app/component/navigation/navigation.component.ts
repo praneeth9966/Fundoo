@@ -17,14 +17,20 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 
 export class NavigationComponent implements OnInit {
-  gridList = 0;
+  public gridList = 0;
   public firstName = localStorage.getItem('firstName');
   public lastName = localStorage.getItem('lastName');
   public email = localStorage.getItem('email');
-  emailId;
-  myEmail;
-  notes;
-  searchBar;
+  public emailId;
+  public myEmail;
+  public notes;
+  public searchBar;
+  public pic;
+  public image = {};
+  public selectedFile = null;
+  public image2 = localStorage.getItem('imageUrl');
+  public img = "http://34.213.106.173/" + this.image2;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
@@ -35,15 +41,12 @@ export class NavigationComponent implements OnInit {
   constructor(public dataservice: DataService, public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
 
   ngOnInit() {
-      this.titleNew = "fundooNotes";
-
+    this.titleNew = "fundooNotes";
     this.dataservice.currentlabel
-    .subscribe(message =>
-      this.titleNew=message)
-
+      .subscribe(message =>
+        this.titleNew = message)
     this.emailId = this.email.split("");
     this.myEmail = this.emailId[0];
-
     this.labelList();
   }
 
@@ -52,7 +55,7 @@ export class NavigationComponent implements OnInit {
   logout() {
     var token = localStorage.getItem('token');
     this.httpService.httpLogout('/user/logout', token).subscribe(data => {
-      LoggerService.log('data',data);
+      LoggerService.log('data', data);
       localStorage.clear();
       window.location.replace('login')
     },
@@ -88,11 +91,6 @@ export class NavigationComponent implements OnInit {
   }
 
 
-  image = {};
-  selectedFile = null;
-  public image2 = localStorage.getItem('imageUrl');
-  img = "http://34.213.106.173/" + this.image2;
-
   onFileUpload(event) {
     this.openDialogCrop(event);
     this.selectedFile = event.path[0].files[0];
@@ -103,6 +101,7 @@ export class NavigationComponent implements OnInit {
   navigation() {
     this.router.navigate(['homepage/search'])
   }
+
   message() {
     this.dataservice.changeMessage(this.searchBar)
   }
@@ -116,7 +115,6 @@ export class NavigationComponent implements OnInit {
     this.dataservice.observerViewList(false);
   }
 
-  public pic;
   openDialogCrop(data): void {
     const dialogRef1 = this.dialog.open(CropImageComponent, {
       width: '600px',

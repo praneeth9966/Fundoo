@@ -12,7 +12,6 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 export class CropImageComponent implements OnInit {
   public croppedImage: ''
 
-
   constructor(
     private dialogRef1: MatDialogRef<NavigationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,14 +26,14 @@ export class CropImageComponent implements OnInit {
     this.croppedImage = event.file;
   }
 
-   /*   calling upload profile image Api
-    */
+  /*   calling upload profile image Api
+   */
   onUpload() {
     var token = localStorage.getItem('token');
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
     this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
-      LoggerService.log('result',res);
+      LoggerService.log('result', res);
       localStorage.setItem('imageUrl', res['status'].imageUrl);
       this.dialogRef1.close();
       this.service.changeProfile(true);

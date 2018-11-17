@@ -8,17 +8,18 @@ import { LoggerService } from '../../core/services/logger/logger.service';
   styleUrls: ['./pin.component.scss']
 })
 export class PinComponent implements OnInit {
-  pinBody = {};
+  public pinBody = {};
+
   @Input() isPinedArray
   @Output() pinEvent = new EventEmitter()
+
   constructor(public httpService: HttpService) { }
 
   ngOnInit() {
   }
 
-
-   /*   calling pin notes Api
-    */
+  /*   calling pin notes Api
+   */
   pin() {
     this.pinBody = {
       "noteIdList": [this.isPinedArray.id],
@@ -34,8 +35,8 @@ export class PinComponent implements OnInit {
   }
 
 
-   /*   calling Unpin Notes Api
-    */
+  /*   calling Unpin Notes Api
+   */
   unPin() {
     this.pinBody = {
       "noteIdList": [this.isPinedArray.id],

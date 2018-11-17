@@ -10,8 +10,8 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 export class NotesComponent implements OnInit {
   constructor(private httpService: HttpService) { }
-  notes = [];
-  notes1 = [];
+  public notes = [];
+  public notes1 = [];
 
   ngOnInit() {
     this.displayNotes();
@@ -19,8 +19,8 @@ export class NotesComponent implements OnInit {
   }
 
 
-   /*   calling get notes Api
-    */
+  /*   calling get notes Api
+   */
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
@@ -35,8 +35,8 @@ export class NotesComponent implements OnInit {
   }
 
 
-   /*   calling get notes Api
-    */
+  /*   calling get notes Api
+   */
   getPin() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {

@@ -13,18 +13,19 @@ export class DataService {
   private gridMessage = new Subject<boolean>();
   viewListObserver = this.gridMessage.asObservable();
 
-  private profileSource= new BehaviorSubject(false);
-  currentProfile=this.profileSource.asObservable();
+  private profileSource = new BehaviorSubject(false);
+  currentProfile = this.profileSource.asObservable();
 
 
-  private label= new Subject<boolean>();
-  currentlabel=this.label.asObservable();
+  private label = new Subject<boolean>();
+  currentlabel = this.label.asObservable();
 
   constructor() { }
 
   changeMessage(message: string) {
     this.messageSource.next(message)
   }
+
   changeEvent(message: boolean) {
     this.eventEmitter.next(message)
   }
@@ -33,10 +34,12 @@ export class DataService {
     this.gridMessage.next(message);
   }
 
-changeProfile(message: boolean) {
+  changeProfile(message: boolean) {
     this.profileSource.next(message);
   }
+
   changeLabel(message: boolean) {
     this.label.next(message);
   }
+
 }

@@ -12,15 +12,15 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 
 export class LoginComponent implements OnInit {
-  hide = true;
-  records = {};
+  public hide = true;
+  public records = {};
+  public isLeftVisible = false;
 
-  body = {
+  public body = {
     "email": "",
     "password": ""
   }
   email = new FormControl('', [Validators.required, Validators.email]);
-
 
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  isLeftVisible = false;
   register() {
     if (!this.email.invalid) {
       this.isLeftVisible = !this.isLeftVisible
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.records = this.httpService.postHttpData('user/login', this.body)
       .subscribe(data => {
-        LoggerService.log('data',data);
+        LoggerService.log('data', data);
         localStorage.setItem('token', data['id']);
         localStorage.setItem('firstName', data['firstName']);
         localStorage.setItem('lastName', data['lastName']);
@@ -56,26 +55,20 @@ export class LoginComponent implements OnInit {
         this.matSnackBar.open("Login Successful ", "Successful", {
           duration: 3000,
         });
-       
-
-        var token=localStorage.getItem('token');
-        LoggerService.log(token,"token in login");
-        
-        var pushToken=localStorage.getItem('pushToken')
-        LoggerService.log('pushtoken in login',pushToken);
-
-        var body={
-          "pushToken":pushToken
+        var token = localStorage.getItem('token');
+        LoggerService.log(token, "token in login");
+        var pushToken = localStorage.getItem('pushToken')
+        LoggerService.log('pushtoken in login', pushToken);
+        var body = {
+          "pushToken": pushToken
         }
-        this.httpService.httpUpdateLabel('user/registerPushToken',body,token).subscribe(
-          data=>{
-            LoggerService.log("post of pushToken is successful****************************",data)
-           
+        this.httpService.httpUpdateLabel('user/registerPushToken', body, token).subscribe(
+          data => {
+            LoggerService.log("post of pushToken is successful***********", data)
             window.location.href = 'homepage';
           }),
-          error=>{
-            LoggerService.log(error,"error in pushToken");
-            
+          error => {
+            LoggerService.log(error, "error in pushToken");
           }
       },
         error => {

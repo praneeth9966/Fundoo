@@ -10,29 +10,25 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(public httpService:HttpService,public dataService:DataService) { }
- 
-  searchBar;
-  
+  constructor(public httpService: HttpService, public dataService: DataService) { }
+
+  public searchBar;
+  public token = localStorage.getItem('token');
+  public notes = [];
+
   ngOnInit() {
-this.dataService.currentMessage.subscribe(message=>{
-  LoggerService.log(message);
-  
-  this.searchBar=message;
-  LoggerService.log(this.searchBar,"searchComponent");
-  
-  this.displayNotes();
-})
-
-
+    this.dataService.currentMessage.subscribe(message => {
+      LoggerService.log(message);
+      this.searchBar = message;
+      LoggerService.log(this.searchBar, "searchComponent");
+      this.displayNotes();
+    })
   }
-  token=localStorage.getItem('token');
- 
-  notes = [];
+
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
-      LoggerService.log('result',res);
+      LoggerService.log('result', res);
       this.notes = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false)

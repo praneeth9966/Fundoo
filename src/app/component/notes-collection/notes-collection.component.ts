@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -11,21 +11,21 @@ import { RemindmeIconComponent } from '../remindme-icon/remindme-icon.component'
   styleUrls: ['./notes-collection.component.scss']
 })
 export class NotesCollectionComponent implements OnInit {
-  notes = [];
-  toggle = false;
-  interval;
+  public notes = [];
+  public toggle = false;
+  public interval;
   public labelBody = {};
   public reminderBody = {};
   public pinBody = {};
-  modifiedCheckList: any;
+  public modifiedCheckList: any;
   public isChecked = false;
-  todayDate=new Date();
-  tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate()+1)
-  
+  public todayDate = new Date();
+  public tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
+
 
   constructor(private httpService: HttpService, public dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
-      LoggerService.log('message',message);
+      LoggerService.log('message', message);
       if (message) {
         this.notifyParent.emit();
       }
@@ -41,10 +41,10 @@ export class NotesCollectionComponent implements OnInit {
   @Input() array;
   @Input() searchBar;
   @Input() name;
+
   ngOnInit() {
     this.gridView();
   }
-  // @ViewChild(RemindmeIconComponent) childComponentMenu: RemindmeIconComponent;
 
 
   update(notes): void {
@@ -62,15 +62,14 @@ export class NotesCollectionComponent implements OnInit {
   }
 
 
-   /*   calling remove Label Api
-    */
+  /*   calling remove Label Api
+   */
   removeLabel(id, labelId) {
     this.labelBody = {
       "noteId": id,
       "lableId": labelId
     }
     this.httpService.httpPostArchive('notes/' + id + '/addLabelToNotes/' + labelId + '/remove', this.labelBody, localStorage.getItem('token')).subscribe(result => {
-
       LoggerService.log('result', result);
       this.notifyParent.emit({
       });
@@ -80,8 +79,8 @@ export class NotesCollectionComponent implements OnInit {
   }
 
 
-   /*   calling remove reminder Api
-    */
+  /*   calling remove reminder Api
+   */
   removeReminder(id) {
     this.reminderBody = {
       "noteIdList": [id]
@@ -124,10 +123,6 @@ export class NotesCollectionComponent implements OnInit {
     this.notifyParent.emit();
   }
 
-  // pinArchive(event){
-  //   this.unArchiveParent.emit(event);
-  // }
-
   gridView() {
     this.dataService.viewListObserver.subscribe(message => {
       this.toggle = message;
@@ -148,14 +143,14 @@ export class NotesCollectionComponent implements OnInit {
   }
 
 
-   /*   calling update checklist Api
-    */
+  /*   calling update checklist Api
+   */
   updatelist(id) {
     var checklistData = {
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
-    LoggerService.log('checklistData',checklistData);
+    LoggerService.log('checklistData', checklistData);
     var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
     var checkNew = JSON.stringify(checklistData);
     this.httpService.httpDeleteNotes(url, checkNew, localStorage.getItem('token')).subscribe(response => {
@@ -166,15 +161,15 @@ export class NotesCollectionComponent implements OnInit {
 
   /*   function for striking reminder
     */
-  strikeReminder(date){
-    var currentReminder=new Date().getTime();
-    var reminderValue=new Date(date).getTime();
-    if(reminderValue > currentReminder){
-  return true;
+  strikeReminder(date) {
+    var currentReminder = new Date().getTime();
+    var reminderValue = new Date(date).getTime();
+    if (reminderValue > currentReminder) {
+      return true;
     }
     else false;
   }
-  labelRedirect(label){
+  labelRedirect(label) {
     this.dataService.changeLabel(label);
   }
 

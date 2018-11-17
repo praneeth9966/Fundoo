@@ -11,51 +11,44 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-hide = true;
-  body ={
-    "newPassword":""
+  public hide = true;
+  public body = {
+    "newPassword": ""
   }
-  
-    
 
-  password = new FormControl('', [Validators.required]);
-  records: any;
- 
-  // httpService: any;
-  // snackBar: any;
+  public password = new FormControl('', [Validators.required]);
+  public records: any;
+
   getErrorMessagePassword() {
     return this.password.hasError('required') ? 'Password is required' :
       this.password.hasError('pattern') ? 'Invalid password' : '';
   }
-  constructor(public httpService: HttpService, public snackBar: MatSnackBar,public activatedRoute:ActivatedRoute) { }
- 
+
+  constructor(public httpService: HttpService, public snackBar: MatSnackBar, public activatedRoute: ActivatedRoute) { }
+
   ngOnInit() {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.token = params['id'];
-      LoggerService.log('token',this.token);
-      });
+      LoggerService.log('token', this.token);
+    });
   }
 
-  reset(){
-    this.records=this.httpService.httpPasswordUpdate('user/reset-password',this.token,this.body).subscribe(result=>{
-    this.snackBar.open('Password Updation', 'Success', {
-    duration: 3000,
+  reset() {
+    this.records = this.httpService.httpPasswordUpdate('user/reset-password', this.token, this.body).subscribe(result => {
+      this.snackBar.open('Password Updation', 'Success', {
+        duration: 3000,
+      });
+    }, error => {
+      LoggerService.log("error", error);
+
+      this.snackBar.open('Password Updation', 'Failed', {
+        duration: 3000,
+      });
     });
-    },error=>{
-      LoggerService.log("error",error);
-      
-    this.snackBar.open('Password Updation', 'Failed', {
-    duration: 3000,
-    });
-    });
-    }
+  }
   token(arg0: string, token: any, body: { "password": string; }): any {
     throw new Error("Method not implemented.");
   }
-
- 
-
-  
 
 }

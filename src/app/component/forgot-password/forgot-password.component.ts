@@ -10,7 +10,7 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  temp: any = {
+  public temp: any = {
     "email": "",
   };
 

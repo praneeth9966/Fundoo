@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
@@ -9,11 +9,10 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class TrashComponent implements OnInit {
   constructor(private httpService: HttpService) { }
-  array = [];
-  body={};
-
+  public array = [];
+  public body = {};
   public name = "trash";
-  
+
   ngOnInit() {
     // this.notes=[];
     this.getNotes();
@@ -22,7 +21,7 @@ export class TrashComponent implements OnInit {
   getNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
-      LoggerService.log('result',res);
+      LoggerService.log('result', res);
       this.array = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == true)
@@ -32,17 +31,17 @@ export class TrashComponent implements OnInit {
       LoggerService.log(error);
     })
   }
-  
-  del(event) { 
-    if(event){
-    this.getNotes();
+
+  del(event) {
+    if (event) {
+      this.getNotes();
     }
   }
 
-  restore(event){
-  if(event){
-    this.getNotes();
-  }
+  restore(event) {
+    if (event) {
+      this.getNotes();
+    }
   }
 
 }

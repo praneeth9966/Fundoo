@@ -6,15 +6,15 @@ import { AuthService } from '../auth-guard/auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private auth:AuthService) { }
+  constructor(private auth: AuthService) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if(this.auth.isLoggedIn()){
-        return true;
-      }else{
-        window.location.href='login';
-        return false;
-      }
+    if (this.auth.isLoggedIn()) {
+      return true;
+    } else {
+      window.location.href = 'login';
+      return false;
+    }
   }
 }
