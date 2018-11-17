@@ -1,7 +1,7 @@
 <mat-icon style="cursor: pointer;" matTooltip="More" aria-label="more" 
     [matMenuTriggerFor]="appMenu" >more_vert</mat-icon>
 
-<!-- *******************MoreIcon Menu ***********************  -->
+<!-------------------------------- MoreIcon Menu starts --------------------------->
 
 <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
     <div style="padding:10px" fxLayout="column">
@@ -14,7 +14,9 @@
     </div>
 </mat-menu>
 
-<!-- *******************AddLabel Menu ***********************  -->
+<!-------------------------------- MoreIcon Menu ends -------------------------------->
+
+<!---------------------------AddLabel Menu starts----------------------------------->
 
 <mat-menu #labelMenu="matMenu">
         <div class="title">Label note</div>
@@ -29,3 +31,5 @@
             </mat-checkbox>
         </div>
 </mat-menu>
+
+<!---------------------------AddLabel Menu ends----------------------------------->

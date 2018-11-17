@@ -129,7 +129,8 @@ export class DialogComponent implements OnInit {
     })
   }
 
-
+/*   calling add checklist Api
+    */
   addList(event) {
     if (this.newList != "") {
       this.adding = true;
@@ -195,7 +196,6 @@ export class DialogComponent implements OnInit {
 
       LoggerService.log('result', result);
       const index = this.selectArray.indexOf(items, 0);
-      console.log(items, 'hiii');
       if (index > -1) {
         this.selectArray.splice(index, 1);
       }

@@ -16,6 +16,10 @@ export class DataService {
   private profileSource= new BehaviorSubject(false);
   currentProfile=this.profileSource.asObservable();
 
+
+  private label= new Subject<boolean>();
+  currentlabel=this.label.asObservable();
+
   constructor() { }
 
   changeMessage(message: string) {
@@ -31,5 +35,8 @@ export class DataService {
 
 changeProfile(message: boolean) {
     this.profileSource.next(message);
+  }
+  changeLabel(message: boolean) {
+    this.label.next(message);
   }
 }

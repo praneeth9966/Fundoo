@@ -29,17 +29,25 @@ export class NavigationComponent implements OnInit {
       map(result => result.matches)
     );
   // titleNew: any;
-  titleNew="fundooNotes";
-
+  titleNew;
+  message1;
   constructor(public dataservice: DataService, public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
 
   ngOnInit() {
+      this.titleNew = "fundooNotes";
+
+    this.dataservice.currentlabel
+    .subscribe(message =>
+      this.titleNew=message)
+
     this.emailId = this.email.split("");
     this.myEmail = this.emailId[0];
 
     this.labelList();
   }
 
+  /*   calling Logout Api
+   */
   logout() {
     var token = localStorage.getItem('token');
     this.httpService.httpLogout('/user/logout', token).subscribe(data => {
@@ -63,8 +71,8 @@ export class NavigationComponent implements OnInit {
   }
 
 
-   /*   calling get Labels Api
-    */
+  /*   calling get Labels Api
+   */
   labelList() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
@@ -110,7 +118,7 @@ export class NavigationComponent implements OnInit {
   public pic;
   openDialogCrop(data): void {
     const dialogRef1 = this.dialog.open(CropImageComponent, {
-      width: '800px',
+      width: '600px',
       data: data
     });
 
@@ -122,12 +130,12 @@ export class NavigationComponent implements OnInit {
       }
     });
   }
-  changeTitle(title){
-    this.titleNew=title;
+  changeTitle(title) {
+    this.titleNew = title;
   }
-change(labels){
-  this.titleNew=labels.label
+  change(labels) {
+    this.titleNew = labels.label
 
-}
+  }
 }
 

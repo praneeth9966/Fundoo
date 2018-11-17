@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../../core/services/data/data.service';
 import { LoggerService } from '../../core/services/logger/logger.service';
+import { RemindmeIconComponent } from '../remindme-icon/remindme-icon.component';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
@@ -43,12 +44,14 @@ export class NotesCollectionComponent implements OnInit {
   ngOnInit() {
     this.gridView();
   }
+  // @ViewChild(RemindmeIconComponent) childComponentMenu: RemindmeIconComponent;
+
 
   update(notes): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',
       panelClass: 'myapp-no-padding-dialog',
-      position: { left: '450px' },
+      // position: { left: '450px' },
       data: notes
     });
 
@@ -121,6 +124,10 @@ export class NotesCollectionComponent implements OnInit {
     this.notifyParent.emit();
   }
 
+  // pinArchive(event){
+  //   this.unArchiveParent.emit(event);
+  // }
+
   gridView() {
     this.dataService.viewListObserver.subscribe(message => {
       this.toggle = message;
@@ -152,10 +159,13 @@ export class NotesCollectionComponent implements OnInit {
     var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
     var checkNew = JSON.stringify(checklistData);
     this.httpService.httpDeleteNotes(url, checkNew, localStorage.getItem('token')).subscribe(response => {
-      console.log(response);
+      LoggerService.log('response', response);
     })
   }
 
+
+  /*   function for striking reminder
+    */
   strikeReminder(date){
     var currentReminder=new Date().getTime();
     var reminderValue=new Date(date).getTime();
@@ -163,6 +173,9 @@ export class NotesCollectionComponent implements OnInit {
   return true;
     }
     else false;
+  }
+  labelRedirect(label){
+    this.dataService.changeLabel(label);
   }
 
 }

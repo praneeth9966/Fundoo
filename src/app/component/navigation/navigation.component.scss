@@ -1,8 +1,8 @@
 
  .sidenav-container {
   height: 100%;
-  width: 100%
-
+  width: 100%;
+  overflow: hidden;
 }
 
 .sidenav {
@@ -42,7 +42,6 @@
 }
 
 .child-links1 {
-  /* margin-left:46px; */
   font-size: 12px
 
 }
@@ -65,9 +64,6 @@
 .icons:hover {
   opacity: 1.0;    
 }
-
-
-
 
 .profilebutton{
   width:100px; 

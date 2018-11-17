@@ -31,6 +31,8 @@ export class RemindersComponent implements OnInit {
     }
   }
 
+  /*   function for sorting reminders
+   */
   compare(a,b) {
     a = new Date(a.reminder);
     b = new Date(b.reminder);

@@ -1,7 +1,7 @@
+<!------------------Reminder Icon starts------------------->
 
-     
-  <mat-icon style="cursor: pointer;" matTooltip="Remind me"  aria-label="remind me"
-      [matMenuTriggerFor]="menu">touch_app</mat-icon> 
+<mat-icon style="cursor: pointer;" matTooltip="Remind me"  aria-label="remind me"
+      [matMenuTriggerFor]="menu">add_alert</mat-icon> 
 
     
     <mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false" class="reminderMenu">
@@ -13,19 +13,19 @@
             <button mat-menu-item (click)="todayReminder()">
                 <div fxFlex>Later today</div>
                 <div fxFlex></div>
-                <div fxFlex><span>08.00 PM</span></div>
+                <div fxFlex class="time"><span >08.00 PM</span></div>
             </button>
     
             <button mat-menu-item (click)="tomorrowReminder()">
                 <div fxFlex>Tomorrow</div>
                 <div fxFlex></div>
-                <div fxFlex><span>08.00 AM</span></div>
+                <div fxFlex class="time"><span >08.00 AM</span></div>
             </button>
     
             <button mat-menu-item (click)="weekReminder()">
                 <div fxFlex>Next week</div>
                 <div fxFle></div>
-                <div fxFlex><span>08.00 AM</span></div>
+                <div fxFlex class="time"><span class="time">08.00 AM</span></div>
             </button>
     
             <button mat-menu-item (click)="$event.stopPropagation(); datePickReminder()">
@@ -75,3 +75,5 @@
         </div>
     
     </mat-menu>
+
+    <!------------------Reminder Icon ends------------------->

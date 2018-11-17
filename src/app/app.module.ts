@@ -45,6 +45,7 @@ import { LoggerService } from './core/services/logger/logger.service';
 import { CropImageComponent } from './component/crop-image/crop-image.component';
 import { ImageCropperModule } from "ngx-image-cropper";
 import { PinComponent } from './component/pin/pin.component';
+import { MessagingService } from './core/services/messaging/messaging.service';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,7 @@ import { PinComponent } from './component/pin/pin.component';
     ImageCropperModule
   ],
   entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent],
-  providers: [HttpService, DataService, MatDatepickerModule, LoggerService],
+  providers: [HttpService, DataService, MatDatepickerModule, LoggerService,MessagingService],
 
   bootstrap: [AppComponent]
 })

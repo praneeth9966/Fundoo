@@ -29,9 +29,12 @@ export class ArchiveComponent implements OnInit {
     })
   }
 
+  /*   UnArchive event emitter function
+    */
   get(event) {
     if (event) {
       this.myFunc();
     }
   }
+  
 }

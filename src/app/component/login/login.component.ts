@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms'
 import { Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -55,7 +56,27 @@ export class LoginComponent implements OnInit {
         this.matSnackBar.open("Login Successful ", "Successful", {
           duration: 3000,
         });
-        window.location.href = 'homepage';
+       
+
+        var token=localStorage.getItem('token');
+        console.log(token,"token in login");
+        
+        var pushToken=localStorage.getItem('pushToken')
+        console.log('pushtoken in login',pushToken);
+
+        var body={
+          "pushToken":pushToken
+        }
+        this.httpService.httpUpdateLabel('user/registerPushToken',body,token).subscribe(
+          data=>{
+            console.log("post of pushToken is successful****************************",data)
+           
+            window.location.href = 'homepage';
+          }),
+          error=>{
+            console.log(error,"error in pushToken");
+            
+          }
       },
         error => {
           console.log("Error", error);

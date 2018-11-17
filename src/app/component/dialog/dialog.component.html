@@ -1,4 +1,4 @@
-      <!-- *******************************Notes********************************* -->
+      <!-----------------------------Notes starts------------------------------->
 
   <mat-card fxFlex *ngIf="!show" class="example-card" 
     [ngStyle]="{'background-color':data.color}" 
@@ -8,15 +8,15 @@
       <div fxLayout='row' fxLayout.xs='row'>
         <div fxFlex=98 contenteditable="true" [innerHTML]="data.title"   data-text=""
          class="cards" id="newTitle"></div>
-        <!-- <div fxFlex matTooltip="Pin note"><img src="../../../assets/images/pin.svg">
-        </div> -->
       </div>
 
       <div style="margin-top:20px" contenteditable="true" [innerHTML]="data.description" 
       data-text="" class="cards" id="newDescription">{{data.description}}</div>
     </mat-card-content>
 
-          <!-- *************************checkList************************** -->
+        <!-----------------------------Notes ends------------------------------->
+
+        <!-----------------------------CheckList starts------------------------------->
 
     <div class="note" *ngFor="let check of tempArray" fxLayout="row">
     
@@ -41,8 +41,9 @@
           <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
     </div>
 
+      <!-----------------------------CheckList ends------------------------------->
 
-      <!-- *******************************Labels********************************* -->
+      <!-----------------------------Labels starts------------------------------->
 
     <div fxLayout="row wrap">
       <div *ngFor="let items of selectLabelArray" >
@@ -54,8 +55,9 @@
     </div>
     </div>
 
-      <!-- *******************************Reminders********************************* -->
-
+      <!-----------------------------Labels ends------------------------------->
+      
+      <!-----------------------------Reminders starts--------------------------->
     <div fxLayout="row wrap">
         <div *ngFor="let items of selectArray">
           <mat-chip-list selected>
@@ -68,7 +70,9 @@
         </div>
       </div>
 
-      <!-- *******************************MatCardActions********************************* -->
+      <!-----------------------------Reminders ends--------------------------->
+
+      <!-----------------------------MatCardActions starts--------------------------->
 
     <mat-card-actions>
       <div fxLayout='row' fxLayout.xs='row'>
@@ -98,4 +102,5 @@
       </div>
     </mat-card-actions>
   
+    <!-----------------------------MatCardActions ends--------------------------->
   </mat-card>

@@ -21,6 +21,9 @@ export class ChangeLabelComponent implements OnInit {
     this.displayNotes();
   }
 
+  /*
+    calling getNotes Api
+  */
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {

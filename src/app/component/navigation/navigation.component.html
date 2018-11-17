@@ -1,4 +1,4 @@
-<!-- ***********************MatToolBar*********************** -->
+<!---------------------------MatToolBar starts------------------------------>
 
 <mat-toolbar class="tool-bar" fxLayout='row' fxLayout.xs="row" fxLayoutGap="30px" 
   fxLayoutGap.xs="20px" style="padding-right:0px">
@@ -59,7 +59,9 @@
   </div>
 </mat-toolbar>
 
-<!-- ***********************Mat-SideNav-Container*********************** -->
+<!---------------------------MatToolBar ends------------------------------>
+
+<!-------------------------Mat-SideNav-Container starts--------------------------->
 
 <mat-sidenav-container class="sidenav-container" style="background-color:#cccccc">
   <mat-sidenav #drawer class="sidenav" style="background-color:#cccccc" fixedInViewport="true" 
@@ -84,10 +86,13 @@
     </mat-nav-list>
   </mat-sidenav>
 
-<!-- ***********************Mat-SideNav-Content*********************** -->
+<!-------------------------Mat-SideNav-Container ends--------------------------->
+
+<!-------------------------Mat-SideNav-Content starts--------------------------->
 
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 
+  <!-------------------------Mat-SideNav-Content ends--------------------------->
 </mat-sidenav-container>

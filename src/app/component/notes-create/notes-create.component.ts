@@ -23,17 +23,17 @@ export class NotesCreateComponent implements OnInit {
   dataarray: any = [];
   data;
   status = "open";
-  public addCheck=false;
+  public addCheck = false;
   checklist = [];
   public body: any = {};
   dataArrayApi: any = [];
-  public adding:boolean
-  public isChecked=false;
+  public adding: boolean
+  public isChecked = false;
   public i = 0;
-  public reminderIcon=[];
-  value: any;
-todayDate=new Date();
-tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate()+1)
+  public reminderIcon = [];
+  value;
+  todayDate = new Date();
+  tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
 
   constructor(private httpService: HttpService) { }
 
@@ -53,6 +53,7 @@ tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), t
 
   close() {
     this.show = !this.show;
+    this.array2 = [];
   }
 
   changeParentColor(event) {
@@ -61,11 +62,12 @@ tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), t
   }
 
 
-   /*   calling add notes Api
-    */
+  /*   calling add notes Api
+   */
   createNotes() {
+
     this.title = document.getElementById("titleId").innerHTML
-    console.log(this.title);
+    LoggerService.log('title', this.title);
     if (this.checkList == false) {
       this.description = document.getElementById("takeANoteId").innerHTML
       this.body = {
@@ -75,13 +77,19 @@ tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), t
         'checkList': '',
         'isPinned': 'false',
         'color': '',
-        "reminder":this.value
+        'reminder': ''
+      }
+      if (this.value != undefined) {
+
+        this.body.reminder = this.value;
+
       }
       this.body.color = this.parentColor;
       this.parentColor = "#ffffff";
     }
 
     else {
+
       this.checkList = false;
       this.dataArrayApi = [];
       for (var i = 0; i < this.dataarray.length; i++) {
@@ -95,14 +103,19 @@ tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), t
         this.dataArrayApi.push(apiObj)
         this.status = "open"
       }
-      console.log("dataArrayapi", this.dataArrayApi);
+      LoggerService.log('dataArrayApi', this.dataArrayApi);
       this.body = {
         "title": this.title,
         "checklist": JSON.stringify(this.dataArrayApi),
         "isPined": '',
         "color": "",
         "labelIdList": JSON.stringify(this.array1),
-        "reminder":this.value
+        "reminder": ''
+      }
+      if (this.value != undefined) {
+
+        this.body.reminder = this.value;
+
       }
       console.log(this.body);
       this.body.color = this.parentColor;
@@ -110,40 +123,43 @@ tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), t
     }
     this.httpService.httpAddNotes('notes/addNotes', this.body, this.token)
       .subscribe(data => {
-        console.log(data);
+        LoggerService.log('data', data);
         // this.checkList = false;
         this.array1 = [];
         this.array2 = [];
-        this.dataArrayApi=[];
-        this.dataarray=[];
-        this.reminderIcon=[];
-        this.adding=false
+        this.dataArrayApi = [];
+        this.dataarray = [];
+        this.reminderIcon = [];
+        this.value = '';
+        this.adding = false
         this.messageEvent.emit({
         })
       })
     error => {
-      console.log("error", error);
+      LoggerService.log('error', error);
     }
   }
 
 
-   /*   calling get Labels Api
-    */
+  /*   calling get Labels Api
+   */
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
-      console.log(data);
+      LoggerService.log('data', data);
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log('error', error);
     })
   }
 
 
+  /*  function for deleting particular label in notes create
+   */
   clickFunc(temp) {
     if (!this.array2.some((data) => data == temp.label)) {
       this.array1.push(temp.id);
@@ -157,53 +173,67 @@ tomorrowDate=new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), t
     }
   }
 
+ 
   enter(event) {
     if (this.data != "") {
-             this.adding = true;
-           }
-           else {
-             this.adding = false;
-         }
+      this.adding = true;
+    }
+    else {
+      this.adding = false;
+    }
     this.i++;
-    this.isChecked=this.addCheck;
-    if (this.data != null  ) {
-  
+    this.isChecked = this.addCheck;
+    if (this.data != null) {
+
       var obj = {
         "index": this.i,
         "data": this.data,
-        "isChecked":this.isChecked
+        "isChecked": this.isChecked
       }
       this.dataarray.push(obj);
-      LoggerService.log('dataArray',this.dataarray)
+      LoggerService.log('dataArray', this.dataarray)
       this.data = null;
-          this.adding=false;
-          this.isChecked=false;
-            this.addCheck = false;
+      this.adding = false;
+      this.isChecked = false;
+      this.addCheck = false;
 
     }
   }
 
+
+  /*   function for deleting checklist
+   */
   ondelete(deletedObj) {
-    console.log("ondelete function runnig");
     for (var i = 0; i < this.dataarray.length; i++) {
       if (deletedObj.index == this.dataarray[i].index) {
         this.dataarray.splice(i, 1);
         break;
       }
     }
-    console.log(this.dataarray);
   }
-  
-  reminderIconParent(event){
-    this.reminderIcon.push(event);
-    console.log(this.reminderIcon);
-    this.value=event;
-    
+
+  reminderIconParent(event) {
+    if (event) {
+      // if (this.reminderIcon.length == 0)
+      this.reminderIcon=[];
+        this.reminderIcon.push(event);
+      this.value = event;
+    }
+
+
   }
-id={
-  'id':''
-}
-delete(){
-  this.reminderIcon=[];
-}
+  id = {
+    'id': ''
+  }
+
+  delete() {
+    this.reminderIcon = [];
+  }
+
+  deleteMsg(temp) {
+    const index = this.array2.indexOf(temp, 0);
+    if (index > -1) {
+      this.array2.splice(index, 1);
+    }
+  }
 }
