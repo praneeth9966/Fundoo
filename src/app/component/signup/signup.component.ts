@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 // import { FormBuilder } from '@angular/forms';
 
@@ -99,7 +100,7 @@ export class SignupComponent implements OnInit {
     });
 
     this.records = this.httpService.getHttpData('user').subscribe(result => {
-      console.log("Registered Users=", result)
+      LoggerService.log("Registered Users=", result)
     });
   }
 

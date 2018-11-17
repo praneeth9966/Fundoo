@@ -25,7 +25,7 @@ export class NotesCollectionComponent implements OnInit {
 
   constructor(private httpService: HttpService, public dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
-      console.log(message);
+      LoggerService.log('message',message);
       if (message) {
         this.notifyParent.emit();
       }
@@ -75,7 +75,7 @@ export class NotesCollectionComponent implements OnInit {
       this.notifyParent.emit({
       });
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
@@ -91,7 +91,7 @@ export class NotesCollectionComponent implements OnInit {
       this.notifyParent.emit({
       });
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
@@ -135,14 +135,14 @@ export class NotesCollectionComponent implements OnInit {
   }
 
   checkBox(checkList, note) {
-    console.log(note);
+    LoggerService.log(note);
     if (checkList.status == "open") {
       checkList.status = "close"
     }
     else {
       checkList.status = "open"
     }
-    console.log(checkList);
+    LoggerService.log(checkList);
     this.modifiedCheckList = checkList;
     this.updatelist(note);
   }
@@ -155,7 +155,7 @@ export class NotesCollectionComponent implements OnInit {
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
-    console.log(checklistData);
+    LoggerService.log('checklistData',checklistData);
     var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
     var checkNew = JSON.stringify(checklistData);
     this.httpService.httpDeleteNotes(url, checkNew, localStorage.getItem('token')).subscribe(response => {

@@ -9,6 +9,7 @@ import { LabelsComponent } from '../labels/labels.component';
 import { DataService } from '../../core/services/data/data.service'
 import { CropImageComponent } from '../crop-image/crop-image.component';
 import { environment } from '../../../environments/environment';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -51,12 +52,12 @@ export class NavigationComponent implements OnInit {
   logout() {
     var token = localStorage.getItem('token');
     this.httpService.httpLogout('/user/logout', token).subscribe(data => {
-      console.log(data);
+      LoggerService.log('data',data);
       localStorage.clear();
       window.location.replace('login')
     },
       error => {
-        console.log("Error", error);
+        LoggerService.log("Error", error);
       });
   }
 
@@ -65,7 +66,7 @@ export class NavigationComponent implements OnInit {
       width: '300px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      LoggerService.log('The dialog was closed');
       this.labelList()
     });
   }
@@ -82,7 +83,7 @@ export class NavigationComponent implements OnInit {
           this.notes.push(data['data'].details[i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 

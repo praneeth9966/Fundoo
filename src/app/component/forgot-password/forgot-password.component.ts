@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms'
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -28,9 +29,9 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    console.log(this.temp.email);
+    LoggerService.log(this.temp.email);
     if (this.temp.email.length == 0) {
-      console.log("Email is required");
+      LoggerService.log("Email is required");
       this.snackBar.open("Email is required ", "login unsuccessfull", {
         duration: 10000,
       });
@@ -39,13 +40,13 @@ export class ForgotPasswordComponent implements OnInit {
       this.resetService.postHttpData('user/reset', this.temp)
         .subscribe(
           data => {
-            console.log("reset successfull,check your mail once");
+            LoggerService.log("reset successfull,check your mail once");
             this.snackBar.open("reset successfull ", "successfull", {
               duration: 10000,
             });
           }),
         error => {
-          console.log("Error", error);
+          LoggerService.log("Error", error);
           this.snackBar.open("enter valid details ", "login unsuccessfull", {
             duration: 10000,
           });

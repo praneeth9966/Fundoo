@@ -3,6 +3,7 @@ import { HttpService } from '../../core/services/http/http.service';
 import { DataService } from '../../core/services/data/data.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-labels',
@@ -26,18 +27,18 @@ export class LabelsComponent implements OnInit {
   ngOnInit() {
     var token = localStorage.getItem('token');
     this.httpservice.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(res => {
-      console.log(res);
+      LoggerService.log('result',res);
       this.notes = [];
       this.notes = (res['data'].details);
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
    /*   calling add Labels Api
     */
   addLabel() {
-    console.log(this.id);
+    LoggerService.log(this.id);
     if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML)) {
       this.httpservice.httpPostArchive('noteLabels',
         {
@@ -46,18 +47,18 @@ export class LabelsComponent implements OnInit {
           "userId": this.id
         }, this.token).subscribe(
           (data) => {
-            console.log("POST Request is successful ", data);
+            LoggerService.log("POST Request is successful ", data);
             this.matSnackBar.open("Label Added",'Successfully',{
               duration: 3000,
             });
-            console.log(data);
+            LoggerService.log('data',data);
           },
           error => {
-            console.log("Error", error);
+            LoggerService.log("Error", error);
           })
     }
     else {
-      console.log('label exists');
+      LoggerService.log('label exists');
     }
   }
 
@@ -71,17 +72,17 @@ export class LabelsComponent implements OnInit {
       data: { name: 'trash' }
     });
     dialogRef.afterClosed().subscribe(data => {
-      console.log('The dialog was closed');
+      LoggerService.log('The dialog was closed');
       if (data) {
         this.httpservice.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token'))
           .subscribe(data => {
-            console.log(data);
+            LoggerService.log('data',data);
             this.dataService.changeEvent(true);
             if (data) {
               this.getLabels();
             }
           }, error => {
-            console.log(error);
+            LoggerService.log(error);
           })
       }
     });
@@ -91,7 +92,7 @@ export class LabelsComponent implements OnInit {
    /*   calling update label Api
     */
   updateLabel(id) {
-    console.log(this.id);
+    LoggerService.log(this.id);
     this.httpservice.httpUpdateLabel('noteLabels/' + id + '/updateNoteLabel',
       {
         "label": this.newLabel.nativeElement.innerHTML,
@@ -101,11 +102,11 @@ export class LabelsComponent implements OnInit {
       }
       , this.token).subscribe(
         (data) => {
-          console.log("UPDATE Request is successful ", data);
-          console.log(data);
+          LoggerService.log("UPDATE Request is successful ", data);
+          LoggerService.log('data',data);
         },
         error => {
-          console.log("Error", error);
+          LoggerService.log("Error", error);
         })
   }
 
@@ -118,14 +119,14 @@ export class LabelsComponent implements OnInit {
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpservice.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
-      console.log(data);
+      LoggerService.log('data',data);
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 

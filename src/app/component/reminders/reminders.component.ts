@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-reminders',
@@ -27,7 +28,7 @@ export class RemindersComponent implements OnInit {
         this.getRemindersArray.sort(this.compare);
       })
     error => {
-      console.log(error)
+      LoggerService.log(error)
     }
   }
 

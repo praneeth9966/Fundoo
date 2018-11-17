@@ -41,7 +41,7 @@ export class DialogComponent implements OnInit {
 
   ngOnInit() {
     this.selectArray = this.data['reminder'];
-    console.log(this.selectArray);
+    LoggerService.log('selectArray',this.selectArray);
     this.selectLabelArray = this.data['noteLabels'];
     if (this.data['noteCheckLists'].length > 0) {
       this.checklist = true;
@@ -64,7 +64,7 @@ export class DialogComponent implements OnInit {
 
       this.httpService.httpUpdateNotes('notes/updateNotes', this.body, token)
         .subscribe(data => {
-          console.log(data);
+          LoggerService.log('data',data);
         })
     }
     else {
@@ -76,20 +76,20 @@ export class DialogComponent implements OnInit {
       }
       var url = "notes/" + this.data['id'] + "/checklist/" + this.modifiedCheckList.id + "/update";
       this.httpService.httpDeleteNotes(url, JSON.stringify(apiData), token).subscribe(response => {
-        console.log(response);
+        LoggerService.log('response',response);
        
       })
     }
 
     error => {
-      console.log("error", error);
+      LoggerService.log("error", error);
     }
     this.dialogRef.close();
   }
 
 
   editing(editedList, event) {
-    console.log(editedList);
+    LoggerService.log(editedList);
     if (event.code == "Enter") {
       this.modifiedCheckList = editedList;
       this.onNoClick();
@@ -103,14 +103,14 @@ export class DialogComponent implements OnInit {
     else {
       checkList.status = "open"
     }
-    console.log(checkList);
+    LoggerService.log(checkList);
     this.modifiedCheckList = checkList;
     this.onNoClick();
   }
 
 
   removeList(checklist) {
-    console.log(checklist)
+    LoggerService.log(checklist)
     this.removedList = checklist;
     this.removeCheckList()
   }
@@ -120,7 +120,7 @@ export class DialogComponent implements OnInit {
   removeCheckList() {
     var url = "notes/" + this.data['id'] + "/checklist/" + this.removedList.id + "/remove";
     this.httpService.httpDeleteNotes(url, null, this.token).subscribe((response) => {
-      console.log(response);
+      LoggerService.log('response',response);
       for (var i = 0; i < this.tempArray.length; i++) {
         if (this.tempArray[i].id == this.removedList.id) {
           this.tempArray.splice(i, 1)
@@ -153,13 +153,13 @@ export class DialogComponent implements OnInit {
       var url = "notes/" + this.data['id'] + "/checklist/add";
       this.httpService.httpDeleteNotes(url, this.newData, this.token)
         .subscribe(response => {
-          console.log(response);
+          LoggerService.log('response',response);
           this.newList = null;
           this.addCheck = false;
           this.adding = false;
-          console.log(response['data'].details);
+          LoggerService.log(response['data'].details);
           this.tempArray.push(response['data'].details)
-          console.log(this.tempArray)
+          LoggerService.log('tempArray',this.tempArray)
         })
     }
   }
@@ -174,15 +174,15 @@ export class DialogComponent implements OnInit {
     this.httpService.httpPostArchive
       ('notes/' + this.data.id + '/addLabelToNotes/' + labelId + '/remove',
       this.labelBody, localStorage.getItem('token')).subscribe(result => {
-        console.log(result);
+        LoggerService.log('result',result);
         const index = this.selectLabelArray.indexOf(label, 0);
-        console.log(label, 'hiii');
+        LoggerService.log(label, 'hiii');
         if (index > -1) {
           this.selectLabelArray.splice(index, 1);
         }
 
       }, error => {
-        console.log(error);
+        LoggerService.log(error);
       })
   }
 
@@ -200,7 +200,7 @@ export class DialogComponent implements OnInit {
         this.selectArray.splice(index, 1);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 

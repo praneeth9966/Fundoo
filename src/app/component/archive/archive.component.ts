@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-archive',
@@ -19,13 +20,13 @@ export class ArchiveComponent implements OnInit {
   myFunc() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getArchiveNotesList', token).subscribe(res => {
-      console.log(res);
+      LoggerService.log('result',res);
       this.array = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         this.array.push(res['data']['data'][i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../../component/delete-dialog/delete-dialog.component';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 @Component({
   selector: 'app-more-icon',
   templateUrl: './more-icon.component.html',
@@ -37,13 +38,13 @@ export class MoreIconComponent implements OnInit {
     }
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
-      console.log(res);
+      LoggerService.log('result',res);
       this.matSnackBar.open("Notes deleted ",'Successfully',{
         duration: 3000,
       });
       this.deleteNote.emit();
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
@@ -51,17 +52,17 @@ export class MoreIconComponent implements OnInit {
    /*   calling add Label Api
     */
   addLabel(labelId) {
-    console.log(this.notesArray, "notess");
-    console.log(this.notesArray.id);
+    LoggerService.log(this.notesArray, "notess");
+    LoggerService.log(this.notesArray.id);
     this.labelBody = {
       "noteId": this.notesArray.id,
       "lableId": labelId
     }
     this.httpService.httpPostArchive('notes/' + this.notesArray.id + '/addLabelToNotes/' + labelId + '/add', this.labelBody, localStorage.getItem('token')).subscribe(result => {
-      console.log(result);
+      LoggerService.log('result',result);
       this.deleteNote.emit();
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
@@ -71,14 +72,14 @@ export class MoreIconComponent implements OnInit {
   getLabels() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
-      console.log(data);
+      LoggerService.log('',data);
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
@@ -92,17 +93,17 @@ export class MoreIconComponent implements OnInit {
       data: { name: 'trash' }
     });
     dialogRef.afterClosed().subscribe(data => {
-      console.log('The dialog was closed');
+      LoggerService.log('The dialog was closed');
       if (data) {
         this.model = {
           "isDeleted": true,
           "noteIdList": [this.notesArray.id]
         }
         this.httpService.httpPostArchive('notes/deleteForeverNotes', this.model, this.token).subscribe(data => {
-          console.log(data);
+          LoggerService.log('data',data);
           this.trashEvent.emit(true);
         }, error => {
-          console.log(error);
+          LoggerService.log(error);
         })
       }
     });
@@ -118,13 +119,13 @@ export class MoreIconComponent implements OnInit {
     }
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/trashNotes', this.body, token).subscribe(res => {
-      console.log(res);
+      LoggerService.log('result',res);
       this.matSnackBar.open("Notes restore",'Successfully',{
         duration: 3000,
       });
       this.restoreEvent.emit(true);
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 

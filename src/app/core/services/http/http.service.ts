@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {environment} from '../../../../environments/environment'
+import { LoggerService } from '../logger/logger.service';
 
 
 @Injectable({
@@ -167,7 +168,7 @@ httpUpdateLabel(nexturl, body, token) {
 }
 
 httpAddImage(nexturl,body,token){
-  console.log(token);
+  LoggerService.log(token);
   var httpOptions={
     headers:new HttpHeaders({
      
@@ -178,7 +179,7 @@ httpAddImage(nexturl,body,token){
 }
 
 httpAddReminder(nexturl,body,token){
-  console.log(token);
+  LoggerService.log(token);
   var httpOptions={
     headers:new HttpHeaders({
      
@@ -199,7 +200,7 @@ httpGetReminder(nexturl,token){
 }
 
 httpRemoveReminder(nexturl,body,token){
-  console.log(token);
+  LoggerService.log(token);
   var httpOptions={
     headers:new HttpHeaders({
      

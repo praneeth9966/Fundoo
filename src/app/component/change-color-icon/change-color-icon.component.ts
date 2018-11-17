@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-change-color-icon',
@@ -40,10 +41,10 @@ export class ChangeColorIconComponent implements OnInit {
     }
     var token = localStorage.getItem('token');
     this.httpService.httpDeleteNotes('notes/changesColorNotes', this.body, token).subscribe(res => {
-      console.log(res);
+      LoggerService.log('result',res);
       this.noteColor.emit();
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.records = this.httpService.postHttpData('user/login', this.body)
       .subscribe(data => {
-        console.log(data);
+        LoggerService.log('data',data);
         localStorage.setItem('token', data['id']);
         localStorage.setItem('firstName', data['firstName']);
         localStorage.setItem('lastName', data['lastName']);
@@ -59,27 +59,27 @@ export class LoginComponent implements OnInit {
        
 
         var token=localStorage.getItem('token');
-        console.log(token,"token in login");
+        LoggerService.log(token,"token in login");
         
         var pushToken=localStorage.getItem('pushToken')
-        console.log('pushtoken in login',pushToken);
+        LoggerService.log('pushtoken in login',pushToken);
 
         var body={
           "pushToken":pushToken
         }
         this.httpService.httpUpdateLabel('user/registerPushToken',body,token).subscribe(
           data=>{
-            console.log("post of pushToken is successful****************************",data)
+            LoggerService.log("post of pushToken is successful****************************",data)
            
             window.location.href = 'homepage';
           }),
           error=>{
-            console.log(error,"error in pushToken");
+            LoggerService.log(error,"error in pushToken");
             
           }
       },
         error => {
-          console.log("Error", error);
+          LoggerService.log("Error", error);
           this.matSnackBar.open("Email/Password invalid ", "Login Unsuccessful", {
             duration: 3000,
           });

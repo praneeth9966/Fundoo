@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-trash',
@@ -21,14 +22,14 @@ export class TrashComponent implements OnInit {
   getNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
-      console.log(res);
+      LoggerService.log('result',res);
       this.array = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == true)
           this.array.push(res['data']['data'][i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
   

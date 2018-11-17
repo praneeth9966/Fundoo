@@ -29,7 +29,7 @@ export class PinComponent implements OnInit {
       this.pinEvent.emit({
       });
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
@@ -46,7 +46,7 @@ export class PinComponent implements OnInit {
       this.pinEvent.emit({
       });
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 }

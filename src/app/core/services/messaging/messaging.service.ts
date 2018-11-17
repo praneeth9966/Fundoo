@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+import { LoggerService } from '../logger/logger.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,22 +20,22 @@ export class MessagingService {
   getPermission() {
     this.messaging.requestPermission()
     .then(() => {
-      console.log('Notification permission granted.');
+      LoggerService.log('Notification permission granted.');
       return this.messaging.getToken()
     })
     .then(pushToken => {
       localStorage.setItem('pushToken',pushToken);
-      console.log('pushToken in service',pushToken);
+      LoggerService.log('pushToken in service',pushToken);
       
     })
     .catch((err) => {
-      console.log('Unable to get permission to notify.', err);
+      LoggerService.log('Unable to get permission to notify.', err);
     });
   }
 
   receiveMessage() {
      this.messaging.onMessage((payload) => {
-      console.log("Message received. ", payload);
+      LoggerService.log("Message received. ", payload);
      
     });
 

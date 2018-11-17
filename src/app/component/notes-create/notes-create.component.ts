@@ -117,7 +117,7 @@ export class NotesCreateComponent implements OnInit {
         this.body.reminder = this.value;
 
       }
-      console.log(this.body);
+      LoggerService.log(this.body);
       this.body.color = this.parentColor;
       this.parentColor = "#ffffff";
     }

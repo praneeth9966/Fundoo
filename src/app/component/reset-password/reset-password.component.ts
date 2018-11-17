@@ -4,6 +4,7 @@ import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -32,7 +33,7 @@ hide = true;
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.token = params['id'];
-      console.log(this.token);
+      LoggerService.log('token',this.token);
       });
   }
 
@@ -42,7 +43,7 @@ hide = true;
     duration: 3000,
     });
     },error=>{
-      console.log("error",error);
+      LoggerService.log("error",error);
       
     this.snackBar.open('Password Updation', 'Failed', {
     duration: 3000,

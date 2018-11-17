@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpService } from '../../core/services/http/http.service';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { DataService } from '../../core/services/data/data.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 @Component({
   selector: 'app-crop-image',
   templateUrl: './crop-image.component.html',
@@ -33,12 +34,12 @@ export class CropImageComponent implements OnInit {
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
     this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
-      console.log(res);
+      LoggerService.log('result',res);
       localStorage.setItem('imageUrl', res['status'].imageUrl);
       this.dialogRef1.close();
       this.service.changeProfile(true);
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 

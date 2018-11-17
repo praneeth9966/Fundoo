@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-notes',
@@ -29,7 +30,7 @@ export class NotesComponent implements OnInit {
           this.notes.push(res['data']['data'][i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
@@ -45,7 +46,7 @@ export class NotesComponent implements OnInit {
           this.notes1.push(res['data']['data'][i]);
       }
     }, error => {
-      console.log(error);
+      LoggerService.log(error);
     })
   }
 
