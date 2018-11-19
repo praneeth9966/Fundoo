@@ -10,8 +10,8 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 export class NotesComponent implements OnInit {
   constructor(private httpService: HttpService) { }
-  public notes = [];
-  public notes1 = [];
+  private notes = [];
+  private notes1 = [];
 
   ngOnInit() {
     this.displayNotes();
@@ -24,10 +24,12 @@ export class NotesComponent implements OnInit {
   displayNotes() {
     var token = localStorage.getItem('token');
     this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
+     
       this.notes = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == false)
           this.notes.push(res['data']['data'][i]);
+          
       }
     }, error => {
       LoggerService.log(error);

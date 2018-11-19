@@ -8,12 +8,12 @@ import { LoggerService } from '../../core/services/logger/logger.service';
   styleUrls: ['./pin.component.scss']
 })
 export class PinComponent implements OnInit {
-  public pinBody = {};
+  private pinBody = {};
 
   @Input() isPinedArray
   @Output() pinEvent = new EventEmitter()
 
-  constructor(public httpService: HttpService) { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
   }

@@ -15,22 +15,22 @@ export class RemindmeIconComponent implements OnInit {
   @Output() addReminderEvent = new EventEmitter();
   @Output() notesCreateReminderEvent = new EventEmitter();
 
-  public date: Date = new Date();
-  public customDate = this.date;
-  public reminderArrayEvent: any;
-  public customTime: any;
-  public editReminderEventClicked: any;
-  public data;
-  public message;
-  public body = {};
-  public currentDate = new Date();
-  public reminders: any[] = [
+  private date: Date = new Date();
+  private customDate = this.date;
+  private reminderArrayEvent: any;
+  private customTime: any;
+  private editReminderEventClicked: any;
+  private data;
+  private message;
+  private body = {};
+  private currentDate = new Date();
+  private reminders: any[] = [
     { value: 'morning', viewPeriod: 'Morning', viewTime: '08:00 AM' },
     { value: 'afternoon', viewPeriod: 'Afternoon', viewTime: '01:00 PM' },
     { value: 'evening', viewPeriod: 'Evening', viewTime: '06:00 PM' },
     { value: 'night', viewPeriod: 'Night', viewTime: '09:00 PM' }];
-  public show = true;
-  public reminderBody = {
+  private show = true;
+  private reminderBody = {
     "date": new FormControl(new Date()),
     "time": ""
   }

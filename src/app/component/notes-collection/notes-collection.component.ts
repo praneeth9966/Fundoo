@@ -11,19 +11,20 @@ import { RemindmeIconComponent } from '../remindme-icon/remindme-icon.component'
   styleUrls: ['./notes-collection.component.scss']
 })
 export class NotesCollectionComponent implements OnInit {
-  public notes = [];
-  public toggle = false;
-  public interval;
-  public labelBody = {};
-  public reminderBody = {};
-  public pinBody = {};
-  public modifiedCheckList: any;
-  public isChecked = false;
-  public todayDate = new Date();
-  public tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
+  private notes = [];
+  private toggle = false;
+  private interval;
+  private labelBody = {};
+  private reminderBody = {};
+  private pinBody = {};
+  private modifiedCheckList: any;
+  private isChecked = false;
+  private todayDate = new Date();
+  private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
+@Input() string;
+@Input() length;
 
-
-  constructor(private httpService: HttpService, public dialog: MatDialog, private dataService: DataService) {
+  constructor(private httpService: HttpService, private dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
       LoggerService.log('message', message);
       if (message) {

@@ -11,20 +11,20 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-  public hide = true;
-  public body = {
+  private hide = true;
+  private body = {
     "newPassword": ""
   }
 
-  public password = new FormControl('', [Validators.required]);
-  public records: any;
+  private password = new FormControl('', [Validators.required]);
+  private records: any;
 
   getErrorMessagePassword() {
     return this.password.hasError('required') ? 'Password is required' :
       this.password.hasError('pattern') ? 'Invalid password' : '';
   }
 
-  constructor(public httpService: HttpService, public snackBar: MatSnackBar, public activatedRoute: ActivatedRoute) { }
+  constructor(private httpService: HttpService, private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
 

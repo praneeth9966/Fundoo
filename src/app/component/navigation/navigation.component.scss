@@ -3,6 +3,7 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+  z-index:4;
 }
 
 .sidenav {
@@ -37,7 +38,10 @@
 
 .child-links {
   margin-left:20px;
-  font-size: 12px
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden !important;
 
 }
 

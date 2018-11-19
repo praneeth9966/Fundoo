@@ -8,7 +8,7 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
   styleUrls: ['./archive.component.scss']
 })
 export class ArchiveComponent implements OnInit {
-  array = [];
+  private array = [];
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {

@@ -14,7 +14,7 @@ export class ArchiveIconComponent implements OnInit {
   @Input() archive;
   @Output() archiveNote = new EventEmitter
   @Output() unArchiveNote = new EventEmitter<boolean>()
-  public body;
+  private body;
 
   ngOnInit() {
   }

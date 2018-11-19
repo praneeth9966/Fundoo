@@ -9,31 +9,31 @@ import { LoggerService } from '../../core/services/logger/logger.service';
 })
 
 export class NotesCreateComponent implements OnInit {
-  public show: boolean = true;
-  public checkList: boolean = false;
-  public token = localStorage.getItem('token');
-  public title;
-  public description;
-  public parentColor = "#ffffff";
-  public labelBody = {};
-  public array1 = [];
-  public array2 = [];
-  public notes = [];
-  public archive = { 'isArchived': false }
-  public dataarray: any = [];
-  public data;
-  public status = "open";
-  public addCheck = false;
-  public checklist = [];
-  public body: any = {};
-  public dataArrayApi: any = [];
-  public adding: boolean
-  public isChecked = false;
-  public i = 0;
-  public reminderIcon = [];
-  public value;
-  public todayDate = new Date();
-  public tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
+  private show: boolean = true;
+  private checkList: boolean = false;
+  private token = localStorage.getItem('token');
+  private title;
+  private description;
+  private parentColor = "#ffffff";
+  private labelBody = {};
+  private array1 = [];
+  private array2 = [];
+  private notes = [];
+  private archive = { 'isArchived': false }
+  private dataarray: any = [];
+  private data;
+  private status = "open";
+  private addCheck = false;
+  private checklist = [];
+  private body: any = {};
+  private dataArrayApi: any = [];
+  private adding: boolean
+  private isChecked = false;
+  private i = 0;
+  private reminderIcon = [];
+  private value;
+  private todayDate = new Date();
+  private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
 
   constructor(private httpService: HttpService) { }
 

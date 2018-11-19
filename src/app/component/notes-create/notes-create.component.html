@@ -86,10 +86,10 @@
         <mat-chip-list selected>
 
           <div *ngIf='(todayDate | date:shortDate) == (reminder | date:shortDate )'>
-          <mat-chip [matMenuTriggerFor]="x.menu" style="margin-top:15px">
+          <mat-chip  style="margin-top:15px">
            Today, {{reminder |date:'shortTime'}}
 
-           <app-remindme-icon style="opacity:0" #x="menuInOtherComponent" (notesCreateReminderEvent)="reminderIconParent($event)">
+           <app-remindme-icon style="opacity:0"  (notesCreateReminderEvent)="reminderIconParent($event)">
            </app-remindme-icon>
 
           <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
@@ -97,9 +97,9 @@
         </div>
 
           <div  *ngIf='(tomorrowDate | date:shortDate) == (reminder | date:shortDate )'>
-              <mat-chip [matMenuTriggerFor]="x.menu" style="margin-top:15px">
+              <mat-chip  style="margin-top:15px">
                   tomorrow, {{reminder |date:'shortTime'}}
-                  <app-remindme-icon style="opacity:0" #x="menuInOtherComponent" (notesCreateReminderEvent)="reminderIconParent($event)">
+                  <app-remindme-icon style="opacity:0" (notesCreateReminderEvent)="reminderIconParent($event)">
                   </app-remindme-icon>
               <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
               </mat-chip>
@@ -107,9 +107,9 @@
 
             <div   *ngIf='(todayDate | date:shortDate) !==(reminder | date:shortDate ) && 
             (tomorrowDate | date:shortDate) !== (reminder | date:shortDate )'>
-                <mat-chip  [matMenuTriggerFor]="x.menu"style="margin-top:15px">
+                <mat-chip style="margin-top:15px">
                 {{reminder |date:'medium'}}
-                <app-remindme-icon style="opacity:0" #x="menuInOtherComponent" (notesCreateReminderEvent)="reminderIconParent($event)">
+                <app-remindme-icon style="opacity:0"  (notesCreateReminderEvent)="reminderIconParent($event)">
                 </app-remindme-icon>
                 <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
                 </mat-chip>

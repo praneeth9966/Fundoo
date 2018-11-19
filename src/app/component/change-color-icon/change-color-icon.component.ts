@@ -12,8 +12,8 @@ export class ChangeColorIconComponent implements OnInit {
   @Input() notesArray;
   @Output() noteColor = new EventEmitter();
   @Output() ParentNoteColor = new EventEmitter<string>();
-  public body;
-  public colorArray = [[{ 'color': '#ffffff', 'name': 'White' },
+  private body;
+  private colorArray = [[{ 'color': '#ffffff', 'name': 'White' },
   { 'color': '#f28b82', 'name': 'Red' },
   { 'color': '#fbbc04', 'name': 'Orange' },
   { 'color': '#fff475', 'name': 'Yellow' }],

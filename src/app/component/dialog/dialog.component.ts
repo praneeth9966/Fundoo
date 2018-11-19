@@ -16,28 +16,29 @@ export interface DialogData {
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  public body;
-  public labelBody = {};
-  public archive = { 'isArchived': false }
-  public reminderBody: { "noteIdList": any[]; };
-  public selectArray = [];
-  public selectLabelArray = [];
-  public newLabel;
-  public tempArray = [];
-  public newList;
-  public newData: any = {}
-  public modifiedCheckList;
-  public checklist = false;
-  public token = localStorage.getItem('token');
-  public removedList;
-  public adding = false;
-  public addCheck = false;
-  public status = "open"
+  private body;
+  private labelBody = {};
+  private archive = { 'isArchived': false }
+  private reminderBody: { "noteIdList": any[]; };
+  private selectArray = [];
+  private selectLabelArray = [];
+  private newLabel;
+  private tempArray = [];
+  private newList;
+  private newData: any = {}
+  private modifiedCheckList;
+  private checklist = false;
+  private token = localStorage.getItem('token');
+  private removedList;
+  private adding = false;
+  private addCheck = false;
+  private status = "open";
+  private reminderIcon=[];
+  private value;
 
-
-  constructor(public httpService: HttpService,
-    public dialogRef: MatDialogRef<NotesCollectionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  constructor(private httpService: HttpService,
+    private dialogRef: MatDialogRef<NotesCollectionComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: DialogData) { }
 
   ngOnInit() {
     this.selectArray = this.data['reminder'];
@@ -61,6 +62,7 @@ export class DialogComponent implements OnInit {
         'description': document.getElementById("newDescription").innerHTML,
         'noteLabels': "",
         'color': '',
+        'reminder':this.reminderIcon
       }
 
       this.httpService.httpUpdateNotes('notes/updateNotes', this.body, token)
@@ -205,4 +207,14 @@ export class DialogComponent implements OnInit {
 
   getNotification(event) {
   }
+
+  reminderIconParent(event) {
+    if (event) {
+     
+      this.reminderIcon = [];
+      this.reminderIcon.push(event);
+      this.value = event;
+    }
+  }
+
 }

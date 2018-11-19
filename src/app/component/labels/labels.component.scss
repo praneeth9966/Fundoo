@@ -10,8 +10,10 @@
     border: none;
     border-color: transparent;
     outline: none;
-    word-wrap: break-word;
-   
+    // word-wrap: break-word;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden !important;
     cursor:default;
 }
 .button
@@ -31,13 +33,17 @@
 }
 .name 
 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden !important;
     margin-left: 5px;
     border: none;
     border-color: transparent;
     outline: none;
     word-wrap: break-word;
-    width: 100%;
+    
     min-height: 20px;
+  
 }
 .create
 {

@@ -17,19 +17,19 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 
 export class NavigationComponent implements OnInit {
-  public gridList = 0;
-  public firstName = localStorage.getItem('firstName');
-  public lastName = localStorage.getItem('lastName');
-  public email = localStorage.getItem('email');
-  public emailId;
-  public myEmail;
-  public notes;
-  public searchBar;
-  public pic;
-  public image = {};
-  public selectedFile = null;
-  public image2 = localStorage.getItem('imageUrl');
-  public img = "http://34.213.106.173/" + this.image2;
+  private gridList = 0;
+  private firstName = localStorage.getItem('firstName');
+  private lastName = localStorage.getItem('lastName');
+  private email = localStorage.getItem('email');
+  private emailId;
+  private myEmail;
+  private notes;
+  private searchBar;
+  private pic;
+  private image = {};
+  private selectedFile = null;
+  private image2 = localStorage.getItem('imageUrl');
+  private img = "http://34.213.106.173/" + this.image2;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -38,7 +38,7 @@ export class NavigationComponent implements OnInit {
   // titleNew: any;
   titleNew;
   message1;
-  constructor(public dataservice: DataService, public dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
+  constructor(private dataservice: DataService, private dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
 
   ngOnInit() {
     this.titleNew = "fundooNotes";
@@ -85,6 +85,15 @@ export class NavigationComponent implements OnInit {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
+      this.notes.sort(function(a, b){
+        var nameA=a.label.toLowerCase(), nameB=b.label.toLowerCase()
+        if (nameA < nameB) 
+            return -1 
+        if (nameA > nameB)
+            return 1
+        return 0 
+    })
+    LoggerService.log(this.notes);
     }, error => {
       LoggerService.log(error);
     })

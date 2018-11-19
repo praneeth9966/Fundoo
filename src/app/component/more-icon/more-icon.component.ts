@@ -10,15 +10,15 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 
 export class MoreIconComponent implements OnInit {
-  public notes: any[];
+  private notes: any[];
   public httpservice: any;
   public display: boolean = true;
-  public model = {};
-  public token = localStorage.getItem('token');
-  public body;
-  public labelBody = {};
+  private model = {};
+  private token = localStorage.getItem('token');
+  private body;
+  private labelBody = {};
 
-  constructor(private httpService: HttpService, public dialog: MatDialog, public matSnackBar: MatSnackBar) { }
+  constructor(private httpService: HttpService, private dialog: MatDialog, private matSnackBar: MatSnackBar) { }
   @Output() deleteNote = new EventEmitter();
   @Output() addedLabel = new EventEmitter();
   @Output() trashEvent = new EventEmitter<boolean>();

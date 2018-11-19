@@ -14,12 +14,12 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 export class LabelsComponent implements OnInit {
   notes: any[];
 
-  public display;
-  public labelId = localStorage.getItem('id');
-  public id = localStorage.getItem('userId')
-  public token = localStorage.getItem('token')
+  private display;
+  private labelId = localStorage.getItem('id');
+  private id = localStorage.getItem('userId')
+  private token = localStorage.getItem('token')
 
-  constructor(private httpservice: HttpService, public dataService: DataService, public dialog: MatDialog, public matSnackBar: MatSnackBar) { }
+  constructor(private httpservice: HttpService, private dataService: DataService, private dialog: MatDialog, private matSnackBar: MatSnackBar) { }
 
   @ViewChild('labels') labels: ElementRef;
   @ViewChild('newLabel') newLabel: ElementRef;
@@ -51,6 +51,7 @@ export class LabelsComponent implements OnInit {
             this.matSnackBar.open("Label Added", 'Successfully', {
               duration: 3000,
             });
+            
             LoggerService.log('data', data);
           },
           error => {
@@ -93,6 +94,8 @@ export class LabelsComponent implements OnInit {
    */
   updateLabel(id) {
     LoggerService.log(this.id);
+    console.log( 'native',this.newLabel.nativeElement.innerHTML);
+    
     this.httpservice.httpUpdateLabel('noteLabels/' + id + '/updateNoteLabel',
       {
         "label": this.newLabel.nativeElement.innerHTML,
@@ -125,6 +128,11 @@ export class LabelsComponent implements OnInit {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
+     
+      
+    
+  // this.notes.sort((a, b) => a.label.localecompare(b.label));
+  // console.log(this.notes);
     }, error => {
       LoggerService.log(error);
     })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import { Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
@@ -12,23 +12,23 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 
 export class LoginComponent implements OnInit {
-  public hide = true;
-  public records = {};
-  public isLeftVisible = false;
-
+  @Output() hovered = new EventEmitter();
+  private hide = true;
+  private records = {};
+  private isLeftVisible = false;
   public body = {
     "email": "",
     "password": ""
   }
   email = new FormControl('', [Validators.required, Validators.email]);
-
+  
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
       this.email.hasError('email') ? 'Not a valid email' :
         '';
   }
 
-  constructor(public httpService: HttpService, public matSnackBar: MatSnackBar) { }
+  constructor(private httpService: HttpService, private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -40,6 +40,11 @@ export class LoginComponent implements OnInit {
     else {
       alert('invalid email');
     }
+  }
+
+  @HostListener('mouseenter', ['$event'])
+  onHover(e) {
+    this.hovered.emit('howdy')
   }
 
   login() {

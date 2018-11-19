@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { LoggerService } from '../logger/logger.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class MessagingService {
 
-  public messaging;
+  private messaging;
 
   constructor() {
     firebase.initializeApp({

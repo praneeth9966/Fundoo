@@ -43,3 +43,9 @@ mat-card-content{
   outline:none;
 }
 
+.flow{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden !important;
+  width:50px;
+}

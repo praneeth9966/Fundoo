@@ -24,11 +24,12 @@
                 <nav>
                   <a routerLink="/signup">Create account</a>
                 </nav>
-                <button mat-flat-button (click)="register()">Next</button>
+                <button mat-flat-button (hovered)="register()" (click)="register()">Next</button>
               </div>
             </div>
           </div>
         </div>
+
         <div rightPane>
           <div>
             <span class="classf">F</span>
@@ -50,7 +51,7 @@
                 <nav>
                   <a routerLink="/forgot-password">Forgot Password</a>
                 </nav>
-                <button mat-flat-button (click)="login()">Next</button>
+                <button mat-flat-button (hovered)="login()" (click)="login()">Next</button>
               </div>
             </div>
           </div>

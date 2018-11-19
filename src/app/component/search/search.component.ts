@@ -10,11 +10,11 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(public httpService: HttpService, public dataService: DataService) { }
+  constructor(private httpService: HttpService, private dataService: DataService) { }
 
-  public searchBar;
-  public token = localStorage.getItem('token');
-  public notes = [];
+  private searchBar;
+  private token = localStorage.getItem('token');
+  private notes = [];
 
   ngOnInit() {
     this.dataService.currentMessage.subscribe(message => {

@@ -9,9 +9,9 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class TrashComponent implements OnInit {
   constructor(private httpService: HttpService) { }
-  public array = [];
-  public body = {};
-  public name = "trash";
+  private array = [];
+  private body = {};
+  private name = "trash";
 
   ngOnInit() {
     // this.notes=[];

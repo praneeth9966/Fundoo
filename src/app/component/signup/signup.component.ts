@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-
-// import { FormBuilder } from '@angular/forms';
-
 
 @Component({
   selector: 'app-signup',
@@ -15,13 +12,20 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class SignupComponent implements OnInit {
 
-  public signUpForm: FormGroup
-  public records = {}
-  public user: any = {}
-  public service: any;
-  public register: any;
-  public cards = []
-  public hide = true;
+  private signUpForm: FormGroup
+  private records = {}
+  private user: any = {}
+  private service: any;
+  private register: any;
+  private cards = []
+  private hide = true;
+
+  @Output() hovered = new EventEmitter();
+
+  @HostListener('mouseenter', ['$event'])
+  onHover(e) {
+    this.hovered.emit('howdy')
+  }
 
   onSubmit() {
     this.register = {
@@ -69,7 +73,7 @@ export class SignupComponent implements OnInit {
       this.lastname.hasError('pattern') ? 'Invalid password' : '';
   }
 
-  constructor(public httpService: HttpService, public matsnacbar: MatSnackBar) { }
+  constructor(private httpService: HttpService, private matsnacbar: MatSnackBar) { }
 
   ngOnInit() {
     this.records = this.httpService.getHttpData('user/service').subscribe(result => {

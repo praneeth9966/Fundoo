@@ -8,10 +8,10 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
   styleUrls: ['./reminders.component.scss']
 })
 export class RemindersComponent implements OnInit {
-  public getRemindersArray = [];
-  public token = localStorage.getItem('token');
+  private getRemindersArray = [];
+  private token = localStorage.getItem('token');
 
-  constructor(public httpService: HttpService) { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
     this.getReminders();

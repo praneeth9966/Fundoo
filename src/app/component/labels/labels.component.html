@@ -24,16 +24,18 @@
                 <mat-icon matTooltip="Delete Label" class = "icon-lock" (click)="deleteLabel(labels.id);">delete</mat-icon>
               </div>
               <div fxFlex = 75>
-                <span contenteditable="true" class="name" id="label4"  [innerHTML]="labels.label"  #newLabel>
+                <span contenteditable="true" class="name"  id="label" [innerHTML]="labels.label">
                 </span>
               </div>
-                <mat-icon matTooltip="Rename label" (click)="updateLabel(labels.id)" class="create">create
+                <mat-icon matTooltip="Rename label" (click)="update(labels.id)" 
+                class="create">create
                 </mat-icon>
               </div>
               <div *ngIf="display == labels.id">
                 <mat-icon matTooltip="Delete Label" (click)="deleteLabel(labels.id)">delete</mat-icon>
-                <span contenteditable="true" class="name" [innerHTML]="labels.label" #newLabel ></span>
-                <mat-icon matTooltip="Rename label" (click)="updateLabel(labels.id)" class="create">done</mat-icon>
+                <span contenteditable="true" class="name"  #newLabel [innerHTML]="labels.label"></span>
+                <mat-icon matTooltip="Rename label" (click)="updateLabel(labels.id)" 
+                class="create">done</mat-icon>
               </div>
             </div>
           </a>

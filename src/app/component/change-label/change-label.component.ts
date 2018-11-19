@@ -8,8 +8,8 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
   styleUrls: ['./change-label.component.scss']
 })
 export class ChangeLabelComponent implements OnInit {
-  public notes = [];
-  public findLabel;
+  private notes = [];
+  private findLabel;
 
   constructor(private route: ActivatedRoute, private httpService: HttpService) {
     this.route.params.subscribe(params => {

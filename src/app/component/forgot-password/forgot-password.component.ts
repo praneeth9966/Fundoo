@@ -10,7 +10,7 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  public temp: any = {
+  private temp: any = {
     "email": "",
   };
 
@@ -22,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
         '';
   }
 
-  constructor(public resetService: HttpService, public snackBar: MatSnackBar) { }
+  constructor(private resetService: HttpService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
 

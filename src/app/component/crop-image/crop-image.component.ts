@@ -10,11 +10,11 @@ import { LoggerService } from 'src/app/core/services/logger/logger.service';
   styleUrls: ['./crop-image.component.scss']
 })
 export class CropImageComponent implements OnInit {
-  public croppedImage: ''
+  private croppedImage: ''
 
   constructor(
     private dialogRef1: MatDialogRef<NavigationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) private data: any,
     private httpService: HttpService,
     private service: DataService
   ) { }
