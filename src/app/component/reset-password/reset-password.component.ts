@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private hide = true;
   private body = {
     "newPassword": ""
@@ -24,7 +28,7 @@ export class ResetPasswordComponent implements OnInit {
       this.password.hasError('pattern') ? 'Invalid password' : '';
   }
 
-  constructor(private httpService: HttpService, private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute) { }
+  constructor(private httpService: HttpService,private userService:UsersService, private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -35,7 +39,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   reset() {
-    this.records = this.httpService.httpPasswordUpdate('user/reset-password', this.token, this.body).subscribe(result => {
+    this.records = this.httpService.httpPasswordUpdate('user/reset-password', this.body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.snackBar.open('Password Updation', 'Success', {
         duration: 3000,
       });
@@ -51,4 +57,9 @@ export class ResetPasswordComponent implements OnInit {
     throw new Error("Method not implemented.");
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

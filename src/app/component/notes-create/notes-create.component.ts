@@ -1,14 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter,OnDestroy } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { LoggerService } from '../../core/services/logger/logger.service';
-
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-notes-create',
   templateUrl: './notes-create.component.html',
   styleUrls: ['./notes-create.component.scss']
 })
 
-export class NotesCreateComponent implements OnInit {
+export class NotesCreateComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private show: boolean = true;
   private checkList: boolean = false;
   private token = localStorage.getItem('token');
@@ -35,10 +38,10 @@ export class NotesCreateComponent implements OnInit {
   private todayDate = new Date();
   private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
 
-  constructor(private httpService: HttpService) { }
+  constructor(private notesService:NotesService) { }
 
   @Output() messageEvent = new EventEmitter();
-
+  @Output() newEvent = new EventEmitter();
   ngOnInit() {
   }
 
@@ -114,7 +117,9 @@ export class NotesCreateComponent implements OnInit {
       this.body.color = this.parentColor;
       this.parentColor = "#ffffff";
     }
-    this.httpService.httpAddNotes('notes/addNotes', this.body, this.token)
+    this.notesService.addnotes(this.body)
+    .pipe(takeUntil(this.destroy$))
+    .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         LoggerService.log('data', data);
         // this.checkList = false;
@@ -125,8 +130,9 @@ export class NotesCreateComponent implements OnInit {
         this.reminderIcon = [];
         this.value = '';
         this.adding = false
-        this.messageEvent.emit({
-        })
+        // this.messageEvent.emit({
+        // })
+        this.newEvent.emit(data['status'].details)
       })
     error => {
       LoggerService.log('error', error);
@@ -138,7 +144,9 @@ export class NotesCreateComponent implements OnInit {
    */
   getLabels() {
     var token = localStorage.getItem('token');
-    this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
+    this.notesService.getlabels()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(data => {
       LoggerService.log('data', data);
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
@@ -226,5 +234,11 @@ export class NotesCreateComponent implements OnInit {
     if (index > -1) {
       this.array2.splice(index, 1);
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

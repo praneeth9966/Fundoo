@@ -1,9 +1,11 @@
-import { Component, OnInit, Inject, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter, ElementRef,OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpService } from '../../core/services/http/http.service';
 import { NotesCollectionComponent } from '../notes-collection/notes-collection.component';
 import { LoggerService } from '../../core/services/logger/logger.service';
-
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 export interface DialogData {
   title: string;
   description: string;
@@ -15,7 +17,8 @@ export interface DialogData {
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private body;
   private labelBody = {};
   private archive = { 'isArchived': false }
@@ -23,6 +26,7 @@ export class DialogComponent implements OnInit {
   private selectArray = [];
   private selectLabelArray = [];
   private newLabel;
+  color;
   private tempArray = [];
   private newList;
   private newData: any = {}
@@ -36,12 +40,13 @@ export class DialogComponent implements OnInit {
   private reminderIcon=[];
   private value;
 
-  constructor(private httpService: HttpService,
+  constructor(private notesService:NotesService,
     private dialogRef: MatDialogRef<NotesCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DialogData) { }
 
   ngOnInit() {
     this.selectArray = this.data['reminder'];
+    this.color = this.data['color']
     LoggerService.log('selectArray', this.selectArray);
     this.selectLabelArray = this.data['noteLabels'];
     if (this.data['noteCheckLists'].length > 0) {
@@ -62,10 +67,11 @@ export class DialogComponent implements OnInit {
         'description': document.getElementById("newDescription").innerHTML,
         'noteLabels': "",
         'color': '',
-        'reminder':this.reminderIcon
+        'reminder':''
       }
 
-      this.httpService.httpUpdateNotes('notes/updateNotes', this.body, token)
+      this.notesService.updatenotes('this.body')
+      .pipe(takeUntil(this.destroy$))
         .subscribe(data => {
           LoggerService.log('data', data);
         })
@@ -78,8 +84,10 @@ export class DialogComponent implements OnInit {
         "itemName": this.modifiedCheckList.itemName,
         "status": this.modifiedCheckList.status
       }
-      var url = "notes/" + this.data['id'] + "/checklist/" + this.modifiedCheckList.id + "/update";
-      this.httpService.httpDeleteNotes(url, JSON.stringify(apiData), token).subscribe(response => {
+      this.notesService
+      .postUpdateChecklist(this.data['id'], this.modifiedCheckList.id, null)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response => {
         LoggerService.log('response', response);
 
       })
@@ -90,7 +98,12 @@ export class DialogComponent implements OnInit {
     }
     this.dialogRef.close();
   }
+  messageColor(event){
+    console.log(event);
+    
+    this.color = event;
 
+  }
   editing(editedList, event) {
     LoggerService.log(editedList);
     if (event.code == "Enter") {
@@ -120,8 +133,9 @@ export class DialogComponent implements OnInit {
   /*   calling remove checklist Api
    */
   removeCheckList() {
-    var url = "notes/" + this.data['id'] + "/checklist/" + this.removedList.id + "/remove";
-    this.httpService.httpDeleteNotes(url, null, this.token).subscribe((response) => {
+    this.notesService.postChecklistRemove(this.data['id'],this.removedList.id ,{})
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((response) => {
       LoggerService.log('response', response);
       for (var i = 0; i < this.tempArray.length; i++) {
         if (this.tempArray[i].id == this.removedList.id) {
@@ -152,9 +166,9 @@ export class DialogComponent implements OnInit {
         "itemName": this.newList,
         "status": this.status
       }
-      var url = "notes/" + this.data['id'] + "/checklist/add";
-      this.httpService.httpDeleteNotes(url, this.newData, this.token)
-        .subscribe(response => {
+      this.notesService.postCheckListAdd(this.data['id'], this.newData)
+      .pipe(takeUntil(this.destroy$)) 
+      .subscribe(response => {
           LoggerService.log('response', response);
           this.newList = null;
           this.addCheck = false;
@@ -169,13 +183,10 @@ export class DialogComponent implements OnInit {
   /*   calling remove Label Api
    */
   removeLabel(label, labelId) {
-    this.labelBody = {
-      "noteId": this.data.id,
-      "lableId": labelId
-    }
-    this.httpService.httpPostArchive
-      ('notes/' + this.data.id + '/addLabelToNotes/' + labelId + '/remove',
-      this.labelBody, localStorage.getItem('token')).subscribe(result => {
+    
+    this.notesService.postAddLabelnotesRemove(labelId,this.data.id,null)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
         LoggerService.log('result', result);
         const index = this.selectLabelArray.indexOf(label, 0);
         LoggerService.log(label, 'hiii');
@@ -194,7 +205,9 @@ export class DialogComponent implements OnInit {
     this.reminderBody = {
       "noteIdList": [this.data.id]
     }
-    this.httpService.httpPostArchive('notes/removeReminderNotes', this.reminderBody, localStorage.getItem('token')).subscribe(result => {
+    this.notesService.postRemoveReminders(this.reminderBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log('result', result);
       const index = this.selectArray.indexOf(items, 0);
       if (index > -1) {
@@ -217,4 +230,9 @@ export class DialogComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

@@ -64,7 +64,7 @@ describe('LoginComponent', () => {
   });
   it('form should be invalid', async(()=>{
       expect(component.body.email).toEqual('');
-      expect(component.body.email).toEqual('@bb.AA.com');
+      expect(component.body.email).toEqual('@pp.KK.com');
       expect(component.body.email).toEqual('AA.23@bbb.com');
       expect(component.body.password).toEqual('');
       expect(component.body.password).toEqual('ak');

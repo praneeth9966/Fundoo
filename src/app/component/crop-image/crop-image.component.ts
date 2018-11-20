@@ -1,22 +1,25 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject,OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpService } from '../../core/services/http/http.service';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { DataService } from '../../core/services/data/data.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-crop-image',
   templateUrl: './crop-image.component.html',
   styleUrls: ['./crop-image.component.scss']
 })
-export class CropImageComponent implements OnInit {
-  private croppedImage: ''
+export class CropImageComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  croppedImage: ''
 
   constructor(
     private dialogRef1: MatDialogRef<NavigationComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private httpService: HttpService,
-    private service: DataService
+    private service: DataService, private notesService: NotesService
   ) { }
 
   ngOnInit() {
@@ -32,7 +35,7 @@ export class CropImageComponent implements OnInit {
     var token = localStorage.getItem('token');
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
-    this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
+    this.notesService.imageupload(uploadData).subscribe(res => {
       LoggerService.log('result', res);
       localStorage.setItem('imageUrl', res['status'].imageUrl);
       this.dialogRef1.close();
@@ -42,5 +45,11 @@ export class CropImageComponent implements OnInit {
     })
   }
 
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }
 

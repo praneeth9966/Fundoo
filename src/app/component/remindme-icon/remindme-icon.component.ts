@@ -1,16 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild,OnDestroy } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { FormControl } from '@angular/forms';
 import { MatMenu } from '@angular/material';
-
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-remindme-icon',
   templateUrl: './remindme-icon.component.html',
   styleUrls: ['./remindme-icon.component.scss'],
   exportAs: 'menuInOtherComponent',
 })
-export class RemindmeIconComponent implements OnInit {
-
+export class RemindmeIconComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() noteDetails;
   @Output() addReminderEvent = new EventEmitter();
   @Output() notesCreateReminderEvent = new EventEmitter();
@@ -37,7 +39,7 @@ export class RemindmeIconComponent implements OnInit {
 
   @ViewChild(MatMenu) menu: MatMenu;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private notesService:NotesService) { }
 
   ngOnInit() {
   }
@@ -49,7 +51,8 @@ export class RemindmeIconComponent implements OnInit {
       "noteIdList": [this.noteDetails.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), 20, 0, 0, 0)
     }
-    this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+    this.notesService.postAddUpdateReminderNOtes(this.body)
+    .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.addReminderEvent.emit()
       })
@@ -62,7 +65,8 @@ export class RemindmeIconComponent implements OnInit {
       "noteIdList": [this.noteDetails.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 1), 8, 0, 0, 0)
     }
-    this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+    this.notesService.postAddUpdateReminderNOtes(this.body)
+    .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.addReminderEvent.emit()
       })
@@ -75,7 +79,8 @@ export class RemindmeIconComponent implements OnInit {
       "noteIdList": [this.noteDetails.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 7), 8, 0, 0, 0)
     }
-    this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+    this.notesService.postAddUpdateReminderNOtes(this.body)
+    .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.addReminderEvent.emit()
       })
@@ -101,7 +106,8 @@ export class RemindmeIconComponent implements OnInit {
         "noteIdList": [this.noteDetails.id],
         "reminder": reminder1
       }
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+      this.notesService.postAddUpdateReminderNOtes(this.body)
+      .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -112,7 +118,8 @@ export class RemindmeIconComponent implements OnInit {
         "noteIdList": [this.noteDetails.id],
         "reminder": reminder2
       }
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+      this.notesService.postAddUpdateReminderNOtes(this.body)
+      .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -123,7 +130,8 @@ export class RemindmeIconComponent implements OnInit {
         "noteIdList": [this.noteDetails.id],
         "reminder": reminder3
       }
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+      this.notesService.postAddUpdateReminderNOtes(this.body)
+      .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -134,7 +142,8 @@ export class RemindmeIconComponent implements OnInit {
         "noteIdList": [this.noteDetails.id],
         "reminder": reminder4
       }
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+      this.notesService.postAddUpdateReminderNOtes(this.body)
+      .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -151,7 +160,8 @@ export class RemindmeIconComponent implements OnInit {
           "noteIdList": [this.noteDetails.id],
           "reminder": reminder6
         }
-        this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+        this.notesService.postAddUpdateReminderNOtes(this.body)
+        .pipe(takeUntil(this.destroy$))
           .subscribe((result) => {
             this.addReminderEvent.emit()
           })
@@ -162,7 +172,8 @@ export class RemindmeIconComponent implements OnInit {
           "noteIdList": [this.noteDetails.id],
           "reminder": reminder7
         }
-        this.httpService.httpAddReminder('notes/addUpdateReminderNotes', this.body, localStorage.getItem('token'))
+        this.notesService.postAddUpdateReminderNOtes(this.body)
+        .pipe(takeUntil(this.destroy$))
           .subscribe((result) => {
             this.addReminderEvent.emit()
           })
@@ -171,4 +182,9 @@ export class RemindmeIconComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

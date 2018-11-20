@@ -1,7 +1,7 @@
       <!-----------------------------Notes starts------------------------------->
 
   <mat-card fxFlex *ngIf="!show" class="example-card" 
-    [ngStyle]="{'background-color':data.color}" 
+    [ngStyle]="{'background-color':color}" 
     style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
   
     <mat-card-content>
@@ -83,7 +83,7 @@
           <app-collaborator-icon></app-collaborator-icon>
         </div>
         <div fxFlex=9>
-          <app-change-color-icon ></app-change-color-icon>
+          <app-change-color-icon [notesArray]="data.id" (ParentNoteColor)=messageColor($event)></app-change-color-icon>
         </div>
         <div fxFlex=9>
           <app-add-image-icon></app-add-image-icon>

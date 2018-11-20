@@ -1,16 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild ,OnDestroy} from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../../core/services/data/data.service';
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { RemindmeIconComponent } from '../remindme-icon/remindme-icon.component';
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
   styleUrls: ['./notes-collection.component.scss']
 })
-export class NotesCollectionComponent implements OnInit {
+export class NotesCollectionComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private notes = [];
   private toggle = false;
   private interval;
@@ -24,7 +28,7 @@ export class NotesCollectionComponent implements OnInit {
 @Input() string;
 @Input() length;
 
-  constructor(private httpService: HttpService, private dialog: MatDialog, private dataService: DataService) {
+  constructor(private notesService:NotesService, private dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
       LoggerService.log('message', message);
       if (message) {
@@ -56,7 +60,9 @@ export class NotesCollectionComponent implements OnInit {
       data: notes
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.notifyParent.emit({
       })
     });
@@ -70,7 +76,9 @@ export class NotesCollectionComponent implements OnInit {
       "noteId": id,
       "lableId": labelId
     }
-    this.httpService.httpPostArchive('notes/' + id + '/addLabelToNotes/' + labelId + '/remove', this.labelBody, localStorage.getItem('token')).subscribe(result => {
+    this.notesService.postAddLabelnotesRemove(labelId,id,null)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log('result', result);
       this.notifyParent.emit({
       });
@@ -86,7 +94,9 @@ export class NotesCollectionComponent implements OnInit {
     this.reminderBody = {
       "noteIdList": [id]
     }
-    this.httpService.httpPostArchive('notes/removeReminderNotes', this.reminderBody, localStorage.getItem('token')).subscribe(result => {
+    this.notesService.postRemoveReminders(this.reminderBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log('result', result);
       this.notifyParent.emit({
       });
@@ -125,7 +135,9 @@ export class NotesCollectionComponent implements OnInit {
   }
 
   gridView() {
-    this.dataService.viewListObserver.subscribe(message => {
+    this.dataService.viewListObserver
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(message => {
       this.toggle = message;
     })
   }
@@ -152,9 +164,11 @@ export class NotesCollectionComponent implements OnInit {
       "status": this.modifiedCheckList.status
     }
     LoggerService.log('checklistData', checklistData);
-    var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
+    // var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
     var checkNew = JSON.stringify(checklistData);
-    this.httpService.httpDeleteNotes(url, checkNew, localStorage.getItem('token')).subscribe(response => {
+    this.notesService.postUpdateChecklist(id, this.modifiedCheckList.id,checkNew)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(response => {
       LoggerService.log('response', response);
     })
   }
@@ -174,4 +188,9 @@ export class NotesCollectionComponent implements OnInit {
     this.dataService.changeLabel(label);
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

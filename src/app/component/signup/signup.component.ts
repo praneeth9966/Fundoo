@@ -1,17 +1,19 @@
-import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener ,OnDestroy} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-
+import { UsersService } from 'src/app/core/services/users/users.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 
 })
-export class SignupComponent implements OnInit {
-
+export class SignupComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private signUpForm: FormGroup
   private records = {}
   private user: any = {}
@@ -26,7 +28,8 @@ export class SignupComponent implements OnInit {
   onHover(e) {
     this.hovered.emit('howdy')
   }
-
+  constructor(private matsnacbar: MatSnackBar,private userService:UsersService) { }
+  
   onSubmit() {
     this.register = {
       "firstName": this.user.firstName,
@@ -38,7 +41,9 @@ export class SignupComponent implements OnInit {
       "modifiedDate": new Date(),
       "password": this.user.password
     }
-    this.records = this.httpService.postHttpData('user/userSignUp', this.register).subscribe(result => {
+    this.records = this.userService.postsignup(this.register)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.matsnacbar.open("registration", "successful", {
         duration: 5000,
       })
@@ -73,10 +78,12 @@ export class SignupComponent implements OnInit {
       this.lastname.hasError('pattern') ? 'Invalid password' : '';
   }
 
-  constructor(private httpService: HttpService, private matsnacbar: MatSnackBar) { }
+  
 
   ngOnInit() {
-    this.records = this.httpService.getHttpData('user/service').subscribe(result => {
+    this.records = this.userService.getDataService1()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       var data = result['data'];
       for (var i = 0; i < data.data.length; i++) {
         data.data[i].select = false;
@@ -84,7 +91,9 @@ export class SignupComponent implements OnInit {
       }
     });
 
-    this.records = this.httpService.getHttpData('user').subscribe(result => {
+    this.records = this.userService.getDataService2()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log("Registered Users=", result)
     });
   }
@@ -98,4 +107,9 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

@@ -1,19 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,OnDestroy } from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { LoggerService } from '../../core/services/logger/logger.service';
-
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-pin',
   templateUrl: './pin.component.html',
   styleUrls: ['./pin.component.scss']
 })
-export class PinComponent implements OnInit {
+export class PinComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private pinBody = {};
 
   @Input() isPinedArray
   @Output() pinEvent = new EventEmitter()
 
-  constructor(private httpService: HttpService) { }
+  constructor(private notesService:NotesService) { }
 
   ngOnInit() {
   }
@@ -25,7 +28,9 @@ export class PinComponent implements OnInit {
       "noteIdList": [this.isPinedArray.id],
       "isPined": true,
     }
-    this.httpService.httpDeleteNotes('notes/pinUnpinNotes', this.pinBody, localStorage.getItem('token')).subscribe(result => {
+    this.notesService.postPinUnpin(this.pinBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log('result', result);
       this.pinEvent.emit({
       });
@@ -42,12 +47,20 @@ export class PinComponent implements OnInit {
       "noteIdList": [this.isPinedArray.id],
       "isPined": false,
     }
-    this.httpService.httpDeleteNotes('notes/pinUnpinNotes', this.pinBody, localStorage.getItem('token')).subscribe(result => {
+    this.notesService.postPinUnpin(this.pinBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log('result', result);
       this.pinEvent.emit({
       });
     }, error => {
       LoggerService.log(error);
     })
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

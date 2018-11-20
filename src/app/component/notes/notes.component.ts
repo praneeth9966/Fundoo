@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-
+import {Notes} from '../../core/model/notes'
+import { from } from 'rxjs';
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
 
-export class NotesComponent implements OnInit {
-  constructor(private httpService: HttpService) { }
-  private notes = [];
+export class NotesComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private notesService:NotesService) { }
+  private notes:Notes[] = [];
   private notes1 = [];
 
   ngOnInit() {
@@ -23,12 +28,17 @@ export class NotesComponent implements OnInit {
    */
   displayNotes() {
     var token = localStorage.getItem('token');
-    this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
+    this.notesService.getcard(
+
+    )
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => {
      
       this.notes = [];
-      for (var i = res['data']['data'].length - 1; i > 0; i--) {
-        if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == false)
-          this.notes.push(res['data']['data'][i]);
+      var newNotesArray:Notes[]=res['data']['data'];
+      for (var i = newNotesArray.length - 1; i > 0; i--) {
+        if (newNotesArray[i].isDeleted == false && newNotesArray[i].isArchived == false && newNotesArray[i].isPined == false)
+          this.notes.push(newNotesArray[i]);
           
       }
     }, error => {
@@ -41,7 +51,9 @@ export class NotesComponent implements OnInit {
    */
   getPin() {
     var token = localStorage.getItem('token');
-    this.httpService.httpGetNotes('notes/getNotesList', token).subscribe(res => {
+    this.notesService.getcard()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => {
       this.notes1 = [];
       for (var i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == true)
@@ -59,4 +71,13 @@ export class NotesComponent implements OnInit {
     }
   }
 
+  newMessage(event:Notes) {
+    this.notes.splice(0,0,event);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

@@ -1,7 +1,7 @@
 <!------------------------- Notes starts ---------------------------->
 
-<app-notes-create (messageEvent)="receiveMessage($event)"></app-notes-create>
-
+<!-- <app-notes-create (messageEvent)="receiveMessage($event)"></app-notes-create> -->
+<app-notes-create (newEvent)="newMessage($event)" (messageEvent)="receiveMessage($event)"></app-notes-create>
 <!------------------------- Pinned cards starts ---------------------------->
 
 <app-notes-collection [array] = "notes1"[length]="notes1.length" [string]="'Pinned'"

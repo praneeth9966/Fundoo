@@ -1,17 +1,20 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild ,OnDestroy} from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { DataService } from '../../core/services/data/data.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-labels',
   templateUrl: './labels.component.html',
   styleUrls: ['./labels.component.scss']
 })
 
-export class LabelsComponent implements OnInit {
+export class LabelsComponent implements OnInit,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   notes: any[];
 
   private display;
@@ -19,17 +22,27 @@ export class LabelsComponent implements OnInit {
   private id = localStorage.getItem('userId')
   private token = localStorage.getItem('token')
 
-  constructor(private httpservice: HttpService, private dataService: DataService, private dialog: MatDialog, private matSnackBar: MatSnackBar) { }
+  constructor(private dataService: DataService, private dialog: MatDialog, private matSnackBar: MatSnackBar,private notesService:NotesService) { }
 
   @ViewChild('labels') labels: ElementRef;
   @ViewChild('newLabel') newLabel: ElementRef;
 
   ngOnInit() {
     var token = localStorage.getItem('token');
-    this.httpservice.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(res => {
+    this.notesService.getlabels()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => {
       LoggerService.log('result', res);
       this.notes = [];
       this.notes = (res['data'].details);
+      this.notes.sort(function(a, b){
+        var nameA=a.label.toLowerCase(), nameB=b.label.toLowerCase()
+        if (nameA < nameB) 
+            return -1 
+        if (nameA > nameB)
+            return 1
+        return 0 
+    })
     }, error => {
       LoggerService.log(error);
     })
@@ -40,12 +53,14 @@ export class LabelsComponent implements OnInit {
   addLabel() {
     LoggerService.log(this.id);
     if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML)) {
-      this.httpservice.httpPostArchive('noteLabels',
+      this.notesService.postNoteLabels(
         {
           "label": this.labels.nativeElement.innerHTML,
           "isDeleted": false,
           "userId": this.id
-        }, this.token).subscribe(
+        })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           (data) => {
             LoggerService.log("POST Request is successful ", data);
             this.matSnackBar.open("Label Added", 'Successfully', {
@@ -72,10 +87,13 @@ export class LabelsComponent implements OnInit {
       panelClass: 'myapp-no-paddding-dialog',
       data: { name: 'trash' }
     });
-    dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(data => {
       LoggerService.log('The dialog was closed');
       if (data) {
-        this.httpservice.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token'))
+        this.notesService.deletedata(id)
+        .pipe(takeUntil(this.destroy$))
           .subscribe(data => {
             LoggerService.log('data', data);
             this.dataService.changeEvent(true);
@@ -96,14 +114,15 @@ export class LabelsComponent implements OnInit {
     LoggerService.log(this.id);
     console.log( 'native',this.newLabel.nativeElement.innerHTML);
     
-    this.httpservice.httpUpdateLabel('noteLabels/' + id + '/updateNoteLabel',
+    this.notesService.postUpdateNotelabel(id,
       {
         "label": this.newLabel.nativeElement.innerHTML,
         "isDeleted": false,
         "userId": this.id,
         "id": id
-      }
-      , this.token).subscribe(
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (data) => {
           LoggerService.log("UPDATE Request is successful ", data);
           LoggerService.log('data', data);
@@ -121,23 +140,27 @@ export class LabelsComponent implements OnInit {
    */
   getLabels() {
     var token = localStorage.getItem('token');
-    this.httpservice.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
+    this.notesService.getlabels(
+      
+    )
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(data => {
       LoggerService.log('data', data);
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
-     
-      
-    
-  // this.notes.sort((a, b) => a.label.localecompare(b.label));
-  // console.log(this.notes);
     }, error => {
       LoggerService.log(error);
     })
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }
 
 

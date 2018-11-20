@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms'
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
-
+export class ForgotPasswordComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private temp: any = {
     "email": "",
   };
@@ -22,7 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
         '';
   }
 
-  constructor(private resetService: HttpService, private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar,private userService:UsersService) { }
 
   ngOnInit() {
 
@@ -37,7 +40,8 @@ export class ForgotPasswordComponent implements OnInit {
       });
     }
     else {
-      this.resetService.postHttpData('user/reset', this.temp)
+      this.userService.postreset(this.temp)
+      .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
             LoggerService.log("reset successfull,check your mail once");
@@ -54,5 +58,10 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }
 

@@ -1,16 +1,19 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output,OnDestroy} from '@angular/core';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-archive-icon',
   templateUrl: './archive-icon.component.html',
   styleUrls: ['./archive-icon.component.scss']
 })
-export class ArchiveIconComponent implements OnInit {
+export class ArchiveIconComponent implements OnInit,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   token = localStorage.getItem('token')
-  constructor(private httpService: HttpService, public matSnackBar: MatSnackBar) { }
+  constructor(public matSnackBar: MatSnackBar, private notesService: NotesService) { }
   @Input() archive;
   @Output() archiveNote = new EventEmitter
   @Output() unArchiveNote = new EventEmitter<boolean>()
@@ -26,7 +29,9 @@ export class ArchiveIconComponent implements OnInit {
       "isArchived": true,
       "noteIdList": [this.archive.id]
     }
-    this.httpService.httpPostArchive('notes/archiveNotes', this.body, this.token).subscribe(res => {
+    this.notesService.postArchivenotes(this.body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => {
       LoggerService.log('result', res);
       this.matSnackBar.open("Archived", 'Successfully', {
         duration: 3000,
@@ -44,7 +49,9 @@ export class ArchiveIconComponent implements OnInit {
       "isArchived": false,
       "noteIdList": [this.archive.id]
     }
-    this.httpService.httpPostArchive('notes/archiveNotes', this.body, this.token).subscribe(res => {
+    this.notesService.postArchivenotes(this.body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => {
       this.matSnackBar.open("UnArchived", 'Successfully', {
         duration: 3000,
       });
@@ -55,4 +62,9 @@ export class ArchiveIconComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

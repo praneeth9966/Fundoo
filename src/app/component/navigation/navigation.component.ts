@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,13 +10,18 @@ import { DataService } from '../../core/services/data/data.service'
 import { CropImageComponent } from '../crop-image/crop-image.component';
 import { environment } from '../../../environments/environment';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
 
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private gridList = 0;
   private firstName = localStorage.getItem('firstName');
   private lastName = localStorage.getItem('lastName');
@@ -38,11 +43,12 @@ export class NavigationComponent implements OnInit {
   // titleNew: any;
   titleNew;
   message1;
-  constructor(private dataservice: DataService, private dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router, private httpService: HttpService) { }
+  constructor(private dataservice: DataService, private dialog: MatDialog, private breakpointObserver: BreakpointObserver, private router: Router,private userService:UsersService,private notesService:NotesService) { }
 
   ngOnInit() {
     this.titleNew = "fundooNotes";
     this.dataservice.currentlabel
+    .pipe(takeUntil(this.destroy$))
       .subscribe(message =>
         this.titleNew = message)
     this.emailId = this.email.split("");
@@ -54,7 +60,9 @@ export class NavigationComponent implements OnInit {
    */
   logout() {
     var token = localStorage.getItem('token');
-    this.httpService.httpLogout('/user/logout', token).subscribe(data => {
+    this.userService.postlogout()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(data => {
       LoggerService.log('data', data);
       localStorage.clear();
       window.location.replace('login')
@@ -68,7 +76,9 @@ export class NavigationComponent implements OnInit {
     const dialogRef = this.dialog.open(LabelsComponent, {
       width: '300px',
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log('The dialog was closed');
       this.labelList()
     });
@@ -79,7 +89,9 @@ export class NavigationComponent implements OnInit {
    */
   labelList() {
     var token = localStorage.getItem('token');
-    this.httpService.httpGetNotes('noteLabels/getNoteLabelList', token).subscribe(data => {
+    this.notesService.getlabels()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(data => {
       this.notes = [];
       for (var i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
@@ -130,7 +142,9 @@ export class NavigationComponent implements OnInit {
       data: data
     });
 
-    dialogRef1.afterClosed().subscribe(result => {
+    dialogRef1.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.dataservice.currentProfile.subscribe(message => this.pic = message)
       if (this.pic == true) {
         this.image2 = localStorage.getItem('imageUrl');
@@ -144,6 +158,12 @@ export class NavigationComponent implements OnInit {
   change(labels) {
     this.titleNew = labels.label
 
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }
 

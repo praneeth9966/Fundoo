@@ -1,29 +1,28 @@
 export interface Notes {
-collaberator: [object],
-collaborators: [object],
+collaborators: Array<object>,
 color: string,
 createdDate: Date,
 description: string,
 id: string,
 imageUrl: string,
-isArchived: false,
-isDeleted: false,
-isPined: false,
+isArchived: boolean,
+isDeleted: boolean,
+isPined: boolean,
 label: Array<Label>,
-labelIdList: [object],
+labelIdList: Array<object>,
 linkUrl: string,
 modifiedDate: Date,
 noteCheckLists:Array<checkLists>,
 noteLabels: Array<Label>,
-questionAndAnswerNotes: [object],
-reminder: [object],
+questionAndAnswerNotes:Array<object>,
+reminder: [Date],
 title: string,
 userId: string
 }
 
 export interface Label {
     id: string,
-    isDeleted: false,
+    isDeleted: boolean,
     label: string,
     userId: string
 }
@@ -31,7 +30,7 @@ export interface Label {
 export interface checkLists {
     createdDate: Date,
     id: string,
-    isDeleted: false,
+    isDeleted: boolean,
     itemName: string,
     modifiedDate: Date,
     notesId: string,

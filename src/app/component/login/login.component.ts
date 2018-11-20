@@ -1,17 +1,21 @@
-import { Component, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter,OnDestroy} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import { Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-
+import { UsersService } from 'src/app/core/services/users/users.service';
+import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Output() hovered = new EventEmitter();
   private hide = true;
   private records = {};
@@ -28,7 +32,7 @@ export class LoginComponent implements OnInit {
         '';
   }
 
-  constructor(private httpService: HttpService, private matSnackBar: MatSnackBar) { }
+  constructor(private matSnackBar: MatSnackBar,private userService:UsersService,private notesService:NotesService) { }
 
   ngOnInit() {
   }
@@ -48,7 +52,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.records = this.httpService.postHttpData('user/login', this.body)
+    this.records = this.userService.postlogin( this.body)
+    .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         LoggerService.log('data', data);
         localStorage.setItem('token', data['id']);
@@ -67,7 +72,9 @@ export class LoginComponent implements OnInit {
         var body = {
           "pushToken": pushToken
         }
-        this.httpService.httpUpdateLabel('user/registerPushToken', body, token).subscribe(
+        this.notesService.postRegisterPushToken(body)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           data => {
             LoggerService.log("post of pushToken is successful***********", data)
             window.location.href = 'homepage';
@@ -83,4 +90,10 @@ export class LoginComponent implements OnInit {
           });
         });
   }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
+  
 }

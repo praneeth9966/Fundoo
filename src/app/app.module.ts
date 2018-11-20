@@ -46,6 +46,9 @@ import { CropImageComponent } from './component/crop-image/crop-image.component'
 import { ImageCropperModule } from "ngx-image-cropper";
 import { PinComponent } from './component/pin/pin.component';
 import { MessagingService } from './core/services/messaging/messaging.service';
+import { InterceptService} from './core/services/interceptor/intercept.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -111,7 +114,11 @@ import { MessagingService } from './core/services/messaging/messaging.service';
     ImageCropperModule
   ],
   entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent],
-  providers: [HttpService, DataService, MatDatepickerModule, LoggerService,MessagingService],
+  providers: [HttpService, DataService, MatDatepickerModule, LoggerService,MessagingService,InterceptService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptService,
+    multi: true
+  }],
 
   bootstrap: [AppComponent]
 })
