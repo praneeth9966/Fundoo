@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter,OnDestroy } from '@angular/core';
-import { HttpService } from '../../core/services/http/http.service';
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
@@ -130,8 +129,6 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
         this.reminderIcon = [];
         this.value = '';
         this.adding = false
-        // this.messageEvent.emit({
-        // })
         this.newEvent.emit(data['status'].details)
       })
     error => {
@@ -214,7 +211,6 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
 
   reminderIconParent(event) {
     if (event) {
-      // if (this.reminderIcon.length == 0)
       this.reminderIcon = [];
       this.reminderIcon.push(event);
       this.value = event;
@@ -236,9 +232,12 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
     }
   }
 
+
+  /*
+ This method will be executed just before Angular destroys the components
+ */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

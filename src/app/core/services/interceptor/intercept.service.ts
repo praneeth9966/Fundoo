@@ -1,14 +1,3 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class InterceptService {
-
-//   constructor() { }
-// }
-
-
 import { Injectable } from '@angular/core';
 import {AuthService} from '../../services/auth-guard/auth.service';
 import {
@@ -20,6 +9,7 @@ import {
 } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { catchError,tap} from 'rxjs/operators';
+import { LoggerService } from '../logger/logger.service';
 
 
 @Injectable()//{providedIn: 'root'}
@@ -38,11 +28,11 @@ export class InterceptService  implements HttpInterceptor {
 	      }
 	    });
 	   
-	   	console.log("----request----");
+			LoggerService.log("----request----");
 
-	 	console.log(request);
+			LoggerService.log('request',request);
 
-	 	console.log("--- end of request---");
+			LoggerService.log("--- end of request---");
  
 
 	    return next.handle(request)
@@ -50,17 +40,17 @@ export class InterceptService  implements HttpInterceptor {
 	        tap(event => {
 	          if (event instanceof HttpResponse) {
 	             
-	            console.log(" all looks good");
+	            // console.log(" all looks good");
 	            // http response status code
-	            console.log(event.status);
+	            // console.log(event.status);
 	          }
 	        }, error => {
 	   			// http response status code
-	          	console.log("----response----");
+	          	LoggerService.log("----response----");
 	          	console.error("status code:");
 	          	console.error(error.status);
 	          	console.error(error.message);
-	          	console.log("--- end of response---");
+	          	LoggerService.log("--- end of response---");
 
 	        })
 	      )

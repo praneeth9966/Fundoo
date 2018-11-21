@@ -1,5 +1,5 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl,Validators } from '@angular/forms';
 import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { Params } from '@angular/router';
@@ -57,9 +57,12 @@ export class ResetPasswordComponent implements OnInit ,OnDestroy{
     throw new Error("Method not implemented.");
   }
 
+
+  /*
+ This method will be executed just before Angular destroys the components
+ */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

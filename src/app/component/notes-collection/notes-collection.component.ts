@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild ,OnDestroy} from '@angular/core';
-import { HttpService } from '../../core/services/http/http.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog} from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../../core/services/data/data.service';
 import { LoggerService } from '../../core/services/logger/logger.service';
-import { RemindmeIconComponent } from '../remindme-icon/remindme-icon.component';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -112,6 +110,8 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
 
   messageColor($event) {
     this.noteParent.emit();
+    this.notifyParent.emit({
+    });
   }
 
   myArchiveNotes($event) {
@@ -164,7 +164,6 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
       "status": this.modifiedCheckList.status
     }
     LoggerService.log('checklistData', checklistData);
-    // var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
     var checkNew = JSON.stringify(checklistData);
     this.notesService.postUpdateChecklist(id, this.modifiedCheckList.id,checkNew)
     .pipe(takeUntil(this.destroy$))
@@ -188,9 +187,12 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
     this.dataService.changeLabel(label);
   }
 
+
+  /*
+ This method will be executed just before Angular destroys the components
+ */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

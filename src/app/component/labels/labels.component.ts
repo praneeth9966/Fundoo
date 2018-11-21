@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef, ViewChild ,OnDestroy} from '@angular/core';
-import { HttpService } from '../../core/services/http/http.service';
 import { DataService } from '../../core/services/data/data.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -156,9 +155,11 @@ export class LabelsComponent implements OnInit,OnDestroy{
     })
   }
 
+  /*
+  This method will be executed just before Angular destroys the components
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

@@ -28,20 +28,31 @@
       (click)="gridClose()" *ngIf="gridList==1"><mat-icon>view_module</mat-icon></button>
       <button class="icons" matTooltip="Notification" fxFlex mat-icon-button>
       <mat-icon>notifications_none</mat-icon></button>
-      <button matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' 
+      <button *ngIf="image2!=''" matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' 
         [matMenuTriggerFor]="appMenu" 
         [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+      </button>
+      <button  *ngIf="image2==''" matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' 
+        [matMenuTriggerFor]="appMenu" 
+        >{{lastName[0]}}
       </button>
 
       <mat-menu  #appMenu="matMenu" [overlapTrigger]="false">
         <div fxLayoutAlign="row">
             <div fxFlex=40>     
-                <button (click) = "$event.stopPropagation()" class="profilebutton"
+                <button *ngIf="image2!=''" (click) = "$event.stopPropagation()" class="profilebutton"
                   [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
                   (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab 
                   style="background-color:#fb0;float:right;
                   color:white;text-transform:uppercase;">
                   <div class="change">change</div>
+                </button>
+                <button *ngIf="image2==''" (click) = "$event.stopPropagation()" class="profilebutton"
+                  (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab 
+                  style="background-color:#fb0;float:right;
+                  color:white;text-transform:uppercase;">
+                  {{lastName[0]}}
+                  <div class="change1">change</div>
                 </button>
                   <input style="display:none" (click) = "$event.stopPropagation()" class="image" 
                   type="file" (change)="onFileUpload($event)" #selectFile>

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild,OnDestroy } from '@angular/core';
-import { HttpService } from '../../core/services/http/http.service';
 import { FormControl } from '@angular/forms';
 import { MatMenu } from '@angular/material';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
@@ -182,9 +181,11 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
     }
   }
 
+  /*
+ This method will be executed just before Angular destroys the components
+ */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

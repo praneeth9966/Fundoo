@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject,OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HttpService } from '../../core/services/http/http.service';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { DataService } from '../../core/services/data/data.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
@@ -35,7 +34,9 @@ export class CropImageComponent implements OnInit,OnDestroy {
     var token = localStorage.getItem('token');
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
-    this.notesService.imageupload(uploadData).subscribe(res => {
+    this.notesService.imageupload(uploadData)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => {
       LoggerService.log('result', res);
       localStorage.setItem('imageUrl', res['status'].imageUrl);
       this.dialogRef1.close();
@@ -45,10 +46,11 @@ export class CropImageComponent implements OnInit,OnDestroy {
     })
   }
 
-
+/*
+  This method will be executed just before Angular destroys the components
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

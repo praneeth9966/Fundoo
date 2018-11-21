@@ -1,5 +1,4 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
-import { HttpService } from '../../core/services/http/http.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
@@ -43,9 +42,11 @@ export class ArchiveComponent implements OnInit,OnDestroy{
     }
   }
 
+  /*
+  This method will be executed just before Angular destroys the components
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

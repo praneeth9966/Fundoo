@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject, Output, EventEmitter, ElementRef,OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HttpService } from '../../core/services/http/http.service';
+import { Component, OnInit, Inject,OnDestroy } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NotesCollectionComponent } from '../notes-collection/notes-collection.component';
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
@@ -230,9 +229,11 @@ export class DialogComponent implements OnInit ,OnDestroy{
     }
   }
 
+  /*
+  This method will be executed just before Angular destroys the components
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

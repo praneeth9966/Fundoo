@@ -1,16 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { HttpService } from '../../core/services/http/http.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../../component/delete-dialog/delete-dialog.component';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-more-icon',
   templateUrl: './more-icon.component.html',
   styleUrls: ['./more-icon.component.scss']
 })
 
-export class MoreIconComponent implements OnInit {
+export class MoreIconComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   private notes: any[];
   public httpservice: any;
   public display: boolean = true;
@@ -19,7 +21,7 @@ export class MoreIconComponent implements OnInit {
   private body;
   private labelBody = {};
 
-  constructor(private dialog: MatDialog, private matSnackBar: MatSnackBar,private notesService:NotesService) { }
+  constructor(private dialog: MatDialog, private matSnackBar: MatSnackBar, private notesService: NotesService) { }
   @Output() deleteNote = new EventEmitter();
   @Output() addedLabel = new EventEmitter();
   @Output() trashEvent = new EventEmitter<boolean>();
@@ -39,15 +41,17 @@ export class MoreIconComponent implements OnInit {
       "noteIdList": [this.notesArray.id]
     }
     var token = localStorage.getItem('token');
-    this.notesService.postTrashnotes(this.body).subscribe(res => {
-      LoggerService.log('result', res);
-      this.matSnackBar.open("Notes deleted ", 'Successfully', {
-        duration: 3000,
-      });
-      this.deleteNote.emit();
-    }, error => {
-      LoggerService.log(error);
-    })
+    this.notesService.postTrashnotes(this.body)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        LoggerService.log('result', res);
+        this.matSnackBar.open("Notes deleted ", 'Successfully', {
+          duration: 3000,
+        });
+        this.deleteNote.emit();
+      }, error => {
+        LoggerService.log(error);
+      })
   }
 
 
@@ -56,16 +60,18 @@ export class MoreIconComponent implements OnInit {
   addLabel(labelId) {
     LoggerService.log(this.notesArray, "notess");
     LoggerService.log(this.notesArray.id);
-    // this.labelBody = {
-    //   "noteId": this.notesArray.id,
-    //   "lableId": labelId
-    // }
-    this.notesService.postAddLabelnotes(this.notesArray.id,labelId,null).subscribe(result => {
-      LoggerService.log('result', result);
-      this.deleteNote.emit();
-    }, error => {
-      LoggerService.log(error);
-    })
+    this.labelBody = {
+      "noteId": this.notesArray.id,
+      "lableId": labelId
+    }
+    this.notesService.postAddLabelnotes(this.notesArray.id, labelId, null)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        LoggerService.log('result', result);
+        this.deleteNote.emit();
+      }, error => {
+        LoggerService.log(error);
+      })
   }
 
 
@@ -73,16 +79,18 @@ export class MoreIconComponent implements OnInit {
    */
   getLabels() {
     var token = localStorage.getItem('token');
-    this.notesService.getlabels().subscribe(data => {
-      LoggerService.log('', data);
-      this.notes = [];
-      for (var i = 0; i < data['data'].details.length; i++) {
-        if (data['data'].details[i].isDeleted == false)
-          this.notes.push(data['data'].details[i]);
-      }
-    }, error => {
-      LoggerService.log(error);
-    })
+    this.notesService.getlabels()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        LoggerService.log('', data);
+        this.notes = [];
+        for (var i = 0; i < data['data'].details.length; i++) {
+          if (data['data'].details[i].isDeleted == false)
+            this.notes.push(data['data'].details[i]);
+        }
+      }, error => {
+        LoggerService.log(error);
+      })
   }
 
 
@@ -94,21 +102,25 @@ export class MoreIconComponent implements OnInit {
       panelClass: 'myapp-no-paddding-dialog',
       data: { name: 'trash' }
     });
-    dialogRef.afterClosed().subscribe(data => {
-      LoggerService.log('The dialog was closed');
-      if (data) {
-        this.model = {
-          "isDeleted": true,
-          "noteIdList": [this.notesArray.id]
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        LoggerService.log('The dialog was closed');
+        if (data) {
+          this.model = {
+            "isDeleted": true,
+            "noteIdList": [this.notesArray.id]
+          }
+          this.notesService.postDeleteForeverNotes(this.model)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(data => {
+              LoggerService.log('data', data);
+              this.trashEvent.emit(true);
+            }, error => {
+              LoggerService.log(error);
+            })
         }
-        this.notesService.postDeleteForeverNotes( this.model).subscribe(data => {
-          LoggerService.log('data', data);
-          this.trashEvent.emit(true);
-        }, error => {
-          LoggerService.log(error);
-        })
-      }
-    });
+      });
   }
 
 
@@ -120,15 +132,25 @@ export class MoreIconComponent implements OnInit {
       "noteIdList": [this.notesArray.id]
     }
     var token = localStorage.getItem('token');
-    this.notesService.postTrashnotes(this.body).subscribe(res => {
-      LoggerService.log('result', res);
-      this.matSnackBar.open("Notes restore", 'Successfully', {
-        duration: 3000,
-      });
-      this.restoreEvent.emit(true);
-    }, error => {
-      LoggerService.log(error);
-    })
+    this.notesService.postTrashnotes(this.body)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        LoggerService.log('result', res);
+        this.matSnackBar.open("Notes restore", 'Successfully', {
+          duration: 3000,
+        });
+        this.restoreEvent.emit(true);
+      }, error => {
+        LoggerService.log(error);
+      })
+  }
+
+  /*
+ This method will be executed just before Angular destroys the components
+ */
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

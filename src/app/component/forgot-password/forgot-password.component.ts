@@ -1,6 +1,5 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms'
-import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
@@ -58,9 +57,11 @@ export class ForgotPasswordComponent implements OnInit ,OnDestroy{
     }
   }
 
+  /*
+  This method will be executed just before Angular destroys the components
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

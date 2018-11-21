@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpService } from '../../core/services/http/http.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import { Label, Notes } from 'src/app/core/model/notes';
 @Component({
   selector: 'app-change-label',
   templateUrl: './change-label.component.html',
@@ -12,7 +12,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ChangeLabelComponent implements OnInit,OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-  private notes = [];
+  private notes:Notes[] = [];
   private findLabel;
 
   constructor(private route: ActivatedRoute,private notesService: NotesService) {
@@ -39,11 +39,13 @@ export class ChangeLabelComponent implements OnInit,OnDestroy {
     .subscribe(res => {
       LoggerService.log('result', res);
       this.notes = [];
-      for (var i = res['data']['data'].length - 1; i > 0; i--) {
-        if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false)
+      var newNotesArray:Notes[]=res['data']['data'];
+
+      for (var i = newNotesArray.length - 1; i > 0; i--) {
+        if (newNotesArray[i].isDeleted == false && newNotesArray[i].isArchived == false)
           for (let index = 0; index < res['data']['data'][i].noteLabels.length; index++) {
-            if (res['data']['data'][i].noteLabels[index].label == this.findLabel) {
-              this.notes.push(res['data']['data'][i]);
+            if (newNotesArray[i].noteLabels[index].label == this.findLabel) {
+              this.notes.push(newNotesArray[i]);
             }
           }
       }
@@ -52,9 +54,12 @@ export class ChangeLabelComponent implements OnInit,OnDestroy {
     })
   }
 
+
+  /*
+  This method will be executed just before Angular destroys the components
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
 }

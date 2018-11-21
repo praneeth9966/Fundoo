@@ -1,9 +1,8 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { HttpService } from '../../core/services/http/http.service';
 import { MatDialog } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
 import { DataService } from '../../core/services/data/data.service'
@@ -160,6 +159,9 @@ export class NavigationComponent implements OnInit,OnDestroy {
 
   }
 
+  /*
+ This method will be executed just before Angular destroys the components
+ */
   ngOnDestroy() {
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:
