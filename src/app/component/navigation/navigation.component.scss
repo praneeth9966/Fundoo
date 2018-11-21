@@ -101,3 +101,9 @@
 .change1{
   margin-top: 42px;
 }
+.new{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden !important;
+  width:30px;
+}

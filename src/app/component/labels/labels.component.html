@@ -16,7 +16,7 @@
         </div>
         </div>
         <div fxLayout="column" class="val">
-          <a mat-list-item>
+          <!-- <a mat-list-item> -->
                 <div *ngFor=" let labels of notes">
                         <div *ngIf="display != labels.id">
                 <div fxFlex = 15 class = "lock">
@@ -24,7 +24,7 @@
                 <mat-icon matTooltip="Delete Label" class = "icon-lock" (click)="deleteLabel(labels.id);">delete</mat-icon>
               </div>
               <div fxFlex = 75>
-                <span contenteditable="true" class="name"  id="label" [innerHTML]="labels.label">
+                <span calss = 'label' contenteditable="true" class="name"  id="label" [innerHTML]="labels.label">
                 </span>
               </div>
                 <mat-icon matTooltip="Rename label" (click)="update(labels.id)" 
@@ -38,7 +38,7 @@
                 class="create">done</mat-icon>
               </div>
             </div>
-          </a>
+          <!-- </a> -->
         </div>
         <div mat-dialog-actions class="button">
           <button mat-button (click)="addLabel()">Done</button>

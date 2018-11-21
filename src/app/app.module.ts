@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, } from '@angular/forms'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -48,6 +48,8 @@ import { PinComponent } from './component/pin/pin.component';
 import { MessagingService } from './core/services/messaging/messaging.service';
 import { InterceptService} from './core/services/interceptor/intercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorsHandler } from './core/services/errorhandler/errors-handler';
+
 
 
 @NgModule({
@@ -80,7 +82,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     DeleteDialogComponent,
     CropImageComponent,
     PinComponent,
-
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -118,6 +120,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptService,
     multi: true
+  },{
+    provide: ErrorHandler,
+    useClass: ErrorsHandler,
   }],
 
   bootstrap: [AppComponent]

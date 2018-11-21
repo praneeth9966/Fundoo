@@ -36,4 +36,5 @@ export class MessagingService {
       LoggerService.log("Message received. ", payload);
     });
   }
+
 }

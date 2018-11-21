@@ -25,6 +25,10 @@ const appRoutes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'labels/:id',
+        component: ChangeLabelComponent
+      },
+      {
         path: 'notes',
         component: NotesComponent
       },
@@ -41,10 +45,7 @@ const appRoutes: Routes = [
         component: LabelsComponent
       },
 
-      {
-        path: 'labels/:id',
-        component: ChangeLabelComponent
-      },
+
       {
         path: 'search',
         component: SearchComponent
