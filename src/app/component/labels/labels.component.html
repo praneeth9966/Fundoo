@@ -1,6 +1,6 @@
 <!-------------------------------- Labels starts -------------------------------->
 
-<div style="padding: 30px; ">
+<div style="padding: 5px; ">
         <h3>Edit Label</h3>
         <div fxLayout="row" fxLayoutAlign="space-between" class="icon">
           <div fxFlex = 15>
@@ -24,7 +24,7 @@
                 <mat-icon matTooltip="Delete Label" class = "icon-lock" (click)="deleteLabel(labels.id);">delete</mat-icon>
               </div>
               <div fxFlex = 75>
-                <span calss = 'label' contenteditable="true" class="name"  id="label" [innerHTML]="labels.label">
+                <span  contenteditable="true" class="name"  id="label" [innerHTML]="labels.label">
                 </span>
               </div>
                 <mat-icon matTooltip="Rename label" (click)="update(labels.id)" 

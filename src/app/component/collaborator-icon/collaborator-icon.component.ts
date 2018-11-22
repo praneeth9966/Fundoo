@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
+import { MatDialog} from '@angular/material';
 @Component({
   selector: 'app-collaborator-icon',
   templateUrl: './collaborator-icon.component.html',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollaboratorIconComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private dialog: MatDialog) { }
+  @Input() collaborator
   ngOnInit() {
   }
-
+  colloborator(notes): void {
+    const dialogRef = this.dialog.open(ColloboratorDialogComponent, {
+      width: '500px',
+      data: this.collaborator
+    });
+  }
 }

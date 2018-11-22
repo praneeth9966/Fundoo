@@ -1,52 +1,53 @@
+@import '../../../scss/mixins';
 
-.example-card{
+.example-card {
   margin: 10px;
-  height:auto;
-  width:200px;
-border-radius: 10px;
+  height: auto;
+  width: 200px;
+  border-radius: 10px;
 }
-mat-card-title{
+
+mat-card-title {
   word-wrap: break-word;
   font-family: cursive;
   font-weight: bolder;
-  width:200px;
+  width: 200px;
 }
-mat-card-content{
-  width:200px;
+
+mat-card-content {
+  width: 200px;
   word-wrap: break-word;
 }
-.icons{
-  opacity:0;
-  margin-top:15px;
-}
-.icons:hover{
- 
-  opacity:1;
-  
-}
-.removeicon{
-  opacity:0;
-}
-.removeicon:hover{
-  opacity:1;
+
+.icons {
+  opacity: 0;
+  margin-top: 15px;
+  &:hover {
+    opacity: 1;
+  }
 }
 
+.removeicon {
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
+}
 
-.grid{
+.grid {
   width: 650px;
 }
-.list{
+
+.list {
   min-width: 200px;
 }
-.note{
-  border:none;
-  outline:none;
+
+.note {
+  @include border();
   margin-left: 20px;
 }
 
-.flow{
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden !important;
-  width:50px;
+.flow {
+  @include overflowhidden();
+  width: 50px;
 }

@@ -1,6 +1,4 @@
+@import '../../../scss/mixins';
 .archiveCursor{
-    cursor: pointer;
-}
-.UnarchiveCursor{
-    cursor: pointer;
+    @include cursor();
 }

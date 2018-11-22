@@ -1,8 +1,13 @@
-.colorButton{
+@import '../../../scss/mixins';
+colorButton {
     height: 28px;
-        width: 28px;
-}
-.buttons{
+    width: 28px;
+  }
+  
+  .buttons {
     padding: 5px;
-    
-}
+  }
+  
+  .cursor {
+    @include cursor();
+  }

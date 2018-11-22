@@ -1,55 +1,45 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
 
 [contenteditable]:empty:before {
     content: attr(data-placeholder);
-    color: grey;
+    color: $typekit-grey;
     display: inline-block;
 }
 
 .edit 
 {
-    border: none;
+    @include border();
     border-color: transparent;
-    outline: none;
-    // word-wrap: break-word;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   overflow: hidden !important;
+    @include overflowhidden();
     cursor:default;
 }
 .button
 {
     float : right;
-    margin-bottom: 20px;
     margin-top: 10px;
 }
 .icon
 {
-    cursor: pointer;
+    @include cursor();
 }
 .val
 {
     margin-top: 20px;
-    cursor: pointer;
+    @include cursor();
 }
 .name 
 {
     text-overflow: ellipsis;
     overflow: hidden !important;
     margin-left: 5px;
-    border: none;
     border-color: transparent;
-    outline: none;
     word-wrap: break-word;
     width:50px!important;
     min-height: 20px;
-  
+    @include border();
 }
 
-.label {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden !important;
-}
 .create
 {
     float: right;

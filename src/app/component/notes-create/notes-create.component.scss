@@ -1,3 +1,5 @@
+@import '../../../scss/mixins';
+
 .width
 {
     width:60%;
@@ -9,8 +11,7 @@
 }
 .text
 {
-    border:none;
-    outline: none;
+   @include border();
     word-wrap: break-word;
     background:transparent;
 }
@@ -22,13 +23,9 @@
     margin-left: 10%;
 }
 .cards{
-    border: none;
-    outline: none
+    @include border();
 }
 
 .inputNote{
-    border: none;
-    outline: none;
+    @include border();
 }
-
-

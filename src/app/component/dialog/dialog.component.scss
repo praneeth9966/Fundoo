@@ -1,3 +1,4 @@
+@import '../../../scss/mixins';
 .width
 {
     width:60%;
@@ -8,8 +9,7 @@
 }
 .text
 {
-    border:none;
-    outline: none;
+    @include border();
     word-wrap: break-word;
     background:transparent;
 }
@@ -21,14 +21,11 @@
     margin-left: 10%;
 }
 .cards{
-    border: none;
-    outline: none
+    @include border();
 }
 ::ng-deep.mat-dialog-container{
     display: block;
-  
 }
 .note{
-    border: none;
-    outline: none;
+    @include border();
 }

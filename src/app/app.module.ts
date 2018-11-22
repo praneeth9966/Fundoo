@@ -49,6 +49,7 @@ import { MessagingService } from './core/services/messaging/messaging.service';
 import { InterceptService} from './core/services/interceptor/intercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsHandler } from './core/services/errorhandler/errors-handler';
+import { ColloboratorDialogComponent } from './component/colloborator-dialog/colloborator-dialog.component';
 
 
 
@@ -82,6 +83,7 @@ import { ErrorsHandler } from './core/services/errorhandler/errors-handler';
     DeleteDialogComponent,
     CropImageComponent,
     PinComponent,
+    ColloboratorDialogComponent,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -115,7 +117,7 @@ import { ErrorsHandler } from './core/services/errorhandler/errors-handler';
     MatNativeDateModule,
     ImageCropperModule
   ],
-  entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent],
+  entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent,ColloboratorDialogComponent],
   providers: [HttpService, DataService, MatDatepickerModule, LoggerService,MessagingService,InterceptService,{
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptService,

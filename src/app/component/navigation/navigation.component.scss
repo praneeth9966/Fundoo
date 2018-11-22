@@ -1,8 +1,10 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
 
  .sidenav-container {
+  @include overflow();
   height: 100%;
   width: 100%;
-  overflow: hidden;
   z-index:4;
 }
 
@@ -18,42 +20,31 @@
 }
 
 .tool-bar {
-  background-color: #fb0
+  background-color: $typekit-yellow;
 }
 
 .search-box {
-  
+  @include overflow();
   height: 40px;  
-  background-color: white;
+  background-color: $typekit-white;
   border-radius: 5px;
-  overflow: hidden;
 }
 
 .search-box input {
-  border:none;
-  outline: none;
+  @include overflow();
+  @include border();
   font-size: 16px;
-  overflow: hidden;
 }
 
 .child-links {
   margin-left:20px;
   font-size: 12px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden !important;
-
+  @include overflowhidden();
 }
-
-.child-links1 {
-  font-size: 12px
-
-}
-
 
 .drop-down {
-  background-color:#f2f2f2;
-  color:#0d0d0d
+  background-color:$typekit-white;
+  color:$typekit-black;
 }
 
 .drop-down-button {
@@ -62,11 +53,9 @@
 
 .icons {
   opacity: 0.5;
- 
-}
-
-.icons:hover {
-  opacity: 1.0;    
+  &:hover {
+    opacity: 1.0;
+  }
 }
 
 .profilebutton{
@@ -74,22 +63,18 @@
   height:100px; 
   border: none;
  border-radius: 50%;
- background:white;
+ background:$typekit-white;
  
 }
 .profilebutton2{
-  width:50px; 
-  height:50px; 
-  border: none;
+ @include widthheight();
  border-radius: 50%;
  background: transparent;
- outline:none;
- 
+ @include border();
 }
 
 .insideIconButton{
-  width: 50px;
-  height: 50px;
+  @include widthheight();
 }
 
 .logout{
@@ -102,8 +87,6 @@
   margin-top: 42px;
 }
 .new{
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden !important;
+  @include overflowhidden();
   width:30px;
 }

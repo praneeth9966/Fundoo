@@ -1,4 +1,6 @@
-  
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
  .container {
     height: 90vh;
 }
@@ -6,28 +8,28 @@
   width: 100%;
 } 
 .classf{
-  color: darkblue;
+  color: $typekit-blue;
   font-size: 40px; 
  }
  .classu{
-   color: red;
-   font-size: 30px;
+   color: $typekit-red;
+   @include fontsize();
  }
  .classn{
-   color: yellow;
-   font-size: 30px;
+   color: $typekit-yellow;
+   @include fontsize();
  }
  .classd{
-   color: darkblue;
-   font-size: 30px;
+   color: $typekit-blue;
+   @include fontsize();
  }
  .classo{
-   color: green;
-   font-size: 30px;
+   color: $typekit-green;
+   @include fontsize();
  }
  .classo1{
-   color: red;
-   font-size: 30px;
+   color: $typekit-red;
+   @include fontsize();
  }
  .mat-card{
   width: 400px;

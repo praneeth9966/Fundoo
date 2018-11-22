@@ -1,33 +1,33 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
 
 .container {
   height: 90vh;
 }
-/* .example-container > * {
-  width: 40%;
-} */
+
 .classf{
- color: darkblue;
+ color:  $typekit-blue;
  font-size: 40px; 
 }
 .classu{
-  color: red;
-  font-size: 30px;
+  color:  $typekit-red;
+  @include fontsize();
 }
 .classn{
-  color: yellow;
-  font-size: 30px;
+  color:  $typekit-yellow;
+  @include fontsize();
 }
 .classd{
-  color: darkblue;
-  font-size: 30px;
+  color:  $typekit-blue;
+  @include fontsize();
 }
 .classo{
-  color: green;
-  font-size: 30px;
+  color:  $typekit-green;
+  @include fontsize();
 }
 .classo1{
-  color: red;
-  font-size: 30px;
+  color:  $typekit-red;
+  @include fontsize();
 }
 .width{
   width: 120px;
@@ -41,11 +41,11 @@
 }
 
 .notselected{
-  background-color:gray;
+  background-color:$typekit-grey;
   
   }
   .selected{
-  background-color: rgba(142, 235, 88, 0.849);
+  background-color: $typekit-lightgreen;
   }
 
   .card1{
@@ -54,6 +54,6 @@
     width: 150px;
     height:120px;
     border-radius: 15px;
-    color:white;
+    color:$typekit-white;
     text-transform: uppercase;
   }

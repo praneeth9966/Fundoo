@@ -1,0 +1,30 @@
+<div >
+  <div>Collaborators
+  </div>
+  <hr>
+  <div fxLayout='row' fxLayoutGap='10px'>
+    <button mat-mini-fab disabled 
+    [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button>
+    <div fxLayout='column'>
+      <span>{{firstName}} {{lastName}}(owner)
+      </span>
+      <span class="email">{{email}}</span>
+    </div>
+  </div>
+
+  <div class="button1" fxLayout='row' fxLayoutGap='10px'>
+    <button mat-mini-fab disabled><mat-icon>person_add</mat-icon></button>
+    <input class="input" type="text" placeholder="Person or email to share with"
+    (keyup)="myFunction($event)" [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
+    <mat-menu #menu="matMenu">
+      <a *ngFor="let value of collaborator">
+        {{value.firstName}}{{value.lastName}}{{value.email}}
+      </a>
+    </mat-menu>
+  </div>
+
+  <div fxLayoutAlign='end'>
+    <button mat-button class="button2" (click)="cancel()">Cancel</button>
+    <button mat-button>Save</button>
+  </div>
+</div>

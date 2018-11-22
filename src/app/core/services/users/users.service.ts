@@ -44,4 +44,10 @@ export class UsersService {
     let url = this.url + "user/reset";
     return this.user.post(url, body);/**post the data */
   }
+
+  searchCollaborator(body)/**post() service to post he data */ {
+    let url = this.url + "user/searchUserList";
+    return this.user.post(url, body);/**post the data */
+  }
+
 }

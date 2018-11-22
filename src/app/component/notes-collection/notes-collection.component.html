@@ -148,7 +148,7 @@
           <div class="icons" fxLayoutAlign="space-between">
             <app-remindme-icon [noteDetails]="notes" 
             (addReminderEvent)="addReminder($event)"></app-remindme-icon>
-            <app-collaborator-icon></app-collaborator-icon>
+            <app-collaborator-icon [collaborator]='notes'></app-collaborator-icon>
             <app-change-color-icon [notesArray]="notes.id" (noteColor)=messageColor($event)>
             </app-change-color-icon>
             <app-add-image-icon></app-add-image-icon>
