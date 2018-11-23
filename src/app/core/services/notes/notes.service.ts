@@ -131,4 +131,8 @@ export class NotesService {
     return this.service.httpImage(url, body)
   }
 
+  addCollaboratorNotes(noteId, body) {
+    let url = this.url + "notes/" + noteId + "/AddcollaboratorsNotes";
+    return this.service.httpPost(url, body);
+  }
 }

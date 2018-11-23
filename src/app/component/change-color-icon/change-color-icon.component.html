@@ -5,7 +5,7 @@
 <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
     <ng-template matMenuContent >
       <div class="buttons">
-          <div fxLayout=row fxLayoutGap=10px style="margin-top:5px" 
+          <div fxLayout=row fxLayoutGap=10px class="color" 
               *ngFor='let colors of colorArray'>
                   <div *ngFor='let color of colors'>
                       <button class="colorButton" [ngStyle]="{'background-color': color.color }" 
@@ -16,5 +16,4 @@
       </div>
       </ng-template>
 </mat-menu>
-
 <!---------------------------Change Color Icon ends ----------------------------->

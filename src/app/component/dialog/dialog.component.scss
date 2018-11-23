@@ -1,4 +1,5 @@
 @import '../../../scss/mixins';
+
 .width
 {
     width:60%;
@@ -28,4 +29,5 @@
 }
 .note{
     @include border();
+    
 }

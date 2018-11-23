@@ -1,8 +1,8 @@
       <!-----------------------------Notes starts------------------------------->
 
-  <mat-card fxFlex *ngIf="!show" class="example-card" 
+  <mat-card fxFlex *ngIf="!show" 
     [ngStyle]="{'background-color':color}" 
-    style=" width:50%; ;position: relative;padding: 5; border-radius: 10px">
+    style=" width:50%; position: relative;padding: 5; border-radius: 10px">
   
     <mat-card-content>
       <div fxLayout='row' fxLayout.xs='row'>
@@ -36,7 +36,7 @@
        
         <div class="note" *ngFor="let check of tempArray" fxLayout="row">
           <mat-checkbox fxFlex="10%" checked=true *ngIf="check.status=='close'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
-          <input [(ngModel)]=check.itemName class="note" style="text-decoration: line-through;" fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
+          <input [(ngModel)]=check.itemName class="note" fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
             (keydown)=editing(check,$event)>
           <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
     </div>

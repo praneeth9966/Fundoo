@@ -17,14 +17,19 @@
     <input class="input" type="text" placeholder="Person or email to share with"
     (keyup)="myFunction($event)" [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
     <mat-menu #menu="matMenu">
-      <a *ngFor="let value of collaborator">
-        {{value.firstName}}{{value.lastName}}{{value.email}}
-      </a>
+      <div fxLayout='row' *ngFor="let value of collaborator">
+        <button mat-button (click)="addCollaborator(value)">
+        {{value.firstName}} {{value.lastName}} {{value.email}}
+      </button>
+      </div>
     </mat-menu>
+  </div>
+  <div>
+    {{searchNames}}
   </div>
 
   <div fxLayoutAlign='end'>
     <button mat-button class="button2" (click)="cancel()">Cancel</button>
-    <button mat-button>Save</button>
+    <button mat-button >Save</button>
   </div>
 </div>

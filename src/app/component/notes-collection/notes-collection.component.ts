@@ -54,7 +54,6 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',
       panelClass: 'myapp-no-padding-dialog',
-      // position: { left: '450px' },
       data: notes
     });
 

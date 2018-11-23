@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { DialogComponent, DialogData } from '../dialog/dialog.component';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
+import { NotesService } from 'src/app/core/services/notes/notes.service';
 @Component({
   selector: 'app-colloborator-dialog',
   templateUrl: './colloborator-dialog.component.html',
@@ -13,12 +14,14 @@ export class ColloboratorDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ColloboratorDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DialogData, private dialog: MatDialog,
-    private userService:UsersService) { }
+    private userService:UsersService,private notesService:NotesService) { }
 
   ngOnInit() {
   }
+
 private searchNames;
 private collaborator=[];
+
   cancel() {
     this.dialogRef.close();
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -51,6 +54,22 @@ private collaborator=[];
         error => {
           LoggerService.log("Error", error);
         })
+  }
+
+  addCollaborator(result){
+    let body={
+      "firstName":result.firstName,
+      "lastName":result.lastName,
+      "email":result.email,
+      "userId":result.userId
+    }
+    this.notesService.addCollaboratorNotes(this.data.id,body).subscribe(
+      (data) => {
+        LoggerService.log('data', data);
+      },
+      error => {
+        LoggerService.log("Error", error);
+      })
   }
 
 }

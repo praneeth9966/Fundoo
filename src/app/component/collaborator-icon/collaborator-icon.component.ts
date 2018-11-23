@@ -12,7 +12,7 @@ export class CollaboratorIconComponent implements OnInit {
   @Input() collaborator
   ngOnInit() {
   }
-  colloborator(notes): void {
+  colloborator(collaborator): void {
     const dialogRef = this.dialog.open(ColloboratorDialogComponent, {
       width: '500px',
       data: this.collaborator

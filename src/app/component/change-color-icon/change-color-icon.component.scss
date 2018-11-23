@@ -1,5 +1,6 @@
 @import '../../../scss/mixins';
-colorButton {
+
+.colorButton {
     height: 28px;
     width: 28px;
   }
@@ -10,4 +11,7 @@ colorButton {
   
   .cursor {
     @include cursor();
+  }
+  .color{
+    margin-top: 5px;
   }
