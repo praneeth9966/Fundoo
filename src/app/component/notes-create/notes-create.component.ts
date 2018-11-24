@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter,OnDestroy } from '@angular/core';
-import { LoggerService } from '../../core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -68,7 +67,6 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
    */
   createNotes() {
     this.title = document.getElementById("titleId").innerHTML
-    LoggerService.log('title', this.title);
     if (this.checkList == false) {
       this.description = document.getElementById("takeANoteId").innerHTML
       this.body = {
@@ -89,18 +87,17 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
     else {
       this.checkList = false;
       this.dataArrayApi = [];
-      for (var i = 0; i < this.dataarray.length; i++) {
+      for (let i = 0; i < this.dataarray.length; i++) {
         if (this.dataarray[i].isChecked == true) {
           this.status = "close"
         }
-        var apiObj = {
+        let apiObj = {
           "itemName": this.dataarray[i].data,
           "status": this.status
         }
         this.dataArrayApi.push(apiObj)
         this.status = "open"
       }
-      LoggerService.log('dataArrayApi', this.dataArrayApi);
       this.body = {
         "title": this.title,
         "checklist": JSON.stringify(this.dataArrayApi),
@@ -112,7 +109,6 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
       if (this.value != undefined) {
         this.body.reminder = this.value;
       }
-      LoggerService.log(this.body);
       this.body.color = this.parentColor;
       this.parentColor = "#ffffff";
     }
@@ -120,7 +116,6 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
     .pipe(takeUntil(this.destroy$))
     .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        LoggerService.log('data', data);
         // this.checkList = false;
         this.array1 = [];
         this.array2 = [];
@@ -131,27 +126,21 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
         this.adding = false
         this.newEvent.emit(data['status'].details)
       })
-    error => {
-      LoggerService.log('error', error);
-    }
+   
   }
 
 
   /*   calling get Labels Api
    */
   getLabels() {
-    var token = localStorage.getItem('token');
     this.notesService.getlabels()
     .pipe(takeUntil(this.destroy$))
     .subscribe(data => {
-      LoggerService.log('data', data);
       this.notes = [];
-      for (var i = 0; i < data['data'].details.length; i++) {
+      for (let i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
-    }, error => {
-      LoggerService.log('error', error);
     })
   }
 
@@ -183,13 +172,12 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
     this.isChecked = this.addCheck;
     if (this.data != null) {
 
-      var obj = {
+      let obj = {
         "index": this.i,
         "data": this.data,
         "isChecked": this.isChecked
       }
       this.dataarray.push(obj);
-      LoggerService.log('dataArray', this.dataarray)
       this.data = null;
       this.adding = false;
       this.isChecked = false;
@@ -201,7 +189,7 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
   /*   function for deleting checklist
    */
   ondelete(deletedObj) {
-    for (var i = 0; i < this.dataarray.length; i++) {
+    for (let i = 0; i < this.dataarray.length; i++) {
       if (deletedObj.index == this.dataarray[i].index) {
         this.dataarray.splice(i, 1);
         break;

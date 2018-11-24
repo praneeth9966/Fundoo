@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter,OnDestroy } from '@angular/core';
-import { LoggerService } from '../../core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -30,11 +29,8 @@ export class PinComponent implements OnInit,OnDestroy {
     this.notesService.postPinUnpin(this.pinBody)
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-      LoggerService.log('result', result);
       this.pinEvent.emit({
       });
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
@@ -49,11 +45,8 @@ export class PinComponent implements OnInit,OnDestroy {
     this.notesService.postPinUnpin(this.pinBody)
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-      LoggerService.log('result', result);
       this.pinEvent.emit({
       });
-    }, error => {
-      LoggerService.log(error);
     })
   }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output,OnDestroy} from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -31,13 +30,10 @@ export class ArchiveIconComponent implements OnInit,OnDestroy{
     this.notesService.postArchivenotes(this.body)
     .pipe(takeUntil(this.destroy$))
     .subscribe(res => {
-      LoggerService.log('result', res);
       this.matSnackBar.open("Archived", 'Successfully', {
         duration: 3000,
       });
       this.archiveNote.emit();
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
@@ -54,10 +50,7 @@ export class ArchiveIconComponent implements OnInit,OnDestroy{
       this.matSnackBar.open("UnArchived", 'Successfully', {
         duration: 3000,
       });
-      LoggerService.log('result', res);
       this.unArchiveNote.emit(true);
-    }, error => {
-      LoggerService.log(error);
     })
   }
 

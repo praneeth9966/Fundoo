@@ -1,5 +1,4 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -29,9 +28,6 @@ export class RemindersComponent implements OnInit ,OnDestroy{
         this.getRemindersArray = data['data']['data'];
         this.getRemindersArray.sort(this.compare);
       })
-    error => {
-      LoggerService.log(error)
-    }
   }
 
   /*   function for sorting reminders

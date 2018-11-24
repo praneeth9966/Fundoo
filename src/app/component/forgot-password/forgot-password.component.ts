@@ -1,7 +1,6 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -31,9 +30,7 @@ export class ForgotPasswordComponent implements OnInit ,OnDestroy{
   }
 
   resetPassword() {
-    LoggerService.log(this.temp.email);
     if (this.temp.email.length == 0) {
-      LoggerService.log("Email is required");
       this.snackBar.open("Email is required ", "login unsuccessfull", {
         duration: 10000,
       });
@@ -43,17 +40,10 @@ export class ForgotPasswordComponent implements OnInit ,OnDestroy{
       .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
-            LoggerService.log("reset successfull,check your mail once");
             this.snackBar.open("reset successfull ", "successfull", {
               duration: 10000,
             });
-          }),
-        error => {
-          LoggerService.log("Error", error);
-          this.snackBar.open("enter valid details ", "login unsuccessfull", {
-            duration: 10000,
-          });
-        }
+          })
     }
   }
 

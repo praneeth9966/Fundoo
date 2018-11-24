@@ -6,9 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
-  let de = DebugElement;
-  let el = HTMLElement;
+  let fixture: ComponentFixture<LoginComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,8 +18,6 @@ describe('LoginComponent', () => {
       .compileComponents().then(() => {
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
-        this.de = fixture.debugElement.query(By.css('form'));
-        this.el = this.de.nativeElement;
       });
   }));
 

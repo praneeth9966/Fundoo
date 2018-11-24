@@ -8,7 +8,6 @@ import { LabelsComponent } from '../labels/labels.component';
 import { DataService } from '../../core/services/data/data.service'
 import { CropImageComponent } from '../crop-image/crop-image.component';
 import { environment } from '../../../environments/environment';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
@@ -78,17 +77,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   /*   calling Logout Api
    */
   logout() {
-    var token = localStorage.getItem('token');
     this.userService.postlogout()
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        LoggerService.log('data', data);
         localStorage.clear();
         window.location.replace('login')
-      },
-        error => {
-          LoggerService.log("Error", error);
-        });
+      });
   }
 
   openDialog(): void {
@@ -98,7 +92,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
-        LoggerService.log('The dialog was closed');
         this.labelList()
       });
   }
@@ -107,26 +100,22 @@ export class NavigationComponent implements OnInit, OnDestroy {
   /*   calling get Labels Api
    */
   labelList() {
-    var token = localStorage.getItem('token');
     this.notesService.getlabels()
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.notes = [];
-        for (var i = 0; i < data['data'].details.length; i++) {
+        for (let i = 0; i < data['data'].details.length; i++) {
           if (data['data'].details[i].isDeleted == false)
             this.notes.push(data['data'].details[i]);
         }
         this.notes.sort(function (a, b) {
-          var nameA = a.label.toLowerCase(), nameB = b.label.toLowerCase()
+          let nameA = a.label.toLowerCase(), nameB = b.label.toLowerCase()
           if (nameA < nameB)
             return -1
           if (nameA > nameB)
             return 1
           return 0
         })
-        LoggerService.log(this.notes);
-      }, error => {
-        LoggerService.log(error);
       })
   }
 

@@ -13,7 +13,7 @@ export class CollaboratorIconComponent implements OnInit {
   ngOnInit() {
   }
   colloborator(collaborator): void {
-    const dialogRef = this.dialog.open(ColloboratorDialogComponent, {
+    this.dialog.open(ColloboratorDialogComponent, {
       width: '500px',
       data: this.collaborator
     });

@@ -1,5 +1,4 @@
 import { Component, OnInit ,OnDestroy} from '@angular/core';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import {Notes} from '../../core/model/notes'
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
@@ -25,7 +24,6 @@ export class NotesComponent implements OnInit ,OnDestroy{
   /*   calling get notes Api
    */
   displayNotes() {
-    var token = localStorage.getItem('token');
     this.notesService.getcard(
 
     )
@@ -33,14 +31,12 @@ export class NotesComponent implements OnInit ,OnDestroy{
     .subscribe(res => {
      
       this.notes = [];
-      var newNotesArray:Notes[]=res['data']['data'];
-      for (var i = newNotesArray.length - 1; i > 0; i--) {
+      let newNotesArray:Notes[]=res['data']['data'];
+      for (let i = newNotesArray.length - 1; i > 0; i--) {
         if (newNotesArray[i].isDeleted == false && newNotesArray[i].isArchived == false && newNotesArray[i].isPined == false)
           this.notes.push(newNotesArray[i]);
           
       }
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
@@ -48,17 +44,14 @@ export class NotesComponent implements OnInit ,OnDestroy{
   /*   calling get notes Api
    */
   getPin() {
-    var token = localStorage.getItem('token');
     this.notesService.getcard()
     .pipe(takeUntil(this.destroy$))
     .subscribe(res => {
       this.notes1 = [];
-      for (var i = res['data']['data'].length - 1; i > 0; i--) {
+      for (let i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == true)
           this.notes1.push(res['data']['data'][i]);
       }
-    }, error => {
-      LoggerService.log(error);
     })
   }
 

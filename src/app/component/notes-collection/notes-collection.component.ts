@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild ,OnDestroy} f
 import { MatDialog} from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../../core/services/data/data.service';
-import { LoggerService } from '../../core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -28,7 +27,6 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
 
   constructor(private notesService:NotesService, private dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
-      LoggerService.log('message', message);
       if (message) {
         this.notifyParent.emit();
       }
@@ -73,14 +71,11 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
       "noteId": id,
       "lableId": labelId
     }
-    this.notesService.postAddLabelnotesRemove(labelId,id,null)
+    this.notesService.postAddLabelnotesRemove(labelId,id)
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-      LoggerService.log('result', result);
       this.notifyParent.emit({
       });
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
@@ -94,11 +89,8 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
     this.notesService.postRemoveReminders(this.reminderBody)
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-      LoggerService.log('result', result);
       this.notifyParent.emit({
       });
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
@@ -142,14 +134,12 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
   }
 
   checkBox(checkList, note) {
-    LoggerService.log(note);
     if (checkList.status == "open") {
       checkList.status = "close"
     }
     else {
       checkList.status = "open"
     }
-    LoggerService.log(checkList);
     this.modifiedCheckList = checkList;
     this.updatelist(note);
   }
@@ -158,16 +148,14 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
   /*   calling update checklist Api
    */
   updatelist(id) {
-    var checklistData = {
+    let checklistData = {
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
-    LoggerService.log('checklistData', checklistData);
-    var checkNew = JSON.stringify(checklistData);
+    let checkNew = JSON.stringify(checklistData);
     this.notesService.postUpdateChecklist(id, this.modifiedCheckList.id,checkNew)
     .pipe(takeUntil(this.destroy$))
     .subscribe(response => {
-      LoggerService.log('response', response);
     })
   }
 
@@ -175,12 +163,12 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
   /*   function for striking reminder
     */
   strikeReminder(date) {
-    var currentReminder = new Date().getTime();
-    var reminderValue = new Date(date).getTime();
+    let currentReminder = new Date().getTime();
+    let reminderValue = new Date(date).getTime();
     if (reminderValue > currentReminder) {
       return true;
     }
-    else false;
+    //  else false;
   }
   labelRedirect(label) {
     this.dataService.changeLabel(label);

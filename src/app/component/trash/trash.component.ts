@@ -1,5 +1,4 @@
 import { Component, OnInit, Input,OnDestroy } from '@angular/core';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -21,18 +20,14 @@ export class TrashComponent implements OnInit ,OnDestroy{
   }
 
   getNotes() {
-    var token = localStorage.getItem('token');
     this.notesService.getcard()
     .pipe(takeUntil(this.destroy$))
     .subscribe(res => {
-      LoggerService.log('result', res);
       this.array = [];
-      for (var i = res['data']['data'].length - 1; i > 0; i--) {
+      for (let i = res['data']['data'].length - 1; i > 0; i--) {
         if (res['data']['data'][i].isDeleted == true)
           this.array.push(res['data']['data'][i]);
       }
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
@@ -42,11 +37,11 @@ export class TrashComponent implements OnInit ,OnDestroy{
     }
   }
 
-  restore(event) {
-    if (event) {
-      this.getNotes();
-    }
-  }
+  // restore(event) {
+  //   if (event) {
+  //     this.getNotes();
+  //   }
+  // }
 
 
   /*

@@ -4,7 +4,6 @@ import { HttpService } from '../../core/services/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -34,7 +33,6 @@ export class ResetPasswordComponent implements OnInit ,OnDestroy{
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.token = params['id'];
-      LoggerService.log('token', this.token);
     });
   }
 
@@ -43,12 +41,6 @@ export class ResetPasswordComponent implements OnInit ,OnDestroy{
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
       this.snackBar.open('Password Updation', 'Success', {
-        duration: 3000,
-      });
-    }, error => {
-      LoggerService.log("error", error);
-
-      this.snackBar.open('Password Updation', 'Failed', {
         duration: 3000,
       });
     });

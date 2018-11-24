@@ -66,11 +66,11 @@ export class NotesService {
     return this.service.httpPost(url, model);
   }
 
-  postAddLabelnotesRemove(label, note, { }) {
+  postAddLabelnotesRemove(label, note) {
     let url = this.url + "notes/" + note + "/addLabelToNotes/" + label + "/remove";;
     return this.service.httpPost(url, {});
   }
-  postAddLabelnotes(note, label, { }) {
+  postAddLabelnotes(note, label) {
     let url = this.url + "notes/" + note + "/addLabelToNotes/" + label + "/add";;
     return this.service.httpPost(url, {});
   }
@@ -117,12 +117,12 @@ export class NotesService {
   }
 
   postChecklistRemove(dataid, removeid, body) {
-    var url = this.url + "notes/" + dataid + "/checklist/" + removeid + "/remove";
+    let url = this.url + "notes/" + dataid + "/checklist/" + removeid + "/remove";
     return this.service.httpPost(url, body);
   }
 
   postCheckListAdd(dataid, body) {
-    var url = this.url + "notes/" + dataid + "/checklist/add";
+    let url = this.url + "notes/" + dataid + "/checklist/add";
     return this.service.httpPost(url, body);
   }
 

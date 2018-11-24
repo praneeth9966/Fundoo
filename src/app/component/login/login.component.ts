@@ -2,7 +2,6 @@ import { Component, OnInit, HostListener, Output, EventEmitter,OnDestroy} from '
 import { FormControl } from '@angular/forms'
 import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
@@ -54,7 +53,6 @@ export class LoginComponent implements OnInit,OnDestroy{
     this.records = this.userService.postlogin( this.body)
     .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        LoggerService.log('data', data);
         localStorage.setItem('token', data['id']);
         localStorage.setItem('firstName', data['firstName']);
         localStorage.setItem('lastName', data['lastName']);
@@ -64,30 +62,17 @@ export class LoginComponent implements OnInit,OnDestroy{
         this.matSnackBar.open("Login Successful ", "Successful", {
           duration: 3000,
         });
-        var token = localStorage.getItem('token');
-        LoggerService.log(token, "token in login");
-        var pushToken = localStorage.getItem('pushToken')
-        LoggerService.log('pushtoken in login', pushToken);
-        var body = {
+        let pushToken = localStorage.getItem('pushToken')
+        let body = {
           "pushToken": pushToken
         }
         this.notesService.postRegisterPushToken(body)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
-            LoggerService.log("post of pushToken is successful***********", data)
             window.location.href = 'homepage';
-          }),
-          error => {
-            LoggerService.log(error, "error in pushToken");
-          }
-      },
-        error => {
-          LoggerService.log("Error", error);
-          this.matSnackBar.open("Email/Password invalid ", "Login Unsuccessful", {
-            duration: 3000,
-          });
-        });
+          })
+      })
   }
 
   

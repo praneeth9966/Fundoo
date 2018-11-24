@@ -11,7 +11,7 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   httpPasswordUpdate(nextUrl,body) {
-    var httpOptions = {
+    let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
       })
@@ -20,7 +20,7 @@ export class HttpService {
   }
 
   public httpPost(url, body) {
-    var httpAuthOptions2 = {
+    let httpAuthOptions2 = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
@@ -29,7 +29,7 @@ export class HttpService {
   }
 
   public httpget(url) {
-    var httpAuthOptions3 = {
+    let httpAuthOptions3 = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
@@ -39,7 +39,7 @@ export class HttpService {
   }
 
   public httppostpassword(url, body) {
-    var httpAuthOptions1 = {
+    let httpAuthOptions1 = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
       })
@@ -58,7 +58,7 @@ export class HttpService {
   }
 
   public httpImage(url, body) {
-    var http = {
+    let http = {
       headers: new HttpHeaders({
 
       })

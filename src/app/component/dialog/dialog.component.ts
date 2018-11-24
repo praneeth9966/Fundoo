@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject,OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NotesCollectionComponent } from '../notes-collection/notes-collection.component';
-import { LoggerService } from '../../core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -46,7 +45,6 @@ export class DialogComponent implements OnInit ,OnDestroy{
   ngOnInit() {
     this.selectArray = this.data['reminder'];
     this.color = this.data['color']
-    LoggerService.log('selectArray', this.selectArray);
     this.selectLabelArray = this.data['noteLabels'];
     if (this.data['noteCheckLists'].length > 0) {
       this.checklist = true;
@@ -55,7 +53,6 @@ export class DialogComponent implements OnInit ,OnDestroy{
   }
 
   onNoClick(): void {
-    var token = localStorage.getItem('token');
     if (this.checklist == false) {
 
       /*   calling update notes  Api
@@ -72,28 +69,23 @@ export class DialogComponent implements OnInit ,OnDestroy{
       this.notesService.updatenotes('this.body')
       .pipe(takeUntil(this.destroy$))
         .subscribe(data => {
-          LoggerService.log('data', data);
         })
     }
     else {
 
       /*   calling update checklist Api
      */
-      var apiData = {
-        "itemName": this.modifiedCheckList.itemName,
-        "status": this.modifiedCheckList.status
-      }
+
+      // let apiData = {
+      //   "itemName": this.modifiedCheckList.itemName,
+      //   "status": this.modifiedCheckList.status
+      // }
+
       this.notesService
       .postUpdateChecklist(this.data['id'], this.modifiedCheckList.id, null)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-        LoggerService.log('response', response);
-
       })
-    }
-
-    error => {
-      LoggerService.log("error", error);
     }
     this.dialogRef.close();
   }
@@ -104,7 +96,6 @@ export class DialogComponent implements OnInit ,OnDestroy{
 
   }
   editing(editedList, event) {
-    LoggerService.log(editedList);
     if (event.code == "Enter") {
       this.modifiedCheckList = editedList;
       this.onNoClick();
@@ -118,13 +109,11 @@ export class DialogComponent implements OnInit ,OnDestroy{
     else {
       checkList.status = "open"
     }
-    LoggerService.log(checkList);
     this.modifiedCheckList = checkList;
     this.onNoClick();
   }
 
   removeList(checklist) {
-    LoggerService.log(checklist)
     this.removedList = checklist;
     this.removeCheckList()
   }
@@ -135,8 +124,7 @@ export class DialogComponent implements OnInit ,OnDestroy{
     this.notesService.postChecklistRemove(this.data['id'],this.removedList.id ,{})
     .pipe(takeUntil(this.destroy$))
     .subscribe((response) => {
-      LoggerService.log('response', response);
-      for (var i = 0; i < this.tempArray.length; i++) {
+      for (let i = 0; i < this.tempArray.length; i++) {
         if (this.tempArray[i].id == this.removedList.id) {
           this.tempArray.splice(i, 1)
         }
@@ -168,13 +156,10 @@ export class DialogComponent implements OnInit ,OnDestroy{
       this.notesService.postCheckListAdd(this.data['id'], this.newData)
       .pipe(takeUntil(this.destroy$)) 
       .subscribe(response => {
-          LoggerService.log('response', response);
           this.newList = null;
           this.addCheck = false;
           this.adding = false;
-          LoggerService.log(response['data'].details);
           this.tempArray.push(response['data'].details)
-          LoggerService.log('tempArray', this.tempArray)
         })
     }
   }
@@ -183,18 +168,14 @@ export class DialogComponent implements OnInit ,OnDestroy{
    */
   removeLabel(label, labelId) {
     
-    this.notesService.postAddLabelnotesRemove(labelId,this.data.id,null)
+    this.notesService.postAddLabelnotesRemove(labelId,this.data.id)
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-        LoggerService.log('result', result);
         const index = this.selectLabelArray.indexOf(label, 0);
-        LoggerService.log(label, 'hiii');
         if (index > -1) {
           this.selectLabelArray.splice(index, 1);
         }
 
-      }, error => {
-        LoggerService.log(error);
       })
   }
 
@@ -207,13 +188,10 @@ export class DialogComponent implements OnInit ,OnDestroy{
     this.notesService.postRemoveReminders(this.reminderBody)
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-      LoggerService.log('result', result);
       const index = this.selectArray.indexOf(items, 0);
       if (index > -1) {
         this.selectArray.splice(index, 1);
       }
-    }, error => {
-      LoggerService.log(error);
     })
   }
 

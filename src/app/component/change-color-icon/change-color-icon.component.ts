@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter,OnDestroy } from '@angular/core';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -41,14 +40,10 @@ export class ChangeColorIconComponent implements OnInit,OnDestroy {
       "color": paint,
       "noteIdList": [this.notesArray]
     }
-    var token = localStorage.getItem('token');
     this.notesService.postchangecolor(this.body)
     .pipe(takeUntil(this.destroy$))
     .subscribe(res => {
-      LoggerService.log('result', res);
       this.noteColor.emit();
-    }, error => {
-      LoggerService.log(error);
     })
   }
 

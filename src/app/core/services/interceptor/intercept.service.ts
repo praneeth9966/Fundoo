@@ -9,8 +9,6 @@ import {
 } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { LoggerService } from '../logger/logger.service';
-
 
 @Injectable()//{providedIn: 'root'}
 
@@ -28,31 +26,15 @@ export class InterceptService implements HttpInterceptor {
 			}
 		});
 
-		LoggerService.log("----request----");
-
-		LoggerService.log('request', request);
-
-		LoggerService.log("--- end of request---");
-
-
 		return next.handle(request)
-			.pipe(
-				tap(event => {
-					if (event instanceof HttpResponse) {
-
-						// console.log(" all looks good");
-						// http response status code
-						// console.log(event.status);
-					}
-				}, error => {
-					// http response status code
-					LoggerService.log("----response----");
-					console.error("status code:");
-					console.error(error.status);
-					console.error(error.message);
-					LoggerService.log("--- end of response---");
-				})
-			)
+			// .pipe(
+			// 	tap(event => {
+			// 		if (event instanceof HttpResponse) {
+			// 		}
+			// 	}, error => {
+				
+			// 	})
+			// )
 	};
 
 

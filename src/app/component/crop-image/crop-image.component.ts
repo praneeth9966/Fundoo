@@ -2,7 +2,6 @@ import { Component, OnInit, Inject,OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { DataService } from '../../core/services/data/data.service';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -31,18 +30,14 @@ export class CropImageComponent implements OnInit,OnDestroy {
   /*   calling upload profile image Api
    */
   onUpload() {
-    var token = localStorage.getItem('token');
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
     this.notesService.imageupload(uploadData)
     .pipe(takeUntil(this.destroy$))
     .subscribe(res => {
-      LoggerService.log('result', res);
       localStorage.setItem('imageUrl', res['status'].imageUrl);
       this.dialogRef1.close();
       this.service.changeProfile(true);
-    }, error => {
-      LoggerService.log(error);
     })
   }
 

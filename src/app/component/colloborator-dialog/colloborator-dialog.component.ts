@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { DialogComponent, DialogData } from '../dialog/dialog.component';
 import { UsersService } from 'src/app/core/services/users/users.service';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 @Component({
   selector: 'app-colloborator-dialog',
@@ -41,18 +40,12 @@ private collaborator=[];
   profile = environment.profileUrl + this.image;
 
   myFunction(searchNames){
-    LoggerService.log(this.searchNames);
-      var body={
+      let body={
         "searchWord":this.searchNames
       }
       this.userService.searchCollaborator(body).subscribe(
         (data) => {
           this.collaborator=data['data']['details']
-          LoggerService.log('data', this.collaborator);
-          LoggerService.log('data', data);
-        },
-        error => {
-          LoggerService.log("Error", error);
         })
   }
 
@@ -65,10 +58,6 @@ private collaborator=[];
     }
     this.notesService.addCollaboratorNotes(this.data.id,body).subscribe(
       (data) => {
-        LoggerService.log('data', data);
-      },
-      error => {
-        LoggerService.log("Error", error);
       })
   }
 

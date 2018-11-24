@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef, ViewChild ,OnDestroy} from '@angular/cor
 import { DataService } from '../../core/services/data/data.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -27,30 +26,25 @@ export class LabelsComponent implements OnInit,OnDestroy{
   @ViewChild('newLabel') newLabel: ElementRef;
 
   ngOnInit() {
-    var token = localStorage.getItem('token');
     this.notesService.getlabels()
     .pipe(takeUntil(this.destroy$))
     .subscribe(res => {
-      LoggerService.log('result', res);
       this.notes = [];
       this.notes = (res['data'].details);
       this.notes.sort(function(a, b){
-        var nameA=a.label.toLowerCase(), nameB=b.label.toLowerCase()
+        let nameA=a.label.toLowerCase(), nameB=b.label.toLowerCase()
         if (nameA < nameB) 
             return -1 
         if (nameA > nameB)
             return 1
         return 0 
     })
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
   /*   calling add Labels Api
    */
   addLabel() {
-    LoggerService.log(this.id);
     if (!this.notes.some((data) => data.label == this.labels.nativeElement.innerHTML)) {
       this.notesService.postNoteLabels(
         {
@@ -61,20 +55,13 @@ export class LabelsComponent implements OnInit,OnDestroy{
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           (data) => {
-            LoggerService.log("POST Request is successful ", data);
             this.matSnackBar.open("Label Added", 'Successfully', {
               duration: 3000,
             });
             
-            LoggerService.log('data', data);
-          },
-          error => {
-            LoggerService.log("Error", error);
           })
     }
-    else {
-      LoggerService.log('label exists');
-    }
+    
   }
 
 
@@ -89,18 +76,14 @@ export class LabelsComponent implements OnInit,OnDestroy{
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
     .subscribe(data => {
-      LoggerService.log('The dialog was closed');
       if (data) {
         this.notesService.deletedata(id)
         .pipe(takeUntil(this.destroy$))
           .subscribe(data => {
-            LoggerService.log('data', data);
             this.dataService.changeEvent(true);
             if (data) {
               this.getLabels();
             }
-          }, error => {
-            LoggerService.log(error);
           })
       }
     });
@@ -110,7 +93,6 @@ export class LabelsComponent implements OnInit,OnDestroy{
   /*   calling update label Api
    */
   updateLabel(id) {
-    LoggerService.log(this.id);
     console.log( 'native',this.newLabel.nativeElement.innerHTML);
     
     this.notesService.postUpdateNotelabel(id,
@@ -123,11 +105,6 @@ export class LabelsComponent implements OnInit,OnDestroy{
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data) => {
-          LoggerService.log("UPDATE Request is successful ", data);
-          LoggerService.log('data', data);
-        },
-        error => {
-          LoggerService.log("Error", error);
         })
   }
 
@@ -138,20 +115,16 @@ export class LabelsComponent implements OnInit,OnDestroy{
   /*   calling get Labels Api
    */
   getLabels() {
-    var token = localStorage.getItem('token');
     this.notesService.getlabels(
       
     )
     .pipe(takeUntil(this.destroy$))
     .subscribe(data => {
-      LoggerService.log('data', data);
       this.notes = [];
-      for (var i = 0; i < data['data'].details.length; i++) {
+      for (let i = 0; i < data['data'].details.length; i++) {
         if (data['data'].details[i].isDeleted == false)
           this.notes.push(data['data'].details[i]);
       }
-    }, error => {
-      LoggerService.log(error);
     })
   }
 
