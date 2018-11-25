@@ -135,4 +135,8 @@ export class NotesService {
     let url = this.url + "notes/" + noteId + "/AddcollaboratorsNotes";
     return this.service.httpPost(url, body);
   }
+  removeCollaborator(note,userid){
+    let url = this.url + "notes/" + note+ "/removeCollaboratorsNotes/"+userid;
+    return this.note.delete(url);
+  }
 }

@@ -13,15 +13,34 @@
     min-height: inherit;
     max-height: inherit;
 }
+
 .email{
     opacity: 0.5;
 }
+
 .button1{
     padding-top:10px;
 }
+
 .button2{
     padding-left: 5px;
 }
+
 .input{
    @include border();
+   width: 800px;
+}
+
+.space{
+    margin-top: 10px;
+}
+
+.name 
+{
+    margin-right: 295px
+}
+
+.done
+{
+    margin-right: -82px;
 }

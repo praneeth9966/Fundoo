@@ -1,8 +1,9 @@
 @import '../../../scss/mixins';
 
 .time{
-    float:right;
+    @include floatr();
 }
+
 .cursor{
-@include cursor();
+    @include cursor();
 }

@@ -5,6 +5,7 @@ import { DataService } from '../../core/services/data/data.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
@@ -174,7 +175,13 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
     this.dataService.changeLabel(label);
   }
 
-
+  colloborator(collaborator){
+    this.dialog.open(ColloboratorDialogComponent, {
+      width: '500px',
+      data:collaborator
+    });
+  }
+  
   /*
  This method will be executed just before Angular destroys the components
  */

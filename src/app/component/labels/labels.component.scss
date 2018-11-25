@@ -14,20 +14,24 @@
     @include overflowhidden();
     cursor:default;
 }
+
 .button
 {
-    float : right;
+    @include floatr();
     margin-top: 10px;
 }
+
 .icon
 {
     @include cursor();
 }
+
 .val
 {
     margin-top: 20px;
     @include cursor();
 }
+
 .name 
 {
     text-overflow: ellipsis;
@@ -42,13 +46,14 @@
 
 .create
 {
-    float: right;
+    @include floatr();
 }
 
 .lock:hover .icon-unlock,
 .lock .icon-lock {
 display: none;
 }
+
 .lock:hover .icon-lock {
 display: inline;
 }

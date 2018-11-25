@@ -2,25 +2,29 @@
 @import '../../../scss/variables';
 
 .container {
-  height: 90vh;
+  @include container();
 }
 
 .classf{
  color:  $typekit-blue;
- font-size: 40px; 
+ @include fontsizeF(); 
 }
+
 .classu{
   color:  $typekit-red;
   @include fontsize();
 }
+
 .classn{
   color:  $typekit-yellow;
   @include fontsize();
 }
+
 .classd{
   color:  $typekit-blue;
   @include fontsize();
 }
+
 .classo{
   color:  $typekit-green;
   @include fontsize();
@@ -29,26 +33,28 @@
   color:  $typekit-red;
   @include fontsize();
 }
+
 .width{
   width: 120px;
 }
+
 .radius{
   border-radius: 2%;
 }
 
 .emailwidth{
-  width: 100%;
+  @include emailwidth();
 }
 
 .notselected{
   background-color:$typekit-grey;
-  
-  }
-  .selected{
-  background-color: $typekit-lightgreen;
-  }
+}
 
-  .card1{
+.selected{
+  background-color: $typekit-lightgreen;
+}
+
+.card1{
     display: flex;
     flex-direction: column;
     width: 150px;
@@ -56,4 +62,8 @@
     border-radius: 15px;
     color:$typekit-white;
     text-transform: uppercase;
-  }
+}
+
+.servicecards{
+    padding:20px;
+}

@@ -1,24 +1,47 @@
 @mixin overflow(){
     overflow: hidden;
 }
+
 @mixin overflowhidden(){
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden !important;
 }
+
 @mixin border(){
    border: none;
    outline: none;
 }
+
 @mixin widthheight(){
    width: 50px;
    height: 50px;
- }
+}
 
 @mixin cursor(){
     cursor: pointer;
-  }
+}
 
 @mixin fontsize(){
     font-size: 30px;
-  }
+}
+
+@mixin cardswidth(){
+    width: 400px;
+}
+
+@mixin fontsizeF(){
+    font-size: 40px;
+}
+
+@mixin emailwidth(){
+    width: 100%;
+}
+
+@mixin container(){
+    height: 90vh;
+}
+
+@mixin floatr(){
+    float : right;
+}

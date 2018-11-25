@@ -55,7 +55,7 @@
     
     <div fxLayout="row" fxLayoutGap="10" fxLayout="row wrap">
 
-      <span *ngFor='let card of cards' style="padding:20px">
+      <span *ngFor='let card of cards'  class="servicecards">
         <mat-card class="card1" matbutton (click)=respond(card) 
           [ngClass]="card.select ? 'selected' : 'notselected'">
           <mat-card-title>{{card.name}}</mat-card-title>

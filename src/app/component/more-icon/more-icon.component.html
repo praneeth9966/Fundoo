@@ -4,7 +4,7 @@
 <!-------------------------------- MoreIcon Menu starts --------------------------->
 
 <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
-    <div style="padding:10px" fxLayout="column">
+    <div  class="menu" fxLayout="column">
             <button mat-button *ngIf="name=='trash'" (click)=deleteforever()>
                 Delete forever</button>
         <button mat-button *ngIf="name=='trash'" (click)="restore()">Restore</button>

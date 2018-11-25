@@ -1,38 +1,46 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 
- .container {
-    height: 90vh;
+.container {
+   @include container();
 }
+
 .example-container > * {
   width: 100%;
 } 
+
 .classf{
   color: $typekit-blue;
-  font-size: 40px; 
- }
- .classu{
+  @include fontsizeF(); 
+}
+
+.classu{
    color: $typekit-red;
    @include fontsize();
- }
- .classn{
+}
+
+.classn{
    color: $typekit-yellow;
    @include fontsize();
- }
- .classd{
+}
+
+.classd{
    color: $typekit-blue;
    @include fontsize();
- }
- .classo{
+}
+
+.classo{
    color: $typekit-green;
    @include fontsize();
- }
- .classo1{
+}
+
+.classo1{
    color: $typekit-red;
    @include fontsize();
- }
- .mat-card{
-  width: 400px;
+}
+
+.mat-card{
+  @include cardswidth();
 }
 
 

@@ -1,7 +1,7 @@
 <!---------------------------MatToolBar starts------------------------------>
 
 <mat-toolbar class="tool-bar" fxLayout='row' fxLayout.xs="row" fxLayoutGap="30px" 
-  fxLayoutGap.xs="20px" style="padding-right:0px">
+  fxLayoutGap.xs="20px">
   <button fxFlex=5 matTooltip="Main menu" type="button" aria-label="Toggle sidenav"
      mat-icon-button (click)="drawer.toggle()">
     <mat-icon class="icons" aria-label="Side nav toggle icon">menu</mat-icon>
@@ -10,7 +10,7 @@
 
   <form fxFlex fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="15px" class="search-box">
     <button fxFlex=5 mat-icon-button type="submit"><mat-icon>search</mat-icon></button>
-    <input style="min-width:auto" name="some"  [(ngModel)]="searchBar" (keydown)="message()"
+    <input name="some"  [(ngModel)]="searchBar" (keydown)="message()"
     (click)="navigation()" fxFlex=95 class="search-text" type='text'>
   </form>
 
@@ -42,24 +42,20 @@
             <div fxFlex=40>     
                 <button *ngIf="image2!=''" (click) = "$event.stopPropagation()" class="profilebutton"
                   [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
-                  (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab 
-                  style="background-color:#fb0;float:right;
-                  color:white;text-transform:uppercase;">
+                  (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab>
                   <div class="change">change</div>
                 </button>
                 <button *ngIf="image2==''" (click) = "$event.stopPropagation()" class="profilebutton"
-                  (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab 
-                  style="background-color:#fb0;float:right;
-                  color:white;text-transform:uppercase;">
+                  (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab>
                   {{lastName[0]}}
                   <div class="change1">change</div>
                 </button>
-                  <input style="display:none" (click) = "$event.stopPropagation()" class="image" 
+                  <input (click) = "$event.stopPropagation()" class="image" 
                   type="file" (change)="onFileUpload($event)" #selectFile>
              
             </div>
     
-           <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left;word-break: break-word" >
+           <mat-content fxFlex class="contentstyle">
             {{firstName | titlecase}} {{lastName | titlecase}} {{email | titlecase}} </mat-content>
             <br>
           
@@ -80,8 +76,8 @@
 
 <!-------------------------Mat-SideNav-Container starts--------------------------->
 
-<mat-sidenav-container class="sidenav-container" style="background-color:#cccccc">
-  <mat-sidenav #drawer class="sidenav" style="background-color:#cccccc" fixedInViewport="true" 
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" 
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-nav-list>

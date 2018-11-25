@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter,OnDestroy } from '@angular/core
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-notes-create',
   templateUrl: './notes-create.component.html',
@@ -35,12 +36,22 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
   private value;
   private todayDate = new Date();
   private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
-
+  public display:boolean=true;
   constructor(private notesService:NotesService) { }
 
   @Output() messageEvent = new EventEmitter();
   @Output() newEvent = new EventEmitter();
   ngOnInit() {
+  }
+
+  email = localStorage.getItem('email');
+  firstName = localStorage.getItem('firstName');
+  lastName = localStorage.getItem('lastName');
+  image = localStorage.getItem('imageUrl');
+  profile = environment.profileUrl + this.image;
+
+  collaboratorButton(){
+    this.display=!this.display;
   }
 
   checkListButton() {

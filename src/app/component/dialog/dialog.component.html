@@ -1,8 +1,7 @@
       <!-----------------------------Notes starts------------------------------->
 
   <mat-card fxFlex *ngIf="!show" 
-    [ngStyle]="{'background-color':color}" 
-    style=" width:50%; position: relative;padding: 5; border-radius: 10px">
+    [ngStyle]="{'background-color':color}" class="dialog-card">
   
     <mat-card-content>
       <div fxLayout='row' fxLayout.xs='row'>
@@ -10,7 +9,7 @@
          class="cards" id="newTitle"></div>
       </div>
 
-      <div style="margin-top:20px" contenteditable="true" [innerHTML]="data.description" 
+      <div class="description"contenteditable="true" [innerHTML]="data.description" 
       data-text="" class="cards" id="newDescription">{{data.description}}</div>
     </mat-card-content>
 
@@ -72,6 +71,14 @@
 
       <!-----------------------------Reminders ends--------------------------->
 
+      <div fxLayout="row wrap" fxLayoutGap="5px">
+          <div *ngFor="let item of data.collaborators">
+            <button mat-mini-fab color="basic" (click)="colloborator(notes)" matTooltip="{{item.firstName}}">
+              {{item.firstName | slice : 0 : 1}}
+            </button>
+          </div>
+          </div>
+
       <!-----------------------------MatCardActions starts--------------------------->
 
     <mat-card-actions>
@@ -80,7 +87,7 @@
           <app-remindme-icon [noteDetails]="data"></app-remindme-icon>
         </div>
         <div fxFlex=9>
-          <app-collaborator-icon></app-collaborator-icon>
+          <app-collaborator-icon ></app-collaborator-icon>
         </div>
         <div fxFlex=9>
           <app-change-color-icon [notesArray]="data.id" (ParentNoteColor)=messageColor($event)></app-change-color-icon>

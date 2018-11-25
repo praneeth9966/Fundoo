@@ -7,6 +7,15 @@
   border-radius: 10px;
 }
 
+@media only screen and (min-width: 600px) and (max-width: 1000px){
+  .example-card {
+    margin: 10px;
+    height: auto;
+    width: 500px;
+    border-radius: 10px;
+  }
+}
+
 mat-card-title {
   word-wrap: break-word;
   font-family: cursive;
@@ -50,4 +59,30 @@ mat-card-content {
 .flow {
   @include overflowhidden();
   width: 50px;
+}
+
+.notescard{
+  height:auto;
+  width:20px;
+  margin-top: 30px;
+}
+
+.cardname{
+  width:100%;
+}
+
+.pin{
+  @include floatr();
+}
+
+.space{
+  padding-top:5px;
+}
+
+.reminder{
+  margin-top:15px;
+}
+
+.remindericon{
+  opacity:0;
 }
