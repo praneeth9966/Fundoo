@@ -19,7 +19,12 @@ describe('ArchiveIconComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should unarchive', async(()=>{
+    expect(component.body['isArchived']).toEqual(false)
+    expect(component.body['isArchived']).toBeTruthy();
+  }));
+  it('should not unarchive', async(()=>{
+    expect(component.body['isArchived']).toEqual(true)
+    expect(component.body['isArchived']).toBeFalsy();
+  }));
 });

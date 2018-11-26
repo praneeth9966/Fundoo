@@ -1,18 +1,18 @@
-<div *ngIf="display" fxLayout='row'  class="notescreate">
+<div *ngIf="display" fxLayout='row' class="notescreate">
   <div fxFlex=10 fxFlex.xs=0></div>
-  <div fxFlex  fxLayoutAlign="center" fxFlex.xs=100>
+  <div fxFlex fxLayoutAlign="center" fxFlex.xs=100>
 
-   <!----------------------- MatCard1 starts------------------------->
+    <!----------------------- MatCard1 starts------------------------->
 
     <mat-card *ngIf="show" class="example-card">
       <mat-card-content fxLayout='row' fxLayout.xs='row' class="cardcontent">
         <div (click)="open()" fxFlex style="margin-top:12px" class="open">
           Take a note...
         </div>
-        <div fxFlex=40 fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="10px" 
-          fxLayoutAlign="end" fxLayoutAlign.xs="center">
-          <button fxFlex=20 mat-icon-button matTooltip="New list" 
-          (click)="checkListButton()"><mat-icon>list</mat-icon></button>
+        <div fxFlex=40 fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="10px" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+          <button fxFlex=20 mat-icon-button matTooltip="New list" (click)="checkListButton()">
+            <mat-icon>list</mat-icon>
+          </button>
         </div>
       </mat-card-content>
     </mat-card>
@@ -21,155 +21,147 @@
 
     <!----------------------- MatCard2 starts------------------------->
 
-    <mat-card  *ngIf="!show" class="example-card1" 
-      [ngStyle]="{'background-color':parentColor}">
+    <mat-card *ngIf="!show" class="example-card1" [ngStyle]="{'background-color':parentColor}">
       <mat-card-content>
         <div fxLayout='row' fxLayout.xs='row'>
           <div fxFlex=98 contenteditable="true" data-text="Title" class="cards" id="titleId"> </div>
-          <div  class="pin" matTooltip="Pin note"><img src="../../../assets/images/pin.svg">
+          <div class="pin" matTooltip="Pin note"><img src="../../../assets/images/pin.svg">
           </div>
         </div>
         <div *ngIf="checkList == true">
-              <div class="check" *ngFor="let data of dataarray" fxLayout="row">
-                  <mat-checkbox [(ngmodel)]=data.isChecked (click)="isChecked=!isChecked" 
-                  fxFlex="5%"></mat-checkbox>
-                  <input fxFlex="90" *ngIf="checkList == true" class="inputNote1" 
-                   [(ngModel)]=data.data >
-                  <mat-icon fxFlex="4%" (click)=ondelete(data) 
-                  matTooltip="delete">cancel</mat-icon>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="check" fxLayout="row" autofocus>
-                  <mat-icon *ngIf="!adding"  fxFlex="5%">add</mat-icon>
-
-                  <mat-checkbox  [(ngmodel)]=addCheck
-
-                  *ngIf="adding" (click)="isChecked=!isChecked" 
-
-                  fxFlex="5%"></mat-checkbox>
-                  <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" 
-                   placeholder="list item"
-                      (keydown.enter)="enter($event)" 
-                      (keydown.backspace)="ondelete()" (click) ="checkList == true">
-              </div>
-              <mat-divider></mat-divider>
+          <div class="check" *ngFor="let data of dataarray" fxLayout="row">
+            <mat-checkbox [(ngmodel)]=data.isChecked (click)="isChecked=!isChecked" fxFlex="5%"></mat-checkbox>
+            <input fxFlex="90" *ngIf="checkList == true" class="inputNote1" [(ngModel)]=data.data>
+            <mat-icon fxFlex="4%" (click)=ondelete(data) matTooltip="delete">cancel</mat-icon>
           </div>
-          <div  *ngIf="checkList == false" contenteditable="true" 
-          data-text="Take a note..." class="cards" id="takeANoteId"></div>
+          <mat-divider></mat-divider>
+          <div class="check" fxLayout="row" autofocus>
+            <mat-icon *ngIf="!adding" fxFlex="5%">add</mat-icon>
+
+            <mat-checkbox [(ngmodel)]=addCheck *ngIf="adding" (click)="isChecked=!isChecked" fxFlex="5%"></mat-checkbox>
+            <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" placeholder="list item" (keydown.enter)="enter($event)"
+              (keydown.backspace)="ondelete()" (click)="checkList == true">
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+        <div *ngIf="checkList == false" contenteditable="true" data-text="Take a note..." class="cards" id="takeANoteId"></div>
       </mat-card-content>
 
-        <!----------------------- MatCard2 ends------------------------->
+      <!----------------------- MatCard2 ends------------------------->
 
-        <!------------------adding and Removeing reminders starts------------------->
+      <!------------------adding and Removeing reminders starts------------------->
 
-      <div fxLayout="row wrap"  fxlayoutAlign="start start" fxLayoutGap="8px" >
+      <div fxLayout="row wrap" fxlayoutAlign="start start" fxLayoutGap="8px">
         <div *ngFor="let reminder of reminderIcon ">
           <mat-chip-list selected>
             <div *ngIf='(todayDate | date:shortDate) == (reminder | date:shortDate )'>
-              <mat-chip  class="reminder">
-                  Today, {{reminder |date:'shortTime'}}
+              <mat-chip class="reminder">
+                Today, {{reminder |date:'shortTime'}}
 
-                  <app-remindme-icon  class="remindericon" (notesCreateReminderEvent)="reminderIconParent($event)">
-                  </app-remindme-icon>
+                <app-remindme-icon class="remindericon" (notesCreateReminderEvent)="reminderIconParent($event)">
+                </app-remindme-icon>
 
-                  <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
+                <mat-icon matChipRemove (click)="delete()">cancel</mat-icon>
               </mat-chip>
             </div>
 
-            <div  *ngIf='(tomorrowDate | date:shortDate) == (reminder | date:shortDate )'>
-                  <mat-chip  class="reminder">
-                      tomorrow, {{reminder |date:'shortTime'}}
-                      <app-remindme-icon class="remindericon" (notesCreateReminderEvent)="reminderIconParent($event)">
-                      </app-remindme-icon>
-                      <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
-                  </mat-chip>
+            <div *ngIf='(tomorrowDate | date:shortDate) == (reminder | date:shortDate )'>
+              <mat-chip class="reminder">
+                tomorrow, {{reminder |date:'shortTime'}}
+                <app-remindme-icon class="remindericon" (notesCreateReminderEvent)="reminderIconParent($event)">
+                </app-remindme-icon>
+                <mat-icon matChipRemove (click)="delete()">cancel</mat-icon>
+              </mat-chip>
             </div>
 
-            <div  *ngIf='(todayDate | date:shortDate) !==(reminder | date:shortDate ) && 
+            <div *ngIf='(todayDate | date:shortDate) !==(reminder | date:shortDate ) && 
                 (tomorrowDate | date:shortDate) !== (reminder | date:shortDate )'>
-                <mat-chip class="reminder">
-                  {{reminder |date:'medium'}}
-                  <app-remindme-icon class="remindericon"  (notesCreateReminderEvent)="reminderIconParent($event)">
-                  </app-remindme-icon>
-                  <mat-icon  matChipRemove (click)="delete()">cancel</mat-icon>
-                </mat-chip>
-              </div>
-    
+              <mat-chip class="reminder">
+                {{reminder |date:'medium'}}
+                <app-remindme-icon class="remindericon" (notesCreateReminderEvent)="reminderIconParent($event)">
+                </app-remindme-icon>
+                <mat-icon matChipRemove (click)="delete()">cancel</mat-icon>
+              </mat-chip>
+            </div>
+
           </mat-chip-list>
         </div>
-      
+
       </div>
-          <!------------------adding and Removeing reminders ends------------------->
+      <!------------------adding and Removeing reminders ends------------------->
 
-         <!------------------adding and Removeing Labels starts------------------->
+      <!------------------adding and Removeing Labels starts------------------->
 
-      <div fxLayout="row wrap"  fxlayoutAlign="start start" fxLayoutGap="8px" >
+      <div fxLayout="row wrap" fxlayoutAlign="start start" fxLayoutGap="8px">
         <div *ngFor="let label of array2 ">
           <mat-chip-list selected>
-            <mat-chip  class="label">
+            <mat-chip class="label">
               {{label}}
-            <mat-icon  matChipRemove (click)="deleteMsg(label)">cancel</mat-icon>
+              <mat-icon matChipRemove (click)="deleteMsg(label)">cancel</mat-icon>
             </mat-chip>
           </mat-chip-list>
         </div>
-        </div>
-          <!------------------adding and Removeing Labels ends------------------->
+      </div>
+      <!------------------adding and Removeing Labels ends------------------->
 
-         <!------------------MatCardActions starts------------------->
-
-      <mat-card-actions>
-      <div fxLayout='row' fxLayout.xs='row' fxLayoutGap="space-between">
-        <div fxFlex=9>
-          <app-remindme-icon [noteDetails]="id" (notesCreateReminderEvent)="reminderIconParent($event)"></app-remindme-icon>
-        </div>
-        <div fxFlex=9>
-          <mat-icon *ngIf="display" (click)="collaboratorButton()"
-          matTooltip="Collaborator" class="cursor">person_add</mat-icon>
-        </div>
-        <div fxFlex=9>
-          <app-change-color-icon (ParentNoteColor)="changeParentColor($event)">
-          </app-change-color-icon>
-        </div>
-        <div fxFlex=9>
-          <app-add-image-icon></app-add-image-icon>
-        </div>
-        <div fxFlex=9>
-          <app-archive-icon [archive]='archive'></app-archive-icon>
-        </div>
-        <div fxFlex=9>
-            <mat-icon mat-icon-button class="moreicon"
-            [matMenuTriggerFor]="menu"  matTooltip="More">more_vert</mat-icon>&nbsp;
-            <mat-menu class="menu" #menu="matMenu" 
-              [overlapTrigger]="false">
-                
-                  <button mat-menu-item  (click)="getLabels()" [matMenuTriggerFor]="addlabel">
-                    <span>Add label</span></button>
-                    <mat-menu [overlapTrigger]="false" (click)="$event.stopPropagation();" 
-                     #addlabel="matMenu"><div class="title">Label note</div>
-                      <br>
-                        <div fxLayout="row" (click)="$event.stopPropagation();">
-                         
-                         <input  class="inputTitle" [(ngModel)]="query"
-                          placeholder="Enter label name">
-                         <mat-icon fxFlex="30" (click)="searchState()">search</mat-icon>
-                        </div>
-                      <br>
-                      <div *ngFor="let label of notes | LockFilter: query">
-                        
-                        <mat-checkbox (click)="$event.stopPropagation();" 
-                        (click)="clickFunc(label)" class="example-margin">{{label.label}}
-                        </mat-checkbox>
-                      </div>
-                  </mat-menu>
-             </mat-menu>
-
-        </div>
-
-        <div fxFlex fxLayoutAlign="end">
-
-          <button mat-button (click)="close(); createNotes()">Close</button>
+      <div fxLayout="row wrap" fxLayoutGap="5px">
+        <div *ngFor="let item of friendsNewList">
+          <button mat-mini-fab color="basic" (click)="colloborator(notes)" matTooltip="{{item.firstName}}">
+            {{item.firstName | slice : 0 : 1}}
+          </button>
         </div>
       </div>
+
+      <!------------------MatCardActions starts------------------->
+
+      <mat-card-actions>
+        <div fxLayout='row' fxLayout.xs='row' fxLayoutGap="space-between">
+          <div fxFlex=9>
+            <app-remindme-icon [noteDetails]="id" (notesCreateReminderEvent)="reminderIconParent($event)"></app-remindme-icon>
+          </div>
+          <div fxFlex=9>
+            <mat-icon *ngIf="display" (click)="collaboratorButton()" matTooltip="Collaborator" class="cursor">person_add</mat-icon>
+          </div>
+          <div fxFlex=9>
+            <app-change-color-icon (ParentNoteColor)="changeParentColor($event)">
+            </app-change-color-icon>
+          </div>
+          <div fxFlex=9>
+            <app-add-image-icon></app-add-image-icon>
+          </div>
+          <div fxFlex=9>
+            <app-archive-icon [archive]='archive'></app-archive-icon>
+          </div>
+          <div fxFlex=9>
+            <mat-icon mat-icon-button class="moreicon" [matMenuTriggerFor]="menu" matTooltip="More">more_vert</mat-icon>&nbsp;
+            <mat-menu class="menu" #menu="matMenu" [overlapTrigger]="false">
+
+              <button mat-menu-item (click)="getLabels()" [matMenuTriggerFor]="addlabel">
+                <span>Add label</span></button>
+              <mat-menu [overlapTrigger]="false" (click)="$event.stopPropagation();" #addlabel="matMenu">
+                <div class="title">Label note</div>
+                <br>
+                <div fxLayout="row" (click)="$event.stopPropagation();">
+
+                  <input class="inputTitle" [(ngModel)]="query" placeholder="Enter label name">
+                  <mat-icon fxFlex="30" (click)="searchState()">search</mat-icon>
+                </div>
+                <br>
+                <div *ngFor="let label of notes | LockFilter: query">
+
+                  <mat-checkbox (click)="$event.stopPropagation();" (click)="clickFunc(label)" class="example-margin">{{label.label}}
+                  </mat-checkbox>
+                </div>
+              </mat-menu>
+            </mat-menu>
+
+          </div>
+
+          <div fxFlex fxLayoutAlign="end">
+
+            <button mat-button (click)="close(); createNotes()">Close</button>
+          </div>
+        </div>
       </mat-card-actions>
 
       <!------------------MatCardActions ends------------------->
@@ -179,62 +171,65 @@
   <div fxFlex=10 fxFlex.xs=0></div>
 </div>
 
-    <!------------------Collaborator starts------------------->
+<!------------------Collaborator starts------------------->
 
 <div *ngIf="!display" fxLayout='row' class="collaborator">
-    <div fxFlex=10 fxFlex.xs=0></div>
-    <div fxFlex  fxLayoutAlign="center" fxFlex.xs=100>
-  <mat-card class="example-card1">
-    <div>Collaborators
-    </div>
-    <hr>
-    <div fxLayout='row' fxLayoutGap='10px'>
-      <button mat-mini-fab disabled 
-      [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button>
-      <div fxLayout='column'>
-        <span>{{firstName}} {{lastName}}(owner)
-        </span>
-        <span class="email">{{email}}</span>
+  <div fxFlex=10 fxFlex.xs=0></div>
+  <div fxFlex fxLayoutAlign="center" fxFlex.xs=100>
+    <mat-card class="example-card1">
+      <div>Collaborators
       </div>
-    </div>
-  
-    <div fxLayout='column' fxLayoutGap='10px' class="space" *ngFor="let item of friendsNewList">
-      <div fxLayout='row'>
-        <div fxLayout='row' fxLayoutGap='10px' >
-          <button mat-mini-fab color="basic">{{item.firstName | slice: 0 :1}}</button>
-          <div fxLayout='column'>
-            <span class ="name">{{item.firstName}} {{item.lastName}}
-            </span>
-            <span class="email">{{item.email}}</span>
+      <hr>
+      <div fxLayout='row' fxLayoutGap='10px'>
+        <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button>
+        <div fxLayout='column'>
+          <span>{{firstName}} {{lastName}}(owner)
+          </span>
+          <span class="email">{{email}}</span>
+        </div>
+      </div>
+
+      <div fxLayout='column' fxLayoutGap='10px' class="space" *ngFor="let item of friendsNewList">
+        <div fxLayout='row'>
+          <div fxLayout='row' fxLayoutGap='10px'>
+            <button mat-mini-fab color="basic">{{item.firstName | slice: 0 :1}}</button>
+            <div fxLayout='column'>
+              <span class="name">{{item.firstName}} {{item.lastName}}
+              </span>
+              <span class="email">{{item.email}}</span>
+            </div>
+          </div>
+          <div>
+            <mat-icon (click)="removeCollaborator(item)">close</mat-icon>
           </div>
         </div>
-        <div>
-        <mat-icon (click)="removeCollaborator(item)">close</mat-icon>
-        </div>
       </div>
-    </div>
-  
-    <div class="button1" fxLayout='row' fxLayoutGap='10px'>
-      <button mat-mini-fab disabled><mat-icon>person_add</mat-icon></button>
-      <input class="input" type="text" placeholder="Person or email to share with"
-      (keydown)="myFunction($event)" [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
-      <button mat-button><mat-icon (click)="enterNames(searchNames)"  class = "done">done</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <div fxLayout='row' *ngFor="let value of collaborator">
-          <button mat-button (click)="addCollaborator(value);select(value.email)">
-          {{value.firstName}} {{value.lastName}} {{value.email}}
-          </button>
-        </div>
-      </mat-menu>
-    </div>
-  
-    <div fxLayoutAlign='end'>
-      <button mat-button class="button2" (click)="collaboratorButton()">Cancel</button>
-      <button mat-button >Save</button>
-    </div>
-  </mat-card>
+
+      <div class="button1" fxLayout='row' fxLayoutGap='10px'>
+        <button mat-mini-fab disabled>
+          <mat-icon>person_add</mat-icon>
+        </button>
+        <input class="input" type="text" placeholder="Person or email to share with" (keydown)="myFunction($event)"
+          [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
+        <button mat-button>
+          <mat-icon (click)="enterNames(searchNames)" class="done">done</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <div fxLayout='row' *ngFor="let value of collaborator">
+            <button mat-button (click)="addCollaborator(value);select(value.email)">
+              {{value.firstName}} {{value.lastName}} {{value.email}}
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+
+      <div fxLayoutAlign='end'>
+        <button mat-button class="button2" (click)="collaboratorButton()">Cancel</button>
+        <button mat-button (click)="collaboratorButton()">Save</button>
+      </div>
+    </mat-card>
   </div>
   <div fxFlex=10 fxFlex.xs=0></div>
-  </div>
-  
-  <!------------------Collaborator ends------------------->
+</div>
+
+<!------------------Collaborator ends------------------->

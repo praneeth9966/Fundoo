@@ -1,18 +1,18 @@
-import { Component, OnInit, HostListener, Output, EventEmitter,OnDestroy} from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms'
 import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit,OnDestroy{
+export class LoginComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   @Output() hovered = new EventEmitter();
   private hide = true;
@@ -23,14 +23,14 @@ export class LoginComponent implements OnInit,OnDestroy{
     "password": ""
   }
   email = new FormControl('', [Validators.required, Validators.email]);
-  
+
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
       this.email.hasError('email') ? 'Not a valid email' :
         '';
   }
 
-  constructor(private matSnackBar: MatSnackBar,private userService:UsersService,private notesService:NotesService) { }
+  constructor(private matSnackBar: MatSnackBar, private userService: UsersService, private notesService: NotesService) { }
 
   ngOnInit() {
   }
@@ -50,8 +50,8 @@ export class LoginComponent implements OnInit,OnDestroy{
   }
 
   login() {
-    this.records = this.userService.postlogin( this.body)
-    .pipe(takeUntil(this.destroy$))
+    this.records = this.userService.postlogin(this.body)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         localStorage.setItem('token', data['id']);
         localStorage.setItem('firstName', data['firstName']);
@@ -67,15 +67,15 @@ export class LoginComponent implements OnInit,OnDestroy{
           "pushToken": pushToken
         }
         this.notesService.postRegisterPushToken(body)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          data => {
-            window.location.href = 'homepage';
-          })
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            data => {
+              window.location.href = 'homepage';
+            })
       })
   }
 
-  
+
   /*
   This method will be executed just before Angular destroys the components
   */
@@ -83,5 +83,5 @@ export class LoginComponent implements OnInit,OnDestroy{
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-  
+
 }

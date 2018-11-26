@@ -1,16 +1,16 @@
-import { Component, OnInit, Inject,OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { DataService } from '../../core/services/data/data.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-crop-image',
   templateUrl: './crop-image.component.html',
   styleUrls: ['./crop-image.component.scss']
 })
-export class CropImageComponent implements OnInit,OnDestroy {
+export class CropImageComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   croppedImage: ''
 
@@ -33,17 +33,17 @@ export class CropImageComponent implements OnInit,OnDestroy {
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
     this.notesService.imageupload(uploadData)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(res => {
-      localStorage.setItem('imageUrl', res['status'].imageUrl);
-      this.dialogRef1.close();
-      this.service.changeProfile(true);
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        localStorage.setItem('imageUrl', res['status'].imageUrl);
+        this.dialogRef1.close();
+        this.service.changeProfile(true);
+      })
   }
 
-/*
-  This method will be executed just before Angular destroys the components
-  */
+  /*
+    This method will be executed just before Angular destroys the components
+    */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

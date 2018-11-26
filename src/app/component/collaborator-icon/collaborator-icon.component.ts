@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
-import { MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-collaborator-icon',
   templateUrl: './collaborator-icon.component.html',

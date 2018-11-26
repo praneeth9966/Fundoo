@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter,OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-change-color-icon',
   templateUrl: './change-color-icon.component.html',
   styleUrls: ['./change-color-icon.component.scss']
 })
-export class ChangeColorIconComponent implements OnInit,OnDestroy {
+export class ChangeColorIconComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private notesService: NotesService) { }
   @Input() notesArray;
@@ -41,10 +41,10 @@ export class ChangeColorIconComponent implements OnInit,OnDestroy {
       "noteIdList": [this.notesArray]
     }
     this.notesService.postchangecolor(this.body)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(res => {
-      this.noteColor.emit();
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        this.noteColor.emit();
+      })
   }
 
 

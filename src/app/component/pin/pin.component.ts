@@ -1,20 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter,OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-pin',
   templateUrl: './pin.component.html',
   styleUrls: ['./pin.component.scss']
 })
-export class PinComponent implements OnInit,OnDestroy {
+export class PinComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private pinBody = {};
 
   @Input() isPinedArray
   @Output() pinEvent = new EventEmitter()
 
-  constructor(private notesService:NotesService) { }
+  constructor(private notesService: NotesService) { }
 
   ngOnInit() {
   }
@@ -27,11 +27,11 @@ export class PinComponent implements OnInit,OnDestroy {
       "isPined": true,
     }
     this.notesService.postPinUnpin(this.pinBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.pinEvent.emit({
-      });
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.pinEvent.emit({
+        });
+      })
   }
 
 
@@ -43,11 +43,11 @@ export class PinComponent implements OnInit,OnDestroy {
       "isPined": false,
     }
     this.notesService.postPinUnpin(this.pinBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.pinEvent.emit({
-      });
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.pinEvent.emit({
+        });
+      })
   }
 
   /*

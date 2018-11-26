@@ -1,15 +1,15 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit ,OnDestroy{
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private temp: any = {
     "email": "",
@@ -23,7 +23,7 @@ export class ForgotPasswordComponent implements OnInit ,OnDestroy{
         '';
   }
 
-  constructor(private snackBar: MatSnackBar,private userService:UsersService) { }
+  constructor(private snackBar: MatSnackBar, private userService: UsersService) { }
 
   ngOnInit() {
 
@@ -37,7 +37,7 @@ export class ForgotPasswordComponent implements OnInit ,OnDestroy{
     }
     else {
       this.userService.postreset(this.temp)
-      .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
             this.snackBar.open("reset successfull ", "successfull", {

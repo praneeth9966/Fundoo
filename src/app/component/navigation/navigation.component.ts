@@ -128,7 +128,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   navigation() {
-    this.router.navigate(['homepagepage/search'])
+    this.router.navigate(['homepage/search'])
   }
 
   message() {

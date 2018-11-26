@@ -4,14 +4,13 @@
 <app-notes-create (newEvent)="newMessage($event)" (messageEvent)="receiveMessage($event)"></app-notes-create>
 <!------------------------- Pinned cards starts ---------------------------->
 
-<app-notes-collection [array] = "notes1"[length]="notes1.length" [string]="'Pinned'"
- (notifyParent)="receiveMessage($event)"></app-notes-collection>  
+<app-notes-collection [array]="notes1" [length]="notes1.length" [string]="'Pinned'" (notifyParent)="receiveMessage($event)"></app-notes-collection>
 <!------------------------- Pinned cards ends ---------------------------->
 
 <!------------------------- Other cards starts ---------------------------->
 
-<app-notes-collection [array] = "notes" [length]="notes1.length" [string]="'Others'" (notifyParent)="receiveMessage($event)" 
-(noteParent)="receiveMessage($event)" (archiveParent)="receiveMessage($event)"></app-notes-collection>
+<app-notes-collection [array]="notes" [length]="notes1.length" [string]="'Others'" (notifyParent)="receiveMessage($event)"
+    (noteParent)="receiveMessage($event)" (archiveParent)="receiveMessage($event)"></app-notes-collection>
 
 <!------------------------- Other cards starts ---------------------------->
 

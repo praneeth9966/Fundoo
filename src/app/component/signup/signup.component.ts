@@ -1,16 +1,16 @@
-import { Component, OnInit, Output, EventEmitter, HostListener ,OnDestroy} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 
 })
-export class SignupComponent implements OnInit ,OnDestroy{
+export class SignupComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private signUpForm: FormGroup
   private records = {}
@@ -26,8 +26,8 @@ export class SignupComponent implements OnInit ,OnDestroy{
   onHover(e) {
     this.hovered.emit('howdy')
   }
-  constructor(private matsnacbar: MatSnackBar,private userService:UsersService) { }
-  
+  constructor(private matsnacbar: MatSnackBar, private userService: UsersService) { }
+
   onSubmit() {
     this.register = {
       "firstName": this.user.firstName,
@@ -40,12 +40,12 @@ export class SignupComponent implements OnInit ,OnDestroy{
       "password": this.user.password
     }
     this.records = this.userService.postsignup(this.register)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.matsnacbar.open("registration", "successful", {
-        duration: 5000,
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.matsnacbar.open("registration", "successful", {
+          duration: 5000,
+        })
       })
-    })
   }
 
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -72,23 +72,23 @@ export class SignupComponent implements OnInit ,OnDestroy{
       this.lastname.hasError('pattern') ? 'Invalid password' : '';
   }
 
-  
+
 
   ngOnInit() {
     this.records = this.userService.getDataService1()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      let data = result['data'];
-      for (let i = 0; i < data.data.length; i++) {
-        data.data[i].select = false;
-        this.cards.push(data.data[i])
-      }
-    });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        let data = result['data'];
+        for (let i = 0; i < data.data.length; i++) {
+          data.data[i].select = false;
+          this.cards.push(data.data[i])
+        }
+      });
 
     this.records = this.userService.getDataService2()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-    });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+      });
   }
 
   respond(card) {

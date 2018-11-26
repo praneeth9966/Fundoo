@@ -1,15 +1,16 @@
-import { Component, OnInit, Output, EventEmitter,OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UsersService } from 'src/app/core/services/users/users.service';
 @Component({
   selector: 'app-notes-create',
   templateUrl: './notes-create.component.html',
   styleUrls: ['./notes-create.component.scss']
 })
 
-export class NotesCreateComponent implements OnInit ,OnDestroy{
+export class NotesCreateComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private show: boolean = true;
   private checkList: boolean = false;
@@ -27,7 +28,7 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
   private status = "open";
   private addCheck = false;
   private checklist = [];
-  private body: any = {};
+  public body: any = {};
   private dataArrayApi: any = [];
   private adding: boolean
   private isChecked = false;
@@ -36,8 +37,11 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
   private value;
   private todayDate = new Date();
   private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
-  public display:boolean=true;
-  constructor(private notesService:NotesService) { }
+  public display: boolean = true;
+  private searchNames;
+  private collaborator = [];
+  private friendsNewList = [];
+  constructor(private notesService: NotesService,private userService:UsersService) { }
 
   @Output() messageEvent = new EventEmitter();
   @Output() newEvent = new EventEmitter();
@@ -50,8 +54,8 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
   image = localStorage.getItem('imageUrl');
   profile = environment.profileUrl + this.image;
 
-  collaboratorButton(){
-    this.display=!this.display;
+  collaboratorButton() {
+    this.display = !this.display;
   }
 
   checkListButton() {
@@ -87,7 +91,8 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
         'checkList': '',
         'isPinned': 'false',
         'color': '',
-        'reminder': ''
+        'reminder': '',
+        'collaberators':JSON.stringify(this.friendsNewList)
       }
       if (this.value != undefined) {
         this.body.reminder = this.value;
@@ -115,7 +120,8 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
         "isPined": '',
         "color": "",
         "labelIdList": JSON.stringify(this.array1),
-        "reminder": ''
+        "reminder": '',
+        'collaberators':JSON.stringify(this.friendsNewList)
       }
       if (this.value != undefined) {
         this.body.reminder = this.value;
@@ -124,8 +130,8 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
       this.parentColor = "#ffffff";
     }
     this.notesService.addnotes(this.body)
-    .pipe(takeUntil(this.destroy$))
-    .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         // this.checkList = false;
         this.array1 = [];
@@ -133,11 +139,12 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
         this.dataArrayApi = [];
         this.dataarray = [];
         this.reminderIcon = [];
+        this.friendsNewList=[];
         this.value = '';
         this.adding = false
         this.newEvent.emit(data['status'].details)
       })
-   
+
   }
 
 
@@ -145,14 +152,14 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
    */
   getLabels() {
     this.notesService.getlabels()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(data => {
-      this.notes = [];
-      for (let i = 0; i < data['data'].details.length; i++) {
-        if (data['data'].details[i].isDeleted == false)
-          this.notes.push(data['data'].details[i]);
-      }
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.notes = [];
+        for (let i = 0; i < data['data'].details.length; i++) {
+          if (data['data'].details[i].isDeleted == false)
+            this.notes.push(data['data'].details[i]);
+        }
+      })
   }
 
 
@@ -239,4 +246,48 @@ export class NotesCreateComponent implements OnInit ,OnDestroy{
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+
+
+
+
+  myFunction(searchNames) {
+    let body = {
+      "searchWord": this.searchNames
+    }
+    this.userService.searchCollaborator(body).subscribe(
+      (data) => {
+        this.collaborator = data['data']['details']
+      })
+  }
+
+  addCollaborator(result) {
+    let body = {
+      "firstName": result.firstName,
+      "lastName": result.lastName,
+      "email": result.email,
+      "userId": result.userId
+    }
+  }
+
+  select(personEmail) {
+    this.searchNames = personEmail;
+  }
+
+  enterNames(searchPerson) {
+    for (let index = 0; index < this.collaborator.length; index++) {
+      if (this.collaborator[index].email == searchPerson) {
+        this.friendsNewList.push(this.collaborator[index]);
+      }
+    }
+    this.searchNames = [];
+  }
+
+  removeCollaborator(item) {
+    for (var i = 0; i < this.friendsNewList.length; i++) {
+      if (this.friendsNewList[i].userId == item.userId) {
+        this.friendsNewList.splice(i, 1)
+      }
+    }
+  }
+
 }

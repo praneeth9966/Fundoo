@@ -1,17 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild ,OnDestroy} from '@angular/core';
-import { MatDialog} from '@angular/material';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DataService } from '../../core/services/data/data.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
   styleUrls: ['./notes-collection.component.scss']
 })
-export class NotesCollectionComponent implements OnInit,OnDestroy {
+export class NotesCollectionComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private notes = [];
   private toggle = false;
@@ -23,10 +23,10 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
   private isChecked = false;
   private todayDate = new Date();
   private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
-@Input() string;
-@Input() length;
+  @Input() string;
+  @Input() length;
 
-  constructor(private notesService:NotesService, private dialog: MatDialog, private dataService: DataService) {
+  constructor(private notesService: NotesService, private dialog: MatDialog, private dataService: DataService) {
     this.dataService.currentEvent.subscribe(message => {
       if (message) {
         this.notifyParent.emit();
@@ -57,11 +57,11 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
     });
 
     dialogRef.afterClosed()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.notifyParent.emit({
-      })
-    });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.notifyParent.emit({
+        })
+      });
   }
 
 
@@ -72,12 +72,12 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
       "noteId": id,
       "lableId": labelId
     }
-    this.notesService.postAddLabelnotesRemove(labelId,id)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.notifyParent.emit({
-      });
-    })
+    this.notesService.postAddLabelnotesRemove(labelId, id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.notifyParent.emit({
+        });
+      })
   }
 
 
@@ -88,11 +88,11 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
       "noteIdList": [id]
     }
     this.notesService.postRemoveReminders(this.reminderBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.notifyParent.emit({
-      });
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.notifyParent.emit({
+        });
+      })
   }
 
   getNotification($sevent) {
@@ -128,10 +128,10 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
 
   gridView() {
     this.dataService.viewListObserver
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(message => {
-      this.toggle = message;
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message => {
+        this.toggle = message;
+      })
   }
 
   checkBox(checkList, note) {
@@ -154,10 +154,10 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
       "status": this.modifiedCheckList.status
     }
     let checkNew = JSON.stringify(checklistData);
-    this.notesService.postUpdateChecklist(id, this.modifiedCheckList.id,checkNew)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(response => {
-    })
+    this.notesService.postUpdateChecklist(id, this.modifiedCheckList.id, checkNew)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response => {
+      })
   }
 
 
@@ -175,13 +175,13 @@ export class NotesCollectionComponent implements OnInit,OnDestroy {
     this.dataService.changeLabel(label);
   }
 
-  colloborator(collaborator){
+  colloborator(collaborator) {
     this.dialog.open(ColloboratorDialogComponent, {
       width: '500px',
-      data:collaborator
+      data: collaborator
     });
   }
-  
+
   /*
  This method will be executed just before Angular destroys the components
  */

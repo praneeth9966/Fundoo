@@ -7,14 +7,14 @@
   border-radius: 10px;
 }
 
-@media only screen and (min-width: 600px) and (max-width: 1000px){
-  .example-card {
-    margin: 10px;
-    height: auto;
-    width: 500px;
-    border-radius: 10px;
-  }
-}
+// @media only screen and (min-width: 600px) and (max-width: 900px){
+//   .example-card {
+//     margin: 10px;
+//     height: auto;
+//     width: 500px;
+//     border-radius: 10px;
+//   }
+// }
 
 mat-card-title {
   word-wrap: break-word;
@@ -53,7 +53,7 @@ mat-card-content {
 
 .note {
   @include border();
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .flow {

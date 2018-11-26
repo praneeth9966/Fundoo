@@ -1,16 +1,15 @@
-<mat-icon class="cursor" matTooltip="More" aria-label="more" 
-    [matMenuTriggerFor]="appMenu" >more_vert</mat-icon>
+<mat-icon class="cursor" matTooltip="More" aria-label="more" [matMenuTriggerFor]="appMenu">more_vert</mat-icon>
 
 <!-------------------------------- MoreIcon Menu starts --------------------------->
 
 <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
-    <div  class="menu" fxLayout="column">
-            <button mat-button *ngIf="name=='trash'" (click)=deleteforever()>
-                Delete forever</button>
+    <div class="menu" fxLayout="column">
+        <button mat-button *ngIf="name=='trash'" (click)=deleteforever()>
+            Delete forever</button>
         <button mat-button *ngIf="name=='trash'" (click)="restore()">Restore</button>
         <button mat-button *ngIf="name!='trash'" (click)=deleteNotes()>Delete note</button>
-        <button mat-menu-item  *ngIf="name!='trash'"[matMenuTriggerFor]="labelMenu"
-             (click)="getLabels(notesArray)" >Add label</button>
+        <button mat-menu-item *ngIf="name!='trash'" [matMenuTriggerFor]="labelMenu" (click)="getLabels(notesArray)">Add
+            label</button>
     </div>
 </mat-menu>
 
@@ -19,17 +18,17 @@
 <!---------------------------AddLabel Menu starts----------------------------------->
 
 <mat-menu #labelMenu="matMenu">
-        <div class="title">Label note</div>
-        <br><div fxLayout="row" (click)="$event.stopPropagation();">
-                <input  class="inputTitle" [(ngModel)]="query" placeholder="Enter label name">
-                <mat-icon fxFlex="30" (click)="searchState()">search</mat-icon>
-            </div>
-        <div *ngFor="let editLabels of notes | LockFilter: query" 
-            fxLayoutAlign="space-between center">
-            <mat-checkbox (click)="$event.stopPropagation(); addLabel(editLabels.id)">
-                {{editLabels.label}}
-            </mat-checkbox>
-        </div>
+    <div class="title">Label note</div>
+    <br>
+    <div fxLayout="row" (click)="$event.stopPropagation();">
+        <input class="inputTitle" [(ngModel)]="query" placeholder="Enter label name">
+        <mat-icon fxFlex="30" (click)="searchState()">search</mat-icon>
+    </div>
+    <div *ngFor="let editLabels of notes | LockFilter: query" fxLayoutAlign="space-between center">
+        <mat-checkbox (click)="$event.stopPropagation(); addLabel(editLabels.id)">
+            {{editLabels.label}}
+        </mat-checkbox>
+    </div>
 </mat-menu>
 
 <!---------------------------AddLabel Menu ends----------------------------------->

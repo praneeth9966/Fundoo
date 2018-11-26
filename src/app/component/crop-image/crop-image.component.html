@@ -1,13 +1,7 @@
 <!---------------------------Image Cropper starts ----------------------------->
 
-<image-cropper
-    [imageChangedEvent]="data"
-    [maintainAspectRatio]="true"
-    [aspectRatio]="4 / 3"
-    [resizeToWidth]="128"
-    format="png"
-    (imageCropped)="imageCropped($event)"
-></image-cropper>
-<button  mat-raised-button color="primary" (click)=onUpload() class="button"> set as profile photo </button>
+<image-cropper [imageChangedEvent]="data" [maintainAspectRatio]="true" [aspectRatio]="4 / 3" [resizeToWidth]="128"
+    format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+<button mat-raised-button color="primary" (click)=onUpload() class="button"> set as profile photo </button>
 
 <!---------------------------Image Cropper ends ----------------------------->

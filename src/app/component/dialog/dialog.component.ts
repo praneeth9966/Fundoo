@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject,OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { NotesCollectionComponent } from '../notes-collection/notes-collection.component';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
 export interface DialogData {
   title: string;
   description: string;
@@ -15,7 +16,7 @@ export interface DialogData {
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit ,OnDestroy{
+export class DialogComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private body;
   private labelBody = {};
@@ -35,10 +36,10 @@ export class DialogComponent implements OnInit ,OnDestroy{
   private adding = false;
   private addCheck = false;
   private status = "open";
-  private reminderIcon=[];
+  private reminderIcon = [];
   private value;
 
-  constructor(private notesService:NotesService,
+  constructor(private notesService: NotesService,private dialog:MatDialog,
     private dialogRef: MatDialogRef<NotesCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DialogData) { }
 
@@ -63,11 +64,11 @@ export class DialogComponent implements OnInit ,OnDestroy{
         'description': document.getElementById("newDescription").innerHTML,
         'noteLabels': "",
         'color': '',
-        'reminder':''
+        'reminder': ''
       }
 
-      this.notesService.updatenotes('this.body')
-      .pipe(takeUntil(this.destroy$))
+      this.notesService.updatenotes(this.body)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(data => {
         })
     }
@@ -76,22 +77,22 @@ export class DialogComponent implements OnInit ,OnDestroy{
       /*   calling update checklist Api
      */
 
-      // let apiData = {
-      //   "itemName": this.modifiedCheckList.itemName,
-      //   "status": this.modifiedCheckList.status
-      // }
+      let apiData = {
+        "itemName": this.modifiedCheckList.itemName,
+        "status": this.modifiedCheckList.status
+      }
 
       this.notesService
-      .postUpdateChecklist(this.data['id'], this.modifiedCheckList.id, null)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(response => {
-      })
+        .postUpdateChecklist(this.data['id'], this.modifiedCheckList.id, apiData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(response => {
+        })
     }
     this.dialogRef.close();
   }
-  messageColor(event){
+  messageColor(event) {
     console.log(event);
-    
+
     this.color = event;
 
   }
@@ -121,15 +122,15 @@ export class DialogComponent implements OnInit ,OnDestroy{
   /*   calling remove checklist Api
    */
   removeCheckList() {
-    this.notesService.postChecklistRemove(this.data['id'],this.removedList.id ,{})
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((response) => {
-      for (let i = 0; i < this.tempArray.length; i++) {
-        if (this.tempArray[i].id == this.removedList.id) {
-          this.tempArray.splice(i, 1)
+    this.notesService.postChecklistRemove(this.data['id'], this.removedList.id, {})
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+        for (let i = 0; i < this.tempArray.length; i++) {
+          if (this.tempArray[i].id == this.removedList.id) {
+            this.tempArray.splice(i, 1)
+          }
         }
-      }
-    })
+      })
   }
 
   /*   calling add checklist Api
@@ -153,9 +154,9 @@ export class DialogComponent implements OnInit ,OnDestroy{
         "itemName": this.newList,
         "status": this.status
       }
-      this.notesService.postCheckListAdd(this.data['id'], this.newData)
-      .pipe(takeUntil(this.destroy$)) 
-      .subscribe(response => {
+      this.notesService.postCheckListAdd(this.data.id, this.newData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(response => {
           this.newList = null;
           this.addCheck = false;
           this.adding = false;
@@ -167,10 +168,10 @@ export class DialogComponent implements OnInit ,OnDestroy{
   /*   calling remove Label Api
    */
   removeLabel(label, labelId) {
-    
-    this.notesService.postAddLabelnotesRemove(labelId,this.data.id)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
+
+    this.notesService.postAddLabelnotesRemove(labelId, this.data.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
         const index = this.selectLabelArray.indexOf(label, 0);
         if (index > -1) {
           this.selectLabelArray.splice(index, 1);
@@ -186,13 +187,13 @@ export class DialogComponent implements OnInit ,OnDestroy{
       "noteIdList": [this.data.id]
     }
     this.notesService.postRemoveReminders(this.reminderBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      const index = this.selectArray.indexOf(items, 0);
-      if (index > -1) {
-        this.selectArray.splice(index, 1);
-      }
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        const index = this.selectArray.indexOf(items, 0);
+        if (index > -1) {
+          this.selectArray.splice(index, 1);
+        }
+      })
   }
 
   getNotification(event) {
@@ -200,7 +201,6 @@ export class DialogComponent implements OnInit ,OnDestroy{
 
   reminderIconParent(event) {
     if (event) {
-     
       this.reminderIcon = [];
       this.reminderIcon.push(event);
       this.value = event;
@@ -213,5 +213,12 @@ export class DialogComponent implements OnInit ,OnDestroy{
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  colloborator(noteData) {
+    this.dialog.open(ColloboratorDialogComponent, {
+      width: '500px',
+      data: noteData
+    });
   }
 }

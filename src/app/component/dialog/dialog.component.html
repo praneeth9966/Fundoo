@@ -1,113 +1,114 @@
-      <!-----------------------------Notes starts------------------------------->
+<!-----------------------------Notes starts------------------------------->
 
-  <mat-card fxFlex *ngIf="!show" 
-    [ngStyle]="{'background-color':color}" class="dialog-card">
-  
-    <mat-card-content>
-      <div fxLayout='row' fxLayout.xs='row'>
-        <div fxFlex=98 contenteditable="true" [innerHTML]="data.title"   data-text=""
-         class="cards" id="newTitle"></div>
-      </div>
+<mat-card fxFlex *ngIf="!show" [ngStyle]="{'background-color':color}" class="dialog-card">
 
-      <div class="description"contenteditable="true" [innerHTML]="data.description" 
-      data-text="" class="cards" id="newDescription">{{data.description}}</div>
-    </mat-card-content>
-
-        <!-----------------------------Notes ends------------------------------->
-
-        <!-----------------------------CheckList starts------------------------------->
-
-    <div class="note" *ngFor="let check of tempArray" fxLayout="row">
-    
-        <mat-checkbox fxFlex="10%" *ngIf="check.status=='open'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
-        <input [(ngModel)]=check.itemName fxFlex="80%" class="note" (keydown)=editing(check,$event)
-        [ngStyle]="{'background-color':data.color}"   *ngIf="!check.isDeleted && check.status=='open' ">
-        <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='open'">clear</mat-icon>
-      </div>
-    
-        <hr *ngIf="checklist">
-        <div fxLayout="row" *ngIf="checklist">
-          <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
-          <mat-checkbox *ngIf="adding" [(ngModel)]=addCheck  color="primary"></mat-checkbox>
-          <input  fxFlex="95%" class="note" placeholder="List Item" [ngStyle]="{'background-color':data.color}"  [(ngModel)]=newList (keydown)=addList($event)/>
-        </div>
-        <hr *ngIf="checklist">
-       
-        <div class="note" *ngFor="let check of tempArray" fxLayout="row">
-          <mat-checkbox fxFlex="10%" checked=true *ngIf="check.status=='close'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
-          <input [(ngModel)]=check.itemName class="note" fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
-            (keydown)=editing(check,$event)>
-          <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
+  <mat-card-content>
+    <div fxLayout='row' fxLayout.xs='row'>
+      <div fxFlex=98 contenteditable="true" [innerHTML]="data.title" data-text="" class="cards" id="newTitle"></div>
     </div>
 
-      <!-----------------------------CheckList ends------------------------------->
+    <div class="description" contenteditable="true" [innerHTML]="data.description" data-text="" class="cards" id="newDescription">{{data.description}}</div>
+  </mat-card-content>
 
-      <!-----------------------------Labels starts------------------------------->
+  <!-----------------------------Notes ends------------------------------->
 
-    <div fxLayout="row wrap">
-      <div *ngFor="let items of selectLabelArray" >
+  <!-----------------------------CheckList starts------------------------------->
+
+  <div class="note" *ngFor="let check of tempArray" fxLayout="row">
+
+    <mat-checkbox fxFlex="10%" *ngIf="check.status=='open'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
+    <input [(ngModel)]=check.itemName fxFlex="80%" class="note" (keydown)=editing(check,$event) [ngStyle]="{'background-color':data.color}"
+      *ngIf="!check.isDeleted && check.status=='open' ">
+    <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='open'">clear</mat-icon>
+  </div>
+
+  <hr *ngIf="checklist">
+  <div fxLayout="row" *ngIf="checklist">
+    <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
+    <mat-checkbox *ngIf="adding" [(ngModel)]=addCheck color="primary"></mat-checkbox>
+    <input fxFlex="95%" class="note" placeholder="List Item" [ngStyle]="{'background-color':data.color}" [(ngModel)]=newList
+      (keydown)=addList($event) />
+  </div>
+  <hr *ngIf="checklist">
+
+  <div class="note" *ngFor="let check of tempArray" fxLayout="row">
+    <mat-checkbox fxFlex="10%" checked=true *ngIf="check.status=='close'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
+    <input [(ngModel)]=check.itemName class="note" fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
+      (keydown)=editing(check,$event)>
+    <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
+  </div>
+
+  <div class="space"></div>
+  <!-----------------------------CheckList ends------------------------------->
+
+  <!-----------------------------Labels starts------------------------------->
+
+  <div fxLayout="row wrap">
+    <div *ngFor="let items of selectLabelArray">
       <mat-chip-list selected>
-      <mat-chip *ngIf="items.isDeleted==false">{{items.label}}
-        <mat-icon (click)="removeLabel(items,items.id)" class="removeicon">cancel</mat-icon>
-      </mat-chip>
+        <mat-chip *ngIf="items.isDeleted==false">{{items.label}}
+          <mat-icon (click)="removeLabel(items,items.id)" class="removeicon">cancel</mat-icon>
+        </mat-chip>
       </mat-chip-list>
     </div>
+  </div>
+
+  <div class="space"></div>
+  <!-----------------------------Labels ends------------------------------->
+
+  <!-----------------------------Reminders starts--------------------------->
+  <div fxLayout="row wrap">
+    <div *ngFor="let items of selectArray">
+      <mat-chip-list selected>
+        <mat-chip>
+          {{items | date:'medium'}}
+          <mat-icon (click)="removeReminder(items,items.id)" class="removeicon">
+            cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
     </div>
+  </div>
+  <div class="space"></div>
+  <!-----------------------------Reminders ends--------------------------->
 
-      <!-----------------------------Labels ends------------------------------->
-      
-      <!-----------------------------Reminders starts--------------------------->
-    <div fxLayout="row wrap">
-        <div *ngFor="let items of selectArray">
-          <mat-chip-list selected>
-            <mat-chip >
-              {{items | date:'medium'}}
-              <mat-icon (click)="removeReminder(items,items.id)" class="removeicon">
-                  cancel</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-        </div>
+  <!-----------------------------Collaborator starts--------------------------->
+  <div fxLayout="row wrap" fxLayoutGap="5px">
+    <div *ngFor="let item of data.collaborators">
+      <button mat-mini-fab color="basic" (click)="colloborator(data)" matTooltip="{{item.firstName}}">
+        {{item.firstName | slice : 0 : 1}}
+      </button>
+    </div>
+  </div>
+<!-----------------------------Collaborator ends--------------------------->
+
+  <!-----------------------------MatCardActions starts--------------------------->
+
+  <mat-card-actions>
+    <div fxLayout='row' fxLayout.xs='row'>
+      <div fxFlex=9>
+        <app-remindme-icon [noteDetails]="data"></app-remindme-icon>
       </div>
-
-      <!-----------------------------Reminders ends--------------------------->
-
-      <div fxLayout="row wrap" fxLayoutGap="5px">
-          <div *ngFor="let item of data.collaborators">
-            <button mat-mini-fab color="basic" (click)="colloborator(notes)" matTooltip="{{item.firstName}}">
-              {{item.firstName | slice : 0 : 1}}
-            </button>
-          </div>
-          </div>
-
-      <!-----------------------------MatCardActions starts--------------------------->
-
-    <mat-card-actions>
-      <div fxLayout='row' fxLayout.xs='row'>
-        <div fxFlex=9>
-          <app-remindme-icon [noteDetails]="data"></app-remindme-icon>
-        </div>
-        <div fxFlex=9>
-          <app-collaborator-icon ></app-collaborator-icon>
-        </div>
-        <div fxFlex=9>
-          <app-change-color-icon [notesArray]="data.id" (ParentNoteColor)=messageColor($event)></app-change-color-icon>
-        </div>
-        <div fxFlex=9>
-          <app-add-image-icon></app-add-image-icon>
-        </div>
-        <div fxFlex=9>
-          <app-archive-icon [archive]="data"></app-archive-icon>
-        </div>
-        <div fxFlex=40>
-          <app-more-icon  [notesArray]="data" (addedLabel)="getNotification($event)">
-          </app-more-icon>
-        </div>
-        <div fxFlex>
-
-          <button mat-button (click)="onNoClick()">Close</button>
-        </div>
+      <div fxFlex=9>
+        <app-collaborator-icon [collaborator]='data'></app-collaborator-icon>
       </div>
-    </mat-card-actions>
-  
-    <!-----------------------------MatCardActions ends--------------------------->
-  </mat-card>
+      <div fxFlex=9>
+        <app-change-color-icon [notesArray]="data.id" (ParentNoteColor)=messageColor($event)></app-change-color-icon>
+      </div>
+      <div fxFlex=9>
+        <app-add-image-icon></app-add-image-icon>
+      </div>
+      <div fxFlex=9>
+        <app-archive-icon [archive]="data"></app-archive-icon>
+      </div>
+      <div fxFlex=40>
+        <app-more-icon [notesArray]="data" (addedLabel)="getNotification($event)">
+        </app-more-icon>
+      </div>
+      <div fxFlex>
+        <button mat-button (click)="onNoClick()">Close</button>
+      </div>
+    </div>
+  </mat-card-actions>
+
+  <!-----------------------------MatCardActions ends--------------------------->
+</mat-card>

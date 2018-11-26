@@ -1,17 +1,17 @@
-import { Component, OnInit, ElementRef, ViewChild ,OnDestroy} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../../core/services/data/data.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-labels',
   templateUrl: './labels.component.html',
   styleUrls: ['./labels.component.scss']
 })
 
-export class LabelsComponent implements OnInit,OnDestroy{
+export class LabelsComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   notes: any[];
 
@@ -20,26 +20,26 @@ export class LabelsComponent implements OnInit,OnDestroy{
   private id = localStorage.getItem('userId')
   private token = localStorage.getItem('token')
 
-  constructor(private dataService: DataService, private dialog: MatDialog, private matSnackBar: MatSnackBar,private notesService:NotesService) { }
+  constructor(private dataService: DataService, private dialog: MatDialog, private matSnackBar: MatSnackBar, private notesService: NotesService) { }
 
   @ViewChild('labels') labels: ElementRef;
   @ViewChild('newLabel') newLabel: ElementRef;
 
   ngOnInit() {
     this.notesService.getlabels()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(res => {
-      this.notes = [];
-      this.notes = (res['data'].details);
-      this.notes.sort(function(a, b){
-        let nameA=a.label.toLowerCase(), nameB=b.label.toLowerCase()
-        if (nameA < nameB) 
-            return -1 
-        if (nameA > nameB)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        this.notes = [];
+        this.notes = (res['data'].details);
+        this.notes.sort(function (a, b) {
+          let nameA = a.label.toLowerCase(), nameB = b.label.toLowerCase()
+          if (nameA < nameB)
+            return -1
+          if (nameA > nameB)
             return 1
-        return 0 
-    })
-    })
+          return 0
+        })
+      })
   }
 
   /*   calling add Labels Api
@@ -58,10 +58,10 @@ export class LabelsComponent implements OnInit,OnDestroy{
             this.matSnackBar.open("Label Added", 'Successfully', {
               duration: 3000,
             });
-            
+
           })
     }
-    
+
   }
 
 
@@ -74,27 +74,27 @@ export class LabelsComponent implements OnInit,OnDestroy{
       data: { name: 'trash' }
     });
     dialogRef.afterClosed()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(data => {
-      if (data) {
-        this.notesService.deletedata(id)
-        .pipe(takeUntil(this.destroy$))
-          .subscribe(data => {
-            this.dataService.changeEvent(true);
-            if (data) {
-              this.getLabels();
-            }
-          })
-      }
-    });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        if (data) {
+          this.notesService.deletedata(id)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(data => {
+              this.dataService.changeEvent(true);
+              if (data) {
+                this.getLabels();
+              }
+            })
+        }
+      });
   }
 
 
   /*   calling update label Api
    */
   updateLabel(id) {
-    console.log( 'native',this.newLabel.nativeElement.innerHTML);
-    
+    console.log('native', this.newLabel.nativeElement.innerHTML);
+
     this.notesService.postUpdateNotelabel(id,
       {
         "label": this.newLabel.nativeElement.innerHTML,
@@ -116,16 +116,16 @@ export class LabelsComponent implements OnInit,OnDestroy{
    */
   getLabels() {
     this.notesService.getlabels(
-      
+
     )
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(data => {
-      this.notes = [];
-      for (let i = 0; i < data['data'].details.length; i++) {
-        if (data['data'].details[i].isDeleted == false)
-          this.notes.push(data['data'].details[i]);
-      }
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.notes = [];
+        for (let i = 0; i < data['data'].details.length; i++) {
+          if (data['data'].details[i].isDeleted == false)
+            this.notes.push(data['data'].details[i]);
+        }
+      })
   }
 
   /*

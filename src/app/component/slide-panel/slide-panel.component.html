@@ -1,8 +1,12 @@
 <!------------------Slide-Panel starts------------------->
 
 <div class="panes" [@slide]="activePane">
-    <div><ng-content select="[leftPane]"></ng-content></div>
-    <div><ng-content select="[rightPane]"></ng-content></div>
+  <div>
+    <ng-content select="[leftPane]"></ng-content>
   </div>
+  <div>
+    <ng-content select="[rightPane]"></ng-content>
+  </div>
+</div>
 
-  <!------------------Slide-Panel ends------------------->
+<!------------------Slide-Panel ends------------------->

@@ -1,16 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild,OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatMenu } from '@angular/material';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-remindme-icon',
   templateUrl: './remindme-icon.component.html',
   styleUrls: ['./remindme-icon.component.scss'],
   exportAs: 'menuInOtherComponent',
 })
-export class RemindmeIconComponent implements OnInit,OnDestroy {
+export class RemindmeIconComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() noteDetails;
   @Output() addReminderEvent = new EventEmitter();
@@ -38,7 +38,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
 
   @ViewChild(MatMenu) menu: MatMenu;
 
-  constructor(private notesService:NotesService) { }
+  constructor(private notesService: NotesService) { }
 
   ngOnInit() {
   }
@@ -51,7 +51,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), 20, 0, 0, 0)
     }
     this.notesService.postAddUpdateReminderNOtes(this.body)
-    .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.addReminderEvent.emit()
       })
@@ -65,7 +65,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 1), 8, 0, 0, 0)
     }
     this.notesService.postAddUpdateReminderNOtes(this.body)
-    .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.addReminderEvent.emit()
       })
@@ -79,7 +79,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 7), 8, 0, 0, 0)
     }
     this.notesService.postAddUpdateReminderNOtes(this.body)
-    .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.addReminderEvent.emit()
       })
@@ -106,7 +106,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
         "reminder": reminder1
       }
       this.notesService.postAddUpdateReminderNOtes(this.body)
-      .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -118,7 +118,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
         "reminder": reminder2
       }
       this.notesService.postAddUpdateReminderNOtes(this.body)
-      .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -130,7 +130,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
         "reminder": reminder3
       }
       this.notesService.postAddUpdateReminderNOtes(this.body)
-      .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -142,7 +142,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
         "reminder": reminder4
       }
       this.notesService.postAddUpdateReminderNOtes(this.body)
-      .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           this.addReminderEvent.emit()
         })
@@ -159,7 +159,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
           "reminder": reminder6
         }
         this.notesService.postAddUpdateReminderNOtes(this.body)
-        .pipe(takeUntil(this.destroy$))
+          .pipe(takeUntil(this.destroy$))
           .subscribe((result) => {
             this.addReminderEvent.emit()
           })
@@ -171,7 +171,7 @@ export class RemindmeIconComponent implements OnInit,OnDestroy {
           "reminder": reminder7
         }
         this.notesService.postAddUpdateReminderNOtes(this.body)
-        .pipe(takeUntil(this.destroy$))
+          .pipe(takeUntil(this.destroy$))
           .subscribe((result) => {
             this.addReminderEvent.emit()
           })

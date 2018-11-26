@@ -1,72 +1,73 @@
 <!---------------------------MatToolBar starts------------------------------>
 
-<mat-toolbar class="tool-bar" fxLayout='row' fxLayout.xs="row" fxLayoutGap="30px" 
-  fxLayoutGap.xs="20px">
-  <button fxFlex=5 matTooltip="Main menu" type="button" aria-label="Toggle sidenav"
-     mat-icon-button (click)="drawer.toggle()">
+<mat-toolbar class="tool-bar" fxLayout='row' fxLayout.xs="row" fxLayoutGap="30px" fxLayoutGap.xs="20px">
+  <button fxFlex=5 matTooltip="Main menu" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
     <mat-icon class="icons" aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
-  <span class="new" fxFlex=10 fxShow="true" >{{titleNew}}</span>
+  <span class="new" fxFlex=10 fxShow="true">{{titleNew}}</span>
 
   <form fxFlex fxLayout='row' fxLayout.xs='row' fxLayoutGap.xs="15px" class="search-box">
-    <button fxFlex=5 mat-icon-button type="submit"><mat-icon>search</mat-icon></button>
-    <input name="some"  [(ngModel)]="searchBar" (keydown)="message()"
-    (click)="navigation()" fxFlex=95 class="search-text" type='text'>
+    <button fxFlex=5 mat-icon-button type="submit">
+      <mat-icon>search</mat-icon>
+    </button>
+    <input name="some" [(ngModel)]="searchBar" (keydown)="message()" (click)="navigation()" fxFlex=95 class="search-text"
+      type='text'>
   </form>
 
   <div fxFlex=15 fxFlex.xs=35 fxLayoutGap.xs="0px">
     <div fxFlex=100 fxLayoutGap="10px" fxFlex.xs=100>
       <button class="icons" matTooltip="Refresh" fxFlex mat-icon-button routerLink="/home">
-      <mat-icon>refresh</mat-icon></button>
-      <button class="icons" matTooltip="List view" fxFlex mat-icon-button 
-      (click)="gridOpen()" *ngIf="gridList==0"><mat-icon>view_stream</mat-icon></button>
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button class="icons" matTooltip="List view" fxHide.xs='true' fxFlex mat-icon-button (click)="gridOpen()" *ngIf="gridList==0">
+        <mat-icon>view_stream</mat-icon>
+      </button>
 
       <meta name="viewport" content="width=device-width; initial-scale=1.0">
-      
 
-      <button class="icons" matTooltip="List view" fxFlex mat-icon-button 
-      (click)="gridClose()" *ngIf="gridList==1"><mat-icon>view_module</mat-icon></button>
+
+      <button class="icons" matTooltip="List view" fxFlex mat-icon-button (click)="gridClose()" *ngIf="gridList==1">
+        <mat-icon>view_module</mat-icon>
+      </button>
       <button class="icons" matTooltip="Notification" fxFlex mat-icon-button>
-      <mat-icon>notifications_none</mat-icon></button>
-      <button *ngIf="image2!=''" matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' 
-        [matMenuTriggerFor]="appMenu" 
-        [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+        <mat-icon>notifications_none</mat-icon>
       </button>
-      <button  *ngIf="image2==''" matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down' 
-        [matMenuTriggerFor]="appMenu" 
-        >{{lastName[0]}}
+      <button *ngIf="image2!=''" matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down'
+        [matMenuTriggerFor]="appMenu" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+      </button>
+      <button *ngIf="image2==''" matTooltip="Fundoo account : {{userName}}" mat-mini-fab class='drop-down'
+        [matMenuTriggerFor]="appMenu">{{lastName[0]}}
       </button>
 
-      <mat-menu  #appMenu="matMenu" [overlapTrigger]="false">
+      <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
         <div fxLayoutAlign="row">
-            <div fxFlex=40>     
-                <button *ngIf="image2!=''" (click) = "$event.stopPropagation()" class="profilebutton"
-                  [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
-                  (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab>
-                  <div class="change">change</div>
-                </button>
-                <button *ngIf="image2==''" (click) = "$event.stopPropagation()" class="profilebutton"
-                  (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab>
-                  {{lastName[0]}}
-                  <div class="change1">change</div>
-                </button>
-                  <input (click) = "$event.stopPropagation()" class="image" 
-                  type="file" (change)="onFileUpload($event)" #selectFile>
-             
-            </div>
-    
-           <mat-content fxFlex class="contentstyle">
+          <div fxFlex=40>
+            <button *ngIf="image2!=''" (click)="$event.stopPropagation()" class="profilebutton" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"
+              (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab>
+              <div class="change">change</div>
+            </button>
+            <button *ngIf="image2==''" (click)="$event.stopPropagation()" class="profilebutton" (click)="selectFile.click()"
+              matTooltip="fundoo Account" mat-mini-fab>
+              {{lastName[0]}}
+              <div class="change1">change</div>
+            </button>
+            <input (click)="$event.stopPropagation()" class="image" type="file" (change)="onFileUpload($event)"
+              #selectFile>
+
+          </div>
+
+          <mat-content fxFlex class="contentstyle">
             {{firstName | titlecase}} {{lastName | titlecase}} {{email | titlecase}} </mat-content>
-            <br>
-          
-    
+          <br>
+
+
         </div><br>
         <hr>
         <div>
-        <!-- <button fxFlex class="addaccount" routerLink="/signup">Add account</button> -->
-       <button fxFlex mat-raised-button color="primary" class="logout" (click)="logout()">Log out </button></div>
+          <!-- <button fxFlex class="addaccount" routerLink="/signup">Add account</button> -->
+          <button fxFlex mat-raised-button color="primary" class="logout" (click)="logout()">Log out </button></div>
       </mat-menu>
-    
+
 
     </div>
   </div>
@@ -77,32 +78,39 @@
 <!-------------------------Mat-SideNav-Container starts--------------------------->
 
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" 
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-nav-list>
-      <a mat-list-item (click)="changeTitle('fundoo Notes')" routerLink="/homepage/notes"><mat-icon> book</mat-icon><span
-         class="child-links">Notes</span></a>
-      <a mat-list-item  (click)="changeTitle('Reminders')"routerLink="/homepage/reminders"><mat-icon> touch_app</mat-icon><span 
-        class="child-links">Reminders</span></a>
+      <a mat-list-item (click)="changeTitle('fundoo Notes')" routerLink="/homepage/notes">
+        <mat-icon> book</mat-icon><span class="child-links">Notes</span>
+      </a>
+      <a mat-list-item (click)="changeTitle('Reminders')" routerLink="/homepage/reminders">
+        <mat-icon> touch_app</mat-icon><span class="child-links">Reminders</span>
+      </a>
       <hr>
       <a mat-list-item><span class="child-links1">LABELS</span></a>
-      <a mat-list-item (click)="change(labels)" 
-      routerLink="/homepage/labels/{{labels.label}}" *ngFor="let labels of notes">
-      <mat-icon>label_outline</mat-icon><span class="child-links">{{labels.label}}</span></a>
-      <a mat-list-item (click)="openDialog()"><mat-icon> create</mat-icon>
-      <span class="child-links">Edit labels</span></a>
+      <a mat-list-item (click)="change(labels)" routerLink="/homepage/labels/{{labels.label}}" *ngFor="let labels of notes">
+        <mat-icon>label_outline</mat-icon><span class="child-links">{{labels.label}}</span>
+      </a>
+      <a mat-list-item (click)="openDialog()">
+        <mat-icon> create</mat-icon>
+        <span class="child-links">Edit labels</span>
+      </a>
       <hr>
-      <a mat-list-item (click)="changeTitle('Archive')" routerLink="/homepage/archive"><mat-icon>archive</mat-icon>
-      <span class="child-links">Archive</span></a>
-      <a mat-list-item (click)="changeTitle('Trash')" routerLink="/homepage/trash"><mat-icon>delete</mat-icon>
-      <span class="child-links">Trash</span></a>
+      <a mat-list-item (click)="changeTitle('Archive')" routerLink="/homepage/archive">
+        <mat-icon>archive</mat-icon>
+        <span class="child-links">Archive</span>
+      </a>
+      <a mat-list-item (click)="changeTitle('Trash')" routerLink="/homepage/trash">
+        <mat-icon>delete</mat-icon>
+        <span class="child-links">Trash</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 
-<!-------------------------Mat-SideNav-Container ends--------------------------->
+  <!-------------------------Mat-SideNav-Container ends--------------------------->
 
-<!-------------------------Mat-SideNav-Content starts--------------------------->
+  <!-------------------------Mat-SideNav-Content starts--------------------------->
 
   <mat-sidenav-content>
     <router-outlet></router-outlet>

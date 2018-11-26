@@ -1,10 +1,9 @@
-<div >
+<div>
   <div>Collaborators
   </div>
   <hr>
   <div fxLayout='row' fxLayoutGap='10px'>
-    <button mat-mini-fab disabled 
-    [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button>
+    <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button>
     <div fxLayout='column'>
       <span>{{firstName}} {{lastName}}(owner)
       </span>
@@ -14,29 +13,33 @@
 
   <div fxLayout='column' fxLayoutGap='10px' class="space" *ngFor="let item of friendsNewList">
     <div fxLayout='row'>
-      <div fxLayout='row' fxLayoutGap='10px' >
+      <div fxLayout='row' fxLayoutGap='10px'>
         <button mat-mini-fab color="basic">{{item.firstName | slice: 0 :1}}</button>
         <div fxLayout='column'>
-          <span class ="name">{{item.firstName}} {{item.lastName}}
+          <span class="name">{{item.firstName}} {{item.lastName}}
           </span>
           <span class="email">{{item.email}}</span>
         </div>
       </div>
       <div>
-      <mat-icon (click)="removeCollaborator(item)">close</mat-icon>
+        <mat-icon (click)="removeCollaborator(item)">close</mat-icon>
       </div>
     </div>
   </div>
 
   <div class="button1" fxLayout='row' fxLayoutGap='10px'>
-    <button mat-mini-fab disabled><mat-icon>person_add</mat-icon></button>
-    <input class="input" type="text" placeholder="Person or email to share with"
-    (keydown)="myFunction($event)" [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
-    <button mat-button><mat-icon (click)="enterNames(searchNames)"  class = "done">done</mat-icon></button>
+    <button mat-mini-fab disabled>
+      <mat-icon>person_add</mat-icon>
+    </button>
+    <input class="input" type="text" placeholder="Person or email to share with" (keydown)="myFunction($event)"
+      [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
+    <button mat-button>
+      <mat-icon (click)="enterNames(searchNames)" class="done">done</mat-icon>
+    </button>
     <mat-menu #menu="matMenu">
       <div fxLayout='row' *ngFor="let value of collaborator">
         <button mat-button (click)="addCollaborator(value);select(value.email)">
-        {{value.firstName}} {{value.lastName}} {{value.email}}
+          {{value.firstName}} {{value.lastName}} {{value.email}}
         </button>
       </div>
     </mat-menu>
@@ -44,6 +47,6 @@
 
   <div fxLayoutAlign='end'>
     <button mat-button class="button2" (click)="cancel()">Cancel</button>
-    <button mat-button >Save</button>
+    <button mat-button>Save</button>
   </div>
 </div>

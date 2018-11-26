@@ -60,6 +60,7 @@ export class ColloboratorDialogComponent implements OnInit {
     }
     this.notesService.addCollaboratorNotes(this.data.id, body).subscribe(
       (data) => {
+
       })
   }
 
@@ -79,7 +80,14 @@ export class ColloboratorDialogComponent implements OnInit {
   removeCollaborator(item) {
     this.notesService.removeCollaborator(this.data.id, item.userId).subscribe(
       (data) => {
-      })
+    
+      for (var i = 0; i < this.friendsNewList.length; i++) {
+        if (this.friendsNewList[i].userId == item.userId) {
+          this.friendsNewList.splice(i, 1)
+        }
+      }
+    })
   }
+  
 
 }

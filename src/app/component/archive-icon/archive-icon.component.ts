@@ -1,21 +1,21 @@
-import { Component, OnInit, Input, EventEmitter, Output,OnDestroy} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-archive-icon',
   templateUrl: './archive-icon.component.html',
   styleUrls: ['./archive-icon.component.scss']
 })
-export class ArchiveIconComponent implements OnInit,OnDestroy{
+export class ArchiveIconComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   token = localStorage.getItem('token')
   constructor(public matSnackBar: MatSnackBar, private notesService: NotesService) { }
   @Input() archive;
   @Output() archiveNote = new EventEmitter
   @Output() unArchiveNote = new EventEmitter<boolean>()
-  private body;
+  public body;
 
   ngOnInit() {
   }
@@ -28,13 +28,13 @@ export class ArchiveIconComponent implements OnInit,OnDestroy{
       "noteIdList": [this.archive.id]
     }
     this.notesService.postArchivenotes(this.body)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(res => {
-      this.matSnackBar.open("Archived", 'Successfully', {
-        duration: 3000,
-      });
-      this.archiveNote.emit();
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        this.matSnackBar.open("Archived", 'Successfully', {
+          duration: 3000,
+        });
+        this.archiveNote.emit();
+      })
   }
 
   /*   calling post UnArchive Api
@@ -45,13 +45,13 @@ export class ArchiveIconComponent implements OnInit,OnDestroy{
       "noteIdList": [this.archive.id]
     }
     this.notesService.postArchivenotes(this.body)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(res => {
-      this.matSnackBar.open("UnArchived", 'Successfully', {
-        duration: 3000,
-      });
-      this.unArchiveNote.emit(true);
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        this.matSnackBar.open("UnArchived", 'Successfully', {
+          duration: 3000,
+        });
+        this.unArchiveNote.emit(true);
+      })
   }
 
   /*
