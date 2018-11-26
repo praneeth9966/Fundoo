@@ -31,7 +31,8 @@
     <button mat-mini-fab disabled>
       <mat-icon>person_add</mat-icon>
     </button>
-    <input class="input" type="text" placeholder="Person or email to share with" (keydown)="myFunction($event)"
+    <input class="input" type="text" placeholder="Person or email to share with"
+     (keyup)="myFunction($event)"
       [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
     <button mat-button>
       <mat-icon (click)="enterNames(searchNames)" class="done">done</mat-icon>
@@ -47,6 +48,6 @@
 
   <div fxLayoutAlign='end'>
     <button mat-button class="button2" (click)="cancel()">Cancel</button>
-    <button mat-button>Save</button>
+    <button mat-button (click)="cancel()">Save</button>
   </div>
 </div>

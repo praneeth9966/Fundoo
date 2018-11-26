@@ -41,13 +41,14 @@ export class ColloboratorDialogComponent implements OnInit {
   image = localStorage.getItem('imageUrl');
   profile = environment.profileUrl + this.image;
 
-  myFunction(searchNames) {
+  myFunction(event) {
+    
     let body = {
       "searchWord": this.searchNames
     }
     this.userService.searchCollaborator(body).subscribe(
       (data) => {
-        this.collaborator = data['data']['details']
+        this.collaborator = data['data']['details'];
       })
   }
 
@@ -60,7 +61,7 @@ export class ColloboratorDialogComponent implements OnInit {
     }
     this.notesService.addCollaboratorNotes(this.data.id, body).subscribe(
       (data) => {
-
+this.data['collaborators'].push(result)
       })
   }
 
@@ -83,7 +84,9 @@ export class ColloboratorDialogComponent implements OnInit {
     
       for (var i = 0; i < this.friendsNewList.length; i++) {
         if (this.friendsNewList[i].userId == item.userId) {
-          this.friendsNewList.splice(i, 1)
+          this.friendsNewList.splice(i, 1);
+          this.data['collaborators'].splice(i,1);
+
         }
       }
     })
