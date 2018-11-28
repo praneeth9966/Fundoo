@@ -81,15 +81,15 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-nav-list>
-      <a mat-list-item (click)="changeTitle('fundoo Notes')" routerLink="/homepage/notes">
+      <a mat-list-item (click)="changeTitle('fundoo Notes')" routerLink="/homepage/notes" routerLinkActive="activelink">
         <mat-icon> book</mat-icon><span class="child-links">Notes</span>
       </a>
-      <a mat-list-item (click)="changeTitle('Reminders')" routerLink="/homepage/reminders">
+      <a mat-list-item (click)="changeTitle('Reminders')" routerLink="/homepage/reminders" routerLinkActive="activelink">
         <mat-icon> touch_app</mat-icon><span class="child-links">Reminders</span>
       </a>
       <hr>
-      <a mat-list-item><span class="child-links1">LABELS</span></a>
-      <a mat-list-item (click)="change(labels)" routerLink="/homepage/labels/{{labels.label}}" *ngFor="let labels of notes">
+      <a mat-list-item><span class="child-links1" routerLinkActive="activelink">LABELS</span></a>
+      <a mat-list-item (click)="change(labels)" routerLink="/homepage/labels/{{labels.label}}" routerLinkActive="activelink" *ngFor="let labels of notes">
         <mat-icon>label_outline</mat-icon><span class="child-links">{{labels.label}}</span>
       </a>
       <a mat-list-item (click)="openDialog()">
@@ -97,11 +97,11 @@
         <span class="child-links">Edit labels</span>
       </a>
       <hr>
-      <a mat-list-item (click)="changeTitle('Archive')" routerLink="/homepage/archive">
+      <a mat-list-item (click)="changeTitle('Archive')" routerLink="/homepage/archive" routerLinkActive="activelink">
         <mat-icon>archive</mat-icon>
         <span class="child-links">Archive</span>
       </a>
-      <a mat-list-item (click)="changeTitle('Trash')" routerLink="/homepage/trash">
+      <a mat-list-item (click)="changeTitle('Trash')" routerLink="/homepage/trash" routerLinkActive="activelink">
         <mat-icon>delete</mat-icon>
         <span class="child-links">Trash</span>
       </a>

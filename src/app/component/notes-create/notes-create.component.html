@@ -88,6 +88,8 @@
         </div>
 
       </div>
+
+      <div class="space"></div>
       <!------------------adding and Removeing reminders ends------------------->
 
       <!------------------adding and Removeing Labels starts------------------->
@@ -102,16 +104,16 @@
           </mat-chip-list>
         </div>
       </div>
+      <div class="space"></div>
       <!------------------adding and Removeing Labels ends------------------->
 
       <div fxLayout="row wrap" fxLayoutGap="5px">
         <div *ngFor="let item of friendsNewList">
-          <button mat-mini-fab color="basic" (click)="colloborator(notes)" matTooltip="{{item.firstName}}">
+          <button mat-mini-fab color="basic" (click)="collaboratorButton()"  matTooltip="{{item.firstName}}">
             {{item.firstName | slice : 0 : 1}}
           </button>
         </div>
       </div>
-
       <!------------------MatCardActions starts------------------->
 
       <mat-card-actions>

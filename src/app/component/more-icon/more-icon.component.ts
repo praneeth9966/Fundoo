@@ -4,6 +4,7 @@ import { DeleteDialogComponent } from '../../component/delete-dialog/delete-dial
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-more-icon',
   templateUrl: './more-icon.component.html',
@@ -20,7 +21,8 @@ export class MoreIconComponent implements OnInit, OnDestroy {
   private body;
   private labelBody = {};
 
-  constructor(private dialog: MatDialog, private matSnackBar: MatSnackBar, private notesService: NotesService) { }
+  constructor(private dialog: MatDialog, private matSnackBar: MatSnackBar, private notesService: NotesService,
+    public router:Router) { }
   @Output() deleteNote = new EventEmitter();
   @Output() addedLabel = new EventEmitter();
   @Output() trashEvent = new EventEmitter<boolean>();
@@ -123,6 +125,9 @@ export class MoreIconComponent implements OnInit, OnDestroy {
       })
   }
 
+  askAQuestion(){
+    this.router.navigate(['homepage/notes/'+this.notesArray.id+'/questions'])
+  }
   /*
  This method will be executed just before Angular destroys the components
  */

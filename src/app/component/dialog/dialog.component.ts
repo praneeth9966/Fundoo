@@ -218,6 +218,8 @@ export class DialogComponent implements OnInit, OnDestroy {
   colloborator(noteData) {
     this.dialog.open(ColloboratorDialogComponent, {
       width: '500px',
+      maxWidth:'auto',
+      panelClass: 'myapp-no-padding-dialog',
       data: noteData
     });
   }

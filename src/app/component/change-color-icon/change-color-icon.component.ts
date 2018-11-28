@@ -1,7 +1,24 @@
+/************************************************************************************************
+*  Execution       :   1. default node         cmd> change-color-icon.ts 
+*        
+*  Purpose         : when you click change-color-icon particular card color should be changed 
+* 
+*  Description    
+* 
+*  @file           : change-color-icon.ts
+*  @overview       : when you click change-color-icon particular card color should be changed
+*  @module         : change-color-icon.ts - This is optional if expeclictly its an npm or local package
+*  @author         : Praneeth Kunapareddy <kunapareddypraneeth47@gmail.com>
+*  @since          : 20-10-2018
+*
+*************************************************************************************************/
+/**component has imports , decorator & class */
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+/**A componenet can be reused throughout the application & even in other applications */
 @Component({
   selector: 'app-change-color-icon',
   templateUrl: './change-color-icon.component.html',
@@ -10,6 +27,9 @@ import { takeUntil } from 'rxjs/operators';
 export class ChangeColorIconComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private notesService: NotesService) { }
+
+  /**Input and Output are two decorators in Angular responsible for communication between
+   *  two components*/
   @Input() notesArray;
   @Output() noteColor = new EventEmitter();
   @Output() ParentNoteColor = new EventEmitter<string>();
@@ -29,6 +49,9 @@ export class ChangeColorIconComponent implements OnInit, OnDestroy {
   { 'color': '#e6c9a8', 'name': 'Brown' },
   { 'color': '#e8eaed', 'name': 'Gray' }]]
 
+  /**it is a interface */
+  /**OnInit is a lifecycle hook that is called after Angular has initialized 
+   * all data-bound properties of a directive. */
   ngOnInit() {
   }
 

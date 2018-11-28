@@ -1,53 +1,66 @@
-<div>
-  <div>Collaborators
-  </div>
-  <hr>
-  <div fxLayout='row' fxLayoutGap='10px'>
-    <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button>
-    <div fxLayout='column'>
-      <span>{{firstName}} {{lastName}}(owner)
-      </span>
-      <span class="email">{{email}}</span>
-    </div>
-  </div>
+<mat-card ngStyle.xs="width:90%" class="collaborator">
+  <mat-card-content>
+    <div class="collab">Collaborators</div>
+    <hr>
+    <!------------------------------------- owner div---------------------------------------- -->
+    <div fxLayout="row " fxLayoutGap="20px">
+      <button *ngIf="ownerProfile!=''" mat-mini-fab [ngStyle]="{'background-image':'url(' +ownerProfile+ ')','background-size':'cover'}">
+      </button>
+      <button *ngIf="ownerProfile==''" mat-mini-fab>
+        {{owner.firstName | titlecase | slice : 0 : 1 }}
+      </button>
 
-  <div fxLayout='column' fxLayoutGap='10px' class="space" *ngFor="let item of friendsNewList">
-    <div fxLayout='row'>
-      <div fxLayout='row' fxLayoutGap='10px'>
-        <button mat-mini-fab color="basic">{{item.firstName | slice: 0 :1}}</button>
-        <div fxLayout='column'>
-          <span class="name">{{item.firstName}} {{item.lastName}}
-          </span>
-          <span class="email">{{item.email}}</span>
+      <mat-content fxFlex class="content">
+        {{owner.firstName}} {{owner.lastName}}(owner)
+      </mat-content>
+    </div>
+
+    <div class="contentNew">
+      <mat-content fxFlex="30">{{owner.email}}</mat-content>
+    </div>
+
+    <!-------------------------------------  receiver div--------------------------------- -->
+
+    <div *ngFor="let item of friendsNewList" fxLayout="row" class="index" fxLayoutGap="20px">
+
+      <button class="basic" mat-mini-fab color="primary"> {{item.firstName | uppercase | slice : 0 : 1 }}
+      </button>
+
+      <mat-content fxFlex class="content">
+        {{item.email}} </mat-content>
+      <mat-button fxFlex="7" matTooltip="Delete" class="delete" (click)="removeCollaborator(item)">
+        <mat-icon>clear</mat-icon>
+      </mat-button>
+    </div>
+
+    <!------------------------------------- search receiver div--------------------------------- -->
+
+    <div class="person">
+      <button class="fab" mat-mini-fab color="basic">
+        <mat-icon>person_add</mat-icon>
+      </button>
+
+      <input fxFlex [matMenuTriggerFor]="menu" class="input" type="text" (keyup)="myFunction($event)" name="search"
+        [(ngModel)]="searchNames" placeholder="Person or email to share with">
+
+      <mat-button fxFlex="7" matTooltip="Add Collaborator" (click)="enterNames(searchNames)">
+        <mat-icon class="done">done</mat-icon>
+      </mat-button>
+      <!-- --------------------------------mat menu div-------------------------------------- -->
+      <mat-menu class="menu" #menu="matMenu" [overlapTrigger]="false">
+
+        <div *ngFor="let item of collaborator">
+          <button (click)="addCollaborator(item);select(item.email)" mat-button>
+            {{item.firstName}} {{item.lastName}} < {{item.email}}>
+          </button>
         </div>
-      </div>
-      <div>
-        <mat-icon (click)="removeCollaborator(item)">close</mat-icon>
-      </div>
+
+      </mat-menu>
     </div>
-  </div>
 
-  <div class="button1" fxLayout='row' fxLayoutGap='10px'>
-    <button mat-mini-fab disabled>
-      <mat-icon>person_add</mat-icon>
-    </button>
-    <input class="input" type="text" placeholder="Person or email to share with"
-     (keyup)="myFunction($event)"
-      [matMenuTriggerFor]="menu" [(ngModel)]='searchNames'>
-    <button mat-button>
-      <mat-icon (click)="enterNames(searchNames)" class="done">done</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <div fxLayout='row' *ngFor="let value of collaborator">
-        <button mat-button (click)="addCollaborator(value);select(value.email)">
-          {{value.firstName}} {{value.lastName}} {{value.email}}
-        </button>
-      </div>
-    </mat-menu>
+  </mat-card-content>
+  <div fxLayoutAlign="end" fxLayoutGap="10px">
+    <button class="cancel" matTooltip="Cancel" (click)="cancel()" mat-button color="basic">Cancel</button>
+    <button class="cancel" matTooltip="Save" (click)="cancel()" mat-button color="basic">Save</button>
   </div>
-
-  <div fxLayoutAlign='end'>
-    <button mat-button class="button2" (click)="cancel()">Cancel</button>
-    <button mat-button (click)="cancel()">Save</button>
-  </div>
-</div>
+</mat-card>

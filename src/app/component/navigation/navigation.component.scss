@@ -36,7 +36,7 @@
 .search-box {
   @include overflow();
   height: 40px;  
-  background-color: $typekit-white;
+  background-color: rgba(0,0,0,0.04);
   border-radius: 5px;
 }
 
@@ -121,4 +121,8 @@
   margin-top:5px;
   float:left;
   word-break: break-word;
+}
+.mat-nav-list .activelink{
+  background-color: $typekit-yellow;
+  border-radius: 0px 20px 20px 0px;
 }

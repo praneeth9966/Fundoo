@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
-      this.email.hasError('email') ? 'Not a valid email' :
-        '';
+      this.email.hasError('email') ? 'Not a valid email' :'';
   }
 
   constructor(private matSnackBar: MatSnackBar, private userService: UsersService, private notesService: NotesService) { }

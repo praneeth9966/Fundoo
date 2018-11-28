@@ -50,6 +50,7 @@ import { InterceptService} from './core/services/interceptor/intercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsHandler } from './core/services/errorhandler/errors-handler';
 import { ColloboratorDialogComponent } from './component/colloborator-dialog/colloborator-dialog.component';
+import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 
 
 
@@ -84,6 +85,7 @@ import { ColloboratorDialogComponent } from './component/colloborator-dialog/col
     CropImageComponent,
     PinComponent,
     ColloboratorDialogComponent,
+    QuestionAnswerComponent,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

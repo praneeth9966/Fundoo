@@ -1,9 +1,27 @@
+/************************************************************************************************
+*  Execution       :   1. default node         cmd> change-label.ts 
+*        
+*  Purpose         : when u click on particular label it will redirect to that label state
+* 
+*  Description    
+* 
+*  @file           : change-label.ts
+*  @overview       : when u click on particular label it will redirect to that label state
+*  @module         : change-label.ts - This is optional if expeclictly its an npm or local package
+*  @author         : Praneeth Kunapareddy <kunapareddypraneeth47@gmail.com>
+*  @since          : 20-10-2018
+*
+*************************************************************************************************/
+/**component has imports , decorator & class */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Notes } from 'src/app/core/model/notes';
+
+/**A componenet can be reused throughout the application & even in other applications */
 @Component({
   selector: 'app-change-label',
   templateUrl: './change-label.component.html',
@@ -23,6 +41,9 @@ export class ChangeLabelComponent implements OnInit, OnDestroy {
       })
   }
 
+  /**it is a interface */
+  /**OnInit is a lifecycle hook that is called after Angular has initialized 
+   * all data-bound properties of a directive. */
   ngOnInit() {
     this.displayNotes();
   }

@@ -10,6 +10,7 @@
         <button mat-button *ngIf="name!='trash'" (click)=deleteNotes()>Delete note</button>
         <button mat-menu-item *ngIf="name!='trash'" [matMenuTriggerFor]="labelMenu" (click)="getLabels(notesArray)">Add
             label</button>
+        <button mat-button (click)="askAQuestion()">Ask A Question</button>
     </div>
 </mat-menu>
 

@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UsersService } from 'src/app/core/services/users/users.service';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-notes-create',
   templateUrl: './notes-create.component.html',
@@ -41,7 +42,7 @@ export class NotesCreateComponent implements OnInit, OnDestroy {
   private searchNames;
   private collaborator = [];
   private friendsNewList = [];
-  constructor(private notesService: NotesService,private userService:UsersService) { }
+  constructor(private notesService: NotesService,private userService:UsersService,private snackBar:MatSnackBar) { }
 
   @Output() messageEvent = new EventEmitter();
   @Output() newEvent = new EventEmitter();
@@ -274,6 +275,15 @@ export class NotesCreateComponent implements OnInit, OnDestroy {
   }
 
   enterNames(searchPerson) {
+    for (let j = 0; j < this.friendsNewList.length; j++) {
+      if (this.searchNames == this.friendsNewList[j].email) {
+        this.snackBar.open("Collaborator already exists", "fail", {
+          duration: 3000
+        })
+        this.searchNames = null;
+        return false;
+      }
+    }
     for (let index = 0; index < this.collaborator.length; index++) {
       if (this.collaborator[index].email == searchPerson) {
         this.friendsNewList.push(this.collaborator[index]);

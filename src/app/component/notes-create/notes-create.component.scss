@@ -1,5 +1,5 @@
 @import '../../../scss/mixins';
-
+@import '../../../scss/variables';
 .width
 {
     width:60%;
@@ -135,3 +135,7 @@
 .collaborator{
     margin-top:30px;
 }
+.space{
+    padding-top:5px;
+  }
+

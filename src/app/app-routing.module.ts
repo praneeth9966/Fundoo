@@ -13,6 +13,7 @@ import { AuthGuard } from './core/services/auth-guard/auth.guard';
 import { LabelsComponent } from './component/labels/labels.component';
 import { SearchComponent } from './component/search/search.component';
 import { ChangeLabelComponent } from './component/change-label/change-label.component'
+import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -45,6 +46,10 @@ const appRoutes: Routes = [
         component: LabelsComponent
       },
 
+      {
+        path: 'notes/:noteid/questions',
+        component: QuestionAnswerComponent
+      },
 
       {
         path: 'search',

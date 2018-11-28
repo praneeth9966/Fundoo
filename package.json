@@ -1,13 +1,14 @@
 {
-  "name": "fundoo",
+  "name": "fundoo-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --code-coverage --sourceMap=true",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server": "http-server"
   },
   "private": true,
   "dependencies": {
@@ -16,7 +17,6 @@
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
     "@angular/core": "^6.1.0",
-    "@angular/fire": "^5.1.0",
     "@angular/flex-layout": "^6.0.0-beta.18",
     "@angular/forms": "^6.1.0",
     "@angular/http": "^6.1.0",
@@ -24,10 +24,17 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "angular-checklist": "^1.3.0",
+    "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "firebase": "^5.5.8",
+    "jquery": "^3.3.1",
+    "json-server": "^0.14.0",
     "ngx-image-cropper": "^1.2.2",
+    "ngx-spinner": "^6.1.2",
+    "popper.js": "^1.14.4",
     "rxjs": "~6.2.0",
+    "tooltip.js": "^1.3.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -39,28 +46,25 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.3.0",
+    "http-server": "^0.11.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~3.0.0",
+    "karma": "^3.0.0",
     "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage": "^1.1.2",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sinon-chai": "^2.0.2",
+    "karma-teamcity-reporter": "^1.1.0",
+    "karma-typescript": "^3.0.13",
+    "mocha": "^5.2.0",
+    "node-sass": "^4.10.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~2.9.2"
-  },
-  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/praneeth9966/Fundoo.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/praneeth9966/Fundoo/issues"
-  },
-  "homepage": "https://github.com/praneeth9966/Fundoo#readme"
+  }
 }

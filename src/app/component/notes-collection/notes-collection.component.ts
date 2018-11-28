@@ -52,6 +52,7 @@ export class NotesCollectionComponent implements OnInit, OnDestroy {
   update(notes): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',
+      maxWidth:'auto',
       panelClass: 'myapp-no-padding-dialog',
       data: notes
     });
@@ -178,6 +179,8 @@ export class NotesCollectionComponent implements OnInit, OnDestroy {
   colloborator(collaborator) {
     this.dialog.open(ColloboratorDialogComponent, {
       width: '500px',
+      maxWidth:'auto',
+      panelClass: 'myapp-no-padding-dialog',
       data: collaborator
     });
   }

@@ -139,4 +139,9 @@ export class NotesService {
     let url = this.url + "notes/" + note+ "/removeCollaboratorsNotes/"+userid;
     return this.note.delete(url);
   }
+  
+  getQuestions(noteId) {
+    let url = this.url + '/notes/getNotesDetail/'+noteId;
+    return this.service.httpget(url);
+  }
 }
