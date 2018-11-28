@@ -5,6 +5,7 @@ import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
+import { Router } from '@angular/router';
 export interface DialogData {
   title: string;
   description: string;
@@ -40,7 +41,7 @@ export class DialogComponent implements OnInit, OnDestroy {
   private value;
 
   constructor(private notesService: NotesService,private dialog:MatDialog,
-    private dialogRef: MatDialogRef<NotesCollectionComponent>,
+    private route:Router,private dialogRef: MatDialogRef<NotesCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DialogData) { }
 
   ngOnInit() {
@@ -222,5 +223,9 @@ export class DialogComponent implements OnInit, OnDestroy {
       panelClass: 'myapp-no-padding-dialog',
       data: noteData
     });
+  }
+
+  redirectToQuestion(noteid){
+    this.route.navigate(['/homepage/notes/'+noteid+'/questions'])
   }
 }

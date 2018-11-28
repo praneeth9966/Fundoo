@@ -143,6 +143,12 @@
           </button>
         </div>
       </div>
+      
+      <div *ngFor="let item of notes.questionAndAnswerNotes" (click)="redirectToQuestion(notes.id)">
+          
+        <hr>
+            {{item.message}} 
+      </div>
       <!------------------------- Adding and Removing Collaborators ends------------------->
 
       <!----------------------- MatCardActions starts------------------------->

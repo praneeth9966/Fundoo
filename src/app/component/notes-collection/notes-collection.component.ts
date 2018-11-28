@@ -6,6 +6,7 @@ import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
@@ -26,7 +27,8 @@ export class NotesCollectionComponent implements OnInit, OnDestroy {
   @Input() string;
   @Input() length;
 
-  constructor(private notesService: NotesService, private dialog: MatDialog, private dataService: DataService) {
+  constructor(private notesService: NotesService, private dialog: MatDialog, 
+    private dataService: DataService,private route:Router) {
     this.dataService.currentEvent.subscribe(message => {
       if (message) {
         this.notifyParent.emit();
@@ -191,5 +193,9 @@ export class NotesCollectionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  redirectToQuestion(noteid){
+    this.route.navigate(['/homepage/notes/'+noteid+'/questions'])
   }
 }

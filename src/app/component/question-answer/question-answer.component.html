@@ -1,9 +1,16 @@
 <mat-card>
-  <div fxLayoutAlign="end"> 
+  <div fxLayoutAlign="end">
     <button routerLink="/homepage/notes">close</button>
   </div>
   <mat-card-title [innerHTML]="title"></mat-card-title>
   <mat-card-content [innerHTML]="description"></mat-card-content>
+  <div *ngIf="hide==0">
+    <hr>
+    <p>Question Asked</p>
+    <input contentEditable=true placeholder="Type here..." class="input" [(ngModel)]="question" (keydown.enter)="postQuestion(question)">
+  </div>
+  <div *ngIf="hide==1">
+      <hr>
+    {{askAQuestion}}
+  </div>
 </mat-card>
-<p>Question Asked</p>
-
