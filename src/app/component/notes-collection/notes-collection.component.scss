@@ -86,3 +86,13 @@ mat-card-content {
 .remindericon{
   opacity:0;
 }
+
+.qasked{
+  font-size: 20px;
+  @include cursor();
+}
+
+.message{
+  color: gray;
+  padding-top:10px;
+}

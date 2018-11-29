@@ -1,16 +1,102 @@
+<div fxLayout='column' style="height:600px">
 <mat-card>
   <div fxLayoutAlign="end">
     <button routerLink="/homepage/notes">close</button>
   </div>
+
   <mat-card-title [innerHTML]="title"></mat-card-title>
   <mat-card-content [innerHTML]="description"></mat-card-content>
-  <div *ngIf="hide==0">
+
+  <div>
     <hr>
     <p>Question Asked</p>
-    <input contentEditable=true placeholder="Type here..." class="input" [(ngModel)]="question" (keydown.enter)="postQuestion(question)">
   </div>
-  <div *ngIf="hide==1">
-      <hr>
-    {{askAQuestion}}
+
+  <div *ngIf="askAQuestion == null">
+    <input contentEditable=true placeholder="Type here..." class="input" [(ngModel)]="type" (keydown.enter)="postQuestion(type)">
+  </div>
+
+  <div *ngIf="askAQuestion != null" class="askq">{{askAQuestion}}
+
   </div>
 </mat-card>
+<div style="overflow-y:scroll">
+
+<div fxLayout="row" class="qbutton" fxLayoutGap="10px">
+  <div><button mat-mini-fab [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button></div>
+  <div fxLayout="column">
+    <div class="usize">Username
+      <span>{{createdDate}}</span>
+    </div>
+
+    <div fxLayout="row">
+      <div class="qsize">{{askAQuestion}}
+        <span class="image"><img src='../../../assets/images/baseline-reply-24px.svg'></span>
+        <span>
+          <mat-icon (click)="like()">thumb_up</mat-icon>
+        </span>
+        <span class="count">{{likeCount}}</span>
+      </div>
+      <div class="star">
+        <bar-rating [(rate)]="rate" [max]="5"></bar-rating>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row">
+  <input contentEditable=true placeholder="Reply here..." class="input" [(ngModel)]="reply" (keydown.enter)="replyQuestion(reply)">
+  <div fxLayoutAlign="end">
+    <button>Reply</button>
+  </div>
+
+</div>
+
+
+
+<div *ngFor="let item of fullArray" fxLayout="column">
+<div fxLayout="row" class="qbutton" fxLayoutGap="10px">
+
+    <div><button mat-mini-fab></button></div>
+  <div fxLayout="column">
+     
+    <div class="usize">Username
+      <span>{{createdDate}}</span>
+    </div>
+
+    <div fxLayout="row"  fxLayoutGap="10px">
+<div>
+    {{item.message}}
+</div>
+     
+<div fxLayout="row" fxFlex=20 fxLayoutGap="10px" >
+  <div (click)='replyAnswerShow = item.id'>
+      <span class="image"><img src='../../../assets/images/baseline-reply-24px.svg'></span>
+  </div>
+  <div>
+      <span>
+          <mat-icon (click)="like()">thumb_up</mat-icon>
+        </span>
+  </div>
+    <div>
+        <span class="count">{{likeCount}}</span>
+    </div>
+    <div class="star">
+      <bar-rating [(rate)]="rate" [max]="5"></bar-rating>
+    </div>
+</div>
+    
+    </div>
+    <div fxLayout="row" *ngIf='replyAnswerShow == item.id'>
+        <input contentEditable=true placeholder="Reply here..." class="input" [(ngModel)]="reply" (keydown.enter)="replyQuestion(reply)">
+        <div fxLayoutAlign="end">
+          <button (click)="replyQuestion(reply)">Reply</button>
+        </div>
+      
+      </div>
+  </div>
+ 
+</div>
+</div>
+</div>
+</div>

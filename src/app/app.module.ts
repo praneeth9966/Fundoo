@@ -51,7 +51,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsHandler } from './core/services/errorhandler/errors-handler';
 import { ColloboratorDialogComponent } from './component/colloborator-dialog/colloborator-dialog.component';
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
-
+import { BarRatingModule } from "ngx-bar-rating";
 
 
 @NgModule({
@@ -117,7 +117,8 @@ import { QuestionAnswerComponent } from './component/question-answer/question-an
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ImageCropperModule
+    ImageCropperModule,
+    BarRatingModule
   ],
   entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent,ColloboratorDialogComponent],
   providers: [HttpService, DataService, MatDatepickerModule, LoggerService,MessagingService,InterceptService,{

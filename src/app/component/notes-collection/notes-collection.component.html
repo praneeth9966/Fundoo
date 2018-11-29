@@ -59,7 +59,7 @@
       </div>
 
       <div class="space"></div>
-      
+
       <!------------------------- Adding and Removing Labels ends------------------->
 
       <!------------------------- Adding and Removing Reminders starts------------------->
@@ -143,12 +143,8 @@
           </button>
         </div>
       </div>
+
       
-      <div *ngFor="let item of notes.questionAndAnswerNotes" (click)="redirectToQuestion(notes.id)">
-          
-        <hr>
-            {{item.message}} 
-      </div>
       <!------------------------- Adding and Removing Collaborators ends------------------->
 
       <!----------------------- MatCardActions starts------------------------->
@@ -167,7 +163,14 @@
       </mat-card-actions>
 
       <!----------------------- MatCardActions ends------------------------->
+
+      <div *ngIf="notes.questionAndAnswerNotes.length!=0">
+          <hr>
+          <div class="qasked" (click)="redirectToQuestion(notes.id)">Question Asked</div>
+          <div class="message">{{notes.questionAndAnswerNotes[0].message}}</div>
+        </div>
+
     </mat-card>
     <div fxLayout="row" fxFlex.xs=0 fxFlex.sm=0 fxFlex.md=5 fxFlex.lg=5 fxFlex.xl=10>
     </div>
-    </div>
+  </div>
