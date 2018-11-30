@@ -1,102 +1,221 @@
-<div fxLayout='column' style="height:600px">
-<mat-card>
-  <div fxLayoutAlign="end">
-    <button routerLink="/homepage/notes">close</button>
+<!--  --------------------------------Main question answer matcard----------------------------------------- -->
+<div fxFlex=5 fxShow=true fxShow.xs=false fxShow.sm=false></div>
+<!-- <div  fxLayout="column"> -->
+<div fxFlex=95 ngStyle.xs="width:90%" class="questionCard">
+
+  <!---------------------displaying Title starts------------------------>
+  <div fxLayout="row">
+    <div [innerHTML]="noteTitle" class="title" fxFlex></div>
+    <button fxFlex="5" mat-button (click)="closeQuestion()">CLOSE</button>
   </div>
+  <!---------------------displaying Title ends------------------------>
 
-  <mat-card-title [innerHTML]="title"></mat-card-title>
-  <mat-card-content [innerHTML]="description"></mat-card-content>
-
+  <!------------------------displaying Description starts------------------------->
   <div>
+    <div class="desc" [innerHTML]="noteDescription"></div>
     <hr>
-    <p>Question Asked</p>
   </div>
+  <!------------------------displaying Description ends------------------------->
 
-  <div *ngIf="askAQuestion == null">
-    <input contentEditable=true placeholder="Type here..." class="input" [(ngModel)]="type" (keydown.enter)="postQuestion(type)">
-  </div>
-
-  <div *ngIf="askAQuestion != null" class="askq">{{askAQuestion}}
-
-  </div>
-</mat-card>
-<div style="overflow-y:scroll">
-
-<div fxLayout="row" class="qbutton" fxLayoutGap="10px">
-  <div><button mat-mini-fab [ngStyle]="{'background-image':'url(' +profile+ ')','background-size':'cover'}"></button></div>
-  <div fxLayout="column">
-    <div class="usize">Username
-      <span>{{createdDate}}</span>
-    </div>
-
-    <div fxLayout="row">
-      <div class="qsize">{{askAQuestion}}
-        <span class="image"><img src='../../../assets/images/baseline-reply-24px.svg'></span>
-        <span>
-          <mat-icon (click)="like()">thumb_up</mat-icon>
-        </span>
-        <span class="count">{{likeCount}}</span>
-      </div>
-      <div class="star">
-        <bar-rating [(rate)]="rate" [max]="5"></bar-rating>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div fxLayout="row">
-  <input contentEditable=true placeholder="Reply here..." class="input" [(ngModel)]="reply" (keydown.enter)="replyQuestion(reply)">
-  <div fxLayoutAlign="end">
-    <button>Reply</button>
-  </div>
-
-</div>
-
-
-
-<div *ngFor="let item of fullArray" fxLayout="column">
-<div fxLayout="row" class="qbutton" fxLayoutGap="10px">
-
-    <div><button mat-mini-fab></button></div>
-  <div fxLayout="column">
-     
-    <div class="usize">Username
-      <span>{{createdDate}}</span>
-    </div>
-
-    <div fxLayout="row"  fxLayoutGap="10px">
-<div>
-    {{item.message}}
-</div>
-     
-<div fxLayout="row" fxFlex=20 fxLayoutGap="10px" >
-  <div (click)='replyAnswerShow = item.id'>
-      <span class="image"><img src='../../../assets/images/baseline-reply-24px.svg'></span>
-  </div>
-  <div>
-      <span>
-          <mat-icon (click)="like()">thumb_up</mat-icon>
-        </span>
-  </div>
+  <!------------------------displaying CheckList starts------------------------->
+  <div *ngFor="let list of checkList">
     <div>
-        <span class="count">{{likeCount}}</span>
+      <mat-checkbox [ngModel]="true" *ngIf="list.status=='close' && list.isDeleted==false"></mat-checkbox>
+      <span *ngIf="list.status=='close' && list.isDeleted==false">{{list.itemName}}</span>
+
+      <mat-checkbox [ngModel]="false" *ngIf="list.status=='open' && list.isDeleted==false"></mat-checkbox>
+      <span *ngIf="list.status=='open' && list.isDeleted==false">{{list.itemName}}</span>
+
     </div>
-    <div class="star">
-      <bar-rating [(rate)]="rate" [max]="5"></bar-rating>
-    </div>
-</div>
-    
-    </div>
-    <div fxLayout="row" *ngIf='replyAnswerShow == item.id'>
-        <input contentEditable=true placeholder="Reply here..." class="input" [(ngModel)]="reply" (keydown.enter)="replyQuestion(reply)">
-        <div fxLayoutAlign="end">
-          <button (click)="replyQuestion(reply)">Reply</button>
-        </div>
-      
-      </div>
   </div>
- 
+  <!------------------------displaying CheckList ends------------------------->
+
+  <!-- -------------------------asking Question starts------------------------->
+  <div class="top">Question Asked
+  </div>
+  <!-- <div *ngIf="message==null">
+    <input [(ngModel)]="questionAsked" class="border top" (keydown.enter)="askQuestion(questionAsked)" placeholder="Ask a Question">
+  </div> -->
+
+  <div *ngIf="message==null" fxLayout="row">
+    <div class="border top" #questionAsked contenteditable="true" 
+    data-text="Ask a Question">
+    </div>
+    <div  fxLayoutAlign="end">
+      <mat-icon class="cursor" (click)="askQuestion()" mat-button >send</mat-icon>
+    </div>
+  </div>
+
+  <div class="newMsg">
+    <div> {{message}}</div>
+  </div>
+  <!-- -------------------------asking Question ends------------------------->
+
+  <!------------------------display question message starts---------------------->
+  <div class="scroll" *ngIf="message!=null">
+    <div ngStyle.xs="width:100%" fxLayout="row" class="fabBtn ">
+
+      <button *ngIf="img!=''" mat-mini-fab [ngStyle]="{'background-image':'url(' +profilePic+ questionAnswerArray[0].user.imageUrl+ ')','background-size':'cover'}">
+      </button>
+      <button *ngIf="img==''" mat-mini-fab>
+        {{questionAnswerArray[0].user.firstName | titlecase | slice : 0 : 1 }}
+      </button>
+
+      <div class="msgNew"></div>
+
+      <div fxFlex class="user">{{questionAnswerArray[0].user.firstName | titlecase}}
+        {{questionAnswerArray[0].user.lastName | titlecase}}
+        <span class="span">{{questionAnswerArray[0].modifiedDate | date:medium}}</span>
+        <div class="msg ">{{questionAnswerArray[0].message}}</div>
+      </div>
+
+      <div fxFlex=28 fxLayout="end" class="icons" fxLayout="row">
+
+        <!------------------------reply icon starts---------------------->
+        <div>
+          <mat-icon matTooltip="Reply" class="icon" 
+                    (click)="replyQuestion = questionAnswerArray[0].id ">reply</mat-icon>
+        </div>
+        <!------------------------reply icon ends---------------------->
+
+        <!------------------------like icon starts---------------------->
+        <div>
+          <mat-icon matTooltip="Like" class="icon" (click)="like(questionAnswerArray[0].id)">thumb_up_alt</mat-icon>
+        </div>
+        <div class="count user">{{questionAnswerArray[0].like.length}}</div>
+        <!------------------------like icon ends---------------------->
+
+        <!-----------------------give the rating icon starts---------------------->
+        <div class="icon" class="rate " *ngIf="questionAnswerArray[0].rate.length!=0">
+          <bar-rating (rateChange)="ratingAnswer(questionAnswerArray[0],$event)" [(rate)]="questionAnswerArray[0].rate[0].rate"
+            [max]="5"></bar-rating>
+        </div>
+
+        <div class="icon" class="rate " *ngIf="questionAnswerArray[0].rate.length==0">
+          <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(questionAnswerArray[0],$event)" [max]="5"></bar-rating>
+        </div>
+        <!-----------------------give the rating icon ends---------------------->
+      </div>
+
+    </div>
+
+    
+
+    <div *ngIf="replyQuestion == questionAnswerArray[0].id" fxLayout="row">
+      <div class="textNew user" #replyMessage contenteditable="true" 
+      data-text="Leave a reply">
+      </div>
+      <div  fxLayoutAlign="end">
+        <mat-icon class="cursor" (click)="leaveReply(questionAnswerArray[0].id)" mat-button >send</mat-icon>
+      </div>
+    </div>
+
+    <!-------------------------2nd div -enter the comment or reply starts----------------------->
+    <div *ngFor=" let value of questionAnswerArray" style="margin-left:10%">
+      <div *ngIf="value.parentId == questionAnswerArray[0].id">
+        <div ngStyle.xs="width:100%" fxLayout="row" class="fabBtn ">
+
+          <button *ngIf="img!=''" mat-mini-fab [ngStyle]="{'background-image':'url(' +profilePic+ value.user.imageUrl+')','background-size':'cover'}">
+          </button>
+          <button *ngIf="img==''" mat-mini-fab>
+            {{value.user.firstName | titlecase | slice : 0 : 1 }}
+          </button>
+
+          <div class="msgNew"></div>
+
+          <div fxFlex class="user">{{value.user.firstName | titlecase}} {{value.user.lastName | titlecase}}
+            <span class="span">{{value.modifiedDate | date:medium}}</span>
+            <div class="msg ">{{value.message}}</div>
+          </div>
+
+          <div fxFlex=28 fxLayout="end" class="icons" fxLayout="row">
+
+            <!---------------------------reply icon start---------------------------->
+            <div>
+              <mat-icon matTooltip="Reply" class="icon" (click)="replyQuestion = value.id;">reply</mat-icon>
+            </div>
+            <!---------------------------reply icon end---------------------------->
+
+            <!-------------------------like icon start-------------------------->
+            <div>
+              <mat-icon matTooltip="Like" class="icon" (click)="like(value.id)">thumb_up_alt</mat-icon>
+            </div>
+            <div class="count user">{{value.like.length}}</div>
+             <!-------------------------like icon end-------------------------->
+
+            <!--------------------------give the rating start------------------------------>
+            <div class="icon" class="rate " *ngIf="value.rate.length!=0">
+              <bar-rating (rateChange)="ratingAnswer(value,$event)" [(rate)]="value.rate[0].rate" [max]="5"></bar-rating>
+            </div>
+
+            <div class="icon" class="rate " *ngIf="value.rate.length==0">
+              <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(value,$event)" [max]="5"></bar-rating>
+            </div>
+            <!--------------------------give the rating end------------------------------>
+          
+          </div>
+        </div>
+
+        
+        <div *ngIf="replyQuestion == value.id" fxLayout="row">
+          <div class="textNew user border" #replyMessage contenteditable="true" 
+          data-text="Leave a reply">
+          </div>
+          <div  fxLayoutAlign="end">
+            <mat-icon class="cursor" (click)="leaveReply(value.id)" mat-button >send</mat-icon>
+          </div>
+        </div>
+    
+
+       <!-------------------------3rd div -enter the comment or reply starts-------------------->
+        <div *ngFor=" let value2 of questionAnswerArray" style="margin-left:10%">
+          <div *ngIf="value2.parentId == value.id">
+            <div ngStyle.xs="width:100%" fxLayout="row" class="fabBtn ">
+
+              <button *ngIf="img!=''" mat-mini-fab [ngStyle]="{'background-image':'url(' +profilePic+ value2.user.imageUrl+ ')','background-size':'cover'}">
+              </button>
+              <button *ngIf="img==''" mat-mini-fab>
+                {{value2.user.firstName | titlecase | slice : 0 : 1 }}
+              </button>
+
+              <div class="msgNew"></div>
+
+              <div fxFlex class="user">{{value2.user.firstName | titlecase}} {{value2.user.lastName | titlecase}}
+                <span class="span">{{value2.modifiedDate | date:medium}}</span>
+                <div class="msg ">{{value2.message}}</div>
+              </div>
+
+              <div fxFlex=28 fxLayout="end" class="icons" fxLayout="row">
+                <!-- -------------------------reply----------------------------------------- -->
+                
+            
+                <!-- -------------------------like----------------------------------------- -->
+
+                <div>
+                  <mat-icon matTooltip="Like" class="icon" (click)="like(value2.id)">thumb_up_alt</mat-icon>
+                </div>
+                <div class="count user">{{value2.like.length}}</div>
+                <!-- -------------------------give the rating ----------------------------------------- -->
+
+                <div class="icon" class="rate " *ngIf="value2.rate.length!=0">
+                  <bar-rating (rateChange)="ratingAnswer(value2,$event)" [(rate)]="value2.rate[0].rate" [max]="5"></bar-rating>
+                </div>
+
+                <div class="icon" class="rate " *ngIf="value2.rate.length==0">
+                  <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(value2,$event)" [max]="5"></bar-rating>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-------------------------3rd div -enter the comment or reply ends-------------------->
+      </div>
+
+    </div>
+        <!-------------------------2nd div -enter the comment or reply ends----------------------->
+
+  </div>
+  <!------------------------display question message ends---------------------->
 </div>
-</div>
-</div>
-</div>
+<div fxFlex=5 fxShow=true fxShow.xs=false fxShow.sm=false></div>

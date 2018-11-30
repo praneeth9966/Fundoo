@@ -1,34 +1,81 @@
 @import '../../../scss/mixins';
+@import '../../../scss/variables';
 
-[contentEditable=true]:empty:before{
-    content: attr(data-text)
+.span{
+font-size:10px;
+margin-left: 5px
 }
-.input{
+.questionCard{
+    width:995px;
+    margin-top:30px;
+}
+.top{
+    margin-top:10px;
+}
+.border{
     @include border();
-    color: grey;
 }
-.qsize{
-    font-size: 25px;
-    color: black;
+
+.text{
+    margin-top:18px;
+    font-size:22px;
 }
-.usize{
-    font-size: 10px;
-    color: gray;
+
+.desc{
+    margin:10px 0px 20px 0px;
+    font-size:20px;
 }
-.qbutton{
-    margin-top:20px;
+.title{
+    font-size:25px;
 }
-.askq{
-    color: gray;
+.newMsg{
+    margin-top:15px;
+    opacity:0.54;
+
 }
-.image{
-    width: 5px;
-    height: 5px;
+.user{
+    font-size:15px;
+    font-family: cursive;
 }
-.star{
-    margin-top: -14px;
-    margin-left: 18px;
+.fabBtn{
+    margin-top:35px;
 }
 .count{
-    font-size: 18px;
+    margin-top: 3px;
+}
+.rate{
+    margin-top:-18px;
+    margin-left: 15px
+
+}
+.icons{
+    margin-top:18px;
+}
+.icon{
+    cursor: pointer;
+
+}
+.msg{
+    font-size:20px;
+}
+.msgNew{
+    margin-left: 10px
+
+}
+.textNew{
+    margin: 30px 0px 0px 50px;
+    width:800px;
+    @include border();
+}
+.scroll{
+    max-height: 327px;
+    overflow-y:auto;
+    overflow-x:hidden !important;
+    }
+
+    [contenteditable=true]:empty:before{
+        content: attr(data-text)
+    }
+.cursor{
+    @include cursor();
 }

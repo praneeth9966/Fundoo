@@ -1,94 +1,155 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NotesService } from 'src/app/core/services/notes/notes.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { LoggerService } from '../../core/services/logger/logger.service';
+import { NotesService } from '../../core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+// import { Note } from '../../core/model/note';
 import { QuestionanswerService } from 'src/app/core/services/questionanswer/questionanswer.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-question-answer',
   templateUrl: './question-answer.component.html',
   styleUrls: ['./question-answer.component.scss']
 })
+
 export class QuestionAnswerComponent implements OnInit {
-  private notesId;
-  private title;
-  private description;
-  private askAQuestion;
-  private replyAnswer;
-  private hide=0;
-  private replyDisplay=0;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  @ViewChild('replyMessage') public replyMsg: ElementRef;
+  @ViewChild('questionAsked') public qAsked: ElementRef;
+  constructor(private route: ActivatedRoute, private notesService: NotesService,
+    public router: Router, public quesService: QuestionanswerService) { }
+  private noteId;
+  private noteTitle;
+  private noteDescription;
+  private noteDetails;
+  private checkList = [];
+  private noteColor;
+  private message;
   private parentId;
-  private likeCount;
-  private createdDate;
-  private question;
-  private fullArray=[];
-  image = localStorage.getItem('imageUrl');
-  profile = environment.profileUrl + this.image;
-  private replyAnswerShow : string = ''
-  private reply : string = ''
-  // owner=this.data["user"];
-  // ownerProfile = environment.profileUrl + this.owner.imageUrl;
-  
-  constructor(private notesService: NotesService, public route: ActivatedRoute,
-    private questionService:QuestionanswerService) { }
+  private userName;
+  private userDetails;
+  private img;
+  private profilePic;
+  private replyId;
+  private questionAnswerArray;
+  private show = true;
+  replyQuestion;
+  // public replyMessage;
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.notesId = params['noteid']
-    })
-    this.notesService.getQuestions(this.notesId)
-      .subscribe(data => {
-        console.log(data);
-        this.question= data['data']['data'][0]
-        this.title = this.question.title;
-        this.description = this.question.description;
-        this.fullArray=this.question['questionAndAnswerNotes'];
-        console.log(this.fullArray);
-        
-        if(this.question.questionAndAnswerNotes[0]!=undefined){
-        this.askAQuestion=this.question['questionAndAnswerNotes'][0].message;
-        this.parentId=this.question['questionAndAnswerNotes'][0].id;
-          this.createdDate=this.question.createdDate;
-        }
-        
-        this.like();
-      });
+      this.noteId = params['noteid'];
+      LoggerService.log('noteDetails', this.noteId);
+    });
+    this.getNoteDetailsInQuestion();
   }
 
-  postQuestion(question) {
-    this.questionService.askAQuestion({
-      "message": question,
-      "notesId": this.notesId
-    })
+  getNoteDetailsInQuestion() {
+    this.notesService.getQuestions(this.noteId)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        console.log(data);
-        this.askAQuestion=data['data']['details'].message
-        this.hide = 1
+        LoggerService.log('getNoteDetail', data);
+
+        this.userDetails = data['data']['data'][0].user;
+        this.profilePic = environment.profileUrl;
+
+        this.noteDetails = data['data'].data[0];
+        this.noteTitle = this.noteDetails.title;
+        this.noteDescription = this.noteDetails.description;
+        // this.noteColor=this.noteDetails.color;
+        
+
+        for (var i = 0; i < data['data']['data'][0].noteCheckLists.length; i++) {
+          if (data['data']['data'][0].noteCheckLists[i].isDeleted == false) {
+            this.checkList.push(data['data']['data'][0].noteCheckLists[i])
+          }
+        }
+
+        if (this.noteDetails.questionAndAnswerNotes[0] != undefined) {
+          this.message = this.noteDetails.questionAndAnswerNotes[0].message;
+          this.questionAnswerArray = this.noteDetails.questionAndAnswerNotes;
+          this.img == environment.profileUrl + this.noteDetails.questionAndAnswerNotes[0].user.imageUrl;
+        }
+        if (this.noteDetails.questionAndAnswerNotes != undefined) {
+          this.questionAnswerArray = this.noteDetails.questionAndAnswerNotes;
+
+          LoggerService.log('questionArray', this.questionAnswerArray)
+        }
       })
   }
 
-  like(){
-    let requestBody={
-    "like":true
+  closeQuestion() {
+    this.router.navigate(['homepage/notes']);
+  }
+
+  questionEnter() {
+
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
+
+  askQuestion() {
+    var content = {
+      'message': this.qAsked.nativeElement.textContent,
+      'notesId': this.noteId
     }
-    this.questionService.likeQnA(this.parentId,requestBody).subscribe(data=>{
-    console.log("like: ", data);
-    this.likeCount=data['data']['details'].count;
-    console.log(this.likeCount);
+    this.quesService.askAQuestion(content).subscribe(data => {
+      LoggerService.log('success in adding', data);
+      this.message = data['data']['details'].message;
+      this.getNoteDetailsInQuestion();
     })
+  }
+
+  like(value) {
+    LoggerService.log(value);
+    var content = {
+      'like': true,
     }
 
-    replyQuestion(reply){
-      let requestBody={
-        "message":reply
-        }
-        this.reply = ''
-        this.questionService.replyQnA(this.parentId,requestBody).subscribe(data=>{
-        console.log("reply: ", data);
-        // this.replyDisplay=1;
-        // this.replyAnswer=data['data']['details'].message
-        })
+    this.quesService.likeQnA(value, content)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        LoggerService.log('success in like', data);
+      });
+    this.getNoteDetailsInQuestion();
+  }
+
+  ratingAnswer(value, event) {
+
+    var content = {
+      'rate': event
     }
+    this.quesService.rateAnswer(value.id, content)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        LoggerService.log('success in rating', data);
+      })
+  }
+ 
+
+  // private content = {
+  //   'message': ''
+  // }
+
+  leaveReply(value) {
+    let content = {
+        'message': this.replyMsg.nativeElement.textContent
+      }
+    LoggerService.log(content.message);
+    LoggerService.log(value);
+    // content.message = this.replyMessage;
+
+    this.quesService.replyQnA(value, content)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        LoggerService.log('success in replying', data);
+
+      })
+  }
 }
-
-

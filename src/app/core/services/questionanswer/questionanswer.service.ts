@@ -26,4 +26,9 @@ export class QuestionanswerService {
     let url = this.url + "questionAndAnswerNotes/reply/" + id
       return this.service.httpPost(url, body);
     }
+
+    rateAnswer(id, body) {
+      let url = this.url + "questionAndAnswerNotes/rate/" + id
+        return this.service.httpPost(url, body);
+      }
 }
