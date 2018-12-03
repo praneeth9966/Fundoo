@@ -52,6 +52,7 @@ import { ErrorsHandler } from './core/services/errorhandler/errors-handler';
 import { ColloboratorDialogComponent } from './component/colloborator-dialog/colloborator-dialog.component';
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 import { BarRatingModule } from "ngx-bar-rating";
+import { LoaderComponent } from './component/loader/loader.component';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { BarRatingModule } from "ngx-bar-rating";
     PinComponent,
     ColloboratorDialogComponent,
     QuestionAnswerComponent,
+    LoaderComponent,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -57,17 +57,32 @@ export class NavigationComponent implements OnInit, OnDestroy {
     if (this.router.url == "/homepage/notes") {
       this.titleNew = "fundoo"
     }
+    else{
+      this.titleNew = "fundoo"
+    }
     if (this.router.url == "/homepage/archive") {
       this.titleNew = "Archive"
     }
+    else{
+      this.titleNew = "fundoo"
+    }
     if (this.router.url == "/homepage/search") {
-      this.titleNew = "Fundoo notes"
+      this.titleNew = "Fundoo"
+    }
+    else{
+      this.titleNew = "fundoo"
     }
     if (this.router.url == "/homepage/reminders") {
       this.titleNew = "Reminders"
     }
+    else{
+      this.titleNew = "fundoo"
+    }
     if (this.router.url == "/homepage/trash") {
       this.titleNew = "Trash "
+    }
+    else{
+      this.titleNew = "fundoo"
     }
     this.emailId = this.email.split("");
     this.myEmail = this.emailId[0];

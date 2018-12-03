@@ -3,3 +3,7 @@
 <app-notes-collection [name]="name" (trashParent)="del($event)" (restoreParent)="del($event)" [array]="array"></app-notes-collection>
 
 <!------------------Trash ends------------------->
+
+<div>
+    <app-loader *ngIf="fadingCircle==false"></app-loader>
+</div>

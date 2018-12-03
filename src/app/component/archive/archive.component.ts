@@ -28,6 +28,7 @@ import { takeUntil } from 'rxjs/operators';
 export class ArchiveComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private array = [];
+  public fadingCircle:boolean=false;
   constructor(private notesService: NotesService) { }
 
   /**it is a interface */
@@ -43,6 +44,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.notesService.getarchive()
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
+        this.fadingCircle=true;
         this.array = [];
         for (let i = res['data']['data'].length - 1; i > 0; i--) {
           this.array.push(res['data']['data'][i]);

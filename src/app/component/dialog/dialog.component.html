@@ -96,9 +96,9 @@
       <div fxFlex=9>
         <app-change-color-icon [notesArray]="data.id" (ParentNoteColor)=messageColor($event)></app-change-color-icon>
       </div>
-      <div fxFlex=9>
+      <!-- <div fxFlex=9>
         <app-add-image-icon></app-add-image-icon>
-      </div>
+      </div> -->
       <div fxFlex=9>
         <app-archive-icon [archive]="data"></app-archive-icon>
       </div>
@@ -113,4 +113,10 @@
   </mat-card-actions>
 
   <!-----------------------------MatCardActions ends--------------------------->
+  <div *ngIf="data.questionAndAnswerNotes.length!=0">
+    <hr>
+    <div class="qasked" (click)="redirectToQuestion(data.id)">Question Asked</div>
+    <div class="message">{{data.questionAndAnswerNotes[0].message}}</div>
+  </div>
+
 </mat-card>

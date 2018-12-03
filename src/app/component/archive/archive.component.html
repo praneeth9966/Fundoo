@@ -3,3 +3,7 @@
 <app-notes-collection [array]="array" (unArchiveParent)="get($event)"></app-notes-collection>
 
 <!-----------------------Archive ends ----------------------->
+
+<div>
+    <app-loader *ngIf="fadingCircle==false"></app-loader>
+</div>

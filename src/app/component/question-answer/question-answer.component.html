@@ -1,4 +1,4 @@
-<!--  --------------------------------Main question answer matcard----------------------------------------- -->
+<!-------------------------Main question answer matcard------------------------------>
 <div fxFlex=5 fxShow=true fxShow.xs=false fxShow.sm=false></div>
 <!-- <div  fxLayout="column"> -->
 <div fxFlex=95 ngStyle.xs="width:90%" class="questionCard">
@@ -33,16 +33,12 @@
   <!-- -------------------------asking Question starts------------------------->
   <div class="top">Question Asked
   </div>
-  <!-- <div *ngIf="message==null">
-    <input [(ngModel)]="questionAsked" class="border top" (keydown.enter)="askQuestion(questionAsked)" placeholder="Ask a Question">
-  </div> -->
 
   <div *ngIf="message==null" fxLayout="row">
-    <div class="border top" #questionAsked contenteditable="true" 
-    data-text="Ask a Question">
+    <div fxFlex class="border top" #questionAsked contenteditable="true" data-text="Ask a Question">
     </div>
-    <div  fxLayoutAlign="end">
-      <mat-icon class="cursor" (click)="askQuestion()" mat-button >send</mat-icon>
+    <div>
+      <mat-icon fxFlex=15 class="cursor" (click)="askQuestion()" mat-button>send</mat-icon>
     </div>
   </div>
 
@@ -63,18 +59,19 @@
 
       <div class="msgNew"></div>
 
-      <div fxFlex class="user">{{questionAnswerArray[0].user.firstName | titlecase}}
-        {{questionAnswerArray[0].user.lastName | titlecase}}
-        <span class="span">{{questionAnswerArray[0].modifiedDate | date:medium}}</span>
-        <div class="msg ">{{questionAnswerArray[0].message}}</div>
-      </div>
+      <div fxLayout="row" fxLayout.sm="column"  fxLayout.xs="column">
 
+      <div fxFlex class="user"><span class="namecolor">{{questionAnswerArray[0].user.firstName | titlecase}}
+        {{questionAnswerArray[0].user.lastName | titlecase}}</span>
+        <span class="span">{{questionAnswerArray[0].modifiedDate | date:medium}}</span>
+        <div class="msg " [innerHTML]="questionAnswerArray[0].message"></div>
+      </div>
+      
       <div fxFlex=28 fxLayout="end" class="icons" fxLayout="row">
 
         <!------------------------reply icon starts---------------------->
         <div>
-          <mat-icon matTooltip="Reply" class="icon" 
-                    (click)="replyQuestion = questionAnswerArray[0].id ">reply</mat-icon>
+          <mat-icon matTooltip="Reply" class="icon" (click)="replyQuestion = questionAnswerArray[0].id " (click)="show = !show">reply</mat-icon>
         </div>
         <!------------------------reply icon ends---------------------->
 
@@ -86,27 +83,27 @@
         <!------------------------like icon ends---------------------->
 
         <!-----------------------give the rating icon starts---------------------->
-        <div class="icon" class="rate " *ngIf="questionAnswerArray[0].rate.length!=0">
+        <div class="icon" class="rate " *ngIf="questionAnswerArray[0].rate.length!=0" fxFlex.xs=100%>
           <bar-rating (rateChange)="ratingAnswer(questionAnswerArray[0],$event)" [(rate)]="questionAnswerArray[0].rate[0].rate"
             [max]="5"></bar-rating>
         </div>
+        <div>{{averageRating(questionAnswerArray[0].rate)}}</div>
 
         <div class="icon" class="rate " *ngIf="questionAnswerArray[0].rate.length==0">
           <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(questionAnswerArray[0],$event)" [max]="5"></bar-rating>
         </div>
         <!-----------------------give the rating icon ends---------------------->
       </div>
-
+        </div>
     </div>
 
-    
 
-    <div *ngIf="replyQuestion == questionAnswerArray[0].id" fxLayout="row">
-      <div class="textNew user" #replyMessage contenteditable="true" 
-      data-text="Leave a reply">
+
+    <div *ngIf="replyQuestion == questionAnswerArray[0].id && show==true" fxLayout="row">
+      <div class="textNew user" #replyMessage contenteditable="true" data-text="Leave a reply">
       </div>
-      <div  fxLayoutAlign="end">
-        <mat-icon class="cursor" (click)="leaveReply(questionAnswerArray[0].id)" mat-button >send</mat-icon>
+      <div fxLayoutAlign="end">
+        <mat-icon class="cursor" (click)="leaveReply(questionAnswerArray[0].id)" mat-button>send</mat-icon>
       </div>
     </div>
 
@@ -122,17 +119,19 @@
           </button>
 
           <div class="msgNew"></div>
+          
+          <div fxLayout="row" fxLayout.sm="column"  fxLayout.xs="column">
 
-          <div fxFlex class="user">{{value.user.firstName | titlecase}} {{value.user.lastName | titlecase}}
+          <div fxFlex class="user"><span class="namecolor">{{value.user.firstName | titlecase}} {{value.user.lastName | titlecase}}</span>
             <span class="span">{{value.modifiedDate | date:medium}}</span>
-            <div class="msg ">{{value.message}}</div>
+            <div class="msg " [innerHTML]="value.message"></div>
           </div>
 
-          <div fxFlex=28 fxLayout="end" class="icons" fxLayout="row">
+          <div fxFlex=28 fxLayout="end" class="icons" >
 
             <!---------------------------reply icon start---------------------------->
             <div>
-              <mat-icon matTooltip="Reply" class="icon" (click)="replyQuestion = value.id;">reply</mat-icon>
+              <mat-icon matTooltip="Reply" class="icon" (click)="replyQuestion = value.id;" (click)="show = !show">reply</mat-icon>
             </div>
             <!---------------------------reply icon end---------------------------->
 
@@ -141,33 +140,36 @@
               <mat-icon matTooltip="Like" class="icon" (click)="like(value.id)">thumb_up_alt</mat-icon>
             </div>
             <div class="count user">{{value.like.length}}</div>
-             <!-------------------------like icon end-------------------------->
+            <!-------------------------like icon end-------------------------->
 
             <!--------------------------give the rating start------------------------------>
             <div class="icon" class="rate " *ngIf="value.rate.length!=0">
               <bar-rating (rateChange)="ratingAnswer(value,$event)" [(rate)]="value.rate[0].rate" [max]="5"></bar-rating>
             </div>
 
+            <div>{{averageRating(value.rate)}}</div>
+
             <div class="icon" class="rate " *ngIf="value.rate.length==0">
               <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(value,$event)" [max]="5"></bar-rating>
             </div>
             <!--------------------------give the rating end------------------------------>
-          
+
           </div>
         </div>
 
-        
-        <div *ngIf="replyQuestion == value.id" fxLayout="row">
-          <div class="textNew user border" #replyMessage contenteditable="true" 
-          data-text="Leave a reply">
+        </div>
+
+
+        <div *ngIf="replyQuestion == value.id && show==true" fxLayout="row">
+          <div class="textNew user border" #replyMessage contenteditable="true" data-text="Leave a reply">
           </div>
-          <div  fxLayoutAlign="end">
-            <mat-icon class="cursor" (click)="leaveReply(value.id)" mat-button >send</mat-icon>
+          <div fxLayoutAlign="end">
+            <mat-icon class="cursor" (click)="leaveReply(value.id)" mat-button>send</mat-icon>
           </div>
         </div>
-    
 
-       <!-------------------------3rd div -enter the comment or reply starts-------------------->
+
+        <!-------------------------3rd div -enter the comment or reply starts-------------------->
         <div *ngFor=" let value2 of questionAnswerArray" style="margin-left:10%">
           <div *ngIf="value2.parentId == value.id">
             <div ngStyle.xs="width:100%" fxLayout="row" class="fabBtn ">
@@ -180,31 +182,36 @@
 
               <div class="msgNew"></div>
 
-              <div fxFlex class="user">{{value2.user.firstName | titlecase}} {{value2.user.lastName | titlecase}}
+              <div fxLayout="row" fxLayout.sm="column"  fxLayout.xs="column">
+
+              <div fxFlex class="user"><span class="namecolor">{{value2.user.firstName | titlecase}} {{value2.user.lastName | titlecase}}</span>
                 <span class="span">{{value2.modifiedDate | date:medium}}</span>
-                <div class="msg ">{{value2.message}}</div>
+                <div class="msg " [innerHTML]="value2.message"></div>
               </div>
 
-              <div fxFlex=28 fxLayout="end" class="icons" fxLayout="row">
-                <!-- -------------------------reply----------------------------------------- -->
-                
-            
-                <!-- -------------------------like----------------------------------------- -->
+              <div fxFlex=28 fxLayout="end" class="icons" 
+              >
 
+                <!------------------------like icon starts------------------------------>
                 <div>
                   <mat-icon matTooltip="Like" class="icon" (click)="like(value2.id)">thumb_up_alt</mat-icon>
                 </div>
                 <div class="count user">{{value2.like.length}}</div>
-                <!-- -------------------------give the rating ----------------------------------------- -->
+                <!------------------------like icon ends------------------------------>
 
+                <!-------------------------give the rating icon starts--------------------------->
                 <div class="icon" class="rate " *ngIf="value2.rate.length!=0">
                   <bar-rating (rateChange)="ratingAnswer(value2,$event)" [(rate)]="value2.rate[0].rate" [max]="5"></bar-rating>
                 </div>
 
+                <div>{{averageRating(value2.rate)}}</div>
+
                 <div class="icon" class="rate " *ngIf="value2.rate.length==0">
                   <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(value2,$event)" [max]="5"></bar-rating>
                 </div>
+                <!-------------------------give the rating icon ends--------------------------->
               </div>
+            </div>
             </div>
           </div>
 
@@ -213,7 +220,7 @@
       </div>
 
     </div>
-        <!-------------------------2nd div -enter the comment or reply ends----------------------->
+    <!-------------------------2nd div -enter the comment or reply ends----------------------->
 
   </div>
   <!------------------------display question message ends---------------------->

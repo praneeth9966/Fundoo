@@ -13,6 +13,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   private array = [];
   private body = {};
   private name = "trash";
+  public fadingCircle:boolean=false;
 
   ngOnInit() {
     // this.notes=[];
@@ -23,6 +24,7 @@ export class TrashComponent implements OnInit, OnDestroy {
     this.notesService.getcard()
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
+        this.fadingCircle=true;
         this.array = [];
         for (let i = res['data']['data'].length - 1; i > 0; i--) {
           if (res['data']['data'][i].isDeleted == true)
@@ -36,12 +38,6 @@ export class TrashComponent implements OnInit, OnDestroy {
       this.getNotes();
     }
   }
-
-  // restore(event) {
-  //   if (event) {
-  //     this.getNotes();
-  //   }
-  // }
 
 
   /*

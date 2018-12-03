@@ -155,7 +155,7 @@
           <app-collaborator-icon [collaborator]='notes'></app-collaborator-icon>
           <app-change-color-icon [notesArray]="notes.id" (noteColor)=messageColor($event)>
           </app-change-color-icon>
-          <app-add-image-icon></app-add-image-icon>
+          <!-- <app-add-image-icon></app-add-image-icon> -->
           <app-archive-icon [archive]="notes" (archiveNote)="myArchiveNotes($event)" (unArchiveNote)="unArchive($event)"></app-archive-icon>
           <app-more-icon [notesArray]="notes" [name]="name" (deleteNote)="getNotification($event)" (trashEvent)="trashFunc($event)"
             (restoreEvent)="restoreFunc($event)"></app-more-icon>

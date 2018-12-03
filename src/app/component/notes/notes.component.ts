@@ -14,7 +14,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   constructor(private notesService: NotesService) { }
   private notes: Notes[] = [];
   private notes1 = [];
-
+  public fadingCircle:boolean=false;
   ngOnInit() {
     this.displayNotes();
     this.getPin();
@@ -29,7 +29,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     )
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
-
+        this.fadingCircle=true
         this.notes = [];
         let newNotesArray: Notes[] = res['data']['data'];
         for (let i = newNotesArray.length - 1; i > 0; i--) {
@@ -47,6 +47,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.notesService.getcard()
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
+        this.fadingCircle=true
         this.notes1 = [];
         for (let i = res['data']['data'].length - 1; i > 0; i--) {
           if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == true)

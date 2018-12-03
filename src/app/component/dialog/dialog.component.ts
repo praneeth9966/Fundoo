@@ -54,7 +54,7 @@ export class DialogComponent implements OnInit, OnDestroy {
     this.tempArray = this.data['noteCheckLists']
   }
 
-  onNoClick(): void {
+  onNoClick(){
     if (this.checklist == false) {
 
       /*   calling update notes  Api
@@ -71,6 +71,11 @@ export class DialogComponent implements OnInit, OnDestroy {
       this.notesService.updatenotes(this.body)
         .pipe(takeUntil(this.destroy$))
         .subscribe(data => {
+          console.log("update card",data);
+          
+        },error=>{
+          console.log(error);
+          
         })
     }
     else {
@@ -228,4 +233,5 @@ export class DialogComponent implements OnInit, OnDestroy {
   redirectToQuestion(noteid){
     this.route.navigate(['/homepage/notes/'+noteid+'/questions'])
   }
+
 }

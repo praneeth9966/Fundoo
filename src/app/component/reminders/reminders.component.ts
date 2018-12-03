@@ -11,7 +11,7 @@ export class RemindersComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private getRemindersArray = [];
   private token = localStorage.getItem('token');
-
+  public fadingCircle:boolean=false;
   constructor(private notesService: NotesService) { }
 
   ngOnInit() {
@@ -25,6 +25,7 @@ export class RemindersComponent implements OnInit, OnDestroy {
     this.notesService.getreminders()
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
+        this.fadingCircle=true;
         this.getRemindersArray = data['data']['data'];
         this.getRemindersArray.sort(this.compare);
       })
