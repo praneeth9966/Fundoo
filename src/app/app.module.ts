@@ -53,6 +53,7 @@ import { ColloboratorDialogComponent } from './component/colloborator-dialog/col
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 import { BarRatingModule } from "ngx-bar-rating";
 import { LoaderComponent } from './component/loader/loader.component';
+import { ProductcartComponent } from './component/productcart/productcart.component';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { LoaderComponent } from './component/loader/loader.component';
     ColloboratorDialogComponent,
     QuestionAnswerComponent,
     LoaderComponent,
+    ProductcartComponent,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
