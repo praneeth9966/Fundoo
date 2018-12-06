@@ -71,7 +71,11 @@ width:800px;
     overflow-y:auto;
     overflow-x:hidden !important;
 }
-
+.scrolling{
+    height:100px;
+    overflow-x: hidden !important;
+    overflow-y: auto;
+}
 @media only screen and (min-width: 300px) and (max-width: 440px) {
     .msg { 
     font-size:12px;
@@ -84,8 +88,14 @@ width:800px;
     content:attr(data-text)
 }
 .sendMessage{
-    margin-top:25px;
+float:right;
+margin-top:4px;
+
+background-color: $typekit-yellow;
 }
+// .send{
+//     background-color: $typekit-yellow;
+// }
 .replies{
     font-size:10px;
     margin-top:5px;
@@ -93,8 +103,6 @@ width:800px;
 .count{
     margin-top: 3px;
     }
-    .scrolling{
-        height:100px;
-        overflow-x: hidden !important;
-        overflow-y: auto;
-    }
+   .main{
+       width:100% ;
+   }

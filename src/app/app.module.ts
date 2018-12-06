@@ -54,7 +54,7 @@ import { QuestionAnswerComponent } from './component/question-answer/question-an
 import { BarRatingModule } from "ngx-bar-rating";
 import { LoaderComponent } from './component/loader/loader.component';
 import { ProductcartComponent } from './component/productcart/productcart.component';
-
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -122,7 +122,8 @@ import { ProductcartComponent } from './component/productcart/productcart.compon
     MatDatepickerModule,
     MatNativeDateModule,
     ImageCropperModule,
-    BarRatingModule
+    BarRatingModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent,ColloboratorDialogComponent],
   providers: [HttpService, DataService, MatDatepickerModule, LoggerService,MessagingService,InterceptService,{

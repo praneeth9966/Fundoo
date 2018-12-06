@@ -41,6 +41,7 @@ export class QuestionAnswerComponent implements OnInit {
   private averageRate;
   replyQuestion;
   private noOfReply;
+  public editorContent: string
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -82,22 +83,24 @@ export class QuestionAnswerComponent implements OnInit {
       })
   }
   closeQuestion() {
-    this.router.navigate(['home/notes']);
+    this.router.navigate(['homepage/notes']);
   }
 
   /******************************Asking a question ********************************************* */
 
   askQuestion() {
-    console.log(this.questionText.nativeElement.innerHTML);
+    // console.log(this.questionText.nativeElement.innerHTML);
+    
 
     var content = {
-      'message': this.questionText.nativeElement.innerHTML,
+      'message': this.editorContent,
       'notesId': this.noteId
     }
     this.quesService.askAQuestion(content).subscribe(data => {
       this.getNoteDetailsInQuestion();
       LoggerService.log('success in adding', data);
       this.message = data['data']['details'].message;
+      this.editorContent=''
     })
   }
   /******************************Give the likes to question or reply********************************************* */
@@ -146,19 +149,22 @@ export class QuestionAnswerComponent implements OnInit {
   /******************************Give the Replies to question or reply********************************************* */
 
   leaveReply(replyId) {
-    let replySend = this.replyText.nativeElement.innerHTML;
-    LoggerService.log('msgggg', replySend);
+    
     let content = {
-      'message': replySend
+      'message': ''
     }
+    content.message=this.editorContent
+    LoggerService.log(this.editorContent);
     LoggerService.log(replyId);
     this.quesService.replyQnA(replyId, content)
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.getNoteDetailsInQuestion();
         LoggerService.log('success in replying', data);
-
+        this.hide==false;
+        this.editorContent='';
       })
+
     // this.replyText='';
   }
   /******************************Count the number of Replies to display********************************************* */
@@ -176,4 +182,14 @@ export class QuestionAnswerComponent implements OnInit {
     // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
+  public options: Object = {
+    charCounterCount: false,
+    toolbarButtons:   ['fullscreen', 'bold', 'italic', 'underline', '|','fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|',
+'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'emoticons', 'fontAwesome',
+'specialCharacters', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'],
+
+toolbarButtonsXS: ['fullscreen', 'bold', 'italic', 'underline', '|','fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|',
+'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'emoticons', 'fontAwesome',
+'specialCharacters', 'selectAll', 'clearFormatting', '|', 'undo', 'redo']
+  };
 }

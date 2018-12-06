@@ -33,12 +33,13 @@
   <!--  ----------If there are no questions asked input divison to ask a question------------------- -->
 
   <div *ngIf="message==null">
-    <div fxLayout="row">
-      <div contenteditable="true" class="textNew user border scrolling " data-text="Ask a Question" #questionEntered>
-      </div>
-      <div fxFlex=20 class="sendMessage"><button (click)="askQuestion()" mat-button>
-          <mat-icon>
-            send</mat-icon>
+    <div fxLayout="column" fxlayoutGap="10px" fxLayout.xs="column">
+      <!-- <div contenteditable="true" class="textNew user border scrolling " data-text="Ask a Question" #questionEntered>
+      </div> -->
+      <div [froalaEditor]="options" class="main"  [(froalaModel)]="editorContent"></div>
+
+      <div><button mat-button class="send sendMessage" (click)="askQuestion()">
+        send
         </button></div>
     </div>
 
@@ -127,11 +128,12 @@
 
     <!-- -------------------------reply input Division----------------------------------------- -->
     <div *ngIf="replyQuestion == questionAnswerArray[0].id && hide==true">
-      <div fxLayout="row">
-        <div contenteditable="true" class="textNew user " data-text="Leave a reply " #replyEntered>
-        </div>
-        <div fxFlex=15 class="sendMessage"><button (click)="leaveReply(questionAnswerArray[0].id)" mat-button>
-            <mat-icon>send</mat-icon>
+      <div fxLayout="column" fxlayoutGap="10px" fxLayout.xs="column">
+          <div [froalaEditor]="options" class="main"  [(froalaModel)]="editorContent"></div>
+        <!-- <div contenteditable="true" class="textNew user " data-text="Leave a reply " #replyEntered>
+        </div> -->
+        <div ><button mat-button class="send sendMessage" (click)="leaveReply(questionAnswerArray[0].id)">
+            send
           </button></div>
       </div>
     </div>
@@ -203,11 +205,13 @@
         <!-- ------------------------Second reply input Division----------------------------------------- -->
 
         <div *ngIf="replyQuestion == value.id && hide == true">
-          <div fxLayout="row">
-            <div contenteditable="true" class="textNew user border " data-text="Leave a reply " #replyEntered>
-            </div>
-            <div fxFlex=15 class="sendMessage"><button (click)="leaveReply(value.id)" mat-button>
-                <mat-icon>send</mat-icon>
+          <div fxLayout="column" fxlayoutGap="10px" fxLayout.xs="column">
+              <!-- <input [(ngModel)]="editorContent"/> -->
+              <div [froalaEditor]="options" class="main" [(froalaModel)]="editorContent"></div>
+            <!-- <div contenteditable="true" class="textNew user border " data-text="Leave a reply " #replyEntered>
+            </div> -->
+            <div ><button mat-button class="send sendMessage" (click)="leaveReply(value.id)">
+                send
               </button></div>
           </div>
         </div>

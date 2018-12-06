@@ -167,7 +167,7 @@
       <div *ngIf="notes.questionAndAnswerNotes.length!=0">
           <hr>
           <div class="qasked" (click)="redirectToQuestion(notes.id)">Question Asked</div>
-          <div class="message">{{notes.questionAndAnswerNotes[0].message}}</div>
+          <div class="message" [innerHTML]="notes.questionAndAnswerNotes[0].message"></div>
         </div>
 
     </mat-card>
