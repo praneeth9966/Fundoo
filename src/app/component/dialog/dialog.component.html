@@ -116,7 +116,7 @@
   <div *ngIf="data.questionAndAnswerNotes.length!=0">
     <hr>
     <div class="qasked" (click)="redirectToQuestion(data.id)">Question Asked</div>
-    <div class="message">{{data.questionAndAnswerNotes[0].message}}</div>
+    <div class="message" [innerHTML]="data.questionAndAnswerNotes[0].message"></div>
   </div>
 
 </mat-card>

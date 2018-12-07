@@ -1,0 +1,28 @@
+<div class="dialog">
+
+<mat-toolbar class="division ">
+  <div fxLayoutAlign="row" fxFlex="100">
+     <div fxFlex="10">{{data.name | titlecase}} Pack Details</div>
+     <div fxFlex="60"></div>
+      <div fxFlex="30">${{data.price}}/month</div>
+  </div>
+</mat-toolbar>
+
+<div fxLayout="column" fxLayoutGap="20px">
+<div>
+    <mat-tab-group>
+        <mat-tab label="Feature1"> main.ts is the entry point of your application,
+           compiles the application with just-in-time and bootstrap the application.
+           The Bootstrap is the root AppComponent that Angular creates and inserts into </mat-tab>
+        <mat-tab label="Feature2"> Content 2 </mat-tab>
+        <mat-tab label="Feature3"> Content 3 </mat-tab>
+      </mat-tab-group>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <div><button mat-raised-button color="primary">Remove</button></div>
+  <div routerLink="/signup" (click)="dialogClose()"><button mat-raised-button color="primary">Proceed to Ckeckout</button></div>
+</div>
+</div>
+
+</div>

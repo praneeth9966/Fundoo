@@ -5,33 +5,9 @@
   @include container();
 }
 
-.classf{
- color:  $typekit-blue;
- @include fontsizeF(); 
-}
-
-.classu{
-  color:  $typekit-red;
-  @include fontsize();
-}
-
-.classn{
-  color:  $typekit-yellow;
-  @include fontsize();
-}
-
-.classd{
-  color:  $typekit-blue;
-  @include fontsize();
-}
-
-.classo{
-  color:  $typekit-green;
-  @include fontsize();
-}
-.classo1{
-  color:  $typekit-red;
-  @include fontsize();
+.fundoo_text{
+  font-size: 25px;
+  color:  #fb0;
 }
 
 .width{
@@ -54,16 +30,83 @@
   background-color: $typekit-lightgreen;
 }
 
-.card1{
-    display: flex;
-    flex-direction: column;
-    width: 150px;
-    height:120px;
-    border-radius: 15px;
-    color:$typekit-white;
-    text-transform: uppercase;
+
+
+
+
+.division{
+  height:60px;
+  background-color: #fb0;
 }
 
-.servicecards{
-    padding:20px;
+.division1{
+  height:150px;
+}
+
+.division2{
+  height:310px;
+}
+
+.division3{
+  height:150px;
+}
+
+.fundoo{
+  margin:10px 0px 5px 50px;
+  padding:6px 0px 5px 10px;
+  font-size: 25px;
+}
+
+.text{
+  margin-top:40px;
+  font-size: 28px;
+  opacity: 0.54;
+text-align: center;
+}
+
+.selected{
+  background-color: #fb0;
+}
+
+.notselected{
+  background-color: grey;
+}
+
+.card1{
+  height:180px;
+  width:135px;
+  margin-left:30px;
+}
+
+.innercard{
+  margin-left:-35px;
+  margin-top:-35px;
+  height:200px;
+  width:170px;
+}
+
+.cartbutton{
+  margin-top: 10px;
+  border:none;
+  outline:none;
+  color:white;
+  font-size: 12px;
+}
+
+.font{
+  font-size: 16px;
+}
+
+.name{
+  color:rgb(81, 104, 209);
+  font-size:15px;
+}
+
+.list{
+  font-size:10px;
+  margin-top:10px;
+}
+
+.button-row{
+  margin-top: 5px;
 }

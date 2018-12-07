@@ -55,6 +55,8 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { LoaderComponent } from './component/loader/loader.component';
 import { ProductcartComponent } from './component/productcart/productcart.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { ProductcartDialogComponent } from './component/productcart-dialog/productcart-dialog.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     QuestionAnswerComponent,
     LoaderComponent,
     ProductcartComponent,
+    ProductcartDialogComponent,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -123,9 +126,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     MatNativeDateModule,
     ImageCropperModule,
     BarRatingModule,
-    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+    MatTabsModule
   ],
-  entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent,ColloboratorDialogComponent],
+  entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent,ColloboratorDialogComponent,
+    ProductcartDialogComponent],
   providers: [HttpService, DataService, MatDatepickerModule, LoggerService,MessagingService,InterceptService,{
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptService,

@@ -1,6 +1,11 @@
-<div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="15px" class="topSpace">
-  <div fxLayout="row wrap" fxFlex.xl=9 fxFlex.xs=0 fxFlex.sm=0 fxFlex.md=4 fxFlex.lg=4></div>
-  <div fxLayout="row wrap" fxFlex.xs=100 fxFlex.sm=100 fxFlex.md=85 fxFlex.lg=80 fxFlex.xl=75 class="notescard">
+<div fxLayout="row">
+
+  <div fxFlex.xs=0 fx.show="true" fxShow.xs="false" fxShow.sm="false" class="shrink" fxFlex>
+  </div>
+  <div fx.show="true" fxShow.sm="false" fxShow.md="false" fxShow.xs="false" class="grow" fxFlex="10">
+  </div>
+  <div ngStyle.gt-lg="width:85%" fxLayoutAlign="start start" class="main" fxLayout="row wrap">
+
 
 
     <div *ngIf="length!=0" class="cardname">{{string}}</div>
@@ -144,7 +149,7 @@
         </div>
       </div>
 
-      
+
       <!------------------------- Adding and Removing Collaborators ends------------------->
 
       <!----------------------- MatCardActions starts------------------------->
@@ -165,12 +170,17 @@
       <!----------------------- MatCardActions ends------------------------->
 
       <div *ngIf="notes.questionAndAnswerNotes.length!=0">
-          <hr>
-          <div class="qasked" (click)="redirectToQuestion(notes.id)">Question Asked</div>
-          <div class="message" [innerHTML]="notes.questionAndAnswerNotes[0].message"></div>
-        </div>
+        <hr>
+        <div class="qasked" (click)="redirectToQuestion(notes.id)">Question Asked</div>
+        <div class="message" [innerHTML]="notes.questionAndAnswerNotes[0].message"></div>
+      </div>
 
     </mat-card>
-    <div fxLayout="row" fxFlex.xs=0 fxFlex.sm=0 fxFlex.md=5 fxFlex.lg=5 fxFlex.xl=10>
-    </div>
-  </div>
+
+    <div fxLayout="row">
+
+      <div fxFlex.xs=0 fx.show="true" fxShow.xs="false" fxShow.sm="false" class="shrink" fxFlex>
+      </div>
+      <div fx.show="true" fxShow.sm="false" fxShow.md="false" fxShow.xs="false" class="grow" fxFlex="10">
+      </div>
+      <div ngStyle.gt-lg="width:85%" fxLayoutAlign="start start" class="main" fxLayout="row wrap">

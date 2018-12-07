@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     "email": "",
     "password": ""
   }
+  private cards=[];
+  private service: any;
+
   email = new FormControl('', [Validators.required, Validators.email]);
 
   getErrorMessage() {
@@ -74,6 +77,26 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
   }
 
+
+  // getCards() {
+  //   this.userService.getDataService1()
+  //     .subscribe((response) => {
+  //       let data = response["data"];
+  //       for (let i = 0; i < data.data.length; i++) {
+  //         this.cards.push(data.data[i]);
+  //       }
+  //       console.log(this.cards)
+  //     })
+  // }
+
+  // respond(card) {
+  //   this.service = card.name;
+  //   card.select = !card.select;
+  //   for (let i = 0; i < this.cards.length; i++) {
+  //     if (card.name == this.cards[i].name) { continue }
+  //     this.cards[i].select = false;
+  //   }
+  // }
 
   /*
   This method will be executed just before Angular destroys the components

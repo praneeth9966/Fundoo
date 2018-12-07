@@ -1,82 +1,111 @@
 <!------------------Signup starts------------------->
-
-<div fxLayout='row' fxLayoutAlign="center center" fxLayout.xs="column" class="container">
-  <form>
-    <mat-card fxLayout='column' fxLayoutAlign="center">
-
-      <div>
-        <span class="classf">F</span>
-        <span class="classu">u</span>
-        <span class="classn">n</span>
-        <span class="classd">d</span>
-        <span class="classo">o</span>
-        <span class="classo1">o</span>
-      </div>
-
-      <mat-card-title>Create your Fundoo Account</mat-card-title>
-      <div fxLayoutAlign="space-between">
-        <mat-form-field>
-          <input matInput placeholder="Fisrt name" minlength="4" required [(ngModel)]="user.firstName" [formControl]="firstname"
-            required>
-          <mat-error *ngIf="firstname.invalid">{{getErrorMessagefirstName()}}</mat-error>
-        </mat-form-field>
+<!-- <div fxLayout="column">
+<div class="division">
+    <div class="fundoo" fxFlex=10>fundooNotes</div>
+  </div> -->
 
 
-        <mat-form-field>
-          <input matInput placeholder="Last name" minlength="4" [(ngModel)]="user.lastName" [formControl]="lastname"
-            required>
-          <mat-error *ngIf="lastname.invalid">{{getErrorMessagelastName()}}</mat-error>
-        </mat-form-field>
-      </div>
+<div fxLayout=column>
+  <div fxFlex=10>
+  </div>
+  <div fxLayout='row' fxLayoutAlign="center center" fxLayout.xs="column" class="container">
+    <form>
+      <mat-card fxLayout='column' fxLayoutAlign="center">
+
+        <div fxLayoutAlign="row" fxFlex="100">
+          <div fxFlex="30">
+            <span class="fundoo_text">fundooNotes</span>
+
+          </div>
+          <div fxFlex="50"></div>
+          <div fxFlex="20" style="margin-top:5px" routerLink="/productcart">
+            <button>Go to Cart</button>
+          </div>
+        </div>
 
 
+        <mat-card-title style="font-size:20px;margin-top:10px">Create your Fundoo Account</mat-card-title>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Fisrt name" minlength="4" required [(ngModel)]="user.firstName" [formControl]="firstname"
+              required>
+            <mat-error *ngIf="firstname.invalid">{{getErrorMessagefirstName()}}</mat-error>
+          </mat-form-field>
 
 
-      <div>
-
-        <mat-form-field class="emailwidth">
-          <input matInput placeholder="Email" [formControl]="email" [(ngModel)]="user.email" required>
-          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-
-      </div>
-      <div>
-
-        <mat-form-field class="emailwidth">
-          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" minlength="5" [(ngModel)]="user.password"
-            [formControl]="password" required>
-          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}
-          </mat-icon>
-          <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
-        </mat-form-field>
-      </div>
-      <p>Services</p>
-
-      <div fxLayout="row" fxLayoutGap="10" fxLayout="row wrap">
-
-        <span *ngFor='let card of cards' class="servicecards">
-          <mat-card class="card1" matbutton (click)=respond(card) [ngClass]="card.select ? 'selected' : 'notselected'">
-            <mat-card-title>{{card.name}}</mat-card-title>
-
-            <mat-card-content>{{card.description}}</mat-card-content>
-
-          </mat-card>
-
-        </span>
-
-      </div>
+          <mat-form-field>
+            <input matInput placeholder="Last name" minlength="4" [(ngModel)]="user.lastName" [formControl]="lastname"
+              required>
+            <mat-error *ngIf="lastname.invalid">{{getErrorMessagelastName()}}</mat-error>
+          </mat-form-field>
+        </div>
 
 
-      <div class="button-row" fxLayout="row" fxLayoutAlign="space-between">
-        <nav>
-          <a routerLink="/login">Sign in instead</a>
-        </nav>
+        <div>
+          <mat-form-field class="emailwidth">
+            <input matInput placeholder="Email" [formControl]="email" [(ngModel)]="user.email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-        <button mat-flat-button (hovered)="onSubmit()" (click)="onSubmit()">Next</button>
-      </div>
+        <div>
+          <mat-form-field class="emailwidth">
+            <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" minlength="5" [(ngModel)]="user.password"
+              [formControl]="password" required>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}
+            </mat-icon>
+            <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+          </mat-form-field>
+        </div>
 
-    </mat-card>
-  </form>
+        <p>Services</p>
+
+        <!------------------Cards starts------------------->
+        <div fxLayout="row" fxLayoutGap="10" fxLayout="row wrap">
+          <div *ngFor="let card of cards">
+            <mat-card (click)=" respond(card)" [ngClass]="card.id==productId ? 'selected' : 'notselected'" class="card1">
+              <div>
+
+                <mat-card fxLayout="row wrap" fxLayoutAlign="start start" class="innercard">
+                  <div fxLayout="column" class="font">
+                    <div>$ {{card.price}} per</div>
+                    <div> Month</div>
+                    <div class="name">{{card.name | titlecase}}</div>
+                  </div>
+
+                  <div>
+                    <li class="list">Unlimited wall space</li>
+                    <li class="list">Nice Interface</li>
+                    <li class="list">$ {{card.price}}/month</li>
+                    <li class="list">{{card.description}}</li>
+                  </div>
+                </mat-card>
+
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="start start">
+                <div class="cartbutton" (click)="productcart(card)" *ngIf="productId==card.id">
+                  SELECTED</div>
+                  <div class="cartbutton" (click)="productcart(card)" *ngIf="productId!=card.id">
+                      ADD TO CART</div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+          <!------------------Cards ends------------------->
+
+        <div class="button-row" fxLayout="row" fxLayoutAlign="space-between">
+          <nav>
+            <a routerLink="/login">Sign in instead</a>
+          </nav>
+          <button mat-flat-button (hovered)="onSubmit()" (click)="onSubmit()">Sign Up</button>
+        </div>
+
+      </mat-card>
+    </form>
+  </div>
+
+  <!------------------Signup ends------------------->
+  <div fxFlex=10>
+  </div>
 </div>
-
-<!------------------Signup ends------------------->
+<!-- </div> -->

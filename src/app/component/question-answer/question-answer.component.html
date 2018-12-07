@@ -139,7 +139,7 @@
     </div>
     <!-- ------------------------2nd division for entering the reply--------------------------------- -->
     <div *ngFor=" let value of questionAnswerArray" class="secondDiv">
-      <div *ngIf="value.parentId == questionAnswerArray[0].id && open == false">
+      <div *ngIf="value.parentId == questionAnswerArray[0].id && open == false && value.isApproved==true">
         <div ngStyle.xs="width:100%" class="fabBtn ">
 
 
@@ -217,7 +217,7 @@
         </div>
         <!-- -----------------------------------------3rd division---------------------------------------->
         <div *ngFor=" let value2 of questionAnswerArray" class="secondDiv">
-          <div *ngIf="value2.parentId == value.id && close == false && replyQuestion == value.id ">
+          <div *ngIf="value2.parentId == value.id && close == false && replyQuestion == value.id && value2.isApproved==true" >
             <div ngStyle.xs="width:100%" class="fabBtn ">
               <div fxLayout="column" fxLayout.xs="column" fxlayout.md="column" fxLayout.sm="column">
                 <div fxLayout=row>

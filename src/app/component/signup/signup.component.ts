@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ProductcartserviceService } from 'src/app/core/services/productcart/productcartservice.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -19,6 +20,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   private register: any;
   private cards = []
   private hide = true;
+  private productId;
+
+public  cartId=localStorage.getItem("cartId");
 
   @Output() hovered = new EventEmitter();
 
@@ -26,7 +30,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   onHover(e) {
     this.hovered.emit('howdy')
   }
-  constructor(private matsnacbar: MatSnackBar, private userService: UsersService) { }
+  constructor(private matsnacbar: MatSnackBar, private userService: UsersService,
+    private cartService:ProductcartserviceService) { }
 
   onSubmit() {
     this.register = {
@@ -75,6 +80,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    
     this.records = this.userService.getDataService1()
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
@@ -89,6 +95,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
       });
+
+      this.getCartDetails();
   }
 
   respond(card) {
@@ -100,6 +108,16 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  getCartDetails(){
+    this.cartService.getCart(this.cartId)
+    .subscribe(result => {
+      console.log(result);
+       this.productId=result['data']['product']['id'];
+      console.log("productId",this.productId);
+      
+    });
+  }
 
   /*
  This method will be executed just before Angular destroys the components
