@@ -1,0 +1,98 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    background: $typekit-darkyellow;
+    color: $typekit-black;
+    top: 0;
+  }
+
+  .shop {
+      font-size:25px;
+      margin-bottom:-10px;
+  }
+
+  .sub{
+      margin-top: 49px;
+      width:200px;
+      background-color: whitesmoke
+   }
+
+  .proceed{
+      background-color: $typekit-blue;
+      color:$typekit-white;
+  }
+
+.first2{
+    margin-top: 10px;
+    word-wrap: break-word;
+}
+
+.color{
+    color:$typekit-red;
+}
+
+.fundoo{
+    border-radius:30px 30px 30px 30px;
+    margin-top:25px;
+    padding:10px 0px 0px 10px;
+    background-color: $typekit-darkyellow;
+    color:$typekit-white;
+    height:35px;
+    width:110px;
+    font-size:16px;
+}
+
+.list{
+    margin-top: 6px;
+    word-wrap: break-word;
+}
+
+.first{
+    height:100px;
+    width:40px;
+}
+
+.second{
+    height:100px;
+    width:100px;
+}
+
+.one{
+    height:400px;
+}
+
+.two{
+   height:800px;
+}
+
+.three{
+    height:400px;
+}
+
+.first1{
+    margin-top: 20px;
+}
+
+.smallCard{
+    width:70px;
+    height:60px;
+    border-radius: 20px 20px 20px 20px;
+    background-color: $typekit-grey;
+}
+
+.advance{
+    color:$typekit-blue;
+    font-weight: bold
+}
+
+.price{
+    color:$typekit-red;
+    font-size:20px;
+    margin-left:10px;
+}
+
+.col3{
+    margin-left:13px;
+}

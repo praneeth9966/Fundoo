@@ -57,6 +57,8 @@ import { ProductcartComponent } from './component/productcart/productcart.compon
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { ProductcartDialogComponent } from './component/productcart-dialog/productcart-dialog.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import { ShoppingcartComponent } from './component/shoppingcart/shoppingcart.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     LoaderComponent,
     ProductcartComponent,
     ProductcartDialogComponent,
+    ShoppingcartComponent,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -127,7 +130,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ImageCropperModule,
     BarRatingModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
-    MatTabsModule
+    MatTabsModule,
+    MatStepperModule
   ],
   entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent,ColloboratorDialogComponent,
     ProductcartDialogComponent],

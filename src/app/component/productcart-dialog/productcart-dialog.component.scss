@@ -1,12 +1,36 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 
-.division{
-    height:30px;
-    background-color: #fb0;
+.popUpCard{
+    width:550px;
+    height:auto;
 }
 
-.dialog{
-    height: 200px;
-    width: 500px;
+.cardHeader{
+    background-color: #fb0;
+    height:40px  ;
+    color:white;
+    font-weight: bold;
+    font-family: cursive;
+    padding:13px 0px 0px 15px;  
+}
+
+.cardContent{
+    height:auto;
+    margin:10px 0px 0px 0px;
+}
+
+.cardFooter{
+    height:30px; 
+    margin:30px 0px 20px 0px;  
+}
+
+.content{
+    word-wrap: break-word;
+    margin-top:20px ;  
+}
+
+.btn{
+    background-color: #1c5cc2;
+    color:white;
 }

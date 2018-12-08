@@ -1,28 +1,40 @@
-<div class="dialog">
-
-<mat-toolbar class="division ">
-  <div fxLayoutAlign="row" fxFlex="100">
-     <div fxFlex="10">{{data.name | titlecase}} Pack Details</div>
-     <div fxFlex="60"></div>
-      <div fxFlex="30">${{data.price}}/month</div>
+<div class="popUpCard" ngStyle.xs="width:100%" ngStyle.sm="width:100%" ngStyle.md="width:100%" fxLayout="column">
+  
+  <div fxLayout="row" class="cardHeader">
+    <div fxFlex>{{data.name | titlecase}} Pack Details</div>
+    <div fxFlex=24>${{data.price}}/month</div>
   </div>
-</mat-toolbar>
 
-<div fxLayout="column" fxLayoutGap="20px">
-<div>
-    <mat-tab-group>
-        <mat-tab label="Feature1"> main.ts is the entry point of your application,
-           compiles the application with just-in-time and bootstrap the application.
-           The Bootstrap is the root AppComponent that Angular creates and inserts into </mat-tab>
-        <mat-tab label="Feature2"> Content 2 </mat-tab>
-        <mat-tab label="Feature3"> Content 3 </mat-tab>
-      </mat-tab-group>
-</div>
+  <div fxLayout="row" class="cardContent">
+    <div fxFlex=4></div>
 
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <div><button mat-raised-button color="primary">Remove</button></div>
-  <div routerLink="/signup" (click)="dialogClose()"><button mat-raised-button color="primary">Proceed to Ckeckout</button></div>
-</div>
-</div>
+    <mat-tab-group fxFlex>
+      <mat-tab class="content" label="First">
+        main.ts is the entry point of your application,
+        compiles the application with just-in-time and bootstrap the application.
+      </mat-tab>
+      <mat-tab class="content" label="Second">
+        main.ts is the entry point of your application,
+        compiles the application with just-in-time and bootstrap the application.
+      </mat-tab>
+      <mat-tab class="content" label="Third">
+        main.ts is the entry point of your application,
+        compiles the application with just-in-time and bootstrap the application.
+      </mat-tab>
+    </mat-tab-group>
+
+    <div fxFlex=4></div>
+  </div>
+
+  <div fxLayout="row" class="cardFooter">
+    <div fxFlex=4></div>
+    <div fxFlex=70>
+      <button class="btn" mat-raised-button (click)="dialogClose()">Remove</button>
+    </div>
+    <div fxFlex routerLink="/signup">
+      <button class="btn" mat-raised-button (click)="dialogClose()">Proceed to Checkout</button>
+    </div>
+    <div fxFlex=4></div>
+  </div>
 
 </div>

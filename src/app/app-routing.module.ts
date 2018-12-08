@@ -15,6 +15,7 @@ import { SearchComponent } from './component/search/search.component';
 import { ChangeLabelComponent } from './component/change-label/change-label.component'
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 import { ProductcartComponent } from './component/productcart/productcart.component';
+import { ShoppingcartComponent } from './component/shoppingcart/shoppingcart.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -60,9 +61,11 @@ const appRoutes: Routes = [
         path: 'archive',
         component: ArchiveComponent
       }
+      
     ], canActivate: [AuthGuard]
   },
-  { path:'productcart', component: ProductcartComponent},
+  { path:'productcart', component: ProductcartComponent },
+  { path: 'shoppingcart', component: ShoppingcartComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'resetpassword/:id', component: ResetPasswordComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
