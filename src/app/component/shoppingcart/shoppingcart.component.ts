@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductcartserviceService } from 'src/app/core/services/productcart/productcartservice.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/core/services/users/users.service';
+
 @Component({
   selector: 'app-shoppingcart',
   templateUrl: './shoppingcart.component.html',
   styleUrls: ['./shoppingcart.component.scss']
 })
+
 export class ShoppingcartComponent implements OnInit {
-
-
-
-private cartId = localStorage.getItem('cartId');
+  private cartId = localStorage.getItem('cartId');
   public flag2 = false;
   public flag = false;
   public flag3 = false;
@@ -27,7 +25,6 @@ private cartId = localStorage.getItem('cartId');
   constructor(private productService: ProductcartserviceService, 
     private userService: UsersService) { }
 
-
   ngOnInit() {
     this.addNotGiven = false;
     if (localStorage.getItem("cartId") != null) {
@@ -38,23 +35,21 @@ private cartId = localStorage.getItem('cartId');
   getCardDetails() {
     this.productService.myCart()
       .subscribe((data) => {
-
         console.log(data['data']);
         this.details = data['data'][0].product
         console.log(this.details)
       },
       (error) => {
         console.log(error)
-      }
-      );
+    });
   }
-
 
   placeOrder() {
     if (localStorage.getItem("cartId") == null) {
       console.log("cartId is not present");
       return;
     }
+
     if (this.address != undefined) {
       let reqBody = {
         "cartId": localStorage.getItem("cartId"),
@@ -66,15 +61,14 @@ private cartId = localStorage.getItem('cartId');
           this.value = 100
           this.flag3 = true; this.flag = false;
           this.forCss = false
-
         });
     }
+
     else {
       console.log("enter address");
       this.addNotGiven = true
-
     }
-
+    
   }
 
 }

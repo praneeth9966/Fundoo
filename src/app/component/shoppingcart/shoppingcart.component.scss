@@ -1,64 +1,70 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 
-
-
-
 .toolBar{
-    background-color: #fb0
+    background-color: $typekit-darkyellow
 }
+
 .mat-toolbar.mat-primary {
     position: fixed;
     top: 0;
   }
+
 .chip{
-    
-    background-color: #fb0
+    background-color: $typekit-darkyellow
 }
+
 .totalWidth{
-    background-color: white;
+    background-color: $typekit-white;
     width: 1050px;
     height: 80px
 }
+
 .subTotal{
     width: 1000px;
     margin-top: -20px
 }
+
 .firstpayment{
-    background-color: white;
+    background-color: $typekit-white;
     width: 800px;
     height: 200px
 }
+
 @media only screen and (min-width: 0px) and  (max-width: 360px){
     .firstpayment{
         width: 400px;
         height: 200px
-        
     }
 }
+
 .card1{
     background-color: darkgray;
     width: 30px;
     height: 30px
 }
+
 .box0{
     width: 160px;
     height: 80px;
     margin-left: 15px
 }
+
 .box1{
-    background-color: white;
+    background-color: $typekit-white;
     height: 80px;
     margin-left: 60px;
 }
+
 .box2{
-    background-color: white;
+    background-color: $typekit-white;
     width: 100px;
     height: 80px;
     margin-left: 50px
 }
+
 .card2{
-    background-color: whitesmoke;
+    background-color: $typekit-whitesmoke;
     width: 250px;
     height: 50px;
     margin-top: 25px;
@@ -70,46 +76,48 @@ table td{
     padding:1%;
     
 }
+
 table {
   border-collapse: collapse;
 }
-
-// table, th, td {
-//   border: 1px solid black;
-// }
 
 [contenteditable=true]:empty:not(:focus):before{
     content: attr(placeholder);
     display: block;
     opacity:0.5;
-    border:1px solid grey;
+    border:1px solid $typekit-grey;
     min-height:50px;
 }
+
 .mat-icon{
     opacity:1;
 }
+
 .cart{
         margin-top: -9px;
     margin-left: 62px;
     z-index: 9;
     position: absolute;
 }
+
 .secndPlace{
      margin-top: -9px;
     margin-left: 142px;
     z-index: 9;
     position: absolute;
-
 }
+
 .thirdPlace{
      margin-top: -9px;
     margin-left: 295px;
     z-index: 9;
     position: absolute;
 }
+
 ::ng-deep.mat-progress-bar-fill::after {
-    background-color: grey;
+    background-color: $typekit-grey;
 }
-::ng-deep.mat-progress-bar-buffer {
+
+::ng-deep.mat-progress-bar-buffer{
     background-color: #DCDCDC;
 }

@@ -1,12 +1,10 @@
-
-
-
- <mat-toolbar class="toolBar">fundooNotes
+<mat-toolbar class="toolBar">fundooNotes
 </mat-toolbar>
 <div fxLayout="row" ngStyle.xs="font-size:10px">
   <div fxFlex="10" fxFlex.xs="0" fxFlex.sm="0"></div>
   <div fxLayout="column" fxFlex fxLayoutGap="2%" fxFlex.xs="100" fxFlex.sm="100">
     <div></div>
+
     <div fxLayout="row" fxLayoutGap="2%">
       <mat-chip-list>
         <mat-chip style="background-color: #fb0">fundooNotes</mat-chip>
@@ -14,19 +12,14 @@
       <div fxFlex="30" fxLayout="column" fxLayoutGap="5%">
         <div></div>
         <div fxLayout="row">
-          <mat-icon  [ngClass]="firstCss ? 'cart' : forCss ? 'secndPlace':'thirdPlace'" >shopping_cart</mat-icon>
-
+          <mat-icon [ngClass]="firstCss ? 'cart' : forCss ? 'secndPlace':'thirdPlace'">shopping_cart</mat-icon>
           <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue"></mat-progress-bar>
         </div>
       </div>
     </div>
 
-
     <div fxLayout="row wrap" fxFlex="80" fxFlex.sm="100" fxFlex.xs="100" fxLayoutGap="2%" *ngIf="flag2==false">
-
-
       <div fxLayout="column" fxFlex>
-
         <div fxLayout="row" fxLayoutGap="2%">
           <div fxFlex="80">Shopping Cart</div>
           <div fxFlex="10">Price</div>
@@ -52,22 +45,19 @@
             </div>
           </div>
           <div fxFlex="10">${{details.price}}</div>
-
           <div fxFlex="10">Per Month</div>
         </div>
-        <hr style="width:100%">
 
+        <hr style="width:100%">
 
         <div fxLayoutAlign="end">
           subTotal(1 item):${{details.price}}
         </div>
       </div>
 
-
       <div fxFlex="20" fxFlex.xs="100" fxLayout="column" fxLayout.xs="row" fxLayoutGap.xs="10%">
         <div fxFlex.xs="20%" fxFlex.lg="15%" fxFlex.md="15%" fxFlex.sm="15%"></div>
         <div style="border:1px solid #cac8c8" fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center center">
-
           <div fxLayout="column" fxLayoutGap="5%">
             <div></div>
             <div>SubTotal(1 item):${{details.price}}</div>
@@ -79,12 +69,9 @@
             </div>
             <div></div>
           </div>
-
         </div>
-
       </div>
     </div>
-
 
     <div fxLayout="column" fxFlex="80" fxFlex.sm="100" fxFlex.xs="100" fxLayoutGap="2%" *ngIf="flag==true">
       <div fxLayout="column">
@@ -104,10 +91,8 @@
                   <div>
                     <ul>
                       <li>{{details.description}}</li>
-
                     </ul>
                   </div>
-
                 </div>
               </div>
               <div fxFlex="10">${{details.price}}</div>
@@ -128,7 +113,6 @@
         </div>
         <div fxFlex="20" fxFlex.xs="100" fxLayout.xs="row" fxLayout="column">
           <div fxFlex.xs="35%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%"></div>
-
           <div style="border:1px solid #cac8c8" fxLayout="row" fxLayoutGap="15%">
             <div></div>
             <div fxLayout="column" fxLayoutGap="5%">
@@ -139,12 +123,9 @@
             </div>
             <div></div>
           </div>
-
         </div>
       </div>
-
     </div>
-
 
     <div fxLayout="column" fxLayoutGap="2%" *ngIf="flag3==true">
       <div>Order List</div>
@@ -153,7 +134,7 @@
           fxFlex.xs="100">
           <div fxLayout="row" fxLayoutGap="2%">
             <mat-card style="background-color:#cac8c8;border-radius:10px">
-                ${{details.price}}
+              ${{details.price}}
             </mat-card>
             <div fxLayout="column" fxFlex>
               <div>Advanced Card Details</div>
@@ -173,9 +154,7 @@
           <div fxLayoutAlign="end" style="color:blue">Pending</div>
         </div>
       </div>
-
     </div>
-
   </div>
   <div fxFlex="10" fxFlex.xs="0" fxFlex.sm="0"></div>
 </div>
