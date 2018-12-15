@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   private cards = []
   private hide = true;
   private productId;
+  private serviceCard;
 
 public  cartId=localStorage.getItem("cartId");
 
@@ -39,7 +40,7 @@ public  cartId=localStorage.getItem("cartId");
       "lastName": this.user.lastName,
       "email": this.user.email,
       "emailVerified": true,
-      "service": this.service,
+      "service": this.serviceCard,
       "createdDate": new Date(),
       "modifiedDate": new Date(),
       "password": this.user.password
@@ -115,6 +116,8 @@ public  cartId=localStorage.getItem("cartId");
       console.log(result);
        this.productId=result['data']['product']['id'];
       console.log("productId",this.productId);
+      this.serviceCard=result['data']['product'].name
+      console.log(this.serviceCard);
       
     });
   }

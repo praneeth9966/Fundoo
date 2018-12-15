@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/core/services/users/users.service';
 import { NotesService } from 'src/app/core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ProductcartserviceService } from 'src/app/core/services/productcart/productcartservice.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,10 +21,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   private isLeftVisible = false;
   public body = {
     "email": "",
-    "password": ""
+    "password": "",
+    "cartId":localStorage.getItem('cartId')
   }
   private cards=[];
   private service: any;
+  public  cartId=localStorage.getItem("cartId");
+  private productId;
 
   email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -32,9 +36,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.email.hasError('email') ? 'Not a valid email' :'';
   }
 
-  constructor(private matSnackBar: MatSnackBar, private userService: UsersService, private notesService: NotesService) { }
+  constructor(private matSnackBar: MatSnackBar, private userService: UsersService,
+     private notesService: NotesService,private cartService:ProductcartserviceService) { }
 
   ngOnInit() {
+    this.getCartDetails();
+    this.getCards();
   }
 
   register() {
@@ -77,6 +84,29 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
   }
 
+
+
+
+  getCards(){
+    this.records = this.userService.getDataService1()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        let data = result['data'];
+        for (let i = 0; i < data.data.length; i++) {
+          data.data[i].select = false;
+          this.cards.push(data.data[i])
+        }
+      });
+  }
+
+  getCartDetails(){ 
+      this.cartService.getCart(this.cartId)
+      .subscribe(result => {
+        console.log(result);
+         this.productId=result['data']['product']['id'];
+        console.log("productId",this.productId); 
+      });
+  }
 
   // getCards() {
   //   this.userService.getDataService1()

@@ -70,10 +70,10 @@ const appRoutes: Routes = [
   { path: 'resetpassword/:id', component: ResetPasswordComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(appRoutes)
-
   ],
   exports: [RouterModule]
 })

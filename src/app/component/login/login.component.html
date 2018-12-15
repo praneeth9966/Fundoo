@@ -1,7 +1,7 @@
 <!-------------------------------- Login starts -------------------------------->
 
-<div fxLayout='column' fxLayoutAlign="center center" fxLayout.xs="column" class="container">
-  <div fxFlex="80" class="two">
+<div fxLayout='row' fxLayoutAlign="center center" fxLayout.xs="column" class="container" fxLayoutGap="20px">
+  <div  class="two">
     <mat-card>
       <my-slide-panel [activePane]="isLeftVisible ? 'right' : 'left'">
         <div leftPane>
@@ -56,6 +56,44 @@
       </my-slide-panel>
     </mat-card>
   </div>
+
+
+
+  <mat-card style="width:500px">
+  <div fxLayout="row" fxLayoutGap="10" fxLayout="row wrap">
+    <div *ngFor="let card of cards">
+      <mat-card (click)=" respond(card)" [ngClass]="card.id==productId ? 'selected' : 'notselected'" class="card1">
+        <div>
+
+          <mat-card fxLayout="row wrap" fxLayoutAlign="start start" class="innercard">
+            <div fxLayout="column" class="font">
+              <div>$ {{card.price}} per</div>
+              <div> Month</div>
+              <div class="name">{{card.name | titlecase}}</div>
+            </div>
+
+            <div>
+              <li class="list">Unlimited wall space</li>
+              <li class="list">Nice Interface</li>
+              <li class="list">$ {{card.price}}/month</li>
+              <li class="list">{{card.description}}</li>
+            </div>
+          </mat-card>
+
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start start">
+          <div class="cartbutton" (click)="productcart(card)" *ngIf="productId==card.id">
+            SELECTED</div>
+            <div class="cartbutton" (click)="productcart(card)" *ngIf="productId!=card.id">
+                ADD TO CART</div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</mat-card>
+
+
+
 </div>
 
 <!-------------------------------- Login ends -------------------------------->

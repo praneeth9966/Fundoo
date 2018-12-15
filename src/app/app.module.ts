@@ -59,6 +59,7 @@ import { ProductcartDialogComponent } from './component/productcart-dialog/produ
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ShoppingcartComponent } from './component/shoppingcart/shoppingcart.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { ShoppingcartComponent } from './component/shoppingcart/shoppingcart.com
     BarRatingModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressBarModule
   ],
   entryComponents: [DialogComponent, DeleteDialogComponent,CropImageComponent,NavigationComponent,ColloboratorDialogComponent,
     ProductcartDialogComponent],

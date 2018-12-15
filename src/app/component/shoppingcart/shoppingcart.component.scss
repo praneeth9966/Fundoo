@@ -1,98 +1,115 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 
+
+
+
+.toolBar{
+    background-color: #fb0
+}
 .mat-toolbar.mat-primary {
-    position: sticky;
-    background: $typekit-darkyellow;
-    color: $typekit-black;
+    position: fixed;
     top: 0;
   }
-
-  .shop {
-      font-size:25px;
-      margin-bottom:-10px;
-  }
-
-  .sub{
-      margin-top: 49px;
-      width:200px;
-      background-color: whitesmoke
-   }
-
-  .proceed{
-      background-color: $typekit-blue;
-      color:$typekit-white;
-  }
-
-.first2{
-    margin-top: 10px;
-    word-wrap: break-word;
+.chip{
+    
+    background-color: #fb0
+}
+.totalWidth{
+    background-color: white;
+    width: 1050px;
+    height: 80px
+}
+.subTotal{
+    width: 1000px;
+    margin-top: -20px
+}
+.firstpayment{
+    background-color: white;
+    width: 800px;
+    height: 200px
+}
+@media only screen and (min-width: 0px) and  (max-width: 360px){
+    .firstpayment{
+        width: 400px;
+        height: 200px
+        
+    }
+}
+.card1{
+    background-color: darkgray;
+    width: 30px;
+    height: 30px
+}
+.box0{
+    width: 160px;
+    height: 80px;
+    margin-left: 15px
+}
+.box1{
+    background-color: white;
+    height: 80px;
+    margin-left: 60px;
+}
+.box2{
+    background-color: white;
+    width: 100px;
+    height: 80px;
+    margin-left: 50px
+}
+.card2{
+    background-color: whitesmoke;
+    width: 250px;
+    height: 50px;
+    margin-top: 25px;
+    margin-left: 30px;
+    display: flex
 }
 
-.color{
-    color:$typekit-red;
+table td{
+    padding:1%;
+    
+}
+table {
+  border-collapse: collapse;
 }
 
-.fundoo{
-    border-radius:30px 30px 30px 30px;
-    margin-top:25px;
-    padding:10px 0px 0px 10px;
-    background-color: $typekit-darkyellow;
-    color:$typekit-white;
-    height:35px;
-    width:110px;
-    font-size:16px;
-}
+// table, th, td {
+//   border: 1px solid black;
+// }
 
-.list{
-    margin-top: 6px;
-    word-wrap: break-word;
+[contenteditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    display: block;
+    opacity:0.5;
+    border:1px solid grey;
+    min-height:50px;
 }
-
-.first{
-    height:100px;
-    width:40px;
+.mat-icon{
+    opacity:1;
 }
-
-.second{
-    height:100px;
-    width:100px;
+.cart{
+        margin-top: -9px;
+    margin-left: 62px;
+    z-index: 9;
+    position: absolute;
 }
+.secndPlace{
+     margin-top: -9px;
+    margin-left: 142px;
+    z-index: 9;
+    position: absolute;
 
-.one{
-    height:400px;
 }
-
-.two{
-   height:800px;
+.thirdPlace{
+     margin-top: -9px;
+    margin-left: 295px;
+    z-index: 9;
+    position: absolute;
 }
-
-.three{
-    height:400px;
+::ng-deep.mat-progress-bar-fill::after {
+    background-color: grey;
 }
-
-.first1{
-    margin-top: 20px;
-}
-
-.smallCard{
-    width:70px;
-    height:60px;
-    border-radius: 20px 20px 20px 20px;
-    background-color: $typekit-grey;
-}
-
-.advance{
-    color:$typekit-blue;
-    font-weight: bold
-}
-
-.price{
-    color:$typekit-red;
-    font-size:20px;
-    margin-left:10px;
-}
-
-.col3{
-    margin-left:13px;
+::ng-deep.mat-progress-bar-buffer {
+    background-color: #DCDCDC;
 }

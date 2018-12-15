@@ -1,151 +1,181 @@
-<mat-toolbar fxLayout="row" color="primary">
-  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-    <div fxFlex="25"></div>
-  </button>
-  <div class="title"><span fxFlex="10" ngStyle.xs="width:10%" ngStyle.sm="width:10%" ngStyle.md="width:10%">fundooNotes
-    </span>
-  </div>
-  <div fxFlex>
 
-  </div>
 
-  <!---------------------refresh icon starts------------------------->
-  <button mat-icon-button>
-    <mat-icon matTooltip="Refresh" (click)="refresh()" fxFlex="40px">refresh</mat-icon>
-  </button>
-  <!---------------------refresh icon ends------------------------->
 
-  <!---------------------View-List or Grid------------- -->
-  <mat-icon fx.show="true" fxShow.xs="false" fxFlex="40px" *ngIf="value==0" (click)="listView()" matTooltip="View">
-    view_stream
-  </mat-icon>
-  <mat-icon fx.show="true" fxShow.xs="false" fxFlex="40px" *ngIf="value==1" (click)="gridView()" matTooltip="View">
-    view_module </mat-icon>
-  <!---------------------cart------------------------->
-  <mat-icon fxFlex="40px" class="cart" matTooltip="cart" (click)="shoppingCart()">shopping_cart</mat-icon>
-
+ <mat-toolbar class="toolBar">fundooNotes
 </mat-toolbar>
+<div fxLayout="row" ngStyle.xs="font-size:10px">
+  <div fxFlex="10" fxFlex.xs="0" fxFlex.sm="0"></div>
+  <div fxLayout="column" fxFlex fxLayoutGap="2%" fxFlex.xs="100" fxFlex.sm="100">
+    <div></div>
+    <div fxLayout="row" fxLayoutGap="2%">
+      <mat-chip-list>
+        <mat-chip style="background-color: #fb0">fundooNotes</mat-chip>
+      </mat-chip-list>
+      <div fxFlex="30" fxLayout="column" fxLayoutGap="5%">
+        <div></div>
+        <div fxLayout="row">
+          <mat-icon  [ngClass]="firstCss ? 'cart' : forCss ? 'secndPlace':'thirdPlace'" >shopping_cart</mat-icon>
 
-<div fxLayout="row">
-  <div fxFlex=5 class="first">
-  </div>
-  <div fxFlex fxLayout="column" class="second">
-    <div class="one">
-      <div class="first1" fxLayout="row" fxLayout.xs="column">
-        <div class="fundoo">fundooNotes</div>
-        <div fxFlex>
-          <mat-horizontal-stepper labelPosition="bottom" #stepper>
-            <mat-step>
-              <ng-template matStepLabel>SIGN IN</ng-template>
-              <!-- <mat-form-field>
-                  <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-              </mat-form-field>
-              <div>
-                  <button mat-button matStepperNext>Next</button>
-              </div> -->
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>PLACE ORDER</ng-template>
-              <!-- <mat-form-field>
-                  <input matInput placeholder="Address" formControlName="secondCtrl" required>
-              </mat-form-field>
-              <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
-              </div> -->
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>COMPLETE PAYMENT</ng-template>
-              <!-- You are now done.
-          <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-          </div> -->
-            </mat-step>
-          </mat-horizontal-stepper>
+          <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue"></mat-progress-bar>
         </div>
       </div>
     </div>
 
-    <div class="two">
-      <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayout.sm="column">
-        <div fxFlex=75 fxLayout="column">
-          <div class="shop" fxFlex=20>Shopping Cart</div>
-          <div fxLayoutGap="15px" fxLayout="row">
-            <div fxFlex=12></div>
-            <div fxFlex=65></div>
-            <div fxFlex=12 fxHide.xs=true fxHide.sm=true fxHide.md=true>Price</div>
-            <div fxFlex=10 fxHide.xs=true fxHide.sm=true fxHide.md=true>Validity</div>
+
+    <div fxLayout="row wrap" fxFlex="80" fxFlex.sm="100" fxFlex.xs="100" fxLayoutGap="2%" *ngIf="flag2==false">
+
+
+      <div fxLayout="column" fxFlex>
+
+        <div fxLayout="row" fxLayoutGap="2%">
+          <div fxFlex="80">Shopping Cart</div>
+          <div fxFlex="10">Price</div>
+          <div fxFlex="10">validity</div>
+        </div>
+
+        <hr style="width:100%">
+
+        <div fxLayout="row" fxLayoutGap="3%">
+          <div fxFlex="20">
+            <mat-card style="background-color:#cac8c8;border-radius:10px">
+              ${{details.price}} per month {{details.name}}
+            </mat-card>
           </div>
-
-          <div style="width:200px">
-            <hr style="width:950px">
-          </div>
-          <!-- --------------------------------card1--------------------------------- -->
-          <div class="card">
-            <div fxFlex=100>
-              <div fxLayoutGap="18px" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column">
-                <div fxFlex=12 class="col1">
-                  <mat-card class="smallCard">
-                    <div>$ {{price}} per Month</div>
-                    <div>{{name | titlecase}}</div>
-                  </mat-card>
-                </div>
-                <div fxFlex=80 class="col2">
-                  <div fxLayout="column">
-                    <div class="advance">{{name | titlecase}} Pack Details</div>
-                    <div fxLayout="row" class="first2">
-                      <div>
-                        <li class="list">Unlimited wall space</li>
-                        <li class="list">Nice Interface</li>
-
-                      </div>
-                      <div>
-                        <li class="list">$ {{price}}/month</li>
-                        <li class="list">{{desc}}</li>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex=12 class="col3">
-                  <div fxShow.xs=true fxShow.sm=true fxShow.md=true fxShow=false>
-                    Price : <span class="price">$ {{price}}</span> </div>
-                  <div fxHide.xs=true fxHide.sm=true fxHide.md=true class="price">$ {{price}} </div>
-                </div>
-                <div fxFlex=10 class="col4">
-                  <span fxShow.xs=true fxShow.sm=true fxShow.md=true fxShow=false>Validity : </span>
-                  Per Month
-                </div>
-
+          <div fxLayout="column" fxFlex>
+            <div>{{details.name}} Card Details</div>
+            <div fxLayout="row">
+              <div>
+                <ul>
+                  <li>{{details.description}}</li>
+                </ul>
               </div>
-
             </div>
           </div>
-          <div style="width:200px">
-            <hr style="width:950px;;margin-top:20px">
-          </div>
+          <div fxFlex="10">${{details.price}}</div>
 
-          <div fxLayout="row">
-            <div fxFlex=82></div>
-            <div fxFlex>Subtotal(item): <span class="color">$ {{price}}</span></div>
-          </div>
+          <div fxFlex="10">Per Month</div>
         </div>
-        <div>
-          <mat-card class="sub">
-            <div fxLayout="column">
-              <div fxFlex>Subtotal (item): <span class="color">$ {{price}}</span></div>
-              <div style="height:25px"></div>
-              <div> <button class="proceed" mat-raised-button>Proceed To Checkout</button></div>
+        <hr style="width:100%">
+
+
+        <div fxLayoutAlign="end">
+          subTotal(1 item):${{details.price}}
+        </div>
+      </div>
+
+
+      <div fxFlex="20" fxFlex.xs="100" fxLayout="column" fxLayout.xs="row" fxLayoutGap.xs="10%">
+        <div fxFlex.xs="20%" fxFlex.lg="15%" fxFlex.md="15%" fxFlex.sm="15%"></div>
+        <div style="border:1px solid #cac8c8" fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center center">
+
+          <div fxLayout="column" fxLayoutGap="5%">
+            <div></div>
+            <div>SubTotal(1 item):${{details.price}}</div>
+            <div fxLayout="row" fxLayoutAlign="center">
+              <div fxFlex="80">
+                <button mat-raised-button color="primary" (click)="flag=true;flag2=true;value=50;forCss=true;firstCss=false">
+                  Proceed to Checkout</button>
+              </div>
             </div>
-          </mat-card>
+            <div></div>
+          </div>
+
         </div>
 
       </div>
     </div>
 
-    <div class="three">
+
+    <div fxLayout="column" fxFlex="80" fxFlex.sm="100" fxFlex.xs="100" fxLayoutGap="2%" *ngIf="flag==true">
+      <div fxLayout="column">
+        <div>Review Your Order</div>
+        <div style="font-size:8px">By clicking on the pace your order</div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="7%" fxLayoutGap.xs="0%">
+        <div fxFlex="60" fxFlex.xs="100" fxFlex.sm="70" style="border:1px solid #cac8c8;padding:2%;width:100%">
+          <div fxLayout="column" fxLayoutGap="2%">
+            <div fxLayout="row" fxLayoutGap="2%">
+              <mat-card style="background-color:#cac8c8;border-radius:10px">
+                ${{details.price}} per month {{details.name}}
+              </mat-card>
+              <div fxLayout="column" fxFlex>
+                <div>{{details.name}} Card Details</div>
+                <div fxLayout="row">
+                  <div>
+                    <ul>
+                      <li>{{details.description}}</li>
+
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+              <div fxFlex="10">${{details.price}}</div>
+            </div>
+            <hr style="width:100%">
+            <div fxLayout="row" fxLayoutGap="2%">
+              <div fxlayout="column" fxFlex="80" style="border:1px solid black">
+                <div style="font-size:10px">Delivery Addresss</div>
+                <div><textarea style="width:95%" [(ngModel)]="address"></textarea></div>
+                <span style="font-size:10px;color:red" *ngIf="addNotGiven">provide Address</span>
+              </div>
+              <div fxlayout="column">
+                <div style="font-size:8px">Payment Method</div>
+                <div>Cash on Delivery</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="20" fxFlex.xs="100" fxLayout.xs="row" fxLayout="column">
+          <div fxFlex.xs="35%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%"></div>
+
+          <div style="border:1px solid #cac8c8" fxLayout="row" fxLayoutGap="15%">
+            <div></div>
+            <div fxLayout="column" fxLayoutGap="5%">
+              <div></div>
+              <button mat-raised-button color="primary" (click)="placeOrder()">Place your order</button>
+              <div>SUb total(1 item):${{details.price}}</div>
+              <div></div>
+            </div>
+            <div></div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
+
+
+    <div fxLayout="column" fxLayoutGap="2%" *ngIf="flag3==true">
+      <div>Order List</div>
+      <div fxLayout="row">
+        <div fxLayout="column" fxLayoutGap="2%" style="border:1px solid #cac8c8;padding:2%" fxFlex="80" fxFlex.sm="100"
+          fxFlex.xs="100">
+          <div fxLayout="row" fxLayoutGap="2%">
+            <mat-card style="background-color:#cac8c8;border-radius:10px">
+                ${{details.price}}
+            </mat-card>
+            <div fxLayout="column" fxFlex>
+              <div>Advanced Card Details</div>
+              <div fxLayout="row">
+                <div>
+                  <ul>
+                    <li>{{details.description}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="10" fxLayout="column">
+              <div>${{details.price}}</div>
+              <div style="font-size:8px">Per month</div>
+            </div>
+          </div>
+          <div fxLayoutAlign="end" style="color:blue">Pending</div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
-  <div fxFlex=5 class="first"></div>
+  <div fxFlex="10" fxFlex.xs="0" fxFlex.sm="0"></div>
 </div>
