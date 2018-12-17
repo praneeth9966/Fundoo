@@ -49,9 +49,10 @@ export class NotesComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.fadingCircle=true
         this.notes1 = [];
-        for (let i = res['data']['data'].length - 1; i > 0; i--) {
-          if (res['data']['data'][i].isDeleted == false && res['data']['data'][i].isArchived == false && res['data']['data'][i].isPined == true)
-            this.notes1.push(res['data']['data'][i]);
+        let newNotesArray: Notes[] = res['data']['data'];
+        for (let i = newNotesArray.length - 1; i > 0; i--) {
+          if (newNotesArray[i].isDeleted == false && newNotesArray[i].isArchived == false && newNotesArray[i].isPined == true)
+            this.notes1.push(newNotesArray[i]);
         }
       })
   }

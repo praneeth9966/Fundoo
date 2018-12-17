@@ -25,7 +25,7 @@ export class HttpService {
         'Content-Type': 'application/json',
       })
     };
-    return this.http.post(url, body, httpAuthOptions2);/**passing the input & calling the  getFormUrlEncoded()*/
+    return this.http.post(url, body, httpAuthOptions2);
   }
 
   public httpget(url) {

@@ -59,7 +59,8 @@ export class ShoppingcartComponent implements OnInit {
         .subscribe((data) => {
           console.log(data);
           this.value = 100
-          this.flag3 = true; this.flag = false;
+          this.flag3 = true;
+          this.flag = false;
           this.forCss = false
         });
     }
@@ -68,7 +69,7 @@ export class ShoppingcartComponent implements OnInit {
       console.log("enter address");
       this.addNotGiven = true
     }
-    
+
   }
 
 }

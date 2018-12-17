@@ -7,11 +7,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColloboratorDialogComponent } from '../colloborator-dialog/colloborator-dialog.component';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-notes-collection',
   templateUrl: './notes-collection.component.html',
   styleUrls: ['./notes-collection.component.scss']
 })
+
 export class NotesCollectionComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private notes = [];
@@ -23,10 +25,9 @@ export class NotesCollectionComponent implements OnInit, OnDestroy {
   private modifiedCheckList: any;
   private isChecked = false;
   private todayDate = new Date();
-  private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), this.todayDate.getDate() + 1)
-  @Input() string;
-  @Input() length;
-
+  private tomorrowDate = new Date(this.todayDate.getFullYear(), this.todayDate.getMonth(), 
+  this.todayDate.getDate() + 1)
+  
   constructor(private notesService: NotesService, private dialog: MatDialog, 
     private dataService: DataService,private route:Router) {
     this.dataService.currentEvent.subscribe(message => {
@@ -45,11 +46,12 @@ export class NotesCollectionComponent implements OnInit, OnDestroy {
   @Input() array;
   @Input() searchBar;
   @Input() name;
+  @Input() string;
+  @Input() length;
 
   ngOnInit() {
     this.gridView();
   }
-
 
   update(notes): void {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -66,7 +68,6 @@ export class NotesCollectionComponent implements OnInit, OnDestroy {
         })
       });
   }
-
 
   /*   calling remove Label Api
    */
